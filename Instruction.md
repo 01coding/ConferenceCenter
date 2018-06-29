@@ -6,9 +6,9 @@
 
 ## 框架及工具
 
-JavaScript: Vue-cli with Webpack template [Vue.js](cn.vuejs.org)
+JavaScript: Vue-cli with Webpack template [Vue.js](https://cn.vuejs.org)
 
-HTML & CSS: Bulma (暂定)
+HTML & CSS: [Materialize CSS](https://materializecss.com)
 
 Package Manager: npm
 
@@ -115,13 +115,13 @@ npm run build
 
 #### 代码规范
 
-+ 项目中已经带有了eslint，但实际会有啥效果有待观察
-+ 在WebStorm > Settings > Language & Frameworks > Code Quality Tool > Eslint中启用enable，在代码中碰到eslint报错，使用IDE的fix error就行，遵从fix error之后的代码格式 
 + 所有组件名为首字母大写的CamelCase，不能存在两个文件名为同一个词的不同大小写的情况。
 + JavaScript中字符串使用单引号，行末加分号
-+ 缩进使用WebStorm的默认设置（应该都是双空格我再看看）
++ 缩进使用WebStorm的默认设置
 
-##### 如何避免webstorm与eslint的格式冲突
+#### 风格参考
 
-+ eslint禁用vue indent（已解决，无需配置）
-+ Settings > Editor > Code Style > JavaScript > Spaces > Within > Object literal打勾
+使用material design设计风格，所以为了一致性，请前端开发人员先感受一下风格
++ http://closeheat.com
++ http://stephaniejagiello.com
++ https://www.mockplus.com/blog/post/material-design-website-examples
