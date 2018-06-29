@@ -1,0 +1,127 @@
+# Frontend Developing
+
+## 综述
+
+前端开发主要内容是实现学术会议管理平台中的表示层，并通过JSON数据请求的方式与API通信完成业务逻辑以及数据显示，涉及到的实现方式为前端框架的MVVM (Model View Viewmodel)模式以及Restful API通信。
+
+## 框架及工具
+
+JavaScript: Vue-cli with Webpack template [Vue.js](cn.vuejs.org)
+
+HTML & CSS: Bulma (暂定)
+
+Package Manager: npm
+
+IDE: WebStorm
+
+Version Control: Git
+
+### 环境配置
+
+仅安装npm即可。推荐安装[Node.js](https://nodejs.org/en/)，里面附带了npm。
+
+拉取项目，首先要已经在GitLab上添加了SSH key。
+```sh
+git clone git@140.143.182.144:frontend/ccfront.git
+```
+
+### npm
+
+如果直接使用npm无法下载包
+
+可行方法1，使用淘宝镜像cnpm，并用cnpm命令替代npm
+
+```shell
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+```
+
+可行方法2，使用nrm切换淘宝源
+
+```shell
+npm install -g nrm
+nrm ls
+nrm use taobao
+```
+
+### Vue-cli
+
+首先要明白Vue-cli与直接使用js使用Vue的区别，Vue-cli是完全面向关注点分离和组件形式的开发方式，每个页面都是一个大的单文件组件（文件扩展名为`.vue`），其中有可以根据复杂程度再分解组件，每个组件都有三个元素template script style(optional)。template中是使用html构建的页面骨架，script中负责定义数据成员和成员函数（相当于一个类），而css则定义样式（`<style scoped>`可以让样式仅适用于当前组件，并支持sass）。一个例子如下
+
+```vue
+<template>
+	<p>Hello, {{ user_name }}!</p>
+	<button @click="change_user('test')">change</button>
+</template>
+<script>
+  export default {
+    name: "Hello",
+    data: function() {
+      return {
+        user_name: ""
+      };
+    },
+    methods: {
+      change_user: function(name) {
+        this.user_name = name;
+      }
+    },
+    created: function() {
+      this.user_name = "Vuejs";
+    }
+  }
+</script>
+<style scoped>
+p {
+  font-size: 2em
+}
+</style>
+```
+
+#### 工具
+
+Ajax请求：vue-axios
+组件通信：vue-bus
+Model：未定
+
+
+
+#### 使用方式
+
+```shell
+# 当前位于根目录
+# 当项目未初始化或者新增了依赖没有安装的时候，使用--no-save选项让npm不更新package-lock.json，一定要加
+npm install --no-save
+# 想要安装某个依赖包，一定只能对某一个特定的包使用--save选项
+npm install --save [package name]
+# 编译运行项目，并且热更新（即保存文件修改自动网页自动刷新）
+npm run dev
+# 生成release dist
+npm run build
+```
+
+#### 目录结构
+
+`index.html` 项目入口，除添加CDN资源外，不需要修改
+
+`package.json` npm依赖包列表，勿手动修改
+
+`package-lock.json` npm依赖包版本控制，勿手动修改
+
+`node_modules` npm依赖包安装位置
+
+`src/App.vue` Vue入口
+
+`src/router/index.js` Vue-router路由列表，常修改文件，参考网站[Vue-router](https://router.vuejs.org)
+
+#### 代码规范
+
++ 项目中已经带有了eslint，但实际会有啥效果有待观察
++ 在WebStorm > Settings > Language & Frameworks > Code Quality Tool > Eslint中启用enable，在代码中碰到eslint报错，使用IDE的fix error就行，遵从fix error之后的代码格式 
++ 所有组件名为首字母大写的CamelCase，不能存在两个文件名为同一个词的不同大小写的情况。
++ JavaScript中字符串使用单引号，行末加分号
++ 缩进使用WebStorm的默认设置（应该都是双空格我再看看）
+
+##### 如何避免webstorm与eslint的格式冲突
+
++ eslint禁用vue indent（已解决，无需配置）
++ Settings > Editor > Code Style > JavaScript > Spaces > Within > Object literal打勾
