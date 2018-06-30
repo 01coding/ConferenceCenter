@@ -7,7 +7,7 @@
 ``` bash
 # install dependencies
 # npm install
-# 除非要新增包，否则加--no-save
+# 除非要新增包，否则加--no-save啦啦啦
 npm install --no-save
 
 # serve with hot reload at localhost:8080
