@@ -1,11 +1,12 @@
 <template>
   <div>
-        <navbar></navbar>
-        <div class="carousel carousel-slider">
-          <a class="carousel-item"><img src="../../static/Image/C1.png"></a>
-          <a class="carousel-item"><img src="../../static/Image/C2.png"></a>
-          <a class="carousel-item"><img src="../../static/Image/C3.png"></a>
-        </div>
+    <navbar></navbar>
+    <div style="height:30px"></div>
+    <div class="carousel carousel-slider">
+      <a class="carousel-item"><img src="../../static/Image/W1.png"></a>
+      <a class="carousel-item"><img src="../../static/Image/W2.png"></a>
+      <a class="carousel-item"><img src="../../static/Image/W3.png"></a>
+    </div>
   </div>
 </template>
 
