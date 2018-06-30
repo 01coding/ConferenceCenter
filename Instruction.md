@@ -148,3 +148,45 @@ static下放置静态资源，访问形式为`src="/static/a.jpg"`，如果放�
 + http://closeheat.com
 + http://stephaniejagiello.com
 + https://www.mockplus.com/blog/post/material-design-website-examples
+
+#### 公用组件列表
+
+##### 导航栏
+
+```javascript
+import navbar from '@/include/NavBar';
+```
+
+##### 翻页组件
+
+```javascript
+import pagination from '@/include/Pagination';
+```
+
+需要参数：number 页面总数，current 当前页面号（从1开始）
+
+返回事件：page(the_page_number_jump_to)
+
+示例使用
+```vue
+<template>
+  <pagination @page="i_want_to_page" v-bind:number="total_num" v-bind:current="current"></pagination>
+</template>
+<script>
+  import pagination from '@/include/Pagination';
+  export default {
+    components: { pagination },
+    data: function() {
+      return {
+        total_num: 10,
+        current: 1
+      }
+    },
+    methods: {
+      i_want_to_page: function(page) {
+        console.log(page);
+      }
+    }
+  }
+</script>
+```
