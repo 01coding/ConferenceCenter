@@ -1,9 +1,10 @@
 <template>
   <div>
+        <navbar></navbar>
         <div class="carousel carousel-slider">
           <a class="carousel-item"><img src="../../static/Image/C1.png"></a>
-          <a class="carousel-item"><img src="../../static/Image/C1.png"></a>
-          <a class="carousel-item"><img src="../../static/Image/C1.png"></a>
+          <a class="carousel-item"><img src="../../static/Image/C2.png"></a>
+          <a class="carousel-item"><img src="../../static/Image/C3.png"></a>
         </div>
   </div>
 </template>
@@ -45,14 +46,23 @@ export default{
       indicators: true,
     };
 
-    document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('.parallax');
-      var instances = M.Parallax.init(elems, options);
-
-      var els = document.querySelectorAll('.carousel');
-      this.instance_carousel = M.Carousel.init(els, option_carousel);
+    $(document).ready(function(){
+      $('.carousel').carousel(
+        {
+          dist: 0,
+          padding: 0,
+          fullWidth: true,
+          indicators: true,
+          duration: 100,
+        }
+      );
     });
-    this.carousel_move();
+
+    setTimeout(autoplay, 4500);
+    function autoplay() {
+      $('.carousel').carousel('next');
+      setTimeout(autoplay, 4500);
+    }
   }
 };
 </script>
