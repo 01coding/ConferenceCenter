@@ -46,6 +46,13 @@
         </li>
       </ul>
     </header>
+    <main>
+      <div class="row">
+        <div class="col s12 m10 offset-m1">
+          <router-view></router-view>
+        </div>
+      </div>
+    </main>
   </div>
 </template>
 
@@ -60,7 +67,7 @@
       //   let elems = document.querySelectorAll('#nav-mobile');
       //   let instances = M.Sidenav.init(elems, options);
       // });
-      $(document).ready(function() {
+      $(document).ready(function () {
         $('#nav-mobile').sidenav();
       })
     }
@@ -69,19 +76,19 @@
 
 <style scoped>
   /*@media only screen and (max-width: 992px) {*/
-    /*nav .nav-wrapper {*/
-      /*text-align: center;*/
-    /*}*/
-    /*header {*/
-      /*padding-left: 0;*/
-    /*}*/
+  /*nav .nav-wrapper {*/
+  /*text-align: center;*/
+  /*}*/
+  /*header {*/
+  /*padding-left: 0;*/
+  /*}*/
   /*}*/
 
   /*header {*/
-    /*padding-left: 300px;*/
+  /*padding-left: 300px;*/
   /*}*/
 
   /*#top-nav {*/
-    /*height: 110px;*/
+  /*height: 110px;*/
   /*}*/
 </style>
