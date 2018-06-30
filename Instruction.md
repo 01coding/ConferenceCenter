@@ -79,10 +79,9 @@ p {
 
 #### 工具
 
-Ajax请求：vue-axios
-组件通信：vue-bus
+API请求：[axios](https://vuejs.org/v2/cookbook/using-axios-to-consume-apis.html)
+组件通信：[vue-bus](https://github.com/yangmingshan/vue-bus)
 Model：未定
-
 
 
 #### 使用方式
@@ -113,6 +112,30 @@ npm run build
 
 `src/router/index.js` Vue-router路由列表，常修改文件，参考网站[Vue-router](https://router.vuejs.org)
 
+`src/components` 页面组件以及页面子组件，目录规范见下
+
+`src/include` 放置所有跨页面共享的元素，比如导航栏
+
+`src/assests` 不推荐的静态资源位置
+
+`static` 推荐的静态资源位置
+
+## 目录规范
+
+src/components下放置所有的页面组件，每个页面形成一个文件夹，页面主文件命名为Main.vue，比如
+src/components/Index
+src/components/Index/Main.vue
+src/components/Index/ConferenceItem.vue
+src/components/Index/PaperItem.vue
+
+src/include下放置所有跨页面共享元素，可以为单文件或者文件夹，比如
+src/include/NavBar.vue
+src/include/Modal
+src/include/Modal/Main.vue
+src/include/Modal/RichTextBox.vue
+
+static下放置静态资源，访问形式为`src="/static/a.jpg"`，如果放在src/assets下，图片会被编为base64，避免
+
 #### 代码规范
 
 + 所有组件名为首字母大写的CamelCase，不能存在两个文件名为同一个词的不同大小写的情况。
@@ -125,3 +148,45 @@ npm run build
 + http://closeheat.com
 + http://stephaniejagiello.com
 + https://www.mockplus.com/blog/post/material-design-website-examples
+
+#### 公用组件列表
+
+##### 导航栏
+
+```javascript
+import navbar from '@/include/NavBar';
+```
+
+##### 翻页组件
+
+```javascript
+import pagination from '@/include/Pagination';
+```
+
+需要参数：number 页面总数，current 当前页面号（从1开始）
+
+返回事件：page(the_page_number_jump_to)
+
+示例使用
+```vue
+<template>
+  <pagination @page="i_want_to_page" v-bind:number="total_num" v-bind:current="current"></pagination>
+</template>
+<script>
+  import pagination from '@/include/Pagination';
+  export default {
+    components: { pagination },
+    data: function() {
+      return {
+        total_num: 10,
+        current: 1
+      }
+    },
+    methods: {
+      i_want_to_page: function(page) {
+        console.log(page);
+      }
+    }
+  }
+</script>
+```
