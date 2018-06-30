@@ -8,6 +8,14 @@
       <a class="carousel-item"><img src="../../static/Image/W3.png"></a>
     </div>
     <div style="height:10px;"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col s8">
+        </div>
+        <div class="col s4">
+        </div>
+      </div>
+    </div>
 
 
       <footer class="page-footer grey lighten-1" >
