@@ -80,7 +80,17 @@ p {
 #### 工具
 
 API请求：[axios](https://vuejs.org/v2/cookbook/using-axios-to-consume-apis.html)
+
+**UPDATE**
+现已将axios封装到全局变量中，使用方法
+```javascript
+this.$axios.get('/api/something').then(data => {
+  
+});
+```
+
 组件通信：[vue-bus](https://github.com/yangmingshan/vue-bus)
+
 Model：未定
 
 

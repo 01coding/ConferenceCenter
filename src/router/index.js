@@ -4,8 +4,9 @@ import HelloWorld from '@/components/HelloWorld'
 import ConferenceInfo from '@/components/ConferenceInformation/Conference'
 import OrganizationSpace from '@/components/OrganizationSpace/Main';
 import Index from '@/components/Index'
+import NewConference from '@/components/OrganizationSpace/NewConference';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   mode: 'history',
@@ -23,7 +24,18 @@ export default new Router({
     {
       path: '/orgspace',
       name: 'OrganizationSpace',
-      component: OrganizationSpace
+      component: OrganizationSpace,
+      children: [
+        {
+          path: 'new/conference',
+          component: NewConference
+        }
+      ]
+    },
+    {
+      path: '/new/conference',
+      name: 'NewConference',
+      component: NewConference
     }
   ]
 })
