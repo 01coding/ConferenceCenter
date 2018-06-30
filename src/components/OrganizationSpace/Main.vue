@@ -1,12 +1,12 @@
 <template>
   <div>
     <header>
-      <nav id="top-nav" class="top-nav transparent">
+      <nav class="top-nav">
         <div class="container">
           <div class="nav-wrapper">
             <div class="row">
               <div class="col s12 m10 offset-m1">
-                <h2 class="header black-text">会议管理</h2>
+                <h1 class="header black-text">会议管理</h1>
               </div>
             </div>
           </div>
@@ -17,7 +17,7 @@
           <i class="material-icons">menu</i>
         </a>
       </div>
-      <ul id="slide-out" class="sidenav sidenav-fixed">
+      <ul id="nav-mobile" class="sidenav sidenav-fixed">
         <li>
           <div class="user-view">
             <div class="background"
@@ -56,10 +56,13 @@
     name: "Main",
     components: { navbar },
     created: function () {
-      document.addEventListener('DOMContentLoaded', function () {
-        let elems = document.querySelectorAll('#slide-out');
-        let instances = M.Sidenav.init(elems, options);
-      });
+      // document.addEventListener('DOMContentLoaded', function () {
+      //   let elems = document.querySelectorAll('#nav-mobile');
+      //   let instances = M.Sidenav.init(elems, options);
+      // });
+      $(document).ready(function() {
+        $('#nav-mobile').sidenav();
+      })
     }
   }
 </script>
