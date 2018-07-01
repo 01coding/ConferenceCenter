@@ -19,7 +19,7 @@
             </li>
           </ul>
           <div class="input-field" style="color: #313131;" v-if="in_search">
-            <input id="search" style="color: #313131;" type="search" required>
+            <input id="search" style="color: #313131;" type="search" v-model="search_keyword" @keypress="enter_search($event)">
             <label class="label-icon" style="color: #313131;" for="search">
               <i class="material-icons" style="color: #313131;">search</i>
             </label>
@@ -47,13 +47,18 @@ export default {
   name: "NavBar",
   data: function() {
     return {
-      in_search: false
+      in_search: false,
+      search_keyword:""
     };
   },
   methods: {
     toggle_search() {
       this.in_search = !this.in_search;
-    }
+    },
+    enter_search: function (event) {
+      if (event.keyCode === 13 && this.search_keyword.length > 0)
+        this.$router.push("/search/" + this.search_keyword);
+    },
   },
   created: function() {
     $(document).ready(function(){

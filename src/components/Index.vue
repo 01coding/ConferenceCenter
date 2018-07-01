@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavBar></NavBar>
-    <div class="carousel carousel-slider center" style="height: 30rem;">
+    <div class="carousel carousel-slider center hoverable" style="height: 30rem;">
       <div class="carousel-fixed-item center">
         <a class="btn btn-large waves-effect white grey-text darken-text-4"
            style="bottom: 3rem; font-weight: bold;">
@@ -22,7 +22,7 @@
       <div style="padding-left: 3rem; padding-right: 3rem;">
         <div class="row">
           <div class="col s8" style="height:100%;">
-            <ul class="collection with-header" style="height:100%;">
+            <ul class="collection with-header hoverable" style="height:100%;">
               <li class="collection-header"><h4>著名学者</h4></li>
               <li class="collection-item avatar">
                 <img src="../../static/Image/C1.png" alt="" class="circle"></img>
@@ -53,7 +53,7 @@
             </ul>
           </div>
           <div class="col s4" style="height:100%;">
-            <ul class="collection with-header" style="height:100%;">
+            <ul class="collection with-header hoverable" style="height:100%;">
               <li class="collection-header blue-grey white-text"><h4>近期事项</h4></li>
               <li class="collection-item blue-grey white-text">
                 <p>2018.03.12 CVPR2018 开始征稿</p>
