@@ -6,6 +6,10 @@ import OrganizationSpace from '@/components/OrganizationSpace/Main';
 import Contribute from '@/components/Contribute';
 import Index from '@/components/Index'
 import NewConference from '@/components/OrganizationSpace/NewConference';
+import Login from '@/components/Login/Login'
+import UserRegister from '@/components/Register/UserRegister'
+import InstitutionRegister from '@/components/Register/InstitutionRegister'
+import OrgConferences from '@/components/OrganizationSpace/Conferences';
 import Search from '@/components/Search'
 import ReviewApplication from '../components/OperationManagement/ReviewApplication'
 
@@ -15,7 +19,7 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/Search/:keyword',
+      path: '/search/:keyword',
       name: 'Search',
       component: Search
     },
@@ -25,7 +29,7 @@ export default new Router({
       component: Index
     },
     {
-      path: '/conference',
+      path: '/conference/:id',
       name: 'ConferenceInfo',
       component: ConferenceInfo
     },
@@ -39,6 +43,14 @@ export default new Router({
       component: OrganizationSpace,
       children: [
         {
+          path: '',
+          component: OrgConferences
+        },
+        {
+          path: 'conferences',
+          component: OrgConferences
+        },
+        {
           path: 'new/conference',
           component: NewConference
         }
@@ -47,10 +59,25 @@ export default new Router({
     {
       path: '/new/conference',
       name: 'NewConference',
-      component: NewConference
+      component: NewConference,
     },
     {
-      path:'/ReviewApplication',
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/userRegister',
+      name: 'UserRegister',
+      component: UserRegister
+    },
+    {
+      path: '/institutionRegister',
+      name: 'InstitutionRegister',
+      component: InstitutionRegister
+    },
+    {
+      path:'/review/application',
       name:'ReviewApplication',
       component:ReviewApplication
     }

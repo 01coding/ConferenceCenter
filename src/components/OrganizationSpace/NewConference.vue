@@ -26,8 +26,9 @@
           <div class="input-field col s4">
             <select id="conf-field-select" v-model="conf_field">
               <option value="" disabled selected>选择领域</option>
-              <option value="1">机器视觉</option>
-              <option value="2">运筹学</option>
+              <option v-bind:value="field.tag_id" v-bind:key="id" v-for="(field, id) in field_list">{{ field.name }}</option>
+              <!--<option value="1">机器视觉</option>-->
+              <!--<option value="2">运筹学</option>-->
             </select>
             <label for="conf-field-select">会议领域</label>
           </div>
@@ -160,6 +161,7 @@
 </template>
 
 <script>
+  import axios from 'axios';
   export default {
     name: "NewConference",
     data: function () {
@@ -184,7 +186,8 @@
         conf_commute_info: "",
         conf_contact: "",
         conf_conference_template: 1,
-        conf_bg_img: ""
+        conf_bg_img: "",
+        field_list: []
       };
     },
     created: function () {
@@ -194,7 +197,6 @@
         // $('#conf-end-date').datepicker();
         // $('.datepicker').datepicker();
         $('.dropdown-trigger').dropdown();
-        $('select').formSelect();
       });
     },
     mounted: function () {
@@ -264,10 +266,25 @@
         elem = document.querySelector('#conf-register-time');
         instance = M.Timepicker.init(elem, options);
       });
+
+      // get fields
+      this.$axios.post('/api/subjects', {}).then(rsp => {
+        let data = rsp.data;
+        if (data.status === 'succ') {
+          this.field_list = data.data;
+          console.log(data.data);
+        }
+      }).catch(err => {
+        console.log(1);
+      })
+    },
+    updated: function() {
+      $('select').formSelect();
     },
     methods: {
       submit_conference: function () {
         this.$axios.post('/api/postConference', {
+        // axios.post('http://10.138.48.237:8080/api/postConference', {
           institution_id: 1,
           title: this.conf_topic,
           field: parseInt(this.conf_field),
