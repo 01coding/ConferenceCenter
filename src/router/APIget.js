@@ -1,4 +1,4 @@
-export function mapUrl(inputUrl){
+export default function mapUrl(inputUrl){
   // var prefix = "http://116.62.199.173:8080/app/mock/16";
   var prefix = "http://118.89.229.204:8080/server-0.0.1-SNAPSHOT";
   // var prefix = "http://localhost:8080";//后端协同测试(本地)

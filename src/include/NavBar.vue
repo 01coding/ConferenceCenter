@@ -1,21 +1,29 @@
 <template>
-  <nav>
-    <div class="nav-wrapper">
-      <a class="brand-logo"><i class="material-icons">create</i>ACMP</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="sass.html"><i class="material-icons">search</i></a></li>
-        <li><a href="badges.html"><i class="material-icons">view_module</i></a></li>
-        <li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
-        <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
-      </ul>
-    </div>
-  </nav>
+  <div style="width:100%;">
+    <nav class="white">
+      <div class="container">
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo" style="color: #303030; font-weight: bold">
+            LOGO
+          </a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="sass.html" style="color: #303030;">Sass</a></li>
+            <li><a href="badges.html" style="color: #303030;">Components</a></li>
+            <!-- Dropdown Trigger -->
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
 </template>
 
 <script>
-  export default {
-    name: "NavBar"
+export default {
+  name: "NavBar",
+  mounted: function() {
+    $(".dropdown-trigger").dropdown();
   }
+}
 </script>
 
 <style scoped>

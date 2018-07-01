@@ -84,11 +84,11 @@
 <script>
   import NavBar from "../../include/NavBar";
   import axios from 'axios';
-  import getURL, {mapUrl} from '../../router/APIget';
+  import mapUrl  from '../../router/APIget';
 
   export default {
     name: "Conference",
-    components: {NavBar, axios, getURL},
+    components: {NavBar, axios, mapUrl},
     data() {
       return {
         conferenceTitle:'International Conference on Circuits, Systems, Communications and Computers',
