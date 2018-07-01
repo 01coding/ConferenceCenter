@@ -3,7 +3,7 @@
     <navbar></navbar>
   <br/>
   <div class="row center-align" style="margin-bottom: 1px">
-    <h2>Register</h2>
+    <h2>注册</h2>
   </div>
   <div class="row">
     <div class="col s12 m4 offset-m4 l4 offset-l4">
@@ -42,7 +42,8 @@
             <span class="red-text" style="margin-left: 55px">{{confirmPasswordMessage}}</span>
           </div>
           <div class="row center-align">
-            <button class="col s6 offset-l3 btn waves-effect waves-light" style="margin-top: 7px;" type="submit" name="action" v-on:click="userRegisterFuc()">Submit
+            <button class="col s6 offset-l3 btn waves-effect waves-light" style="margin-top: 7px;" type="submit" name="action" v-on:click="userRegisterFuc()">
+              注册
             </button>
           </div>
         </div>

@@ -1,41 +1,40 @@
 <template>
   <div>
+    <NavBar></NavBar>
     <div class="row">
       <div class="col s1"></div>
-      <div class="col s10">
-        <img v-bind:src="conferenceImg" class="responsive-img"/>
+      <div class="card"
+           style="width: 100%; padding-top: 2rem; padding-bottom: 2rem; margin: 0;"
+           :style="{background:'url(/static/bg3.jpg)'}">
+        <div class="white-text row container">
+          <div class="col s10 offset-s1">
+            <h4 style="font-weight: bold">{{resp.data.title}}</h4>
+            <h5>{{resp.data.convening_place}}</h5>
+            <h5>{{resp.data.start_date}}</h5>
+            <h5>{{conferenceState}}</h5>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div style="height: 2rem"></div>
         <div class="row">
-          <div id="title_left" class="col s8">
-            <div>
-              <h1>{{resp.data.title}}</h1>
-              <p>{{resp.data.start_date}}</p>
-              <p>{{resp.data.convening_place}}</p>
+          <div class="col s4"></div>
+          <div class="col s2">
+            <div class="btn green" v-bind:class="{ disabled: contributeToLink === 0 }">
+              <router-link to="/api/contribute" class="white-text">投稿</router-link>
             </div>
           </div>
-          <div id="title_right" class="col s4">
-            <div class="row">
-              <br>
-              <div class="col s5">
-                <button class="btn button" v-bind:class="{ disabled: contributeToLink === 0 }">
-                  <router-link to="/api/contribute" class="white-text">投稿</router-link>
-                </button>
-              </div>
-              <div class="col s2"></div>
-              <div class="col s5">
-                <button id="register" class="title btn button" v-bind:class="{ disabled: registerToLink === 0 }">
-                  <router-link to="/new/conference" class="white-text">会议注册</router-link>
-                </button>
-              </div>
+          <div class="col s2">
+            <div id="register" class="btn blue-grey" v-bind:class="{ disabled: registerToLink === 0 }">
+              <router-link to="/new/conference" class="white-text">会议注册</router-link>
             </div>
-            <br><br>
-            <div class="confstate">{{conferenceState}}</div>
           </div>
         </div>
         <div class="row">
           <div class="row">
             <div class="col s12 m9 l10">
               <div id="introduction" class="section scrollspy">
-                <h2>会议介绍</h2>
+                <h4>会议介绍</h4>
                 开始日期：{{resp.data.start_date}}<br>
                 结束日期：{{resp.data.end_date}}<br>
                 会议简介:<br>
@@ -44,7 +43,7 @@
                 {{resp.data.register_information}}
               </div>
               <div id="register_notion" class="section scrollspy">
-                <h2>投稿须知</h2>
+                <h4>投稿须知</h4>
                 <p>征文信息</p>
                 {{resp.data.essay_instruction}}
                 <p>征稿日期：{{resp.data.start_date}}--{{resp.data.paper_ddl}}</p>
@@ -54,7 +53,7 @@
                 <p>查看审核结果日期：{{resp.data.employ_date}}</p>
               </div>
               <div id="schedule" class="section scrollspy">
-                <h2>日程安排</h2>
+                <h4>日程安排</h4>
                 <p>本次会议议程：</p>
                 {{resp.data.schedule}}
               </div>
@@ -63,12 +62,13 @@
                 组委会已经为参会人员订购了xx酒店的房间，请参会人员到达时到前台签到并领取房卡。
               </div>
               <div id="relation" class="section scrollspy">
-                <h2>联系我们</h2>
+                <h4>联系我们</h4>
                 <p>联系方式：</p>
                 {{resp.data.contact}}
               </div>
             </div>
-            <div class="col hide-on-small-only m3 l2">
+            <div class="col hide-on-small-only m3 l2"
+                 style="position: fixed; right: 7%; bottom: 2rem;">
               <ul class="section table-of-contents">
                 <li><a href="#introduction" class="active">会议介绍</a></li>
                 <li><a href="#register_notion">注册须知</a></li>
@@ -80,7 +80,6 @@
           </div>
         </div>
       </div>
-      <div class="col s1"></div>
     </div>
   </div>
 </template>
