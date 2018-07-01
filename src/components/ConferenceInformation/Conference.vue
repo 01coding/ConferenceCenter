@@ -108,6 +108,11 @@
       }
     },
     methods: {
+      getConferenceImg: function () {
+        this.conferenceImg = "http://140.143.19.133:8001/uploads/" + this.resp.data.backimg;
+        //this.conferenceImg = "http://140.143.19.133:8001/uploads/" + "11.jpg";
+      },
+
       isAbleRegister: function () {
         if (this.conferenceState != "征稿中" && this.conferenceState != "会议注册中") {
           this.registerToLink = 0;
@@ -126,32 +131,6 @@
         }
       },
 
-      autoheight: function () {
-        if (document.getElementById("title_left").clientHeight < document.getElementById("title_right").clientHeight) {
-          document.getElementById("title_right").style.height = document.getElementById("title_left").clientHeight + "px";
-        }
-        else {
-          document.getElementById("title_left").style.height = document.getElementById("title_right").clientHeight + "px";
-        }
-      },
-
-      displayIntroduction: function () {
-        this.display_id = 1;
-      },
-      displayContribution: function () {
-        console.log("mahui");
-        this.display_id = 2;
-      },
-      displaySchedule: function () {
-        this.display_id = 3;
-      },
-      displayTraffic: function () {
-        this.display_id = 4;
-      },
-      displayRelation: function () {
-        this.display_id = 5;
-      },
-
       getConferenceState: function () {
         if (this.resp.data.state == 4)
           this.conferenceState = '已结束';
@@ -163,6 +142,7 @@
           this.conferenceState = '会议注册中';
       }
     },
+
     created() {
       $(document).ready(function(){
         $('.scrollspy').scrollSpy();
@@ -175,6 +155,7 @@
         this.getConferenceState();
         this.isAbleRegister();
         this.tocontribute();
+        this.getConferenceImg();
         console.log("contribute to link:" + this.contributeToLink);
         console.log("conference state:" + this.conferenceState);
       }).catch(error => {

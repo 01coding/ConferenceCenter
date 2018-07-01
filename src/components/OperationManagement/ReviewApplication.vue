@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="row">
+      <div class="col s1"></div>
+      <div class="col s10">
     <h2>待审核申请</h2>
     <ul class="collapsible" id="collaps">
       <li v-for="(item, index) in apply" v-bind:key="index">
@@ -16,6 +19,9 @@
         </div>
       </li>
     </ul>
+      </div>
+      <div class="col s1"></div>
+    </div>
   </div>
 </template>
 
@@ -34,6 +40,8 @@
 
     methods: {
       reviewPass: function (applyid) {
+        console.log(localStorage);
+        //this.localStorage.getItem('session');
         this.$axios.post('/api/setInstitutionStatus/'+applyid+'/1').then(response => {
           console.log("pass OK");
           console.log(response);
@@ -46,6 +54,8 @@
       },
 
       reviewReject: function (applyid) {
+        console.log(localStorage);
+        //localStorage.getItem('session');
         this.$axios.post('/api/setInstitutionStatus/'+applyid+'/-1').then(response => {
           console.log("reject OK");
           //remove this item from the list
