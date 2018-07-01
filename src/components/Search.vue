@@ -20,19 +20,16 @@
     <div style="height:20px;"></div>
 
     <div class="row container">
-      <div class="card"
-           v-if="conferences.total_num>0"
-           v-for="(res,id) in conferences.result"
-           :key="id">
+      <div class="card" v-if="conferences.total_num>0" v-for="(res,id) in conferences.result" :key="id">
         <div class="card-image waves-effect waves-block waves-light"
              style="height: 10rem; background:black;">
-          <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg">
+          <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg"></img>
           <!--TODO: 这里放会议的背景图-->
-          <span class="card-title"
-                @click="$router.push('/conference/'+res.id)"
-                style="font-weight: bold">
-            {{res.title}}
-          </span>
+          <router-link v-bind:to="'/conference/'+res.id">
+            <span class="card-title" style="font-weight: bold">
+              {{res.title}}
+            </span>
+          </router-link>
         </div>
         <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
@@ -47,7 +44,7 @@
           <p>{{res.introduction}}</p>
         </div>
       </div>
-      <EmptyView v-else></EmptyView>
+      <EmptyView v-else style="height:30rem;"></EmptyView>
     </div>
     <div class="center-align">
       <Pagination @page="page"
