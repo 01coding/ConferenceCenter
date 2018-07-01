@@ -90,7 +90,7 @@
         let keywords_param = this.$route.params.keyword;
         let that = this;
         // axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/SearchCoferences', {
-        this.$axios.post('/api/SearchCoferences', {
+        this.$axios.post('/api/SearchConferences', {
           "keyword": keywords_param,
           "index": 1,
           "size": 10

@@ -12,7 +12,8 @@
           </div>
         </div>
       </nav>
-      <div class="container">
+      <!--<div class="container">-->
+      <div>
         <a href="#" data-target="nav-mobile" class="top-nav sidenav-trigger full hide-on-large-only">
           <i class="material-icons">menu</i>
         </a>
@@ -119,5 +120,9 @@
 
   .user-view {
     height: 240px;
+  }
+
+  a.sidenav-trigger.top-nav {
+    left: 0;
   }
 </style>
