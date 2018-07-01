@@ -15,6 +15,10 @@ Vue.prototype.$user = axios.create({
   baseURL: 'http://118.89.229.204:3000'
 });
 
+Vue.prototype.$file = axios.create({
+  baseURL: 'http://140.143.19.133:8001'
+});
+
 Vue.prototype.$test = axios.create({
   baseURL: 'http://123.206.54.85:3000/mock/14'
 });

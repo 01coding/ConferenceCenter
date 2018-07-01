@@ -1,48 +1,53 @@
 <template>
   <div>
     <NavBar></NavBar>
-    <div class="card" style="margin: 0;">
-      <div class="carousel carousel-slider center" style="height: 30rem;">
-        <div class="carousel-fixed-item center">
-          <a class="btn btn-large waves-effect white grey-text darken-text-4"
-             style="bottom: 3rem; font-weight: bold;">
-            了解更多
-          </a>
-        </div>
-        <div class="carousel-item white-text index_page_slide" href="#one!"
-             v-for="slide in slides.slides"
-             :style="{'background': slides.bg_overlay+'url('+slide.bg+')'}">
-          <div style="height: 3rem"></div>
-          <h3 style="font-size:2.5rem; font-weight: bold">{{slide.name}}</h3>
-          <h5>{{slide.time}},&nbsp{{slide.venue}}</h5>
-          <h5>{{slide.state}}</h5>
-        </div>
+    <div class="carousel carousel-slider center" style="height: 30rem;">
+      <div class="carousel-fixed-item center">
+        <a class="btn btn-large waves-effect white grey-text darken-text-4"
+           style="bottom: 3rem; font-weight: bold;">
+          了解更多
+        </a>
+      </div>
+      <div class="carousel-item white-text index_page_slide" href="#one!"
+           v-for="slide in slides.slides"
+           :style="{'background': slides.bg_overlay+'url('+slide.bg+')'}">
+        <div style="height: 3rem"></div>
+        <h3 style="font-size:2.5rem; font-weight: bold">{{slide.name}}</h3>
+        <h5>{{slide.time}},&nbsp{{slide.venue}}</h5>
+        <h5>{{slide.state}}</h5>
       </div>
     </div>
-    <div class="white section" style="padding-top: 5rem; padding-bottom: 5rem;">
-      <div class="container">
+
+    <div class="white section" style="padding-top: 5rem; padding-bottom: 1rem;">
+      <div style="padding-left: 9rem; padding-right: 9rem;">
         <div class="row">
-          <div class="col s7" style="padding-right: 5rem;">
-            <h4>在这里放统计数据</h4>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+          <div class="col s8" style="padding-right: 2rem;">
+            <ul class="collection with-header">
+              <li class="collection-header"><h4>投稿积极学者</h4></li>
+              <li class="collection-item avatar">
+                <i class="material-icons circle">folder</i>
+                <span class="title">Title</span>
+                <p>First Line <br>
+                  Second Line
+                </p>
+                <a class="secondary-content"><i class="material-icons">grade</i></a>
+              </li>
+            </ul>
           </div>
-          <div class="col s5">
+          <div class="col s4">
             <div class="card-panel blue-grey white-text">
-              <h4>这里是会议日期</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <h4>近期事项</h4>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="page-footer grey darken-4">
-      <div class="footer-copyright">
-        <div class="center container">
-          © 2018 Copyright 探玩揽月
-        </div>
+    <div class="page-footer grey lighten-5">
+      <div class="center containe grey-text"
+           style="padding-bottom: 1rem;">
+        © 2018 Copyright 探玩揽月
       </div>
     </div>
   </div>
@@ -96,11 +101,11 @@ export default{
       fullWidth: true,
       indicators: true
     });
-    // setTimeout(autoplay, 5000);
-    // function autoplay() {
-    //   $('.carousel').carousel('next');
-    //   setTimeout(autoplay, 5000);
-    // }
+    setTimeout(autoplay, 5000);
+    function autoplay() {
+      $('.carousel').carousel('next');
+      setTimeout(autoplay, 5000);
+    }
   },
   mounted() {
   }
