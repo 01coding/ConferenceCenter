@@ -5,12 +5,18 @@ import ConferenceInfo from '@/components/ConferenceInformation/Conference'
 import OrganizationSpace from '@/components/OrganizationSpace/Main';
 import Index from '@/components/Index'
 import NewConference from '@/components/OrganizationSpace/NewConference';
+import Search from '@/components/Search'
 
 Vue.use(Router);
 
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/Search',
+      name: 'Search',
+      component: Search
+    },
     {
       path: '/',
       name: 'Index',

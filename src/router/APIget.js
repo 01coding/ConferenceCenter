@@ -32,7 +32,8 @@ export function mapUrl(inputUrl){
     ['getPayedServiceList','/user_auth/get_payed_services'],
     ['applyForExpert','/expert/apply_expert'],
     ['searchService','/public/search_service'],
-    ['getPaperDetail','/public/get_paper_detail']
+    ['getPaperDetail','/public/get_paper_detail'],
+    ['Search','/api/SearchCoferences'],
   ]);
   var  res = prefix+m.get(inputUrl)+suffix;
   return res;
