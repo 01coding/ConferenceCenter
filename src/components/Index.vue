@@ -96,11 +96,11 @@ export default{
       fullWidth: true,
       indicators: true
     });
-    // setTimeout(autoplay, 5000);
-    // function autoplay() {
-    //   $('.carousel').carousel('next');
-    //   setTimeout(autoplay, 5000);
-    // }
+    setTimeout(autoplay, 5000);
+    function autoplay() {
+      $('.carousel').carousel('next');
+      setTimeout(autoplay, 5000);
+    }
   },
   mounted() {
   }
