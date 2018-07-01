@@ -49,7 +49,7 @@
               <h5 style="font-size: 1.5rem; margin: 0; padding-top: 1rem; padding-bottom: 1rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;" v-if="authors.length===0">
                 在这里添加作者
               </h5>
-              <div class="col s3" v-for="(author, idx) in authors" style="margin-bottom: 1rem;">
+              <div class="col s4" v-for="(author, idx) in authors" style="margin-bottom: 1rem;">
                 <div class="card-panel"
                      style="padding-top: 0.5rem;">
                   <div style="height: 24px;">
@@ -187,15 +187,15 @@ export default {
       let institution = this.authors_field.institution.trim();
       let email = this.authors_field.email.trim();
       if (name.length === 0) {
-        M.toast({html: "请填写作者姓名", classes: 'red accent-2 rounded'});
+        M.toast({html: "<span style='font-weight: bold;'>请填写作者姓名</span>", classes: 'yellow darken-2 rounded'});
         return;
       }
       if (institution.length === 0) {
-        M.toast({html: "请填写作者单位", classes: 'red accent-2 rounded'});
+        M.toast({html: "<span style='font-weight: bold;'>请填写作者单位</span>", classes: 'yellow darken-2 rounded'});
         return;
       }
       if (email.length === 0) {
-        M.toast({html: "请填写邮箱", classes: 'red accent-2 rounded'});
+        M.toast({html: "<span style='font-weight: bold;'>请填写邮箱</span>", classes: 'yellow darken-2 rounded'});
         return;
       }
       let author = {
@@ -212,28 +212,65 @@ export default {
       let title = this.title;
       let abstract = this.abstract;
       let authors = this.authors;
-      let files = this.files;
+      let files = this.upload.files;
       if (title.length === 0) {
-        M.toast({html: "请填写标题", classes: 'red accent-2 rounded'});
+        M.toast({html: "<span style='font-weight: bold;'>请填写标题</span>", classes: 'yellow darken-2 rounded'});
         return;
       }
       if (abstract.length === 0) {
-        M.toast({html: "请填写摘要", classes: 'red accent-2 rounded'});
+        M.toast({html: "<span style='font-weight: bold;'>请填写摘要</span>", classes: 'yellow darken-2 rounded'});
         return;
       }
       if (authors.length === 0) {
-        M.toast({html: "请填写作者", classes: 'red accent-2 rounded'});
+        M.toast({html: "<span style='font-weight: bold;'>请填写作者</span>", classes: 'yellow darken-2 rounded'});
         return;
       }
       if (files.length === 0) {
-        M.toast({html: "请上传文件", classes: 'red accent-2 rounded'});
+        M.toast({
+          html: "<span style='font-weight: bold;'>请上传文件</span>",
+          classes: 'yellow darken-2 rounded'
+        });
         return;
+      } else {
+        if (!files[0].success) {
+          M.toast({
+            html: "<span style='font-weight: bold;'>请先点“开始上传”</span>",
+            classes: 'yellow darken-2 rounded'
+          });
+          //return;
+        }
       }
       let authors_str = JSON.stringify(authors);
       let file_url = "";
       // TODO: let file_url = files[0].response;
-
+      let params = {
+        conference_id: this.conference.id,
+        title: title,
+        abstract: abstract,
+        authors: authors_str,
+        file_url: file_url,
+      };
       // TODO: axios
+      let that = this;
+      this.$axios.post("/api/contribute", params).then(
+        rsp => {
+          let data = rsp.data;
+          console.log(data);
+          if (data.status==="succ") {
+            //TODO: jump
+          } else {
+            M.toast({
+              html: "<span style='font-weight: bold;'>投稿失败</span>",
+              classes: 'red rounded'
+            });
+          }
+        }
+      ).catch(err=>{
+        M.toast({
+          html: "<span style='font-weight: bold;'>error occurred</span>",
+          classes: 'red rounded'
+        });
+      });
     }
   }
 }
