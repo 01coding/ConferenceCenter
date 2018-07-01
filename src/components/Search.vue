@@ -8,7 +8,7 @@
       <div class="nav-wrapper" style="border-style: groove; border-width: 2px 2px;background-color: white;">
         <form>
           <div class="input-field">
-            <input id="search" type="search" required>
+            <input id="search" type="search" v-model="search_keyword" @keypress="enter_search($event)">
             <label class="label-icon" for="search"><i class="material-icons">search</i></label>
             <i class="material-icons">close</i>
           </div>
@@ -19,16 +19,16 @@
     <div class="row">
       <div class="col s10 offset-s1">
         <ul class="collection">
-          <li class="collection-item">
-            <p style="margin:0px 0px;">ICCV2018: International Conference on Computer Vision</p>
-            <p style="font-size:14px;margin:0px 0px;font-weight:100;font-family:Georgia;">held on 2018.5.7</p>
-            <p style="font-family:Times New Roman;">ICCV is the premier international computer vision event comprising the main conference
-              and several co-located workshops and tutorials. With its high quality and low cost, it
-              provides an exceptional value for students, academics and industry researchers</p>
+          <li class="collection-item" v-for="(res,id) in conferences.result" :key="id">
+            <router-link v-bind:to="'/conference/'+res.id"><p style="margin:0px 0px;">{{res.title}}</p></router-link>
+            <p style="font-size:14px;margin:0px 0px;font-weight:100;font-family:Georgia;">Held on {{res.convening_date}}</p>
+            <p style="font-family:Times New Roman;font-size:12px;">{{res.introduction}}</p>
           </li>
         </ul>
       </div>
     </div>
+    <Pagination @page="page" v-bind:number="number" v-bind:current="current"
+    style="margin-top: 1em"></Pagination>
   </div>
 </template>
 
@@ -37,10 +37,11 @@ import navbar from '@/include/NavBar';
 import background from '@/include/Background'
 import getURL, {mapUrl} from '../router/APIget';
 import axios from 'axios';
+import Pagination from "@/include/Pagination";
 
 export default{
   name:'Search',
-  components:{navbar,background, getURL, axios},
+  components:{navbar,background, getURL, axios, Pagination},
   data: function(){
       return{
         number: 1,
@@ -53,40 +54,42 @@ export default{
           active: false
         },
         conferences: {
-          pagination: {
-            index: 1,
-            size: 10,
-            page_num: 1
-          },
-          list: [],
-          total_num: 0
+          page_number:1,
+          result: [],
+          total_num: 10,
         },
       }
   },
   methods: {
-
+      init: function(){
+        let keywords_param=this.$route.params.keyword;
+        console.log("Xingzhe");
+        console.log(keywords_param);
+        let that=this;
+        axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/SearchCoferences', {
+          "keyword": keywords_param,
+          "index": 1,
+          "size": 10
+        })
+          .then(function (response) {
+            that.conferences=response.data.data;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+    enter_search: function (event) {
+      if (event.keyCode === 13 && this.search_keyword.length>0 )
+        this.$router.push("/search/" + this.search_keyword);
+    },
   },
   created(){
-    this.lazy_keyword = this.$route.params.keyword;
-    console.log(this.$route.params.keyword)
-    axios.post(mapUrl('Search'), {
-      "keyword": 'IEEE',
-      "index": 1,
-      "size": 10
-    })
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-        that.resp = response.data;
-        console.log(that.resp.data);
-        that.getConferenceState();
-      })
-      .catch(function (error) {
-        console.log('o');
-        console.log(error);
-      });
+//    this.lazy_keyword = this.$route.params.keyword;
+//    console.log(this.$route.params.keyword)
+
   },
   mounted(){
-
+    this.init();
   }
 };
 </script>
