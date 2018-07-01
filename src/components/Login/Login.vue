@@ -60,7 +60,9 @@
             password : '',
             isScholar: 'scholar',
             emailMessage: '',
-            passwordMessage:''
+            passwordMessage:'',
+            token:'',
+            uid:''
           }
         },
         methods:{
@@ -87,17 +89,20 @@
                   email: this.email,
                   password: this.password
                 }).then(rsp => {
-                  console.log(rsp.data);
+                  this.token = rsp.data.data.token;
+                  this.session_callback();
                 }).catch(err => {
                   console.log(err);
-                })
+                });
+                console.log(this.token);
               }
               else if(this.isScholar==="institution"){
                 this.$user.post('/pp/login', {
                   email: this.email,
                   password: this.password
                 }).then(rsp => {
-                  console.log(rsp.data);
+                  this.token = rsp.data.data.token;
+                  this.session_callback();
                 }).catch(err => {
                   console.log(err);
                 })
@@ -107,11 +112,22 @@
                   email: this.email,
                   password: this.password
                 }).then(rsp => {
-                  console.log(rsp.data);
+                  this.token = rsp.data.data.token;
+                  this.session_callback();
                 }).catch(err => {
                   console.log(err);
                 })
               }
+          },
+          session_callback: function() {
+            this.$axios.post('/api/user/token', {
+              token: this.token,
+            }).then(rsp => {
+              this.uid=rsp.data;
+              console.log(this.uid);
+            }).catch(err => {
+              console.log(err);
+            });
           }
         },
         created(){
