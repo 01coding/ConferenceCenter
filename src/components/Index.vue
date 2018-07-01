@@ -19,10 +19,10 @@
     </div>
 
     <div class="white section" style="padding-top: 5rem; padding-bottom: 1rem;">
-      <div style="padding-left: 3rem; padding-right: 3rem;">
+      <div style="padding-left: 3rem; padding-right: 0rem;">
         <div class="row">
-          <div class="col s8" style="height:100%;">
-            <ul class="collection with-header hoverable" style="height:100%;">
+          <div class="col s8 card-panel" style="height:100%;padding:0px 0px;">
+            <ul class="collection with-header hoverable" style="height:100%;width:100%;margin:0px 0px;">
               <li class="collection-header"><h4>著名学者</h4></li>
               <li class="collection-item avatar">
                 <img src="../../static/Image/C1.png" alt="" class="circle"></img>
@@ -52,8 +52,8 @@
               </li>
             </ul>
           </div>
-          <div class="col s4" style="height:100%;">
-            <ul class="collection with-header hoverable" style="height:100%;">
+          <div class="col s3 card-panel" style="height:100%;padding:0px 0px;margin-left:2rem;">
+            <ul class="collection with-header hoverable" style="height:100%;margin:0px 0px;">
               <li class="collection-header blue-grey white-text"><h4>近期事项</h4></li>
               <li class="collection-item blue-grey white-text">
                 <p>2018.03.12 CVPR2018 开始征稿</p>
