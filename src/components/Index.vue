@@ -1,25 +1,24 @@
 <template>
   <div>
     <NavBar></NavBar>
-    <div class="card" style="margin: 0;">
-      <div class="carousel carousel-slider center" style="height: 30rem;">
-        <div class="carousel-fixed-item center">
-          <a class="btn btn-large waves-effect white grey-text darken-text-4"
-             style="bottom: 3rem; font-weight: bold;">
-            了解更多
-          </a>
-        </div>
-        <div class="carousel-item white-text index_page_slide" href="#one!"
-             v-for="slide in slides.slides"
-             :style="{'background': slides.bg_overlay+'url('+slide.bg+')'}">
-          <div style="height: 3rem"></div>
-          <h3 style="font-size:2.5rem; font-weight: bold">{{slide.name}}</h3>
-          <h5>{{slide.time}},&nbsp{{slide.venue}}</h5>
-          <h5>{{slide.state}}</h5>
-        </div>
+    <div class="carousel carousel-slider center" style="height: 30rem;">
+      <div class="carousel-fixed-item center">
+        <a class="btn btn-large waves-effect white grey-text darken-text-4"
+           style="bottom: 3rem; font-weight: bold;">
+          了解更多
+        </a>
+      </div>
+      <div class="carousel-item white-text index_page_slide" href="#one!"
+           v-for="slide in slides.slides"
+           :style="{'background': slides.bg_overlay+'url('+slide.bg+')'}">
+        <div style="height: 3rem"></div>
+        <h3 style="font-size:2.5rem; font-weight: bold">{{slide.name}}</h3>
+        <h5>{{slide.time}},&nbsp{{slide.venue}}</h5>
+        <h5>{{slide.state}}</h5>
       </div>
     </div>
-    <div class="white section" style="padding-top: 5rem; padding-bottom: 5rem;">
+
+    <div class="white section" style="padding-top: 5rem; padding-bottom: 3rem;">
       <div class="container">
         <div class="row">
           <div class="col s7" style="padding-right: 5rem;">
@@ -38,11 +37,10 @@
       </div>
     </div>
 
-    <div class="page-footer grey darken-4">
-      <div class="footer-copyright">
-        <div class="center container">
-          © 2018 Copyright 探玩揽月
-        </div>
+    <div class="page-footer grey lighten-5">
+      <div class="center containe grey-text"
+           style="padding-bottom: 1rem;">
+        © 2018 Copyright 探玩揽月
       </div>
     </div>
   </div>
@@ -96,11 +94,11 @@ export default{
       fullWidth: true,
       indicators: true
     });
-    // setTimeout(autoplay, 5000);
-    // function autoplay() {
-    //   $('.carousel').carousel('next');
-    //   setTimeout(autoplay, 5000);
-    // }
+    setTimeout(autoplay, 5000);
+    function autoplay() {
+      $('.carousel').carousel('next');
+      setTimeout(autoplay, 5000);
+    }
   },
   mounted() {
   }
