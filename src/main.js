@@ -7,9 +7,22 @@ import router from './router'
 
 Vue.config.productionTip = false;
 
-Vue.prototype.$axios = axios.create({
-  baseURL: 'http://118.89.229.204:8080/server-0.0.1-SNAPSHOT'
-});
+// Vue.prototype.$axios = axios.create({
+//   baseURL: 'http://118.89.229.204:8080/server-0.0.1-SNAPSHOT'
+// });
+
+function AxiosToken() {
+  let io = axios.create({
+    baseURL: 'http://118.89.229.204:8080/server-0.0.1-SNAPSHOT'
+  });
+  io.prototype.post = function(url, data) {
+    data.token = sessionStorage.getItem('token');
+    return io.post(url, data);
+  };
+  return io;
+}
+
+Vue.prototype.$axios = AxiosToken();
 
 Vue.prototype.$user = axios.create({
   baseURL: 'http://118.89.229.204:3000'

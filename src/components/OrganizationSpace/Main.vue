@@ -68,6 +68,7 @@
       return {
         nav_title: '',
         routes: {
+          '/orgspace': '会议管理',
           '/conferences': '会议管理',
           '/contributions': '稿件管理',
           '/setting': '机构信息设置',

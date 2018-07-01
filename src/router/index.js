@@ -63,11 +63,6 @@ export default new Router({
       ]
     },
     {
-      path: '/new/conference',
-      name: 'NewConference',
-      component: NewConference,
-    },
-    {
       path: '/login',
       name: 'Login',
       component: Login
