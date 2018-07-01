@@ -31,48 +31,53 @@
             <div class="confstate">{{conferenceState}}</div>
           </div>
         </div>
-      </div>
-      <div class="col s1"></div>
-    </div>
-    <div class="row">
-      <div class="col s1"></div>
-      <div class="col s3 container">
-        <ul id="slide-out" class="sidenav-fixed sidediv">
-          <li class="bold active" @click="displayIntroduction">会议介绍</li>
-          <li class="bold" @click="displayContribution">投稿须知</li>
-          <li class="bold" @click="displaySchedule">日程安排</li>
-          <li class="bold" @click="displayTraffic">住宿交通</li>
-          <li class="bold" @click="displayRelation">联系方式</li>
-        </ul>
-      </div>
-      <div class="col s7 flow-text">
-        <div v-if="display_id ==1">
-          <p>开始日期：{{resp.data.start_date}}</p>
-          <p>结束日期：{{resp.data.end_date}}</p>
-          <p>会议简介</p>
-          {{resp.data.introduction}}
-          <p>注册须知</p>
-          {{resp.data.register_information}}
-        </div>
-        <div v-else-if="display_id ==2">
-          <p>征文信息</p>
-          {{resp.data.essay_instruction}}
-          <p>征稿日期：{{resp.data.start_date}}--{{resp.data.paper_ddl}}</p>
-          <p>投稿须知</p>
-          {{resp.data.essay_information}}
-          <p>论文模板：{{resp.data.paper_template}}</p>
-          <p>查看审核结果日期：{{resp.data.employ_date}}</p>
-        </div>
-        <div v-else-if="display_id ==3">
-          <p>本次会议议程：</p>
-          {{resp.data.schedule}}
-        </div>
-        <div v-else-if="display_id ==4">
-          组委会已经为参会人员订购了xx酒店的房间，请参会人员到达时到前台签到并领取房卡。
-        </div>
-        <div v-else-if="display_id ==5">
-          <p>联系方式：</p>
-          {{resp.data.contact}}
+        <div class="row">
+          <div class="row">
+            <div class="col s12 m9 l10">
+              <div id="introduction" class="section scrollspy">
+                <h2>会议介绍</h2>
+                开始日期：{{resp.data.start_date}}<br>
+                结束日期：{{resp.data.end_date}}<br>
+                会议简介:<br>
+                {{resp.data.introduction}}
+                注册须知:<br>
+                {{resp.data.register_information}}
+              </div>
+              <div id="register_notion" class="section scrollspy">
+                <h2>投稿须知</h2>
+                <p>征文信息</p>
+                {{resp.data.essay_instruction}}
+                <p>征稿日期：{{resp.data.start_date}}--{{resp.data.paper_ddl}}</p>
+                <p>投稿须知</p>
+                {{resp.data.essay_information}}
+                <p>论文模板：{{resp.data.paper_template}}</p>
+                <p>查看审核结果日期：{{resp.data.employ_date}}</p>
+              </div>
+              <div id="schedule" class="section scrollspy">
+                <h2>日程安排</h2>
+                <p>本次会议议程：</p>
+                {{resp.data.schedule}}
+              </div>
+              <div id="traffic" class="section scrollspy">
+                <p>住宿交通</p>
+                组委会已经为参会人员订购了xx酒店的房间，请参会人员到达时到前台签到并领取房卡。
+              </div>
+              <div id="relation" class="section scrollspy">
+                <h2>联系我们</h2>
+                <p>联系方式：</p>
+                {{resp.data.contact}}
+              </div>
+            </div>
+            <div class="col hide-on-small-only m3 l2">
+              <ul class="section table-of-contents">
+                <li><a href="#introduction" class="active">会议介绍</a></li>
+                <li><a href="#register_notion">注册须知</a></li>
+                <li><a href="#schedule">日程安排</a></li>
+                <li><a href="#traffic">住宿交通</a></li>
+                <li><a href="#relation">联系我们</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
       <div class="col s1"></div>
@@ -159,9 +164,12 @@
       }
     },
     created() {
-      this.conference_id = this.$route.params.id;
+      $(document).ready(function(){
+        $('.scrollspy').scrollSpy();
+      });
+
+      this.conference_id = parseInt(this.$route.params.id);
       this.$axios.post('api/conference/' + this.conference_id).then(response => {
-        // this.$test.post('/api/conference/:' + this.conference_id).then(response => {
         this.resp = response.data;
         console.log(this.resp.data);
         this.getConferenceState();
