@@ -19,7 +19,7 @@
     </div>
 
     <div class="white section" style="padding-top: 5rem; padding-bottom: 1rem;">
-      <div style="padding-left: 3rem; padding-right: 0rem;">
+      <div style="padding-left: 6rem; padding-right: 3rem;">
         <div class="row">
           <div class="col s8 card-panel" style="height:100%;padding:0px 0px;">
             <ul class="collection with-header hoverable" style="height:100%;width:100%;margin:0px 0px;">

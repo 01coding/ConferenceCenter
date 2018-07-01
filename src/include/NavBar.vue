@@ -28,16 +28,18 @@
         </div>
     </nav>
     <div class="fixed-action-btn" v-if="has_logged_in === 0">
-      <a class="btn-floating btn-large grey darken-3"> login</a>
+      <a class="btn-floating btn-large grey darken-3">
+        <i class="material-icons">menu</i>
+      </a>
       <ul>
         <li>
-        <a href="/Login" class="btn-floating yellow darken-2">
-          login
+        <a href="/Login" class="btn-floating green">
+          登录
         </a>
         </li>
         <li>
-        <a href="/userRegister" class="btn-floating yellow darken-2">
-          register
+        <a href="/userRegister" class="btn-floating teal lighten-2">
+          注册
         </a>
         </li>
       </ul>
