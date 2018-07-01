@@ -12,17 +12,20 @@ Vue.config.productionTip = false;
 // });
 
 function AxiosToken() {
-  let io = axios.create({
+  this.io = axios.create({
     baseURL: 'http://118.89.229.204:8080/server-0.0.1-SNAPSHOT'
   });
-  io.prototype.post = function(url, data) {
-    data.token = sessionStorage.getItem('token');
-    return io.post(url, data);
-  };
-  return io;
 }
 
-Vue.prototype.$axios = AxiosToken();
+AxiosToken.prototype = {
+  constructor: AxiosToken,
+  post: function(url, data) {
+    data.token = sessionStorage.getItem('token');
+    return this.io.post(url, data);
+  }
+};
+
+Vue.prototype.$axios = new AxiosToken();
 
 Vue.prototype.$user = axios.create({
   baseURL: 'http://118.89.229.204:3000'

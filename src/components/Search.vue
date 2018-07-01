@@ -8,7 +8,8 @@
           <div class="nav-wrapper searchBar">
             <form>
               <div class="input-field">
-                <input id="search" type="search" class="grey-text text-lighten-1"  v-model="search_keyword" @keypress="enter_search($event)">
+                <input id="search" type="search" class="grey-text text-lighten-1" v-model="search_keyword"
+                       @keypress="enter_search($event)">
                 <label class="label-icon" for="search"><i class="material-icons">search</i></label>
                 <i class="material-icons">close</i>
               </div>
@@ -44,7 +45,7 @@
           <p>{{res.introduction}}</p>
         </div>
       </div>
-      <EmptyView  v-if="conferences.total_num <= 0" ></EmptyView>
+      <EmptyView v-if="conferences.total_num <= 0"></EmptyView>
     </div>
     <div class="center-align">
       <Pagination @page="page"
@@ -88,20 +89,19 @@
       init: function () {
         let keywords_param = this.$route.params.keyword;
         let that = this;
-        axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/SearchCoferences', {
+        // axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/SearchCoferences', {
+        this.$axios.post('/api/SearchCoferences', {
           "keyword": keywords_param,
           "index": 1,
           "size": 10
-        })
-          .then(function (response) {
-            console.log(response);
-            that.conferences = response.data.data;
-            this.number = response.data.page_num;
-            this.current = 1;
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+        }).then(function (response) {
+          console.log(response);
+          that.conferences = response.data.data;
+          this.number = response.data.page_num;
+          this.current = 1;
+        }).catch(function (error) {
+          console.log(error);
+        });
       },
       enter_search: function (event) {
         if (event.keyCode === 13 && this.search_keyword.length > 0)
@@ -137,21 +137,24 @@
 </script>
 
 <style scoped>
-.searchBar{
-  border-color: white;
-  border-style:groove;
-  border-width: 2px 2px;
-  background-color: white;
-}
-.coference-title{
-  margin:0px 0px;
-}
-.coference-date{
-  font-size:14px;
-  margin:0px 0px;
-  font-weight:100;
-}
-.conference-introduction{
-  font-size:12px;
-}
+  .searchBar {
+    border-color: white;
+    border-style: groove;
+    border-width: 2px 2px;
+    background-color: white;
+  }
+
+  .coference-title {
+    margin: 0px 0px;
+  }
+
+  .coference-date {
+    font-size: 14px;
+    margin: 0px 0px;
+    font-weight: 100;
+  }
+
+  .conference-introduction {
+    font-size: 12px;
+  }
 </style>
