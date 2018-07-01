@@ -24,13 +24,31 @@
         <div class="row">
           <div class="col s7" style="padding-right: 5rem;margin-left:3em;">
             <ul class="collection with-header">
-              <li class="collection-header"><h4>投稿积极学者</h4></li>
+              <li class="collection-header"><h4>著名学者</h4></li>
               <li class="collection-item avatar">
-                <i class="material-icons circle">folder</i>
-                <span class="title">Title</span>
-                <p>First Line <br>
-                  Second Line
+                <img src="../../static/Image/C1.png" alt="" class="circle"></img>
+                <span class="title">Qiang Yang</span>
+                <p class="famous-expert-institution">HongKong University</p>
+                <p style="height:10px;"></p>
+                <p class="famous-expert-intro">Qiang Yang is Chair Professor and former Head of Department of Computer Science and Engineering at Hong Kong University of Science and Technology. He is president of the International Joint Conference on Artificial Intelligence.
                 </p>
+                <a class="secondary-content"><i class="material-icons">grade</i></a>
+              </li>
+              <li class="collection-item avatar">
+                <img src="../../static/Image/C2.png" alt="" class="circle"></img>
+                <span class="title">Dr. Michael S. Brown</span>
+                <p class="famous-expert-institution">BSc PhD University of Kentucky</p>
+                <p style="height:10px;"></p>
+                <p class="famous-expert-intro">He is the Canada Research Chair in Computer Vision. His studys in several fields including omputer vision, image processing, and computer graphics.
+                 He is the Demo Chair of CVPR 2014.</p>
+                <a class="secondary-content"><i class="material-icons">grade</i></a>
+              </li>
+              <li class="collection-item avatar">
+                <img src="../../static/Image/C3.png" alt="" class="circle"></img>
+                <span class="title">Walter J. Scheirer</span>
+                <p class="famous-expert-institution">University of Notre Dame</p>
+                <p style="height:10px;"></p>
+                <p class="famous-expert-intro">His research is primarily focused around the problem of recognition, including the representations and algorithms supporting solutions to it. He is particularly interested in features and learning-based methods that apply to both vision and language.</p>
                 <a class="secondary-content"><i class="material-icons">grade</i></a>
               </li>
             </ul>
@@ -114,10 +132,18 @@ export default{
 };
 </script>
 
-<style>
+<style scoped>
   .index_page_slide {
     background-size: 100% !important;
     background-repeat: no-repeat !important;
     background-position: center center !important;
+  }
+  .famous-expert-institution{
+    font-family:"Georgia";
+    font-size: 12px;
+  }
+  .famous-expert-intro{
+    font-family:"Times New Roman";
+    font-size: 14px;
   }
 </style>
