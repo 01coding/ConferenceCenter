@@ -19,7 +19,7 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/Search/:keyword',
+      path: '/search/:keyword',
       name: 'Search',
       component: Search
     },
