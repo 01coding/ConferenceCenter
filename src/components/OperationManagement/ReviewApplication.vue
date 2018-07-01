@@ -33,12 +33,14 @@
           <p>通讯地址 <br>
             单位介绍
           </p>
-          <div  class="secondary-content">详情<i class="material-icons input">grade</i></div>
+          <a  class="secondary-content" href="#modal1">详情<i class="material-icons input">grade</i></a>
         </li>
 
       </ul>
 
+      <a class="waves-effect waves-light btn" href="#modal1">模态</a>
 
+      <!-- Modal Structure -->
       <div id="modal1" class="modal">
         <div class="modal-content">
           <h4>模态标题</h4>
@@ -87,6 +89,12 @@
     },
     methods:{
 
+    },
+    created:function () {
+      $(document).ready(function(){
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal').modal();
+      });
     }
   }
 </script>
