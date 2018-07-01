@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavBar></NavBar>
-    <div class="carousel carousel-slider center hoverable" style="height: 30rem;">
+    <div class="carousel carousel-slider center" style="height: 30rem;">
       <div class="carousel-fixed-item center">
         <a class="btn btn-large waves-effect white grey-text darken-text-4"
            style="bottom: 3rem; font-weight: bold;">
@@ -11,19 +11,19 @@
       <div class="carousel-item white-text index_page_slide" href="#one!"
            v-for="slide in slides.slides"
            :style="{'background': slides.bg_overlay+'url('+slide.bg+')'}">
-        <div style="height: 3rem"></div>
+        <div style="height: 5rem"></div>
         <h3 style="font-size:2.5rem; font-weight: bold">{{slide.name}}</h3>
         <h5>{{slide.time}},&nbsp{{slide.venue}}</h5>
         <h5>{{slide.state}}</h5>
       </div>
     </div>
 
-    <div class="white section" style="padding-top: 5rem; padding-bottom: 1rem;">
-      <div style="padding-left: 6rem; padding-right: 3rem;">
+    <div class="grey section lighten-5" style="padding-top: 3rem; padding-bottom: 1rem;">
+      <div style="padding-left: 8rem; padding-right: 3rem;">
         <div class="row">
-          <div class="col s8 card-panel" style="height:100%;padding:0px 0px;">
+          <div class="col s7 card-panel" style="height:100%;padding:0px 0px;">
             <ul class="collection with-header hoverable" style="height:100%;width:100%;margin:0px 0px;">
-              <li class="collection-header"><h4>著名学者</h4></li>
+              <li class="collection-header"><h4>活跃学者</h4></li>
               <li class="collection-item avatar">
                 <img src="../../static/Image/C1.png" alt="" class="circle"></img>
                 <span class="title">Qiang Yang</span>
@@ -52,7 +52,7 @@
               </li>
             </ul>
           </div>
-          <div class="col s3 card-panel" style="height:100%;padding:0px 0px;margin-left:2rem;">
+          <div class="col s4 card-panel" style="height:100%;padding:0px 0px;margin-left:2rem;">
             <ul class="collection with-header hoverable" style="height:100%;margin:0px 0px;">
               <li class="collection-header blue-grey white-text"><h4>近期事项</h4></li>
               <li class="collection-item blue-grey white-text">
@@ -69,7 +69,7 @@
       </div>
     </div>
 
-    <div class="page-footer grey lighten-5">
+    <div class="page-footer grey lighten-3">
       <div class="center containe grey-text"
            style="padding-bottom: 1rem;">
         © 2018 Copyright 探玩揽月
