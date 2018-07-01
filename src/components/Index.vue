@@ -145,10 +145,10 @@ export default{
   }
   .famous-expert-institution{
     font-family:"Georgia";
-    font-size: 12px;
+    font-size: 14px;
   }
   .famous-expert-intro{
     font-family:"Times New Roman";
-    font-size: 14px;
+    font-size: 16px;
   }
 </style>
