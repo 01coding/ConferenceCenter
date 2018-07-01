@@ -82,13 +82,6 @@ export default {
 
     logOut: function () {
       sessionStorage.removeItem("session");
-      this.$axios.post('/api/user/logout').then(response => {
-        this.has_logged_in = 0;
-        console.log("logout OK");
-      })
-        .catch(error => {
-          console.log("logout failed");
-        })
     },
 
     toggle_search() {
