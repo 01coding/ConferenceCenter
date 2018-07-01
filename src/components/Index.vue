@@ -1,104 +1,116 @@
 <template>
   <div>
-    <navbar></navbar>
-    <div style="height:20px"></div>
-    <div class="carousel carousel-slider">
-      <a class="carousel-item"><img src="../../static/Image/W1.png"></a>
-      <a class="carousel-item"><img src="../../static/Image/W2.png"></a>
-      <a class="carousel-item"><img src="../../static/Image/W3.png"></a>
-    </div>
-    <div style="height:10px;"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col s8">
+    <NavBar></NavBar>
+    <div class="card" style="margin: 0;">
+      <div class="carousel carousel-slider center" style="height: 30rem;">
+        <div class="carousel-fixed-item center">
+          <a class="btn btn-large waves-effect white grey-text darken-text-4"
+             style="bottom: 3rem; font-weight: bold;">
+            了解更多
+          </a>
         </div>
-        <div class="col s4">
+        <div class="carousel-item white-text index_page_slide" href="#one!"
+             v-for="slide in slides.slides"
+             :style="{'background': slides.bg_overlay+'url('+slide.bg+')'}">
+          <div style="height: 3rem"></div>
+          <h3 style="font-size:2.5rem; font-weight: bold">{{slide.name}}</h3>
+          <h5>{{slide.time}},&nbsp{{slide.venue}}</h5>
+          <h5>{{slide.state}}</h5>
+        </div>
+      </div>
+    </div>
+    <div class="white section" style="padding-top: 5rem; padding-bottom: 5rem;">
+      <div class="container">
+        <div class="row">
+          <div class="col s7" style="padding-right: 5rem;">
+            <h4>在这里放统计数据</h4>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+          </div>
+          <div class="col s5">
+            <div class="card-panel blue-grey white-text">
+              <h4>这里是会议日期</h4>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-
-      <footer class="page-footer grey lighten-1" >
-        <div class="container" style="width:100%;height:100%;">
-          <div class="row" style="width:100%;">
-            <div class="row" style="width:100%;">
-              <span class="grey-text text-darken-4" style="position: absolute;left: 10px;">Association for the Advancement of Conferences </span>
-            </div>
-            <div class="row" style="width:100%;">
-              <span class="grey-text text-darken-4" style="position: absolute;left: 10px;">Telephone: 18811526200   Email; 1479792108@qq.com</span>
-            </div>
-            <div class="row" style="width:100%;">
-              <span class="grey-text text-darken-4" style="position: absolute;left: 10px;">Beihang University, Xueyuan Road   Haidian district, Beijing China</span>
-            </div>
-          </div>
-
+    <div class="page-footer grey darken-4">
+      <div class="footer-copyright">
+        <div class="center container">
+          © 2018 Copyright 探玩揽月
         </div>
-
-        <div class="footer-copyright grey" style="width:100%;position: absolute;left: 0px;margin:0px auto;">
-          <span class="grey-text text-darken-4" style="position: absolute;left: 10px;">© 2018 Copyright.This site is protected by copyright and trademark laws under Chinese and International law. All rights reserved.</span>
-        </div>
-      </footer>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import navbar from '@/include/NavBar';
 
+import Background from "../include/Background";
+import NavBar from "../include/NavBar";
 export default{
   name:'Index',
-  components: {navbar},
+  components: {NavBar, Background},
   data: function(){
-      return{
-        msg:undefined,
-        instance_carousel: null
-      }
+    return{
+      slides: {
+        instance: null,
+        bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),",
+        slides: [
+          {
+            name: "AAAI Conference on Artificial Intelligence",
+            time: "2018年2月7日",
+            venue: "New Orleans Riverside, USA",
+            state: "征稿中",
+            bg: "/static/bg2.jpg",
+          },
+          {
+            name: "IEEE Conference on Computer Vision and Pattern Recognition",
+            time: "2018年8月9日",
+            venue: "盐湖城, USA",
+            state: "已开幕",
+            bg: "/static/bg3.jpg",
+          },
+          {
+            name: "Annual Conference on Neural Information Processing Systems",
+            time: "2018年11月2日",
+            venue: "Palais des Congres de Montreal, CANADA",
+            state: "征稿中",
+            bg: "/static/bg4.jpg",
+          },
+        ]
+      },
+    }
   },
   methods: {
-   carousel_move: function() {
-       console.log(2);
-       if(this.instance_carousel)
-          this.instance_carousel.next();
-       else
-           console.log(3);
-      setTimeout(this.carousel_move, 500);
-    }
   },
   created(){
-
-
-  },
-  mounted(){
-    console.log($);
-    let options={'responsiveThreshold':1400};
-    let option_carousel={
-      duration:3000,
-      dist: 0,
-      padding: 0,
-      fullWidth: true,
-      indicators: true,
-    };
-
     $(document).ready(function(){
-      $('.carousel').carousel(
-        {
-          dist: 0,
-          padding: 0,
-          fullWidth: true,
-          indicators: true,
-          duration: 100,
-          shift:30,
-        }
-      );
+      $('.carousel').carousel();
     });
-
-    setTimeout(autoplay, 4500);
-    function autoplay() {
-      $('.carousel').carousel('next');
-      setTimeout(autoplay, 4500);
-    }
+    $('.carousel.carousel-slider').carousel({
+      fullWidth: true,
+      indicators: true
+    });
+    // setTimeout(autoplay, 5000);
+    // function autoplay() {
+    //   $('.carousel').carousel('next');
+    //   setTimeout(autoplay, 5000);
+    // }
+  },
+  mounted() {
   }
 };
 </script>
 
 <style>
+  .index_page_slide {
+    background-size: 100% !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+  }
 </style>

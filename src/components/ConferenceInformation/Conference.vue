@@ -2,52 +2,46 @@
   <div>
     <div class="row">
       <div class="col s1"></div>
-      <div class="col s10" v-bind:style="{'background':'url('+conferenceImg+')'}">
-        <div class="row titleBgimg">
-          <div class="col s8">
-              <div>
-                <h1 class="title">{{resp.data.title}}</h1>
-                <p class="title">{{resp.data.start_date}}</p>
-                <p class="title">{{resp.data.convening_place}}</p>
+      <div class="col s10">
+        <img v-bind:src="conferenceImg" class="responsive-img"/>
+        <div class="row">
+          <div id="title_left" class="col s8">
+            <div>
+              <h1>{{resp.data.title}}</h1>
+              <p>{{resp.data.start_date}}</p>
+              <p>{{resp.data.convening_place}}</p>
+            </div>
+          </div>
+          <div id="title_right" class="col s4">
+            <div class="row">
+              <br>
+              <div class="col s5">
+                <button class="btn button" v-bind:class="{ disabled: contributeToLink === 0 }"><router-link to="/api/contribute" class="white-text">投稿</router-link></button>
+              </div>
+              <div class="col s2"></div>
+              <div class="col s5">
+                <button id="register" class="title btn button" v-bind:class="{ disabled: registerToLink === 0 }"><router-link to="/new/conference" class="white-text">会议注册</router-link></button>
               </div>
             </div>
-          <div class="col s4">
-              <div class="row rightdiv">
-                <div class="col s5">
-                  <button class="title button">投稿</button>
-                </div>
-                <div class="col s5">
-                  <button class="title button">会议注册</button>
-                </div>
-              </div>
-              <div class="title confstate">{{conferenceState}}</div>
-            </div>
+            <br><br>
+            <div class="confstate">{{conferenceState}}</div>
+          </div>
         </div>
       </div>
       <div class="col s1"></div>
     </div>
     <div class="row">
       <div class="col s1"></div>
-      <div class="col s3">
-        <ul id="slide-out" class="sidenav-fixed">
-          <li class="bold active">
-            <a class="waves-effect" @click="displayIntroduction">会议介绍</a>
-          </li>
-          <li class="bold">
-            <a class="waves-effect" @click="displayContribution">投稿须知</a>
-          </li>
-          <li class="bold">
-            <a class="waves-effect" @click="displaySchedule">日程安排</a>
-          </li>
-          <li class="bold">
-            <a class="waves-effect" @click="displayTraffic">住宿交通</a>
-          </li>
-          <li class="bold">
-            <a class="waves-effect" @click="displayRelation">联系方式</a>
-          </li>
+      <div class="col s3 container">
+        <ul id="slide-out" class="sidenav-fixed sidediv">
+          <li class="bold active" @click="displayIntroduction">会议介绍</li>
+          <li class="bold" @click="displayContribution">投稿须知</li>
+          <li class="bold" @click="displaySchedule">日程安排</li>
+          <li class="bold" @click="displayTraffic">住宿交通</li>
+          <li class="bold" @click="displayRelation">联系方式</li>
         </ul>
       </div>
-      <div class="col s7">
+      <div class="col s7 flow-text">
         <div v-if="display_id ==1">
           <p>开始日期：{{resp.data.start_date}}</p>
           <p>结束日期：{{resp.data.end_date}}</p>
@@ -59,7 +53,7 @@
         <div v-else-if="display_id ==2">
           <p>征文信息</p>
           {{resp.data.essay_instruction}}
-          <p>征稿日期：{{resp.data.start_Date}}--{{resp.data.paper_ddl}}</p>
+          <p>征稿日期：{{resp.data.start_date}}--{{resp.data.paper_ddl}}</p>
           <p>投稿须知</p>
           {{resp.data.essay_information}}
           <p>论文模板：{{resp.data.paper_template}}</p>
@@ -73,7 +67,8 @@
           组委会已经为参会人员订购了xx酒店的房间，请参会人员到达时到前台签到并领取房卡。
         </div>
         <div v-else-if="display_id ==5">
-          <p>联系方式：{{resp.data.contact}}</p>
+          <p>联系方式：</p>
+          {{resp.data.contact}}
         </div>
       </div>
       <div class="col s1"></div>
@@ -84,28 +79,54 @@
 <script>
   import NavBar from "../../include/NavBar";
   import axios from 'axios';
-  import mapUrl  from '../../router/APIget';
+  import getURL, {mapUrl} from '../../router/';
+
 
   export default {
     name: "Conference",
-    components: {NavBar, axios, mapUrl},
+    components: {NavBar, axios, getURL},
     data() {
       return {
-        conferenceTitle:'International Conference on Circuits, Systems, Communications and Computers',
-        conferenceDate:'June 30,2018',
-        conferenceLocation:'LAS,USA',
-        conferenceState:'投稿中',
-        conferenceImg:'../../../../static/bgimg.jpg',
-        resp:{
-          data: {
-
-          }
+        conference_id:1,
+        conferenceImg: "../../../static/Image/bgimg.jpg",
+        conferenceState: '默认',
+        contributeToLink: 0,
+        registerToLink: 0,
+        resp: {
+          data: {}
         },
-        display_id:1
+        display_id: 1
       }
     },
     methods: {
-      displayIntroduction: function (){
+      isAbleRegister: function () {
+        if (this.conferenceState != "征稿中" && this.conferenceState != "会议注册中") {
+          this.registerToLink = 0;
+        }
+        else {
+          this.registerToLink = 1;
+        }
+      },
+
+      tocontribute: function () {
+        if(this.conferenceState == "征稿中") {
+          this.contributeToLink = 1;
+        }
+        else {
+          this.contributeToLink = 0;
+        }
+      },
+
+      autoheight: function() {
+        if (document.getElementById("title_left").clientHeight < document.getElementById("title_right").clientHeight) {
+          document.getElementById("title_right").style.height = document.getElementById("title_left").clientHeight + "px";
+        }
+        else {
+          document.getElementById("title_left").style.height = document.getElementById("title_right").clientHeight + "px";
+        }
+      },
+
+      displayIntroduction: function () {
         this.display_id = 1;
       },
       displayContribution: function () {
@@ -123,45 +144,45 @@
       },
 
       getConferenceState: function () {
-        if (resp.data.state == 4)
-          conferenceState = '已结束';
-        else if (resp.data.state == 12)
-          conferenceState = '正在进行中';
-        else if (resp.data.state == 3 || resp.data.state == 11)
-          conferenceState = '征稿中';
-        else if (resp.data.state == 2 || resp.data.state == 10)
-          conferenceState = '会议注册中';
+        if (this.resp.data.state == 4)
+          this.conferenceState = '已结束';
+        else if (this.resp.data.state == 12)
+          this.conferenceState = '正在进行中';
+        else if (this.resp.data.state == 3 || this.resp.data.state == 11)
+          this.conferenceState = '征稿中';
+        else if (this.resp.data.state == 2 || this.resp.data.state == 10)
+          this.conferenceState = '会议注册中';
       }
     },
-      created() {
-        let that = this;
-        console.log('en');
-        axios.post(mapUrl('conference'), {
-          id: 1
-        })
-          .then(function (response) {
-            console.log(JSON.stringify(response.data));
-            that.resp = response.data;
-            console.log(that.resp.data);
-            that.getConferenceState();
-          })
-          .catch(function (error) {
-            console.log('o');
-            console.log(error);
-          });
-
-      }
+    created() {
+      this.$test.post('/api/conference/:'+this.conference_id).then(response => {
+        this.resp = response.data;
+        console.log(this.resp.data);
+        this.getConferenceState();
+        this.isAbleRegister();
+        this.tocontribute();
+        console.log("contribute to link:" + this.contributeToLink);
+        console.log("conference state:" + this.conferenceState);
+      }).catch(error => {
+        console.log(1);
+      });
+    }
   }
 </script>
 
 <style scoped>
   h1 {
-    font-family:Georgia;
-    font-size:2em;
+    font-family: Georgia;
+    font-size: 2em;
+  }
+
+  li {
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
 
   .title {
-    color:white;
+    color: white;
   }
 
   .titleBgimg {
@@ -170,29 +191,26 @@
   }
 
   .button {
-    background-color: #465a6c;
-    width:100%;
-    height:70%;
+    width: 100%;
     text-align: center;
 
   }
 
-  .rightdiv {
-    margin-top: auto;
-    margin-bottom: auto;
-
+  .sidediv {
+    text-align: center;
   }
 
   .confstate {
-    vertical-align: text-bottom;
+    text-align: center;
   }
 
-  .row .col.s10{
+  .row .col.s10 {
     margin-left: 0rem;
     margin-right: 0rem;
   }
 
   .row {
     margin-bottom: 0px;
+    height:100%;
   }
 </style>
