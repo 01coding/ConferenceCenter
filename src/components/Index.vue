@@ -19,26 +19,51 @@
     </div>
 
     <div class="white section" style="padding-top: 5rem; padding-bottom: 1rem;">
-      <div style="padding-left: 9rem; padding-right: 9rem;">
+      <div style="padding-left: 3rem; padding-right: 3rem;">
         <div class="row">
-          <div class="col s8" style="padding-right: 2rem;">
-            <ul class="collection with-header">
-              <li class="collection-header"><h4>投稿积极学者</h4></li>
+          <div class="col s8" style="height:100%;">
+            <ul class="collection with-header" style="height:100%;">
+              <li class="collection-header"><h4>著名学者</h4></li>
               <li class="collection-item avatar">
-                <i class="material-icons circle">folder</i>
-                <span class="title">Title</span>
-                <p>First Line <br>
-                  Second Line
+                <img src="../../static/Image/C1.png" alt="" class="circle"></img>
+                <span class="title">Qiang Yang</span>
+                <p class="famous-expert-institution">HongKong University</p>
+                <p style="height:10px;"></p>
+                <p class="famous-expert-intro">Qiang Yang is Chair Professor and former Head of Department of Computer Science and Engineering at Hong Kong University of Science and Technology. He is president of the International Joint Conference on Artificial Intelligence.
                 </p>
+                <a class="secondary-content"><i class="material-icons">grade</i></a>
+              </li>
+              <li class="collection-item avatar">
+                <img src="../../static/Image/C2.png" alt="" class="circle"></img>
+                <span class="title">Dr. Michael S. Brown</span>
+                <p class="famous-expert-institution">BSc PhD University of Kentucky</p>
+                <p style="height:10px;"></p>
+                <p class="famous-expert-intro">He is the Canada Research Chair in Computer Vision. His studys in several fields including omputer vision, image processing, and computer graphics.
+                 He is the Demo Chair of CVPR 2014.</p>
+                <a class="secondary-content"><i class="material-icons">grade</i></a>
+              </li>
+              <li class="collection-item avatar">
+                <img src="../../static/Image/C3.png" alt="" class="circle"></img>
+                <span class="title">Walter J. Scheirer</span>
+                <p class="famous-expert-institution">University of Notre Dame</p>
+                <p style="height:10px;"></p>
+                <p class="famous-expert-intro">His research is primarily focused around the problem of recognition, including the representations and algorithms supporting solutions to it. He is particularly interested in features and learning-based methods that apply to both vision and language.</p>
                 <a class="secondary-content"><i class="material-icons">grade</i></a>
               </li>
             </ul>
           </div>
-          <div class="col s4">
-            <div class="card-panel blue-grey white-text">
-              <h4>近期事项</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            </div>
+          <div class="col s4" style="height:100%;">
+            <ul class="collection with-header" style="height:100%;">
+              <li class="collection-header blue-grey white-text"><h4>近期事项</h4></li>
+              <li class="collection-item blue-grey white-text">
+                <p>2018.03.12 CVPR2018 开始征稿</p>
+                <p>2018.05.24 AAAi2018 会议召开</p>
+                <p>2018.05.24 IJCAI2017 宣布⼊入选⽂文章</p>
+                <p>2018.03.12 CVPR2018 开始征稿</p>
+                <p>2018.05.24 AAAi2018 会议召开</p>
+                <p>2018.05.24 IJCAI2017 宣布⼊入选⽂文章</p>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -112,10 +137,18 @@ export default{
 };
 </script>
 
-<style>
+<style scoped>
   .index_page_slide {
     background-size: 100% !important;
     background-repeat: no-repeat !important;
     background-position: center center !important;
+  }
+  .famous-expert-institution{
+    font-family:"Georgia";
+    font-size: 12px;
+  }
+  .famous-expert-intro{
+    font-family:"Times New Roman";
+    font-size: 14px;
   }
 </style>
