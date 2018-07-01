@@ -3,7 +3,7 @@
     <navbar></navbar>
     <br/>
     <div class="row center-align" style="margin-top:40px; margin-bottom: 1px">
-      <h2>Login</h2>
+      <h2>登录</h2>
     </div>
     <div class="row">
       <div class="col s12 m4 offset-m4 l4 offset-l4">
@@ -42,7 +42,8 @@
                   </p>
               </div>
               <div class="row center-align">
-                <button class="col s6 offset-l3 btn waves-effect waves-light" style="margin-top: 7px;" type="submit" name="action" v-on:click="loginfuc()">Submit
+                <button class="col s6 offset-l3 btn waves-effect waves-light" style="margin-top: 7px;" type="submit" name="action" v-on:click="loginfuc()">
+                  登录
                 </button>
               </div>
           </div>

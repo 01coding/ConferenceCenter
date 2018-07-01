@@ -46,7 +46,7 @@
     </div>
     <div class="fixed-action-btn" v-if="has_logged_in === 1">
       <a class="btn-floating btn-large grey darken-3">
-        <i class="large material-icons">assignment_ind</i>
+        <i class="large material-icons" @click="logOut()">assignment_ind</i>
       </a>
       <ul>
         <li>
@@ -72,7 +72,7 @@ export default {
 
   methods: {
     chooseLogin: function () {
-      if(this.sessionStorage.getItem("session")) {
+      if(sessionStorage.getItem("session")) {
         this.has_logged_in = 1;
       }
       else {
