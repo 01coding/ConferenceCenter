@@ -21,8 +21,8 @@
     <div class="white section" style="padding-top: 5rem; padding-bottom: 1rem;">
       <div style="padding-left: 3rem; padding-right: 3rem;">
         <div class="row">
-          <div class="col s8">
-            <ul class="collection with-header">
+          <div class="col s8" style="height:100%;">
+            <ul class="collection with-header" style="height:100%;">
               <li class="collection-header"><h4>著名学者</h4></li>
               <li class="collection-item avatar">
                 <img src="../../static/Image/C1.png" alt="" class="circle"></img>
@@ -52,11 +52,18 @@
               </li>
             </ul>
           </div>
-          <div class="col s4">
-            <div class="card-panel blue-grey white-text">
-              <h4>近期事项</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            </div>
+          <div class="col s4" style="height:100%;">
+            <ul class="collection with-header" style="height:100%;">
+              <li class="collection-header blue-grey white-text"><h4>近期事项</h4></li>
+              <li class="collection-item blue-grey white-text">
+                <p>2018.03.12 CVPR2018 开始征稿</p>
+                <p>2018.05.24 AAAi2018 会议召开</p>
+                <p>2018.05.24 IJCAI2017 宣布⼊入选⽂文章</p>
+                <p>2018.03.12 CVPR2018 开始征稿</p>
+                <p>2018.05.24 AAAi2018 会议召开</p>
+                <p>2018.05.24 IJCAI2017 宣布⼊入选⽂文章</p>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
