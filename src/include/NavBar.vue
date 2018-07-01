@@ -1,14 +1,13 @@
 <template>
-  <nav class="transparent">
+  <nav>
     <div class="nav-wrapper">
-      <div class="container">
-      <a href="#" class="brand-logo black-text">Logo</a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">JavaScript</a></li>
+      <a class="brand-logo"><i class="material-icons">create</i>ACMP</a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="sass.html"><i class="material-icons">search</i></a></li>
+        <li><a href="badges.html"><i class="material-icons">view_module</i></a></li>
+        <li><a href="collapsible.html"><i class="material-icons">refresh</i></a></li>
+        <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
       </ul>
-      </div>
     </div>
   </nav>
 </template>
