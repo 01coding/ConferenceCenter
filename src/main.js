@@ -20,7 +20,7 @@ function AxiosToken() {
 AxiosToken.prototype = {
   constructor: AxiosToken,
   post: function(url, data) {
-    data.token = sessionStorage.getItem('token');
+    data.token = sessionStorage.getItem('session');
     return this.io.post(url, data);
   }
 };
