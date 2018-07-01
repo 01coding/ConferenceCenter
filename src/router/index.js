@@ -6,6 +6,7 @@ import OrganizationSpace from '@/components/OrganizationSpace/Main';
 import Contribute from '@/components/Contribute';
 import Index from '@/components/Index'
 import NewConference from '@/components/OrganizationSpace/NewConference';
+import OrgConferences from '@/components/OrganizationSpace/Conferences';
 import Search from '@/components/Search'
 import ReviewApplication from '../components/OperationManagement/ReviewApplication'
 
@@ -38,6 +39,14 @@ export default new Router({
       path: '/orgspace',
       component: OrganizationSpace,
       children: [
+        {
+          path: '',
+          component: OrgConferences
+        },
+        {
+          path: 'conferences',
+          component: OrgConferences
+        },
         {
           path: 'new/conference',
           component: NewConference
