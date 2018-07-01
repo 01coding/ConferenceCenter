@@ -6,7 +6,7 @@
           <div class="nav-wrapper">
             <div class="row">
               <div class="col s12 m10 offset-m1">
-                <h1 class="header black-text">会议管理</h1>
+                <h2 class="header black-text">{{ nav_title }}</h2>
               </div>
             </div>
           </div>
@@ -25,8 +25,10 @@
               <!--<img src="https://materializecss.com/images/office.jpg">-->
             </div>
             <a href="#user"><img class="circle" src="https://materializecss.com/images/yuna.jpg"></a>
-            <a href="#name"><span class="white-text name">John Doe</span></a>
-            <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+            <!--<a href="#name"><span class="white-text name">John Doe</span></a>-->
+            <!--<a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>-->
+            <a href="#name">John Doe</a>
+            <a href="#email">jdandturk@gmail.com</a>
           </div>
         </li>
         <li class="bold active">
@@ -62,14 +64,31 @@
   export default {
     name: "Main",
     components: { navbar },
+    data: function () {
+      return {
+        nav_title: '',
+        routes: {
+          '/orgspace/conferences': '会议管理',
+          1: '稿件管理',
+          2: '机构信息设置',
+          3: '管理员设置',
+          4: '账户设置',
+          '/orgspace/new/conference': '发布新会议'
+        }
+      };
+    },
     created: function () {
-      // document.addEventListener('DOMContentLoaded', function () {
-      //   let elems = document.querySelectorAll('#nav-mobile');
-      //   let instances = M.Sidenav.init(elems, options);
-      // });
       $(document).ready(function () {
         $('#nav-mobile').sidenav();
-      })
+      });
+    },
+    mounted: function () {
+      let re = new RegExp('.*' + this.$route.path + '.*');
+      let module_path = Object.keys(this.routes).find(
+        key => re.test(key)
+      );
+      this.nav_title = this.routes[ module_path ];
+      console.log(this.nav_title);
     }
   }
 </script>
@@ -91,4 +110,10 @@
   /*#top-nav {*/
   /*height: 110px;*/
   /*}*/
+  nav.top-nav {
+    height: 120px;
+  }
+  .user-view {
+    height: 240px;
+  }
 </style>
