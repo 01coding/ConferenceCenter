@@ -1,22 +1,16 @@
 <template>
   <div>
-    <div style="height: 6rem;"></div>
-    <div class="brand-logo center"
-         style="font-weight: bold; color: #313131; cursor: pointer; font-size: 1.75rem;"
-         @click="$router.push('/')"
-         v-if="!in_search">
-      <img src="/static/logo.png" style="height: 2rem;">
-      Conference Center
+    <navbar></navbar>
+    <br/>
+    <div class="row center-align" style="margin-top:40px; margin-bottom: 1px">
+      <h2>Login</h2>
     </div>
     <div class="row">
-      <div style="height: 2rem;"></div>
-      <div class="col s6 offset-s3">
-        <div class="card-panel"
-             style="padding-bottom: 5px; padding-left: 6rem; padding-right: 6rem;">
-          <div style="height: 2rem;"></div>
+      <div class="col s12 m4 offset-m4 l4 offset-l4">
+        <div class="card-panel" style="padding-bottom: 5px">
           <div class="row">
               <div class="row">
-                <div class="input-field col s12">
+                <div class="input-field col s12" style="margin-bottom: 0">
                   <i class="medium material-icons prefix">email</i>
                   <input id="email" type="email" class="validate"  v-model="email"/>
                   <label for="email">邮箱</label>
@@ -24,7 +18,7 @@
                 <span class="red-text" style="margin-left: 55px">{{emailMessage}}</span>
               </div>
               <div class="row">
-                <div class="input-field col s12">
+                <div class="input-field col s12" style="margin-bottom: 0">
                   <i class="medium material-icons prefix">vpn_key</i>
                   <input id="password" type="password" class="validate" v-model="password" />
                   <label for="password">密码</label>
@@ -48,26 +42,22 @@
                   </p>
               </div>
               <div class="row center-align">
-                <button
-                  class="col s6 offset-l3 btn waves-effect waves-light blue-grey"
-                  style="margin-top: 7px;"
-                  type="submit"
-                  name="action"
-                  v-on:click="loginfuc()"> 登录
+                <button class="col s6 offset-l3 btn waves-effect waves-light" style="margin-top: 7px;" type="submit" name="action" v-on:click="loginfuc()">Submit
                 </button>
               </div>
-            <div style="height: 2rem;"></div>
           </div>
         </div>
       </div>
     </div>
-    <div style="height: 8rem;"></div>
+    <div style="height: 5rem;"></div>
   </div>
 </template>
 
 <script>
+  import navbar from '@/include/NavBar';
     export default {
         name: "Login",
+        components: { navbar},
         data() {
           return {
             email : '',
@@ -103,6 +93,10 @@
                   email: this.email,
                   password: this.password
                 }).then(rsp => {
+                  if(rsp.data.code==="400"){
+                    this.passwordMessage=rsp.data.msg;
+                    return;
+                  }
                   this.token = rsp.data.data.token;
                   this.session_callback();
                 }).catch(err => {
@@ -115,6 +109,10 @@
                   email: this.email,
                   password: this.password
                 }).then(rsp => {
+                  if(rsp.data.code==="400"){
+                    this.passwordMessage=rsp.data.msg;
+                    return;
+                  }
                   this.token = rsp.data.data.token;
                   this.session_callback();
                 }).catch(err => {
@@ -126,6 +124,10 @@
                   email: this.email,
                   password: this.password
                 }).then(rsp => {
+                  if(rsp.data.code==="400"){
+                    this.passwordMessage=rsp.data.msg;
+                    return;
+                  }
                   this.token = rsp.data.data.token;
                   this.localStorage.setItem('session',this.token);
                   this.session_callback();
