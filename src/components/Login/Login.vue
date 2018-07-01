@@ -1,8 +1,12 @@
 <template>
   <div>
-    <br/>
-    <div class="row center-align" style="margin-top:70px; margin-bottom: 1px">
-      <h2>Login</h2>
+    <div style="height: 6rem;"></div>
+    <div class="brand-logo center"
+         style="font-weight: bold; color: #313131; cursor: pointer; font-size: 1.5rem;"
+         @click="$router.push('/')"
+         v-if="!in_search">
+      <img src="/static/logo.png" style="height: 2rem;">
+      Conference Center 登录
     </div>
     <div class="row">
       <div class="col s12 m4 offset-m4 l4 offset-l4">
@@ -12,7 +16,7 @@
                 <div class="input-field col s12">
                   <i class="medium material-icons prefix">email</i>
                   <input id="email" type="email" class="validate"  v-model="email"/>
-                  <label for="email">Email</label>
+                  <label for="email">邮箱</label>
                 </div>
                 <span class="red-text" style="margin-left: 55px">{{emailMessage}}</span>
               </div>
@@ -20,7 +24,7 @@
                 <div class="input-field col s12">
                   <i class="medium material-icons prefix">vpn_key</i>
                   <input id="password" type="password" class="validate" v-model="password" />
-                  <label for="password">Password</label>
+                  <label for="password">密码</label>
                 </div>
                 <span class="red-text" style="margin-left: 55px">{{passwordMessage}}</span>
               </div>
@@ -48,6 +52,7 @@
         </div>
       </div>
     </div>
+    <div style="height: 5rem;"></div>
   </div>
 </template>
 
@@ -113,6 +118,7 @@
                   password: this.password
                 }).then(rsp => {
                   this.token = rsp.data.data.token;
+                  this.localStorage.setItem('session',this.token);
                   this.session_callback();
                 }).catch(err => {
                   console.log(err);
