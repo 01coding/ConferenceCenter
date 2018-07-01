@@ -79,14 +79,38 @@
               }else{
                 this.passwordMessage="";
               }
+            let formData = new FormData();
+            formData.append('email',this.email);
+            formData.append('password',this.password);
               if(this.isScholar==='scholar') {
-                console.log('学者'+' '+this.email + ' ' + this.password)
+                this.$user.post('/user/login', {
+                  email: this.email,
+                  password: this.password
+                }).then(rsp => {
+                  console.log(rsp.data);
+                }).catch(err => {
+                  console.log(err);
+                })
               }
               else if(this.isScholar==="institution"){
-                console.log('学术机构'+' '+this.email + ' ' + this.password)
+                this.$user.post('/pp/login', {
+                  email: this.email,
+                  password: this.password
+                }).then(rsp => {
+                  console.log(rsp.data);
+                }).catch(err => {
+                  console.log(err);
+                })
               }
               else if (this.isScholar==="manager"){
-
+                this.$user.post('/manager/login', {
+                  email: this.email,
+                  password: this.password
+                }).then(rsp => {
+                  console.log(rsp.data);
+                }).catch(err => {
+                  console.log(err);
+                })
               }
           }
         },

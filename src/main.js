@@ -11,6 +11,10 @@ Vue.prototype.$axios = axios.create({
   baseURL: 'http://118.89.229.204:8080/server-0.0.1-SNAPSHOT'
 });
 
+Vue.prototype.$user = axios.create({
+  baseURL: 'http://118.89.229.204:3000'
+});
+
 Vue.prototype.$test = axios.create({
   baseURL: 'http://123.206.54.85:3000/mock/14'
 });
