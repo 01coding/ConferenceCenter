@@ -50,7 +50,7 @@ export default new Router({
       component: NewConference
     },
     {
-      path:'/ReviewApplication',
+      path:'/review/application',
       name:'ReviewApplication',
       component:ReviewApplication
     }

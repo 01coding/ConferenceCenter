@@ -32,23 +32,13 @@
     </div>
     <div class="row">
       <div class="col s1"></div>
-      <div class="col s3">
-        <ul id="slide-out" class="sidenav-fixed">
-          <li class="bold active">
-            <a class="waves-effect" @click="displayIntroduction">会议介绍</a>
-          </li>
-          <li class="bold">
-            <a class="waves-effect" @click="displayContribution">投稿须知</a>
-          </li>
-          <li class="bold">
-            <a class="waves-effect" @click="displaySchedule">日程安排</a>
-          </li>
-          <li class="bold">
-            <a class="waves-effect" @click="displayTraffic">住宿交通</a>
-          </li>
-          <li class="bold">
-            <a class="waves-effect" @click="displayRelation">联系方式</a>
-          </li>
+      <div class="col s3 container">
+        <ul id="slide-out" class="sidenav-fixed sidediv">
+          <li class="bold active" @click="displayIntroduction">会议介绍</li>
+          <li class="bold" @click="displayContribution">投稿须知</li>
+          <li class="bold" @click="displaySchedule">日程安排</li>
+          <li class="bold" @click="displayTraffic">住宿交通</li>
+          <li class="bold" @click="displayRelation">联系方式</li>
         </ul>
       </div>
       <div class="col s7 flow-text">
@@ -97,6 +87,7 @@
     components: {NavBar, axios, getURL},
     data() {
       return {
+        conference_id:1,
         conferenceImg: "../../../static/Image/bgimg.jpg",
         conferenceState: '默认',
         contributeToLink: 0,
@@ -164,7 +155,7 @@
       }
     },
     created() {
-      this.$test.post('/api/conference/:1').then(response => {
+      this.$test.post('/api/conference/:'+this.conference_id).then(response => {
         this.resp = response.data;
         console.log(this.resp.data);
         this.getConferenceState();
@@ -185,6 +176,11 @@
     font-size: 2em;
   }
 
+  li {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
   .title {
     color: white;
   }
@@ -200,10 +196,8 @@
 
   }
 
-  .rightdiv {
-    margin-top: auto;
-    margin-bottom: auto;
-
+  .sidediv {
+    text-align: center;
   }
 
   .confstate {
