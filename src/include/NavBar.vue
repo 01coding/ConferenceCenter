@@ -19,7 +19,7 @@
             </li>
           </ul>
           <div class="input-field" style="color: #313131;" v-if="in_search">
-            <input id="search" style="color: #313131;" type="search" required>
+            <input id="search" style="color: #313131;" type="search" v-model="search_keyword" @keypress="enter_search($event)">
             <label class="label-icon" style="color: #313131;" for="search">
               <i class="material-icons" style="color: #313131;">search</i>
             </label>
@@ -27,7 +27,22 @@
           </div>
         </div>
     </nav>
-    <div class="fixed-action-btn">
+    <div class="fixed-action-btn" v-if="has_logged_in === 0">
+      <a class="btn-floating btn-large grey darken-3"> login</a>
+      <ul>
+        <li>
+        <a href="/Login" class="btn-floating yellow darken-2">
+          login
+        </a>
+        </li>
+        <li>
+        <a href="/userRegister" class="btn-floating yellow darken-2">
+          register
+        </a>
+        </li>
+      </ul>
+    </div>
+    <div class="fixed-action-btn" v-if="has_logged_in === 1">
       <a class="btn-floating btn-large grey darken-3">
         <i class="large material-icons">assignment_ind</i>
       </a>
@@ -47,18 +62,45 @@ export default {
   name: "NavBar",
   data: function() {
     return {
-      in_search: false
+      in_search: false,
+      search_keyword:"",
+      has_logged_in: 0
     };
   },
+
   methods: {
+    chooseLogin: function () {
+      if(this.sessionStorage.getItem("session")) {
+        this.has_logged_in = 1;
+      }
+      else {
+        this.has_logged_in = 0;
+      }
+    },
+
+    logOut: function () {
+      sessionStorage.removeItem("session");
+      this.$test('/api/user/logout').then(response => {
+        console.log("logout OK");
+      })
+        .catch(error => {
+          console.log("logout failed");
+        })
+    },
+
     toggle_search() {
       this.in_search = !this.in_search;
-    }
+    },
+    enter_search: function (event) {
+      if (event.keyCode === 13 && this.search_keyword.length > 0)
+        this.$router.push("/search/" + this.search_keyword);
+    },
   },
   created: function() {
     $(document).ready(function(){
       $('.fixed-action-btn').floatingActionButton();
     });
+    this.chooseLogin();
   }
 }
 </script>

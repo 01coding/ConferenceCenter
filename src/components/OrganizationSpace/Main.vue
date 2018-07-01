@@ -50,7 +50,7 @@
     </header>
     <main>
       <div class="row">
-        <div class="col s12 m10 offset-m1">
+        <div class="col s12" style="padding: 0;">
           <router-view></router-view>
         </div>
       </div>

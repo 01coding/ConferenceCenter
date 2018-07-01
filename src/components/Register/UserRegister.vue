@@ -1,5 +1,6 @@
 <template>
   <div>
+    <navbar></navbar>
   <br/>
   <div class="row center-align" style="margin-bottom: 1px">
     <h2>Register</h2>
@@ -12,7 +13,7 @@
             <div class="input-field col s12" style="margin-bottom: 0">
               <i class="medium material-icons prefix">account_circle</i>
               <input id="name" type="text" class="validate"  v-model="name"/>
-              <label for="name">Name</label>
+              <label for="name">姓名</label>
             </div>
             <span class="red-text" style="margin-left: 55px">{{nameMessage}}</span>
           </div>
@@ -20,7 +21,7 @@
             <div class="input-field col s12" style="margin-bottom: 0">
               <i class="medium material-icons prefix">email</i>
               <input id="email" type="email" class="validate"  v-model="email"/>
-              <label for="email">Email</label>
+              <label for="email">邮箱</label>
             </div>
             <span class="red-text" style="margin-left: 55px">{{emailMessage}}</span>
           </div>
@@ -28,7 +29,7 @@
             <div class="input-field col s12" style="margin-bottom: 0">
               <i class="medium material-icons prefix">vpn_key</i>
               <input id="password" type="password" class="validate" v-model="password" />
-              <label for="password">Password</label>
+              <label for="password">密码</label>
             </div>
             <span class="red-text" style="margin-left: 55px">{{passwordMessage}}</span>
           </div>
@@ -36,7 +37,7 @@
             <div class="input-field col s12 " style="margin-bottom: 0">
               <i class="medium material-icons prefix">vpn_key</i>
               <input id="confirmPassword" type="password" class="validate" v-model="confirmPassword" />
-              <label for="confirmPassword">Confirm Password</label>
+              <label for="confirmPassword">确认密码</label>
             </div>
             <span class="red-text" style="margin-left: 55px">{{confirmPasswordMessage}}</span>
           </div>
@@ -52,8 +53,10 @@
 </template>
 
 <script>
+  import navbar from '@/include/NavBar';
     export default {
       name: "UserRegister",
+      components: { navbar},
       data() {
         return {
           name: '',
