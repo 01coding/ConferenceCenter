@@ -18,10 +18,10 @@
       </div>
     </div>
 
-    <div class="white section" style="padding-top: 5rem; padding-bottom: 3rem;">
-      <div class="container">=
+    <div class="white section" style="padding-top: 5rem; padding-bottom: 1rem;">
+      <div style="padding-left: 9rem; padding-right: 9rem;">
         <div class="row">
-          <div class="col s7" style="padding-right: 5rem;margin-left:3em;">
+          <div class="col s8" style="padding-right: 2rem;">
             <ul class="collection with-header">
               <li class="collection-header"><h4>投稿积极学者</h4></li>
               <li class="collection-item avatar">
@@ -36,8 +36,8 @@
           </div>
           <div class="col s4">
             <div class="card-panel blue-grey white-text">
-              <h4>这里是会议日期</h4>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              <h4>近期事项</h4>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
             </div>
           </div>
         </div>
