@@ -113,6 +113,7 @@
                   password: this.password
                 }).then(rsp => {
                   this.token = rsp.data.data.token;
+                  this.localStorage.setItem('session',this.token);
                   this.session_callback();
                 }).catch(err => {
                   console.log(err);
