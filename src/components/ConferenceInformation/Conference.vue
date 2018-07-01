@@ -16,11 +16,15 @@
             <div class="row">
               <br>
               <div class="col s5">
-                <button class="btn button" v-bind:class="{ disabled: contributeToLink === 0 }"><router-link to="/api/contribute" class="white-text">投稿</router-link></button>
+                <button class="btn button" v-bind:class="{ disabled: contributeToLink === 0 }">
+                  <router-link to="/api/contribute" class="white-text">投稿</router-link>
+                </button>
               </div>
               <div class="col s2"></div>
               <div class="col s5">
-                <button id="register" class="title btn button" v-bind:class="{ disabled: registerToLink === 0 }"><router-link to="/new/conference" class="white-text">会议注册</router-link></button>
+                <button id="register" class="title btn button" v-bind:class="{ disabled: registerToLink === 0 }">
+                  <router-link to="/new/conference" class="white-text">会议注册</router-link>
+                </button>
               </div>
             </div>
             <br><br>
@@ -79,15 +83,15 @@
 <script>
   import NavBar from "../../include/NavBar";
   import axios from 'axios';
-  import getURL, {mapUrl} from '../../router/';
+  import getURL, { mapUrl } from '../../router/';
 
 
   export default {
     name: "Conference",
-    components: {NavBar, axios, getURL},
+    components: { NavBar, axios, getURL },
     data() {
       return {
-        conference_id:1,
+        conference_id: 1,
         conferenceImg: "../../../static/Image/bgimg.jpg",
         conferenceState: '默认',
         contributeToLink: 0,
@@ -109,7 +113,7 @@
       },
 
       tocontribute: function () {
-        if(this.conferenceState == "征稿中") {
+        if (this.conferenceState == "征稿中") {
           this.contributeToLink = 1;
         }
         else {
@@ -117,7 +121,7 @@
         }
       },
 
-      autoheight: function() {
+      autoheight: function () {
         if (document.getElementById("title_left").clientHeight < document.getElementById("title_right").clientHeight) {
           document.getElementById("title_right").style.height = document.getElementById("title_left").clientHeight + "px";
         }
@@ -155,7 +159,9 @@
       }
     },
     created() {
-      this.$test.post('/api/conference/:'+this.conference_id).then(response => {
+      this.conference_id = this.$route.params.id;
+      this.$axios.post('api/conference/' + this.conference_id).then(response => {
+        // this.$test.post('/api/conference/:' + this.conference_id).then(response => {
         this.resp = response.data;
         console.log(this.resp.data);
         this.getConferenceState();
@@ -211,6 +217,6 @@
 
   .row {
     margin-bottom: 0px;
-    height:100%;
+    height: 100%;
   }
 </style>
