@@ -9,7 +9,7 @@
       <div class="card-panel" style="padding-bottom: 5px">
         <div class="row">
           <div class="row" style="margin-bottom: 0;">
-            <div class="input-field col s12">
+            <div class="input-field col s12" style="margin-bottom: 0">
               <i class="medium material-icons prefix">account_circle</i>
               <input id="name" type="text" class="validate"  v-model="name"/>
               <label for="name">Name</label>
@@ -17,7 +17,7 @@
             <span class="red-text" style="margin-left: 55px">{{nameMessage}}</span>
           </div>
           <div class="row" style="margin-bottom: 0;">
-            <div class="input-field col s12">
+            <div class="input-field col s12" style="margin-bottom: 0">
               <i class="medium material-icons prefix">email</i>
               <input id="email" type="email" class="validate"  v-model="email"/>
               <label for="email">Email</label>
@@ -25,7 +25,7 @@
             <span class="red-text" style="margin-left: 55px">{{emailMessage}}</span>
           </div>
           <div class="row" style="margin-bottom: 0;">
-            <div class="input-field col s12">
+            <div class="input-field col s12" style="margin-bottom: 0">
               <i class="medium material-icons prefix">vpn_key</i>
               <input id="password" type="password" class="validate" v-model="password" />
               <label for="password">Password</label>
@@ -33,7 +33,7 @@
             <span class="red-text" style="margin-left: 55px">{{passwordMessage}}</span>
           </div>
           <div class="row" style="margin-bottom: 0;">
-            <div class="input-field col s12">
+            <div class="input-field col s12 " style="margin-bottom: 0">
               <i class="medium material-icons prefix">vpn_key</i>
               <input id="confirmPassword" type="password" class="validate" v-model="confirmPassword" />
               <label for="confirmPassword">Confirm Password</label>
@@ -99,7 +99,18 @@
           }else{
             this.confirmPasswordMessage="";
           }
-          //已注册返回错误
+          this.$user.post('/user/register', {
+            name:this.name,
+            email: this.email,
+            password: this.password
+          }).then(rsp => {
+            if(rsp.data.code==="400"){
+              this.emailMessage = rsp.data.msg;
+              return;
+            }
+          }).catch(err => {
+            console.log(err);
+          })
         }
       }
     }

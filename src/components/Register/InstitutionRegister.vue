@@ -34,7 +34,7 @@
     <div class="col s7 offset-l2 row">
       <div class="card-panel white-text text grey darken-2 " style="vertical-align: center; padding-top: 8px;padding-bottom: 8px; margin-bottom:25px;font-size: 17px">上传照片</div>
       <div class="file-field input-field input-field">
-        <div class="btn col s2">
+        <div class="btn col s2" @change="getImg($event)">
           <span>上传照片</span>
           <input type="file">
         </div>
@@ -56,11 +56,21 @@
       </div>
     </div>
     <div class="col s7 offset-l2 row">
-      <div class="card-panel white-text text grey darken-2 " style="vertical-align: center; padding-top: 8px;padding-bottom: 8px;font-size: 17px">账号信息</div>
+      <div class="card-panel white-text text grey darken-2 " style="vertical-align: center; padding-top: 8px;padding-bottom: 8px;font-size: 17px">管理员信息</div>
+      <div class="input-field col s12">
+        <i class="medium material-icons prefix">account_circle</i>
+        <input id="managerName" type="text" class="validate"  v-model="managerName"/>
+        <label for="managerName">管理员姓名</label>
+      </div>
       <div class="input-field col s12">
         <i class="medium material-icons prefix">email</i>
         <input id="confirmEmail" type="email" class="validate"  v-model="confirmEmail"/>
-        <label for="confirmEmail">确认邮箱</label>
+        <label for="confirmEmail">再次确认邮箱</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="medium material-icons prefix">local_phone</i>
+        <input id="managerPhone" type="text" class="validate"  v-model="managerPhone"/>
+        <label for="managerPhone">管理员电话</label>
       </div>
       <div class="input-field col s12">
         <i class="medium material-icons prefix">vpn_key</i>
@@ -85,6 +95,7 @@
 
 <script>
     import navbar from '@/include/NavBar';
+    import axios from 'axios';
     export default {
       name: "InstitutionRegister",
       components: { navbar},
@@ -98,7 +109,12 @@
           confirmEmail:'',
           password:'',
           confirmPassword:'',
-          file:''
+          file:'',
+          filePath:'',
+          img:'',
+          imgPath:'',
+          managerName:'',
+          managerPhone:''
         }
       },
       created: function() {
@@ -107,22 +123,65 @@
         getFile(event){
           this.file = event.target.files[0];
         },
+        getImg(event){
+          this.img = event.target.files[0];
+        },
         institutionRegisterFuc(event) {
 
           event.preventDefault();
-          let formData = new FormData();
-          formData.append('file',this.file);
 
+          let that = this;
+          axios.all([this.upload_file(), this.upload_img()]).then(
+            axios.spread(function (uf, ui) {
+               that.$user.post('/ins/register', {
+                name:that.name,
+                location: that.location,
+                phone: that.phone,
+                backimg:that.imgPath,
+                introduction:that.introduction,
+                evidence:that.filePath,
+                principal: {
+                  email: that.email,
+                  name:that.managerName,
+                  password:that.password,
+                  phone:that.managerPhone
+                }
+              }).then(rsp => {
+                if(rsp.data.code==="400"){
+                  return;
+                }
+              }).catch(err => {
+                console.log(err);
+              })
+
+            })
+          );
+
+        },
+        upload_file: function() {
           let config = {
             headers: {
               'Content-Type': 'multipart/form-data'
             }
-          }
+          };
+          let FileData = new FormData();
+          FileData.append('file',this.file);
+          return this.$file.post('/', FileData, config).then(response=>{
+            this.filePath=response.data;
+          });
 
-          this.$axios.post('http://154.8.211.109:8000', formData, config).then(function (response) {
-            console.log(response.data);
-          })
-
+        },
+        upload_img: function() {
+          let config = {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          };
+          let ImgData = new FormData();
+          ImgData.append('file',this.img);
+          return this.$file.post('/', ImgData, config).then(response => {
+            this.imgPath=response.data;
+          });
 
         }
       }
