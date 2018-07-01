@@ -88,7 +88,7 @@
 
   export default {
     name: "Conference",
-    components: {NavBar, axios, getURL},
+    components: {NavBar, axios, mapUrl},
     data() {
       return {
         conferenceTitle:'International Conference on Circuits, Systems, Communications and Computers',

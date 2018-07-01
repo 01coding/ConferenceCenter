@@ -5,6 +5,7 @@ import ConferenceInfo from '@/components/ConferenceInformation/Conference'
 import OrganizationSpace from '@/components/OrganizationSpace/Main';
 import Index from '@/components/Index'
 import NewConference from '@/components/OrganizationSpace/NewConference';
+import ReviewApplication from '../components/OperationManagement/ReviewApplication'
 
 Vue.use(Router);
 
@@ -36,6 +37,11 @@ export default new Router({
       path: '/new/conference',
       name: 'NewConference',
       component: NewConference
+    },
+    {
+      path:'/ReviewApplication',
+      name:'ReviewApplication',
+      component:ReviewApplication
     }
   ]
 })
