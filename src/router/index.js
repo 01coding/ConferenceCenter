@@ -24,15 +24,12 @@ export default new Router({
       component: ConferenceInfo
     },
     {
-      path: '/orgspace',
-      name: 'OrganizationSpace',
-      component: OrganizationSpace
-    },
-    {
       path: '/contribute',
       name: 'Contribute',
       component: Contribute,
     },
+    {
+      path: '/orgspace',
       component: OrganizationSpace,
       children: [
         {
