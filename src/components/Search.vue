@@ -28,7 +28,11 @@
              style="height: 10rem; background:black;">
           <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg">
           <!--TODO: 这里放会议的背景图-->
-          <span class="card-title" style="font-weight: bold">{{res.title}}</span>
+          <span class="card-title"
+                @click="$router.push('/conference/'+res.id)"
+                style="font-weight: bold">
+            {{res.title}}
+          </span>
         </div>
         <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">

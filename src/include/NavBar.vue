@@ -2,18 +2,19 @@
   <div>
     <nav class="white">
         <div class="nav-wrapper">
-          <a href="#" class="brand-logo center"
-             style="font-weight: bold; color: #313131;"
-             v-if="!in_search">
+          <div class="brand-logo center"
+               style="font-weight: bold; color: #313131; cursor: pointer"
+               @click="$router.push('/')"
+               v-if="!in_search">
             <img src="/static/logo.png" style="height: 2rem;">
             Conference Center
-          </a>
+          </div>
           <ul class="right hide-on-med-and-down"
               style="color: #313131;"
               v-if="!in_search">
             <li>
               <a style="color: #313131;" @click="toggle_search">
-                <i class="material-icons left">search</i> SEARCH
+                <i class="material-icons left">search</i> 搜索
               </a>
             </li>
           </ul>
