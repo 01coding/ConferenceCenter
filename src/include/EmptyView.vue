@@ -1,6 +1,6 @@
 <template>
   <div class="row" style="width:100%;height:30rem;">
-    <div class="card-panel" style="height: 25rem;">
+    <div class="card-panel" style="height: 15rem;">
       <div class="container valign-wrapper" style="height: 100%;">
         <div class="center-align row">
           <i class="medium material-icons">inbox</i>

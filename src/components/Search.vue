@@ -20,7 +20,7 @@
     <div style="height:20px;"></div>
 
     <div class="row container">
-      <div class="card" v-if="conferences.total_num>0" v-for="(res,id) in conferences.result" :key="id">
+      <div class="card" v-if="conferences.total_num > 0" v-for="(res,id) in conferences.result" :key="id">
         <div class="card-image waves-effect waves-block waves-light"
              style="height: 10rem; background:black;">
           <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg"></img>
@@ -44,7 +44,7 @@
           <p>{{res.introduction}}</p>
         </div>
       </div>
-      <EmptyView v-else style="height:30rem;"></EmptyView>
+      <EmptyView  v-if="conferences.total_num <= 0" ></EmptyView>
     </div>
     <div class="center-align">
       <Pagination @page="page"
