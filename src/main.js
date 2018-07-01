@@ -20,6 +20,8 @@ function AxiosToken() {
 AxiosToken.prototype = {
   constructor: AxiosToken,
   post: function(url, data) {
+    if (data === undefined)
+      data = {};
     data.token = sessionStorage.getItem('session');
     return this.io.post(url, data);
   }
