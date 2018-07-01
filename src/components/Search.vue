@@ -28,7 +28,7 @@
       </div>
     </div>
     <Pagination @page="page" v-bind:number="number" v-bind:current="current"
-    style="margin-top: 1em"></Pagination>
+    style="margin-top: 1em;position:absolute;left:40%;"></Pagination>
   </div>
 </template>
 
@@ -73,6 +73,8 @@ export default{
         })
           .then(function (response) {
             that.conferences=response.data.data;
+            this.number=response.data.page_num;
+            this.current=1;
           })
           .catch(function (error) {
             console.log(error);
@@ -81,6 +83,23 @@ export default{
     enter_search: function (event) {
       if (event.keyCode === 13 && this.search_keyword.length>0 )
         this.$router.push("/search/" + this.search_keyword);
+    },
+    page: function (page) {
+      const field = this.search_field;
+      // console.log(page);
+      let that=this;
+      axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/SearchCoferences', {
+        "keyword": field,
+        "index": page,
+        "size": 10
+      })
+        .then(function (response) {
+          that.conferences=response.data.data;
+          this.number=response.data.page_num;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
   },
   created(){
