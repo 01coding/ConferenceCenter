@@ -100,6 +100,7 @@
                   this.token = rsp.data.data.token;
                   sessionStorage.setItem('session',this.token);
                   this.session_callback();
+                  this.$router.push('/index');
                 }).catch(err => {
                   console.log(err);
                 });
@@ -117,6 +118,7 @@
                   this.token = rsp.data.data.token;
                   sessionStorage.setItem('session',this.token);
                   this.session_callback();
+                  this.$router.push('/orgspace');
                 }).catch(err => {
                   console.log(err);
                 })
@@ -133,6 +135,7 @@
                   this.token = rsp.data.data.token;
                   sessionStorage.setItem('session',this.token);
                   this.session_callback();
+                  this.$router.push('/review/application');
                 }).catch(err => {
                   console.log(err);
                 })
