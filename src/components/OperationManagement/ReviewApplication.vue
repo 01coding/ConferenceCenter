@@ -40,8 +40,8 @@
 
     methods: {
       reviewPass: function (applyid) {
-        console.log(localStorage);
-        //this.localStorage.getItem('session');
+        //console.log(localStorage);
+        this.sessionStorage.getItem('session');
         this.$axios.post('/api/setInstitutionStatus/'+applyid+'/1').then(response => {
           console.log("pass OK");
           console.log(response);
@@ -54,11 +54,12 @@
       },
 
       reviewReject: function (applyid) {
-        console.log(localStorage);
-        //localStorage.getItem('session');
+        //console.log(localStorage);
+        sessionStorage.getItem('session');
         this.$axios.post('/api/setInstitutionStatus/'+applyid+'/-1').then(response => {
           console.log("reject OK");
           //remove this item from the list
+          this.apply.splice(applyid-1,1,);
         }).catch(error => {
           console.log("ERROR");
         })
@@ -81,22 +82,3 @@
   }
 
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

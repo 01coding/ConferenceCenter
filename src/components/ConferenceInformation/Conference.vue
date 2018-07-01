@@ -110,7 +110,6 @@
     methods: {
       getConferenceImg: function () {
         this.conferenceImg = "http://140.143.19.133:8001/uploads/" + this.resp.data.backimg;
-        //this.conferenceImg = "http://140.143.19.133:8001/uploads/" + "11.jpg";
       },
 
       isAbleRegister: function () {

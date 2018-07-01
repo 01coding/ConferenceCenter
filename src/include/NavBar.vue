@@ -27,7 +27,22 @@
           </div>
         </div>
     </nav>
-    <div class="fixed-action-btn">
+    <div class="fixed-action-btn" v-if="has_logged_in === 0">
+      <a class="btn-floating btn-large grey darken-3"> login</a>
+      <ul>
+        <li>
+        <a href="/Login" class="btn-floating yellow darken-2">
+          login
+        </a>
+        </li>
+        <li>
+        <a href="/userRegister" class="btn-floating yellow darken-2">
+          register
+        </a>
+        </li>
+      </ul>
+    </div>
+    <div class="fixed-action-btn" v-if="has_logged_in === 1">
       <a class="btn-floating btn-large grey darken-3">
         <i class="large material-icons">assignment_ind</i>
       </a>
@@ -48,10 +63,31 @@ export default {
   data: function() {
     return {
       in_search: false,
-      search_keyword:""
+      search_keyword:"",
+      has_logged_in: 0
     };
   },
+
   methods: {
+    chooseLogin: function () {
+      if(this.sessionStorage.getItem("session")) {
+        this.has_logged_in = 1;
+      }
+      else {
+        this.has_logged_in = 0;
+      }
+    },
+
+    logOut: function () {
+      sessionStorage.removeItem("session");
+      this.$test('/api/user/logout').then(response => {
+        console.log("logout OK");
+      })
+        .catch(error => {
+          console.log("logout failed");
+        })
+    },
+
     toggle_search() {
       this.in_search = !this.in_search;
     },
@@ -64,6 +100,7 @@ export default {
     $(document).ready(function(){
       $('.fixed-action-btn').floatingActionButton();
     });
+    this.chooseLogin();
   }
 }
 </script>
