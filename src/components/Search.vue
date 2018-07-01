@@ -2,35 +2,54 @@
   <div>
     <background></background>
     <navbar></navbar>
-    <div style="height:20px;"></div>
-    <div class="row">
-      <div class="col s8 offset-s2">
-        <div class="nav-wrapper searchBar">
-          <form>
-            <div class="input-field">
-              <input id="search" type="search" class="grey-text text-lighten-1"  v-model="search_keyword" @keypress="enter_search($event)">
-              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-              <i class="material-icons">close</i>
-            </div>
-          </form>
+    <div class="valign-wrapper white" style="width: 100%; height: 10rem;">
+      <div class="row container">
+        <div class="container">
+          <div class="nav-wrapper searchBar">
+            <form>
+              <div class="input-field">
+                <input id="search" type="search" class="grey-text text-lighten-1"  v-model="search_keyword" @keypress="enter_search($event)">
+                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                <i class="material-icons">close</i>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col s8 offset-s2">
-        <ul class="collection" v-if="conferences.total_num>0">
-          <li class="collection-item" v-for="(res,id) in conferences.result" :key="id">
-            <router-link v-bind:to="'/conference/'+res.id"><p class="coference-title">{{res.title}}</p></router-link>
-            <p class="coference-date">Held on
-              {{res.convening_date}}</p>
-            <p class="conference-introduction">{{res.introduction}}</p>
-          </li>
-        </ul>
-        <EmptyView v-else></EmptyView>
+    <div style="height:20px;"></div>
+
+    <div class="row container">
+      <div class="card"
+           v-if="conferences.total_num>0"
+           v-for="(res,id) in conferences.result"
+           :key="id">
+        <div class="card-image waves-effect waves-block waves-light"
+             style="height: 10rem; background:black;">
+          <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg">
+          <!--TODO: 这里放会议的背景图-->
+          <span class="card-title" style="font-weight: bold">{{res.title}}</span>
+        </div>
+        <div class="card-content">
+          <span class="card-title activator grey-text text-darken-4">
+            <i class="material-icons right">arrow_upward</i>
+          </span>
+          <p>{{res.convening_date.substr(0, 10)}}, 会议地点, 会议状态</p>
+        </div>
+        <div class="card-reveal">
+          <span class="card-title grey-text text-darken-4">
+            {{res.title}}<i class="material-icons right">arrow_downward</i>
+          </span>
+          <p>{{res.introduction}}</p>
+        </div>
       </div>
+      <EmptyView v-else></EmptyView>
     </div>
     <div class="center-align">
-      <Pagination @page="page" v-bind:number="number" v-bind:current="current"></Pagination>
+      <Pagination @page="page"
+                  :number="number"
+                  :current="current"
+      ></Pagination>
     </div>
   </div>
 </template>
@@ -74,6 +93,7 @@
           "size": 10
         })
           .then(function (response) {
+            console.log(response);
             that.conferences = response.data.data;
             this.number = response.data.page_num;
             this.current = 1;
@@ -129,10 +149,8 @@
   font-size:14px;
   margin:0px 0px;
   font-weight:100;
-  font-family:Georgia;
 }
 .conference-introduction{
-  font-family:Times New Roman;
   font-size:12px;
 }
 </style>
