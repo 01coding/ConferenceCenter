@@ -29,7 +29,7 @@ export default new Router({
       component: Index
     },
     {
-      path: '/conference',
+      path: '/conference/:id',
       name: 'ConferenceInfo',
       component: ConferenceInfo
     },
