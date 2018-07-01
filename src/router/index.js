@@ -6,6 +6,7 @@ import OrganizationSpace from '@/components/OrganizationSpace/Main';
 import Contribute from '@/components/Contribute';
 import Index from '@/components/Index'
 import NewConference from '@/components/OrganizationSpace/NewConference';
+import Search from '@/components/Search'
 import ReviewApplication from '../components/OperationManagement/ReviewApplication'
 
 Vue.use(Router);
@@ -13,6 +14,11 @@ Vue.use(Router);
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/Search/:keyword',
+      name: 'Search',
+      component: Search
+    },
     {
       path: '/',
       name: 'Index',
