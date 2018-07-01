@@ -2,15 +2,18 @@
   <div>
     <div style="height: 6rem;"></div>
     <div class="brand-logo center"
-         style="font-weight: bold; color: #313131; cursor: pointer; font-size: 1.5rem;"
+         style="font-weight: bold; color: #313131; cursor: pointer; font-size: 1.75rem;"
          @click="$router.push('/')"
          v-if="!in_search">
       <img src="/static/logo.png" style="height: 2rem;">
-      Conference Center 登录
+      Conference Center
     </div>
     <div class="row">
-      <div class="col s12 m4 offset-m4 l4 offset-l4">
-        <div class="card-panel" style="padding-bottom: 5px">
+      <div style="height: 2rem;"></div>
+      <div class="col s6 offset-s3">
+        <div class="card-panel"
+             style="padding-bottom: 5px; padding-left: 6rem; padding-right: 6rem;">
+          <div style="height: 2rem;"></div>
           <div class="row">
               <div class="row">
                 <div class="input-field col s12">
@@ -45,14 +48,20 @@
                   </p>
               </div>
               <div class="row center-align">
-                <button class="col s6 offset-l3 btn waves-effect waves-light" style="margin-top: 7px;" type="submit" name="action" v-on:click="loginfuc()">Submit
+                <button
+                  class="col s6 offset-l3 btn waves-effect waves-light blue-grey"
+                  style="margin-top: 7px;"
+                  type="submit"
+                  name="action"
+                  v-on:click="loginfuc()"> 登录
                 </button>
               </div>
+            <div style="height: 2rem;"></div>
           </div>
         </div>
       </div>
     </div>
-    <div style="height: 5rem;"></div>
+    <div style="height: 8rem;"></div>
   </div>
 </template>
 
