@@ -1,9 +1,9 @@
 <template>
 <div>
   <navbar></navbar>
-  <div class="row center-align">
+  <div class="row center-align container">
     <div class="row" style="margin-top: 30px"></div>
-    <div class="col s7 offset-l2 row">
+    <div class="row">
       <div class="card-panel white-text text grey darken-2 " style="vertical-align: center; padding-top: 8px;padding-bottom: 8px;font-size: 17px">基本信息</div>
       <div class="input-field col s5">
         <i class="medium material-icons prefix">account_circle</i>
@@ -31,7 +31,7 @@
         <label for="introduction">介绍</label>
       </div>
     </div>
-    <div class="col s7 offset-l2 row">
+    <div class="row">
       <div class="card-panel white-text text grey darken-2 " style="vertical-align: center; padding-top: 8px;padding-bottom: 8px; margin-bottom:25px;font-size: 17px">上传照片</div>
       <div class="file-field input-field input-field">
         <div class="btn col s2" @change="getImg($event)">
@@ -43,7 +43,7 @@
         </div>
       </div>
     </div>
-    <div class="col s7 offset-l2 row">
+    <div class="row">
       <div class="card-panel white-text text grey darken-2 " style="vertical-align: center; padding-top: 8px;padding-bottom: 8px; margin-bottom:25px;font-size: 17px">上传证明材料</div>
       <div class="file-field input-field input-field">
         <div class="btn col s2" @change="getFile($event)">
@@ -55,7 +55,7 @@
         </div>
       </div>
     </div>
-    <div class="col s7 offset-l2 row">
+    <div class="row">
       <div class="card-panel white-text text grey darken-2 " style="vertical-align: center; padding-top: 8px;padding-bottom: 8px;font-size: 17px">管理员信息</div>
       <div class="input-field col s12">
         <i class="medium material-icons prefix">account_circle</i>
@@ -83,11 +83,12 @@
         <label for="confirmPassword">确认密码</label>
       </div>
     </div>
-    <div class="col s7 offset-l2 row">
+    <div class="row">
       <button class="col s8 offset-l2 btn waves-effect waves-light" style="margin-top: 7px;" type="submit" @click="institutionRegisterFuc($event)">
         提交
       </button>
     </div>
+    <div style="height: 6rem;"></div>
   </div>
 
 </div>

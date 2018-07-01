@@ -1,8 +1,7 @@
 <template>
   <div>
-    <NavBar></NavBar>
-    <div class="white section">
-      <div class="row container">
+    <div class="row white section">
+      <div class="col s8 offset-s2">
         <div style="height: 3rem;"></div>
         <form class="col s12">
           <div class="row">
