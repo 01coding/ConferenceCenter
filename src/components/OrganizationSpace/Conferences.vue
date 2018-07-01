@@ -2,33 +2,40 @@
   <div>
     <!--<nav class="transparent black-text">-->
     <!--<div class="nav-wrapper">-->
-      <!--<div class="row black-text">-->
-        <!--<div class="col s12 black-text">-->
-          <!--<a href="#" class="breadcrumb black-text">会议管理</a>-->
-          <!--<a href="#" class="breadcrumb">会议管理</a>-->
-        <!--</div>-->
-      <!--</div>-->
+    <!--<div class="row black-text">-->
+    <!--<div class="col s12 black-text">-->
+    <!--<a href="#" class="breadcrumb black-text">会议管理</a>-->
+    <!--<a href="#" class="breadcrumb">会议管理</a>-->
+    <!--</div>-->
+    <!--</div>-->
     <!--</div>-->
     <!--</nav>-->
+    <div class="fixed-action-btn">
+      <router-link class="btn-floating btn-large red" to="/orgspace/new/conference">
+        <i class="large material-icons">add</i>
+      </router-link>
+    </div>
     <div class="row">
-      <div class="col s12 m6">
+      <div class="col s12 m12 l6 xl6">
         <div class="card">
           <div class="card-image">
             <img src="https://materializecss.com/images/sample-1.jpg">
-            <span class="card-title">
-              <h3>CVPR 2018</h3>
-              <h5>2018/06/18 - 06/23</h5>
-            </span>
+            <div class="card-title">
+              <!--<h3>CVPR 2018</h3>-->
+              CVPR 2018
+              <br/>
+              <!--<h5>2018/06/18 - 06/23</h5>-->
+            </div>
           </div>
           <div class="card-content">
             <div class="row">
               <div class="col s5 offset-s1 center-align">
-                <span><h6>投稿数</h6></span>
-                <span><h3 class="light-green-text">123</h3></span>
+                <h6>投稿数</h6>
+                <h3 class="light-green-text">123</h3>
               </div>
               <div class="col s5 center-align">
-                <span><h6>注册数</h6></span>
-                <span><h3 class="cyan-text">54</h3></span>
+                <h6>注册数</h6>
+                <h3 class="cyan-text">54</h3>
               </div>
             </div>
           </div>
@@ -44,24 +51,24 @@
           </div>
         </div>
       </div>
-      <div class="col s12 m6" v-for="conf in conference_list">
+      <div class="col s12 m12 l6 xl6" v-for="conf in conference_list">
         <div class="card">
           <div class="card-image">
             <img src="https://materializecss.com/images/sample-1.jpg">
-            <span class="card-title">
+            <div class="card-title">
               <h3>{{ conf.title }}</h3>
               <h5>2018/06/18 - 06/23</h5>
-            </span>
+            </div>
           </div>
           <div class="card-content">
             <div class="row">
               <div class="col s5 offset-s1 center-align">
-                <span><h6>投稿数</h6></span>
-                <span><h3 class="light-green-text">{{ conf.papers }}</h3></span>
+                <h6>投稿数</h6>
+                <h3 class="light-green-text">{{ conf.papers }}</h3>
               </div>
               <div class="col s5 center-align">
-                <span><h6>注册数</h6></span>
-                <span><h3 class="cyan-text">{{ conf.registers }}</h3></span>
+                <h6>注册数</h6>
+                <h3 class="cyan-text">{{ conf.registers }}</h3>
               </div>
             </div>
           </div>
@@ -91,6 +98,9 @@
     },
     created: function () {
       // M.toast({html: 'test'});
+      $(document).ready(function() {
+        $('.fixed-action-btn').floatingActionButton();
+      });
       this.refresh();
     },
     methods: {
@@ -109,6 +119,14 @@
 </script>
 
 <style scoped>
+  .card-title h3, .card-title h5 {
+    font-weight: lighter;
+  }
+
+  .card-title {
+    font-weight: 300;
+  }
+
   .card-content .row {
     margin-bottom: 0;
   }

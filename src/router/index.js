@@ -2,16 +2,18 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import ConferenceInfo from '@/components/ConferenceInformation/Conference'
-import OrganizationSpace from '@/components/OrganizationSpace/Main';
 import Contribute from '@/components/Contribute';
 import Index from '@/components/Index'
-import NewConference from '@/components/OrganizationSpace/NewConference';
 import Login from '@/components/Login/Login'
 import UserRegister from '@/components/Register/UserRegister'
 import InstitutionRegister from '@/components/Register/InstitutionRegister'
-import OrgConferences from '@/components/OrganizationSpace/Conferences';
 import Search from '@/components/Search'
 import ReviewApplication from '../components/OperationManagement/ReviewApplication'
+
+import OrganizationSpace from '@/components/OrganizationSpace/Main';
+import OrgConferences from '@/components/OrganizationSpace/Conferences';
+import NewConference from '@/components/OrganizationSpace/NewConference';
+import OrgContributions from '@/components/OrganizationSpace/Contributions';
 
 Vue.use(Router);
 
@@ -53,13 +55,12 @@ export default new Router({
         {
           path: 'new/conference',
           component: NewConference
+        },
+        {
+          path: 'conference/:id/contributions',
+          component: OrgContributions
         }
       ]
-    },
-    {
-      path: '/new/conference',
-      name: 'NewConference',
-      component: NewConference,
     },
     {
       path: '/login',

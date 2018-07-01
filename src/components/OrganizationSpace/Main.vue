@@ -68,12 +68,13 @@
       return {
         nav_title: '',
         routes: {
-          '/orgspace/conferences': '会议管理',
-          1: '稿件管理',
-          2: '机构信息设置',
-          3: '管理员设置',
-          4: '账户设置',
-          '/orgspace/new/conference': '发布新会议'
+          '/orgspace': '会议管理',
+          '/conferences': '会议管理',
+          '/contributions': '稿件管理',
+          '/setting': '机构信息设置',
+          '/admin': '管理员设置',
+          '/account': '账户设置',
+          '/new/conference': '发布新会议'
         }
       };
     },
@@ -83,9 +84,11 @@
       });
     },
     mounted: function () {
-      let re = new RegExp('.*' + this.$route.path + '.*');
       let module_path = Object.keys(this.routes).find(
-        key => re.test(key)
+        key => {
+          let re = new RegExp('.*' + key + '.*');
+          return re.test(this.$route.path);
+        }
       );
       this.nav_title = this.routes[ module_path ];
       console.log(this.nav_title);
@@ -113,6 +116,7 @@
   nav.top-nav {
     height: 120px;
   }
+
   .user-view {
     height: 240px;
   }
