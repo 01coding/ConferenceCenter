@@ -101,7 +101,7 @@
                   this.token = rsp.data.data.token;
                   sessionStorage.setItem('session',this.token);
                   this.session_callback();
-                  this.$router.push('/index');
+                  this.$router.push('/');
                 }).catch(err => {
                   console.log(err);
                 });
