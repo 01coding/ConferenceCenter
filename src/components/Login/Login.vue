@@ -98,6 +98,7 @@
                     return;
                   }
                   this.token = rsp.data.data.token;
+                  sessionStorage.setItem('session',this.token);
                   this.session_callback();
                 }).catch(err => {
                   console.log(err);
@@ -114,6 +115,7 @@
                     return;
                   }
                   this.token = rsp.data.data.token;
+                  sessionStorage.setItem('session',this.token);
                   this.session_callback();
                 }).catch(err => {
                   console.log(err);
@@ -129,7 +131,7 @@
                     return;
                   }
                   this.token = rsp.data.data.token;
-                  this.localStorage.setItem('session',this.token);
+                  sessionStorage.setItem('session',this.token);
                   this.session_callback();
                 }).catch(err => {
                   console.log(err);
