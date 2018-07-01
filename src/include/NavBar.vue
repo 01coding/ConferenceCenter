@@ -3,25 +3,32 @@
     <nav class="white">
       <div class="container">
         <div class="nav-wrapper">
-          <a href="#" class="brand-logo" style="color: #303030; font-weight: bold">
-            LOGO
+          <a href="#" class="brand-logo center grey-text text-darken-4" style="font-weight: bold">
+            Conference Center
           </a>
-          <ul class="right hide-on-med-and-down">
-            <li><a href="sass.html" style="color: #303030;">Sass</a></li>
-            <li><a href="badges.html" style="color: #303030;">Components</a></li>
-            <!-- Dropdown Trigger -->
-          </ul>
         </div>
       </div>
     </nav>
+    <div class="fixed-action-btn">
+      <a class="btn-floating btn-large teal">
+        <i class="large material-icons">menu</i>
+      </a>
+      <ul>
+        <li><a class="btn-floating btn-large blue"><i class="material-icons">search</i></a></li>
+        <li><a class="btn-floating btn-large indigo"><i class="material-icons">account_circle</i></a></li>
+        <li><a class="btn-floating btn-large red accent-2"><i class="material-icons">clear</i></a></li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: "NavBar",
-  mounted: function() {
-    $(".dropdown-trigger").dropdown();
+  created: function() {
+    $(document).ready(function(){
+      $('.fixed-action-btn').floatingActionButton();
+    });
   }
 }
 </script>
