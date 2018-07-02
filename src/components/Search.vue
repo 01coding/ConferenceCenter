@@ -34,7 +34,7 @@
         </div>
         <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
-            <i class="material-icons right">arrow_upward</i>
+            <i class="material-icons right">language</i>
           </span>
           <p class="coference-date">{{res.convening_date.substr(0, 10)}}</p>
           <p class="coference-date">{{res.convening_place}}</p>
