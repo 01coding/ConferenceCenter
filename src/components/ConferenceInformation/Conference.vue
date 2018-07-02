@@ -58,7 +58,7 @@
                 {{resp.data.schedule}}
               </div>
               <div id="traffic" class="section scrollspy">
-                <p>住宿交通</p>
+                <h4>住宿交通</h4>
                 组委会已经为参会人员订购了xx酒店的房间，请参会人员到达时到前台签到并领取房卡。
               </div>
               <div id="relation" class="section scrollspy">
@@ -113,16 +113,20 @@
 
       isAbleRegister: function () {
         if (this.conferenceState != "征稿中" && this.conferenceState != "会议注册中") {
-          this.registerToLink = 0;
+            this.registerToLink = 0;
         }
         else {
-          this.registerToLink = 1;
+          if(sessionStorage.getItem("session")) {
+            this.registerToLink = 1;
+          }
         }
       },
 
       tocontribute: function () {
         if (this.conferenceState == "征稿中") {
-          this.contributeToLink = 1;
+          if(sessionStorage.getItem("session")) {
+            this.contributeToLink = 1;
+          }
         }
         else {
           this.contributeToLink = 0;
