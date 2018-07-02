@@ -14,11 +14,17 @@
             <h5 style="font-weight: bold" class="center">{{conferenceState}}</h5>
             <h5>&nbsp</h5>
             <div class="row center-align">
-              <div class="btn btn-large green" v-bind:class="{ disabled: contributeToLink === 0 }" @click="toContribute">
-                <div class="white-text" @click="$router.push(contributeLink)">投稿</div>
+              <div class="btn btn-large green"
+                   :class="{ disabled: contributeToLink === 0 }"
+                   @click="toContribute">
+                <div class="white-text">投稿</div>
               </div>
-              <div id="register" class="btn btn-large blue-grey" v-bind:class="{ disabled: registerToLink === 0 }" @click="toRegisterConference">
-                <div class="white-text" @click="$router.push(registerLink)">报名参会</div>
+              <div id="register" class="btn btn-large blue-grey"
+                   @click="toRegisterConference"
+                   :class="{ disabled: registerToLink === 0 }">
+                <div class="white-text">
+                  报名参会
+                </div>
               </div>
             </div>
           </div>
@@ -109,21 +115,12 @@
     },
     methods: {
       toContribute: function () {
-        if(sessionStorage.getItem("session")) {
-          console.log(sessionStorage.getItem("session"));
-          this.contributeLink = "/contribute/" + this.conference_id;
-        }
-        else {
-          this.contributeLink = '/login';
-        }
+        this.contributeLink = "/contribute/" + this.conference_id;
+        this.$router.push(this.contributeLink);
       },
       toRegisterConference: function () {
-        if(sessionStorage.getItem("session")) {
-          this.registerLink = "/";
-        }
-        else {
-          this.registerLink = "/login";
-        }
+        this.registerLink = "/login";
+        this.$router.push(this.registerLink)
       },
 
       isAbleRegister: function () {
