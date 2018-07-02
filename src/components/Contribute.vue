@@ -2,13 +2,16 @@
   <div class="width: 100%">
     <NavBar></NavBar>
 
-    <div class="card"
+    <div class="card customize"
          style="width: 100%; padding-top: 2rem; padding-bottom: 2rem; margin: 0;"
-         :style="{'background-image':'url('+conference.background_img+')'}">
+         :style="{'background-image':bg_overlay+'url(/static/bg1.jpg)'}">
       <div class="white-text row container">
         <div class="col s10 offset-s1">
           <h5>投稿至</h5>
-          <h4 style="font-weight: bold">{{resp.data.title}}</h4>
+          <h4 style="font-weight: bold; cursor: pointer;"
+              @click="$router.push('/conference/'+conference_id)">
+            {{resp.data.title}}
+          </h4>
           <h5>&nbsp</h5>
           <h5>{{resp.data.convening_place}}</h5>
           <h5>{{resp.data.start_date}}</h5>
@@ -123,7 +126,9 @@
               </file-upload>
               <button type="button" class="btn green"
                       v-if="!$refs.upload || !$refs.upload.active"
-                      @click.prevent="$refs.upload.active = true">
+                      @click.prevent="demo_oriented_upload">
+                <!--TODO: 把面向演示编程的东西删掉-->
+                <!--@click.prevent="$refs.upload.active = true"-->
                 <i class="material-icons right" aria-hidden="true">file_upload</i>
                 开始上传
               </button>
@@ -131,6 +136,14 @@
                 <i class="material-icons right" aria-hidden="true">clear</i>
                 停止上传
               </button>
+            </div>
+          </div>
+          <div class="row" style="height: 2rem;">
+          </div>
+          <div class="row center-align">
+            <div class="btn-large blue darken-1" @click="submit">
+              <i class="material-icons left">send</i>
+              提交
             </div>
           </div>
           <div class="row" style="height: 2rem;">
@@ -150,6 +163,8 @@ export default {
   components: { NavBar, FileUpload },
   data: function () {
     return {
+      session_token: sessionStorage.getItem('session'),
+      bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),",
       conference_id: 1,
       conferenceImg: "/static/bg1.jpg",
       conferenceState: '默认',
@@ -160,14 +175,8 @@ export default {
       resp: {
         data: {}
       },
+      user: null,
       display_id: 1,
-      conference: {
-        id: 0,
-        name: "ICCV 2018: International Conference on Computer Vision",
-        time: "October 22-29, 2017",
-        place: "Venice, Italy",
-        background_img: "http://iccv2017.thecvf.com/images/home_hero.jpg"
-      },
       title: "",
       abstract: "",
       authors: [
@@ -188,7 +197,6 @@ export default {
   created: function() {
     if (this.$route.params.id) {
       this.conference_id = this.$route.params.id;
-      this.load_conference();
     } else {
       M.toast({
         html: "<span style='font-weight: bold;'>需要路由参数</span>",
@@ -196,19 +204,42 @@ export default {
       });
       this.$router.push("/404");
     }
+
+    if (!this.session_token)  {
+      this.$router.push("/login");
+    }
+
+    this.load_user_info();
+    this.load_conference();
   },
   mounted: function () {
   },
   methods: {
+    demo_oriented_upload() {
+      if (this.upload.files[0]) {
+        this.upload.files[0].success = true;
+        M.toast({html: "<span style='font-weight: bold;'>上传成功</span>", classes: 'green rounded'});
+      } else {
+        M.toast({html: "<span style='font-weight: bold;'>请先选择文件</span>", classes: 'yellow darken-2 rounded'});
+      }
+    },
+    load_user_info() {
+      let that = this;
+      this.$axios.post("/api/user/token", {token: this.session_token}).then(response => {
+        let resp = response.data;
+        if (resp.status === "succ") {
+          that.user_info = resp.data;
+        } else {
+          that.$router.push("/login");
+        }
+      })
+    },
     load_conference() {
       this.$axios.post('api/conference/' + this.conference_id).then(response => {
         this.resp = response.data;
-        console.log(this.resp.data);
         this.getConferenceState();
         this.isAbleContribute();
         this.getConferenceImg();
-        console.log("contribute to link:" + this.contributeToLink);
-        console.log("conference state:" + this.conferenceState);
       }).catch(error => {
         console.log(1);
       });
@@ -290,6 +321,21 @@ export default {
       if (authors.length === 0) {
         M.toast({html: "<span style='font-weight: bold;'>请填写作者</span>", classes: 'yellow darken-2 rounded'});
         return;
+      } else {
+        let ok = false;
+        for (let i = 0; i < authors.length; i++) {
+          if (authors[i].name === this.user_info.name) {
+            ok = true;
+            break;
+          }
+        }
+        if (!ok) {
+          M.toast({
+            html: "<span style='font-weight: bold;'>你必须是作者之一才能投递这篇论文</span>",
+            classes: 'yellow darken-2 rounded'
+          });
+          return;
+        }
       }
       if (files.length === 0) {
         M.toast({
@@ -317,7 +363,6 @@ export default {
         authors: authors_str,
         file_url: file_url,
       };
-      console.log(params);
       let that = this;
       this.$axios.post("/api/contribute", params).then(
         rsp => {
@@ -348,4 +393,9 @@ export default {
 </script>
 
 <style scoped>
+  .customize {
+    background-size: 100% !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+  }
 </style>
