@@ -20,13 +20,13 @@
         <div class="row">
           <div class="col s4"></div>
           <div class="col s2">
-            <div class="btn green" v-bind:class="{ disabled: contributeToLink === 0 }">
-              <router-link to="/api/contribute" class="white-text">投稿</router-link>
+            <div class="btn green" v-bind:class="{ disabled: contributeToLink === 0 }" @click="toContribute">
+              <router-link v-bind:to=contributeLink class="white-text">投稿</router-link>
             </div>
           </div>
           <div class="col s2">
-            <div id="register" class="btn blue-grey" v-bind:class="{ disabled: registerToLink === 0 }">
-              <router-link to="/new/conference" class="white-text">会议注册</router-link>
+            <div id="register" class="btn blue-grey" v-bind:class="{ disabled: registerToLink === 0 }" @click="toRegisterConference">
+              <router-link v-bind:to=registerLink class="white-text">会议注册</router-link>
             </div>
           </div>
         </div>
@@ -100,6 +100,8 @@
         conferenceState: '默认',
         contributeToLink: 0,
         registerToLink: 0,
+        contributeLink: '',
+        registerLink: '',
         resp: {
           data: {}
         },
@@ -107,8 +109,21 @@
       }
     },
     methods: {
-      getConferenceImg: function () {
-        this.conferenceImg = "http://140.143.19.133:8001/uploads/" + this.resp.data.backimg;
+      toContribute: function () {
+        if(sessionStorage.getItem("session")) {
+          this.contributeLink = "/contribute";
+        }
+        else {
+          this.contributeLink = '/login';
+        }
+      },
+      toRegisterConference: function () {
+        if(sessionStorage.getItem("session")) {
+          this.registerLink = "/";
+        }
+        else {
+          this.registerLink = "/login";
+        }
       },
 
       isAbleRegister: function () {
@@ -116,23 +131,21 @@
             this.registerToLink = 0;
         }
         else {
-          if(sessionStorage.getItem("session")) {
             this.registerToLink = 1;
-          }
         }
       },
-
-      tocontribute: function () {
+      isAbleContribute: function () {
         if (this.conferenceState == "征稿中") {
-          if(sessionStorage.getItem("session")) {
             this.contributeToLink = 1;
-          }
         }
         else {
           this.contributeToLink = 0;
         }
       },
 
+      getConferenceImg: function () {
+        this.conferenceImg = "http://140.143.19.133:8001/uploads/" + this.resp.data.backimg;
+      },
       getConferenceState: function () {
         if (this.resp.data.state == 4)
           this.conferenceState = '已结束';
@@ -156,7 +169,7 @@
         console.log(this.resp.data);
         this.getConferenceState();
         this.isAbleRegister();
-        this.tocontribute();
+        this.isAbleContribute();
         this.getConferenceImg();
         console.log("contribute to link:" + this.contributeToLink);
         console.log("conference state:" + this.conferenceState);
