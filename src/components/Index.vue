@@ -52,18 +52,25 @@
               </li>
             </ul>
           </div>
-          <div class="col s4 card-panel" style="height:100%;padding:0px 0px;margin-left:2rem;">
-            <ul class="collection with-header hoverable" style="height:100%;margin:0px 0px;">
-              <li class="collection-header blue-grey white-text"><h4>近期事项</h4></li>
-              <li class="collection-item blue-grey white-text">
-                <p>2018.03.12 CVPR2018 开始征稿</p>
-                <p>2018.05.24 AAAi2018 会议召开</p>
-                <p>2018.05.24 IJCAI2017 宣布⼊入选⽂文章</p>
-                <p>2018.03.12 CVPR2018 开始征稿</p>
-                <p>2018.05.24 AAAi2018 会议召开</p>
-                <p>2018.05.24 IJCAI2017 宣布⼊入选⽂文章</p>
-              </li>
-            </ul>
+          <div class="col s4 card-panel hoverable" style="margin-left:2rem;">
+            <div class="row">
+              <h4>近期事项</h4>
+            </div>
+            <div class="row" v-for="schedule in schedules">
+              <div class="col">
+                <h5>{{schedule.day}}</h5>
+                <p>{{schedule.month}}</p>
+                <p>{{schedule.year}}</p>
+              </div>
+              <div class="col">
+                <div class="row">
+                  {{schedule.conference.title}}
+                </div>
+                <div class="row">
+                  {{schedule.event}}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -112,7 +119,69 @@ export default{
             state: "征稿中",
             bg: "/static/bg4.jpg",
           },
-        ]
+        ],
+        schedules: [
+          {
+            day: 5,
+            month: "JUN",
+            year: 2018,
+            conference: {
+              id: 1,
+              title: "CVPR2018"
+            },
+            event: "公布接收稿件"
+          },
+          {
+            day: 14,
+            month: "FEB",
+            year: 2019,
+            conference: {
+              id: 1,
+              title: "AAAI2018"
+            },
+            event: "开幕"
+          },
+          {
+            day: 23,
+            month: "OCT",
+            year: 2018,
+            conference: {
+              id: 1,
+              title: "IJCAI2018"
+            },
+            event: "开始征稿"
+          },
+          {
+            day: 5,
+            month: 4,
+            year: 2018,
+            conference: {
+              id: 1,
+              title: "CVPR2018"
+            },
+            event: "公布接收稿件"
+          },
+          {
+            day: 14,
+            month: 8,
+            year: 2019,
+            conference: {
+              id: 1,
+              title: "AAAI2018"
+            },
+            event: "开幕"
+          },
+          {
+            day: 23,
+            month: 10,
+            year: 2018,
+            conference: {
+              id: 1,
+              title: "IJCAI2018"
+            },
+            event: "开始征稿"
+          },
+        ],
       },
     }
   },

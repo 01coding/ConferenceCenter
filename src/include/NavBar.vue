@@ -2,11 +2,8 @@
   <div>
     <nav class="white">
       <ul id="dropdown1" class="dropdown-content">
-        <li v-if="!has_logged_in"><a href="/Login">登录</a></li>
-        <li v-if="!has_logged_in"><a href="/userRegister">注册</a></li>
-        <li v-if="has_logged_in"><a>个人空间</a></li>
-        <li class="divider"></li>
-        <li v-if="has_logged_in"><a>注销</a></li>
+        <li><a href="/Login">登录</a></li>
+        <li><a href="/userRegister">注册</a></li>
       </ul>
       <div class="nav-wrapper">
         <div class="brand-logo center"
@@ -22,7 +19,7 @@
               <i class="material-icons left">search</i> 搜索
             </a>
           </li>
-          <li>
+          <li v-if="!has_logged_in">
             <a class="dropdown-trigger" style="color: #313131;" data-target="dropdown1">
               <i class="material-icons left">account_circle</i>
               <span>账户</span>
@@ -41,12 +38,12 @@
     </nav>
     <div class="fixed-action-btn" v-if="has_logged_in === 1">
       <a class="btn-floating btn-large grey darken-3">
-        <i class="large material-icons" @click="choose_logout()">assignment_ind</i>
+        <i class="large material-icons">assignment_ind</i>
       </a>
       <ul>
         <li>
           <a class="btn-floating yellow darken-2">
-            <i class="material-icons">exit_to_app</i>
+            <i class="material-icons" @click="choose_logout()">exit_to_app</i>
           </a>
         </li>
       </ul>
