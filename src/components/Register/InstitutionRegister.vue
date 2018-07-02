@@ -172,6 +172,9 @@
           let that = this;
           axios.all([this.upload_file(), this.upload_img()]).then(
             axios.spread(function (uf, ui) {
+              if(uf===false||ui===false){
+                return;
+              }
                that.$user.post('/ins/register', {
                 name:that.name,
                 location: that.location,
@@ -193,7 +196,7 @@
                   });
                   return;
                 }
-                this.$router.push('/');
+                that.$router.push('/');
               }).catch(err => {
                 console.log(err);
               })
@@ -208,6 +211,13 @@
               'Content-Type': 'multipart/form-data'
             }
           };
+          if(!this.file){
+            M.toast({
+              html:"<span style='font-weight: bold'>请提交证明材料</span>",
+              classes: "rounded yellow darken-2"
+            });
+            return false;
+          }
           let FileData = new FormData();
           FileData.append('file',this.file);
           return this.$file.post('/', FileData, config).then(response=>{
@@ -221,6 +231,13 @@
               'Content-Type': 'multipart/form-data'
             }
           };
+          if(!this.img){
+            M.toast({
+              html:"<span style='font-weight: bold'>请提交照片</span>",
+              classes: "rounded yellow darken-2"
+            });
+            return false;
+          }
           let ImgData = new FormData();
           ImgData.append('file',this.img);
           return this.$file.post('/', ImgData, config).then(response => {
