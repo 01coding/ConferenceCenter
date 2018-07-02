@@ -113,7 +113,7 @@
         });
       }
       else {
-
+        this.$router.push('/404');
       }
     }
   }
