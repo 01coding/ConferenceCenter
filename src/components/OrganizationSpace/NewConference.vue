@@ -325,10 +325,18 @@
               conference_template: that.conf_conference_template,
               backimg: that.image_path
             }).then(rsp => {
-              if (rsp.data.status === 'succ')
-                M.toast({ html: '发布会议成功' });
+              if (rsp.data.status === 'succ') {
+                M.toast({
+                  html: "<span style='font-weight: bold'>发布会议成功</span>",
+                  classes: "rounded green"
+                });
+                this.$router.push('/orgspace');
+              }
             }).catch(err => {
-              M.toast({ html: err.toString() });
+              M.toast({
+                html: "<span style='font-weight: bold'>" + err.toString() + "</span>",
+                classes: "rounded red"
+              });
             });
           })
         );
