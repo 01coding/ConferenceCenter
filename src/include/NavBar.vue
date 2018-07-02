@@ -42,8 +42,8 @@
       </a>
       <ul>
         <li>
-          <a class="btn-floating yellow darken-2">
-            <i class="material-icons" @click="choose_logout()">exit_to_app</i>
+          <a class="btn-floating yellow darken-2" @click="choose_logout()">
+            <i class="material-icons">exit_to_app</i>
           </a>
         </li>
       </ul>
@@ -75,10 +75,17 @@ export default {
     choose_logout: function () {
       sessionStorage.removeItem("session");
       this.$test('/api/user/logout').then(response => {
-        console.log("logout OK");
+        M.toast({
+          html:"<span style='font-weight: bold'>已注销</span>",
+          classes: "rounded yellow darken-2"
+        });
+        this.$router.replace("/")
       })
         .catch(error => {
-          console.log("logout failed");
+          M.toast({
+            html:"<span style='font-weight: bold'>注销失败</span>",
+            classes: "rounded red darken-2"
+          });
         })
     },
 
