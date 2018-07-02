@@ -70,12 +70,12 @@ export default new Router({
       component: Login
     },
     {
-      path: '/userRegister',
+      path: '/user/register',
       name: 'UserRegister',
       component: UserRegister
     },
     {
-      path: '/institutionRegister',
+      path: '/institution/register',
       name: 'InstitutionRegister',
       component: InstitutionRegister
     },

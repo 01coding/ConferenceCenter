@@ -2,9 +2,9 @@
   <div>
     <nav class="white">
       <ul id="dropdown1" class="dropdown-content">
-        <li><a href="/Login">登录</a></li>
-        <li><a href="/userRegister">个人注册</a></li>
-        <li><a href="/institutionRegister">主办方注册</a></li>
+        <li><router-link to="/login">登录</router-link></li>
+        <li><router-link to="/user/register">个人注册</router-link></li>
+        <li><router-link to="/institution/register">主办方注册</router-link></li>
       </ul>
       <div class="nav-wrapper">
         <div class="brand-logo center"
