@@ -13,7 +13,7 @@
               <ul class="collection">
                 <li class="collection-item avatar">
                   <i class="material-icons circle">folder</i>
-                  <span class="title">Title</span>
+                  <span class="title">{{item.name}}</span>
                 </li>
               </ul>
             </div>
