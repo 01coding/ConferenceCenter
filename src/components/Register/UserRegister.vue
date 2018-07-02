@@ -112,6 +112,7 @@
               this.emailMessage = rsp.data.msg;
               return;
             }
+            this.$router.push('/');
           }).catch(err => {
             console.log(err);
           })
