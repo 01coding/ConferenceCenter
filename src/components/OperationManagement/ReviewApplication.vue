@@ -6,9 +6,17 @@
     <div class="row">
       <div class="col s1"></div>
       <div class="col s10">
-        <ul class="collapsible" id="collaps">
-          <li v-for="(item, index) in apply" v-bind:key="index">
-            <div class="collapsible-header active check-institution"><i class="material-icons">menu</i>{{item.name}}</div>
+        <ul class="collapsible" id="collaps" >
+          <li v-for="(item, index) in apply" v-bind:key="index" >
+            <div class="collapsible-header active check-institution avatar" style="padding:0px 0px;">
+              <!--<i class="material-icons circle green large">pin_drop</i>{{item.name}}-->
+              <ul class="collection">
+                <li class="collection-item avatar">
+                  <i class="material-icons circle">folder</i>
+                  <span class="title">Title</span>
+                </li>
+              </ul>
+            </div>
             <div class="collapsible-body">
               <p>单位地点：{{item.location}}</p>
               <div class="center">
@@ -114,6 +122,8 @@
 
 <style>
 .check-institution{
-  font-weight: bold;
+  font-weight: 500;
+  font-family: "Times New Roman";
+  font-size: 1.4rem;
 }
 </style>
