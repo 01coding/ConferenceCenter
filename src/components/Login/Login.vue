@@ -102,6 +102,12 @@
                   sessionStorage.setItem('session',this.token);
                   this.session_callback();
                   this.$router.push('/');
+
+                  M.toast({
+                    html:"<span style='font-weight: bold'>登陆成功</span>",
+                    classes: "rounded yellow darken-2"
+                  });
+
                 }).catch(err => {
                   console.log(err);
                 });
@@ -120,6 +126,12 @@
                   sessionStorage.setItem('session',this.token);
                   this.session_callback();
                   this.$router.push('/orgspace');
+
+                  M.toast({
+                    html:"<span style='font-weight: bold'>登陆成功</span>",
+                    classes: "rounded yellow darken-2"
+                  });
+
                 }).catch(err => {
                   console.log(err);
                 })
@@ -137,6 +149,12 @@
                   sessionStorage.setItem('session',this.token);
                   this.session_callback();
                   this.$router.push('/review/application');
+
+                  M.toast({
+                    html:"<span style='font-weight: bold'>登陆成功</span>",
+                    classes: "rounded yellow darken-2"
+                  });
+
                 }).catch(err => {
                   console.log(err);
                 })
