@@ -28,8 +28,8 @@
             <a href="#user"><img class="circle" src="https://materializecss.com/images/yuna.jpg"></a>
             <!--<a href="#name"><span class="white-text name">John Doe</span></a>-->
             <!--<a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>-->
-            <a href="#name">John Doe</a>
-            <a href="#email">jdandturk@gmail.com</a>
+            <!--<a href="#name">John Doe</a>-->
+            <!--<a href="#email">jdandturk@gmail.com</a>-->
           </div>
         </li>
         <li class="bold active">
@@ -46,6 +46,9 @@
         </li>
         <li class="bold">
           <router-link to="/orgspace" class="waves-effect">账户设置</router-link>
+        </li>
+        <li class="bold">
+          <router-link to="/" class="waves-effect">回到主页</router-link>
         </li>
       </ul>
     </header>
