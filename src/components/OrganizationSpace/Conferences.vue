@@ -53,12 +53,12 @@
     </div>
     <div class="col s12 m12 l6 xl6" v-for="conf in conference_list">
       <div class="card hoverable">
-        <div class="card-image">
+        <div class="card-image" v-bind:style="{'background':bg_overlay+'url('+$image(conf.backimg)+')'}">
           <!--<img src="https://materializecss.com/images/sample-1.jpg">-->
-          <img v-bind:src="$image(conf.backimg)"/>
+          <!--<img v-bind:src="$image(conf.backimg)"/>-->
           <div class="card-title">
-            {{ conf.title }}
-            <br/>
+            <h5>{{ conf.title }}</h5>
+            <!--<br/>-->
             <!--<h3>{{ conf.title }}</h3>-->
             <!--<h5>2018/06/18 - 06/23</h5>-->
           </div>
@@ -95,7 +95,8 @@
     name: "Conferences",
     data: function () {
       return {
-        conference_list: []
+        conference_list: [],
+        bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),",
       };
     },
     created: function () {
@@ -162,7 +163,7 @@
   }
 
   .card-image {
-    height: 240px;
+    height: 200px;
     overflow: hidden;
   }
 
