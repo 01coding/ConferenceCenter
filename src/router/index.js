@@ -18,7 +18,8 @@ import page404 from '@/components/404';
 
 Vue.use(Router);
 
-export default new Router({
+// export default new Router({
+const router = new Router({
   mode: 'history',
   routes: [
     {
@@ -88,5 +89,15 @@ export default new Router({
       name:'page404',
       component: page404
     }
-  ]
-})
+  ],
+});
+
+router.beforeEach((to, from , next) => {
+    if (!to.matched.length) {
+      next('/404');
+    } else {
+      next();
+    }
+});
+
+export default router;

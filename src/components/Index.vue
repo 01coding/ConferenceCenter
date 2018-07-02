@@ -224,6 +224,9 @@ export default{
     }
   },
   mounted() {
+  },
+  beforeDestroy: function() {
+    clearTimeout();
   }
 };
 </script>
