@@ -17,71 +17,71 @@
     </div>
     <div class="row">
       <!--<div class="col s12 m12 l6 xl6">-->
-        <!--<div class="card">-->
-          <!--<div class="card-image">-->
-            <!--<img src="https://materializecss.com/images/sample-1.jpg">-->
-            <!--<div class="card-title">-->
-              <!--&lt;!&ndash;<h3>CVPR 2018</h3>&ndash;&gt;-->
-              <!--CVPR 2018-->
-              <!--<br/>-->
-              <!--&lt;!&ndash;<h5>2018/06/18 - 06/23</h5>&ndash;&gt;-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="card-content">-->
-            <!--<div class="row">-->
-              <!--<div class="col s5 offset-s1 center-align">-->
-                <!--<h6>投稿数</h6>-->
-                <!--<h3 class="light-green-text">123</h3>-->
-              <!--</div>-->
-              <!--<div class="col s5 center-align">-->
-                <!--<h6>注册数</h6>-->
-                <!--<h3 class="cyan-text">54</h3>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="card-action">-->
-            <!--<div class="row">-->
-              <!--<div class="col s5 offset-s1 center-align">-->
-                <!--<router-link to="/orgspace">管理投稿</router-link>-->
-              <!--</div>-->
-              <!--<div class="col s5 center-align">-->
-                <!--<router-link to="/orgspace">管理注册</router-link>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      </div>
-      <div class="col s12 m12 l6 xl6" v-for="conf in conference_list">
-        <div class="card hoverable">
-          <div class="card-image">
-            <img src="https://materializecss.com/images/sample-1.jpg">
-            <div class="card-title">
-              {{ conf.title }}
-              <br/>
-              <!--<h3>{{ conf.title }}</h3>-->
-              <!--<h5>2018/06/18 - 06/23</h5>-->
+      <!--<div class="card">-->
+      <!--<div class="card-image">-->
+      <!--<img src="https://materializecss.com/images/sample-1.jpg">-->
+      <!--<div class="card-title">-->
+      <!--&lt;!&ndash;<h3>CVPR 2018</h3>&ndash;&gt;-->
+      <!--CVPR 2018-->
+      <!--<br/>-->
+      <!--&lt;!&ndash;<h5>2018/06/18 - 06/23</h5>&ndash;&gt;-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class="card-content">-->
+      <!--<div class="row">-->
+      <!--<div class="col s5 offset-s1 center-align">-->
+      <!--<h6>投稿数</h6>-->
+      <!--<h3 class="light-green-text">123</h3>-->
+      <!--</div>-->
+      <!--<div class="col s5 center-align">-->
+      <!--<h6>注册数</h6>-->
+      <!--<h3 class="cyan-text">54</h3>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--<div class="card-action">-->
+      <!--<div class="row">-->
+      <!--<div class="col s5 offset-s1 center-align">-->
+      <!--<router-link to="/orgspace">管理投稿</router-link>-->
+      <!--</div>-->
+      <!--<div class="col s5 center-align">-->
+      <!--<router-link to="/orgspace">管理注册</router-link>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+    </div>
+    <div class="col s12 m12 l6 xl6" v-for="conf in conference_list">
+      <div class="card hoverable">
+        <div class="card-image">
+          <!--<img src="https://materializecss.com/images/sample-1.jpg">-->
+          <img v-bind:src="$image(conf.backimg)"/>
+          <div class="card-title">
+            {{ conf.title }}
+            <br/>
+            <!--<h3>{{ conf.title }}</h3>-->
+            <!--<h5>2018/06/18 - 06/23</h5>-->
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="row">
+            <div class="col s5 offset-s1 center-align">
+              <h6>投稿数</h6>
+              <h3 class="light-green-text">{{ conf.papers }}</h3>
+            </div>
+            <div class="col s5 center-align">
+              <h6>注册数</h6>
+              <h3 class="cyan-text">{{ conf.registers }}</h3>
             </div>
           </div>
-          <div class="card-content">
-            <div class="row">
-              <div class="col s5 offset-s1 center-align">
-                <h6>投稿数</h6>
-                <h3 class="light-green-text">{{ conf.papers }}</h3>
-              </div>
-              <div class="col s5 center-align">
-                <h6>注册数</h6>
-                <h3 class="cyan-text">{{ conf.registers }}</h3>
-              </div>
+        </div>
+        <div class="card-action">
+          <div class="row">
+            <div class="col s5 offset-s1 center-align">
+              <router-link v-bind:to="'/orgspace/conference/'+conf.id+'/contributions'">管理投稿</router-link>
             </div>
-          </div>
-          <div class="card-action">
-            <div class="row">
-              <div class="col s5 offset-s1 center-align">
-                <router-link v-bind:to="'/orgspace/conference/'+conf.id+'/contributions'">管理投稿</router-link>
-              </div>
-              <div class="col s5 center-align">
-                <router-link v-bind:to="'/orgspace/conference/'+conf.id+'/registries'">管理注册</router-link>
-              </div>
+            <div class="col s5 center-align">
+              <router-link v-bind:to="'/orgspace/conference/'+conf.id+'/registries'">管理注册</router-link>
             </div>
           </div>
         </div>
@@ -100,10 +100,13 @@
     },
     created: function () {
       // M.toast({html: 'test'});
-      $(document).ready(function() {
+      $(document).ready(function () {
         $('.fixed-action-btn').floatingActionButton();
       });
       this.refresh();
+    },
+    mounted: function() {
+      this.$bus.emit('manage-change-title', { text: '会议管理' });
     },
     methods: {
       refresh: function () {
@@ -161,5 +164,10 @@
   .card-image {
     height: 240px;
     overflow: hidden;
+  }
+
+  .col .row {
+    margin-left: 0;
+    margin-right: 0;
   }
 </style>

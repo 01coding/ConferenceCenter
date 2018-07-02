@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row white section">
-      <div class="col s8 offset-s2">
+      <div class="col s10 offset-s1">
         <div style="height: 3rem;"></div>
         <form class="col s12">
           <div class="row">
@@ -16,8 +16,9 @@
             </div>
             <div class="input-field col s4">
               <select id="conf-field-select" v-model="conf_field">
-                <option value="" disabled selected>选择领域</option>
-                <option v-bind:value="field.tag_id" v-bind:key="id" v-for="(field, id) in field_list">{{ field.name }}</option>
+                <option value='' disabled selected>选择领域</option>
+                <option v-bind:value="field.tag_id" v-bind:key="id" v-for="(field, id) in field_list">{{ field.name }}
+                </option>
                 <!--<option value="1">机器视觉</option>-->
                 <!--<option value="2">运筹学</option>-->
               </select>
@@ -78,10 +79,19 @@
             </div>
           </div>
           <div class="row">
-            <div class="input-field col s6">
-              <input id="conf-paper-template" type="text" v-model="conf_paper_template"/>
-              <label for="conf-paper-template">论文模板</label>
+            <div class="file-field input-field col s10">
+              <div class="btn" @change="get_template($event)">
+                <span>上传论文模板</span>
+                <input type="file">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="论文模板"/>
+              </div>
             </div>
+            <!--<div class="input-field col s6">-->
+            <!--<input id="conf-paper-template" type="text" v-model="conf_paper_template"/>-->
+            <!--<label for="conf-paper-template">论文模板</label>-->
+            <!--</div>-->
           </div>
           <div class="row">
             <div class="col s6">
@@ -134,10 +144,19 @@
           <!--</div>-->
           <!--</div>-->
           <div class="row">
-            <div class="input-field col s12">
-              <input id="conf-bg-img" type="text" v-model="conf_bg_img"/>
-              <label for="conf-bg-img">背景图片</label>
+            <div class="file-field input-field col s10">
+              <div class="btn" @change="get_image($event)">
+                <span>上传背景图片</span>
+                <input type="file">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="背景图片"/>
+              </div>
             </div>
+            <!--<div class="input-field col s12">-->
+            <!--<input id="conf-bg-img" type="text" v-model="conf_bg_img"/>-->
+            <!--<label for="conf-bg-img">背景图片</label>-->
+            <!--</div>-->
           </div>
         </form>
         <div>
@@ -155,33 +174,38 @@
 <script>
   import axios from 'axios';
   import NavBar from "../../include/NavBar";
+
   export default {
     name: "NewConference",
-    components: {NavBar},
+    components: { NavBar },
     data: function () {
       return {
-        conf_topic: "",
-        conf_field: "",
-        conf_desc: "",
-        conf_start_date: "",
-        conf_end_date: "",
-        conf_location: "",
-        conf_eassy_info: "",
-        conf_eassy_inst: "",
-        conf_eassy_ddl: "",
+        conf_topic: '',
+        conf_field: '',
+        conf_desc: '',
+        conf_start_date: '',
+        conf_end_date: '',
+        conf_location: '',
+        conf_eassy_info: '',
+        conf_eassy_inst: '',
+        conf_eassy_ddl: '',
         conf_eassy_time: "23:59",
-        conf_release_ddl: "",
-        conf_release_time: "",
-        conf_register_ddl: "",
+        conf_release_ddl: '',
+        conf_release_time: '',
+        conf_register_ddl: '',
         conf_register_time: "23:59",
-        conf_schedule: "",
-        conf_paper_template: "",
-        conf_register_info: "",
-        conf_commute_info: "",
-        conf_contact: "",
+        conf_schedule: '',
+        conf_paper_template: '',
+        conf_register_info: '',
+        conf_commute_info: '',
+        conf_contact: '',
         conf_conference_template: 1,
-        conf_bg_img: "",
-        field_list: []
+        conf_bg_img: '',
+        field_list: [],
+        paper_template: '',
+        back_img: '',
+        template_path: '',
+        image_path: ''
       };
     },
     created: function () {
@@ -272,13 +296,45 @@
         console.log(1);
       })
     },
-    updated: function() {
+    updated: function () {
       $('select').formSelect();
     },
     methods: {
       submit_conference: function () {
+        let that = this;
+        axios.all([ this.upload_template(), this.upload_image() ]).then(
+          axios.spread(function (ut, ui) {
+            that.$axios.post('/api/postConference', {
+              institution_id: 1,
+              title: that.conf_topic,
+              field: parseInt(that.conf_field),
+              introduction: that.conf_desc,
+              start_date: that.conf_start_date + ' 00:00:00',
+              end_date: that.conf_end_date + ' 23:59:59',
+              convening_place: that.conf_location,
+              eassy_information: that.conf_eassy_info,
+              eassy_instructions: that.conf_eassy_inst,
+              paper_ddl: that.conf_eassy_ddl + ' ' + that.conf_eassy_time + ':59',
+              employ_date: that.conf_release_ddl + ' 00:00:00',
+              register_ddl: that.conf_register_ddl + ' ' + that.conf_register_time + ':59',
+              schedule: that.conf_schedule,
+              paper_template: that.template_path,
+              register_information: that.conf_register_info,
+              ATinformation: that.conf_commute_info,
+              contact: that.conf_contact,
+              conference_template: that.conf_conference_template,
+              backimg: that.image_path
+            }).then(rsp => {
+              if (rsp.data.status === 'succ')
+                M.toast({ html: '发布会议成功' });
+            }).catch(err => {
+              M.toast({ html: err.toString() });
+            });
+          })
+        );
+        /*
         this.$axios.post('/api/postConference', {
-        // axios.post('http://10.138.48.237:8080/api/postConference', {
+          // axios.post('http://10.138.48.237:8080/api/postConference', {
           institution_id: 1,
           title: this.conf_topic,
           field: parseInt(this.conf_field),
@@ -305,7 +361,38 @@
         }).catch(err => {
           console.log(err);
         })
+        */
       },
+      get_template: function (event) {
+        this.paper_template = event.target.files[ 0 ];
+      },
+      get_image: function (event) {
+        this.back_img = event.target.files[ 0 ];
+      },
+      upload_template: function () {
+        let config = {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        };
+        let FileData = new FormData();
+        FileData.append('file', this.paper_template);
+        return this.$file.post('/', FileData, config).then(response => {
+          this.template_path = response.data;
+        });
+      },
+      upload_image: function () {
+        let config = {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        };
+        let FileData = new FormData();
+        FileData.append('file', this.back_img);
+        return this.$file.post('/', FileData, config).then(response => {
+          this.image_path = response.data;
+        });
+      }
     }
   }
 </script>

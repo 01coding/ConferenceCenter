@@ -1,146 +1,148 @@
 <template>
   <div>
-    <div class="row">
+    <div class="row" id="contribution-manage">
       <div class="col s12">
         <ul class="tabs">
-          <!--<li class="tab col s3">Test 1</li>-->
-          <!--<li class="tab col s3">Test 1</li>-->
-          <!--<li class="tab col s3">Test 1</li>-->
-          <!--<li class="tab col s3">Test 1</li>-->
-          <!--<li class="tab col s2"><a href="#test1">全部 <span class="new badge blue">45</span></a></li>-->
-          <li class="tab col s2"><a class="active" href="#all" @click="filter = 'all'; refresh();">全部 {{ all_num }}</a></li>
+          <li class="tab col s2"><a class="active" href="#all" @click="filter = 'all'; refresh();">全部 {{ all_num }}</a>
+          </li>
           <li class="tab col s2"><a href="#passed" @click="filter = 'passed'; refresh();">已通过 {{ passed_num }}</a></li>
-          <li class="tab col s2"><a href="#pending" @click="filter = 'pending'; refresh();">审核中 {{ pending_num }}</a></li>
+          <li class="tab col s2"><a href="#pending" @click="filter = 'pending'; refresh();">审核中 {{ pending_num }}</a>
+          </li>
           <li class="tab col s2"><a href="#fixing" @click="filter = 'fixing'; refresh();">修改中 {{ fixing_num }}</a></li>
-          <li class="tab col s2"><a href="#rejected" @click="filter = 'rejected'; refresh();">已拒绝 {{ rejected_num }}</a></li>
+          <li class="tab col s2"><a href="#rejected" @click="filter = 'rejected'; refresh();">已拒绝 {{ rejected_num }}</a>
+          </li>
         </ul>
       </div>
-      <div id="all" class="col s12">
-        <div class="card" v-for="(item, index) in all_list" v-bind:key="index">
+      <div id="all" class="col s12 m10 offset-m1">
+        <div class="card hoverable" v-for="(item, index) in all_list" v-bind:key="index">
           <div class="card-content">
-            <span class="card-title activator">{{ item.title }}<i class="material-icons right">more_vert</i></span>
-            <div class="row">
-              上传者 {{ item.uploader }}
+            <span class="card-title activator">{{ item.title }}<i class="material-icons right">arrow_upward</i></span>
+            <div class="row card-row">
+              <span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>
+              <span class="new teal badge" v-if="item.total_result === '1'">已通过</span>
+              <span class="new blue badge" v-else-if="item.total_result === '0'">未审核</span>
+              <span class="new orange badge" v-else-if="item.total_result === '2'">修改中</span>
+              <span class="new red badge" v-else="item.total_result === '3'">已拒绝</span>
             </div>
-            <div class="row">
+            <div class="row card-row">
               <div class="col center-align" v-bind:class="'s'+(12/item.author.length)" v-for="author in item.author">
                 <h5>{{ author.name }}</h5>
                 <h6>{{ author.institution }}</h6>
                 <h6>{{ author.email }}</h6>
               </div>
             </div>
-            <div class="row">
+            <div class="row card-row">
               <div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">
                 评审{{ review.id }}
               </div>
             </div>
           </div>
           <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">close</i></span>
+            <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">arrow_downward</i></span>
             <p>{{ item.abstract_ }}</p>
           </div>
         </div>
       </div>
-      <div id="passed" class="col s12">
-        <div class="card" v-for="(item, index) in passed_list" v-bind:key="index">
+      <div id="passed" class="col s12 m10 offset-m1">
+        <div class="card hoverable" v-for="(item, index) in passed_list" v-bind:key="index">
           <div class="card-content">
-            <span class="card-title activator">{{ item.title }}<i class="material-icons right">more_vert</i></span>
-            <div class="row">
-              上传者 {{ item.uploader }}
+            <span class="card-title activator">{{ item.title }}<i class="material-icons right">arrow_upward</i></span>
+            <div class="row card-row">
+              <span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>
             </div>
-            <div class="row">
+            <div class="row card-row">
               <div class="col center-align" v-bind:class="'s'+(12/item.author.length)" v-for="author in item.author">
                 <h5>{{ author.name }}</h5>
                 <h6>{{ author.institution }}</h6>
                 <h6>{{ author.email }}</h6>
               </div>
             </div>
-            <div class="row">
+            <div class="row card-row">
               <div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">
                 评审{{ review.id }}
               </div>
             </div>
           </div>
           <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">close</i></span>
+            <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">arrow_downward</i></span>
             <p>{{ item.abstract_ }}</p>
           </div>
         </div>
       </div>
-      <div id="pending" class="col s12">
-        <div class="card" v-for="(item, index) in pending_list" v-bind:key="index">
+      <div id="pending" class="col s12 m10 offset-m1">
+        <div class="card hoverable" v-for="(item, index) in pending_list" v-bind:key="index">
           <div class="card-content">
-            <span class="card-title activator">{{ item.title }}<i class="material-icons right">more_vert</i></span>
-            <div class="row">
-              上传者 {{ item.uploader }}
+            <span class="card-title activator">{{ item.title }}<i class="material-icons right">arrow_upward</i></span>
+            <div class="row card-row">
+              <span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>
             </div>
-            <div class="row">
+            <div class="row card-row">
               <div class="col center-align" v-bind:class="'s'+(12/item.author.length)" v-for="author in item.author">
                 <h5>{{ author.name }}</h5>
                 <h6>{{ author.institution }}</h6>
                 <h6>{{ author.email }}</h6>
               </div>
             </div>
-            <div class="row">
+            <div class="row card-row">
               <div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">
                 评审{{ review.id }}
               </div>
             </div>
           </div>
           <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">close</i></span>
+            <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">arrow_downward</i></span>
             <p>{{ item.abstract_ }}</p>
           </div>
         </div>
       </div>
-      <div id="fixing" class="col s12">
-        <div class="card" v-for="(item, index) in fixing_list" v-bind:key="index">
+      <div id="fixing" class="col s12 m10 offset-m1">
+        <div class="card hoverable" v-for="(item, index) in fixing_list" v-bind:key="index">
           <div class="card-content">
-            <span class="card-title activator">{{ item.title }}<i class="material-icons right">more_vert</i></span>
-            <div class="row">
-              上传者 {{ item.uploader }}
+            <span class="card-title activator">{{ item.title }}<i class="material-icons right">arrow_upward</i></span>
+            <div class="row card-row">
+              <span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>
             </div>
-            <div class="row">
+            <div class="row card-row">
               <div class="col center-align" v-bind:class="'s'+(12/item.author.length)" v-for="author in item.author">
                 <h5>{{ author.name }}</h5>
                 <h6>{{ author.institution }}</h6>
                 <h6>{{ author.email }}</h6>
               </div>
             </div>
-            <div class="row">
+            <div class="row card-row">
               <div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">
                 评审{{ review.id }}
               </div>
             </div>
           </div>
           <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">close</i></span>
+            <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">arrow_downward</i></span>
             <p>{{ item.abstract_ }}</p>
           </div>
         </div>
       </div>
-      <div id="rejected" class="col s12">
-        <div class="card" v-for="(item, index) in rejected_list" v-bind:key="index">
+      <div id="rejected" class="col s12 m10 offset-m1">
+        <div class="card hoverable" v-for="(item, index) in rejected_list" v-bind:key="index">
           <div class="card-content">
-            <span class="card-title activator">{{ item.title }}<i class="material-icons right">more_vert</i></span>
-            <div class="row">
-              上传者 {{ item.uploader }}
+            <span class="card-title activator">{{ item.title }}<i class="material-icons right">arrow_upward</i></span>
+            <div class="row card-row">
+              <span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>
             </div>
-            <div class="row">
+            <div class="row card-row">
               <div class="col center-align" v-bind:class="'s'+(12/item.author.length)" v-for="author in item.author">
                 <h5>{{ author.name }}</h5>
                 <h6>{{ author.institution }}</h6>
                 <h6>{{ author.email }}</h6>
               </div>
             </div>
-            <div class="row">
+            <div class="row card-row">
               <div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">
                 评审{{ review.id }}
               </div>
             </div>
           </div>
           <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">close</i></span>
+            <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">arrow_downward</i></span>
             <p>{{ item.abstract_ }}</p>
           </div>
         </div>
@@ -151,6 +153,8 @@
 
 <script>
   import pagination from '@/include/Pagination';
+  import { humanize_time } from '@/js/utils';
+
   export default {
     name: "Contributions",
     components: { pagination },
@@ -181,6 +185,7 @@
         $('.tabs').tabs();
       });
       this.refresh();
+      this.$bus.emit('manage-change-title', { text: '稿件管理'});
     },
     methods: {
       refresh: function () {
@@ -204,17 +209,32 @@
           else if (this.filter === 'rejected') {
             this.rejected_list = rsp.data.data.contributions;
           }
-          this.all_num = rsp.data.data.total_num[0];
-          this.pending_num = rsp.data.data.total_num[2];
-          this.passed_num = rsp.data.data.total_num[1];
-          this.fixing_num = rsp.data.data.total_num[3];
-          this.rejected_num = rsp.data.data.total_num[4];
+          this.all_num = rsp.data.data.total_num[ 0 ];
+          this.pending_num = rsp.data.data.total_num[ 2 ];
+          this.passed_num = rsp.data.data.total_num[ 1 ];
+          this.fixing_num = rsp.data.data.total_num[ 3 ];
+          this.rejected_num = rsp.data.data.total_num[ 4 ];
         });
+      },
+      readable_time: function(str) {
+        return humanize_time(str);
       }
     }
   }
 </script>
 
 <style scoped>
+  #contribution-manage {
+    margin-right: 0;
+  }
 
+  .card-row {
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .new.badge:after {
+    content: ""
+  }
 </style>

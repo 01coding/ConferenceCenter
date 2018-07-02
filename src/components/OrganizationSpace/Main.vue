@@ -83,6 +83,9 @@
       $(document).ready(function () {
         $('#nav-mobile').sidenav();
       });
+      this.$bus.on('manage-change-title', data => {
+        this.nav_title = data.text;
+      });
     },
     mounted: function () {
       let module_path = Object.keys(this.routes).find(
@@ -93,6 +96,9 @@
       );
       this.nav_title = this.routes[ module_path ];
       console.log(this.nav_title);
+    },
+    beforeDestroy: function() {
+      this.$bus.off('manage-change-title');
     }
   }
 </script>
