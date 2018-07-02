@@ -205,7 +205,7 @@ export default{
   },
   methods: {
     learn_more() {
-      // this.$router.push("/conference/1");
+      this.$router.push("/conference/1");
     }
   },
   created(){

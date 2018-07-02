@@ -151,6 +151,11 @@
                 if(rsp.data.code==="400"){
                   return;
                 }
+
+                 M.toast({
+                   html:"<span style='font-weight: bold'>您的申请已提交</span>",
+                   classes: "rounded yellow darken-2"
+                 });
                 this.$router.push('/');
               }).catch(err => {
                 console.log(err);

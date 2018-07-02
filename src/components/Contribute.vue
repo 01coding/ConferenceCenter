@@ -4,14 +4,14 @@
 
     <div class="card"
          style="width: 100%; padding-top: 2rem; padding-bottom: 2rem; margin: 0;"
-         :style="{background:'url('+conference.background_img+')'}">
+         :style="{'background-image':'url('+conference.background_img+')'}">
       <div class="white-text row container">
         <div class="col s10 offset-s1">
           <h5>投稿至</h5>
-          <h4 style="font-weight: bold">{{conference.name}}</h4>
+          <h4 style="font-weight: bold">{{resp.data.title}}</h4>
           <h5>&nbsp</h5>
-          <h5>{{conference.place}}</h5>
-          <h5>{{conference.time}}</h5>
+          <h5>{{resp.data.convening_place}}</h5>
+          <h5>{{resp.data.start_date}}</h5>
           <a class="btn-floating btn-large halfway-fab waves-effect waves-light blue"
              style="right:25%;"
              @click="submit">
@@ -121,7 +121,9 @@
                 <i class="material-icons right">attach_file</i>
                 选择文件
               </file-upload>
-              <button type="button" class="btn green" v-if="!$refs.upload || !$refs.upload.active" @click.prevent="$refs.upload.active = true">
+              <button type="button" class="btn green"
+                      v-if="!$refs.upload || !$refs.upload.active"
+                      @click.prevent="$refs.upload.active = true">
                 <i class="material-icons right" aria-hidden="true">file_upload</i>
                 开始上传
               </button>
@@ -148,6 +150,17 @@ export default {
   components: { NavBar, FileUpload },
   data: function () {
     return {
+      conference_id: 1,
+      conferenceImg: "/static/bg1.jpg",
+      conferenceState: '默认',
+      contributeToLink: 0,
+      registerToLink: 0,
+      contributeLink: '',
+      registerLink: '',
+      resp: {
+        data: {}
+      },
+      display_id: 1,
       conference: {
         id: 0,
         name: "ICCV 2018: International Conference on Computer Vision",
@@ -161,7 +174,7 @@ export default {
       ],
       upload: {
         files: [],
-        url: "",
+        url: 'http://140.143.19.133:8001',
         size: 100 * 1024 * 1024,
         maximum: 1
       },
@@ -173,15 +186,68 @@ export default {
     }
   },
   created: function() {
-    if (this.$route.params.conference_id) {
-      this.conference.id = this.$route.params.conference_id;
+    if (this.$route.params.id) {
+      this.conference_id = this.$route.params.id;
+      this.load_conference();
     } else {
-      //TODO: this.$router.push("/404");
+      M.toast({
+        html: "<span style='font-weight: bold;'>需要路由参数</span>",
+        classes: 'red rounded'
+      });
+      this.$router.push("/404");
     }
   },
   mounted: function () {
   },
   methods: {
+    load_conference() {
+      this.$axios.post('api/conference/' + this.conference_id).then(response => {
+        this.resp = response.data;
+        console.log(this.resp.data);
+        this.getConferenceState();
+        this.isAbleContribute();
+        this.getConferenceImg();
+        console.log("contribute to link:" + this.contributeToLink);
+        console.log("conference state:" + this.conferenceState);
+      }).catch(error => {
+        console.log(1);
+      });
+    },
+    toContribute: function () {
+      if(sessionStorage.getItem("session")) {
+        console.log(sessionStorage.getItem("session"));
+        this.contributeLink = "/contribute";
+      }
+      else {
+        this.contributeLink = '/login';
+      }
+    },
+    toRegisterConference: function () {
+      if(sessionStorage.getItem("session")) {
+        this.registerLink = "/";
+      }
+      else {
+        this.registerLink = "/login";
+      }
+    },
+    isAbleContribute: function () {
+      if (this.conferenceState !== "征稿中") {
+        this.$router.push("/404");
+      }
+    },
+    getConferenceImg: function () {
+      this.conferenceImg = "http://140.143.19.133:8001/uploads/" + this.resp.data.backimg;
+    },
+    getConferenceState: function () {
+      if (this.resp.data.state === 4)
+        this.conferenceState = '已结束';
+      else if (this.resp.data.state === 12)
+        this.conferenceState = '正在进行中';
+      else if (this.resp.data.state === 3 || this.resp.data.state === 11)
+        this.conferenceState = '征稿中';
+      else if (this.resp.data.state === 2 || this.resp.data.state === 10)
+        this.conferenceState = '会议注册中';
+    },
     add_author() {
       let name = this.authors_field.name.trim();
       let institution = this.authors_field.institution.trim();
@@ -233,31 +299,36 @@ export default {
         return;
       } else {
         if (!files[0].success) {
-          M.toast({
-            html: "<span style='font-weight: bold;'>请先点“开始上传”</span>",
-            classes: 'yellow darken-2 rounded'
-          });
-          //return;
+          // M.toast({
+          //   html: "<span style='font-weight: bold;'>请先点“开始上传”</span>",
+          //   classes: 'yellow darken-2 rounded'
+          // });
+          // return;
+          // TODO: resolve WebIO
         }
       }
       let authors_str = JSON.stringify(authors);
       let file_url = "";
-      // TODO: let file_url = files[0].response;
+      //let file_url = files[0].response;
       let params = {
-        conference_id: this.conference.id,
+        conference_id: this.conference_id,
         title: title,
         abstract: abstract,
         authors: authors_str,
         file_url: file_url,
       };
-      // TODO: axios
+      console.log(params);
       let that = this;
       this.$axios.post("/api/contribute", params).then(
         rsp => {
           let data = rsp.data;
-          console.log(data);
           if (data.status==="succ") {
-            //TODO: jump
+            let contribution_id = data.data.contribution_id;
+            //this.$router.push("/contribution/"+contribution_id);
+            M.toast({
+              html: "<span style='font-weight: bold;'>投稿成功</span>",
+              classes: 'green rounded'
+            });
           } else {
             M.toast({
               html: "<span style='font-weight: bold;'>投稿失败</span>",
