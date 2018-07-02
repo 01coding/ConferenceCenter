@@ -9,7 +9,6 @@ import UserRegister from '@/components/Register/UserRegister'
 import InstitutionRegister from '@/components/Register/InstitutionRegister'
 import Search from '@/components/Search'
 import ReviewApplication from '../components/OperationManagement/ReviewApplication'
-
 import OrganizationSpace from '@/components/OrganizationSpace/Main';
 import OrgConferences from '@/components/OrganizationSpace/Conferences';
 import NewConference from '@/components/OrganizationSpace/NewConference';

@@ -101,6 +101,7 @@
 
 import Background from "../include/Background";
 import NavBar from "../include/NavBar";
+
 export default{
   name:'Index',
   components: {NavBar, Background},

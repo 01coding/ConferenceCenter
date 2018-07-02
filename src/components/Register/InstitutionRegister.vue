@@ -97,6 +97,11 @@
 <script>
     import navbar from '@/include/NavBar';
     import axios from 'axios';
+    import Vue from "vue"
+    import VuejsDialog from "vuejs-dialog"
+
+    Vue.use(VuejsDialog);
+
     export default {
       name: "InstitutionRegister",
       components: { navbar},
@@ -115,7 +120,7 @@
           img:'',
           imgPath:'',
           managerName:'',
-          managerPhone:''
+          managerPhone:'',
         }
       },
       created: function() {
@@ -130,6 +135,40 @@
         institutionRegisterFuc(event) {
 
           event.preventDefault();
+
+          let options = {
+            cancelText: '确认',  // 本地化确认按钮文字提示内容
+            animation: 'zoom', // 动画方式， 三选一: "zoom", "bounce", "fade"
+            type: 'basic', // 确认类型，点击确认（basic）， 'soft'(软确认), 'hard'（硬确认)
+            };
+
+            const regEmail= /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+
+          if(name===""||
+            this.email===""|| this.location===""|| this.phone===""|| this.introduction===""||
+            this.confirmEmail===""|| this.password===""|| this.confirmPassword===""||
+            this.file===""|| this.filePath===""|| this.img===""|| this.imgPath===""||
+            this.managerName===""|| this.managerPhone===""){
+            this.$dialog.alert('请完成全部表格',options)
+              .then(function () {
+                return;
+              })
+          }
+
+          else if(this.email===''||!regEmail.test(this.email)){
+            this.$dialog.alert('邮箱不符合规范',options)
+              .then(function () {
+                return;
+              })
+          }
+
+          else if(this.email!==this.confirmEmail){
+            this.$dialog.alert('两次邮箱不一致',options)
+              .then(function () {
+                return;
+              })
+          }
+
 
           let that = this;
           axios.all([this.upload_file(), this.upload_img()]).then(
