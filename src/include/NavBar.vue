@@ -3,7 +3,8 @@
     <nav class="white">
       <ul id="dropdown1" class="dropdown-content">
         <li><a href="/Login">登录</a></li>
-        <li><a href="/userRegister">注册</a></li>
+        <li><a href="/userRegister">个人注册</a></li>
+        <li><a href="/institutionRegister">主办方注册</a></li>
       </ul>
       <div class="nav-wrapper">
         <div class="brand-logo center"
