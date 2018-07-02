@@ -88,6 +88,9 @@
       });
     },
     mounted: function () {
+      if (!sessionStorage.getItem('session')) {
+        this.$router.push('/login');
+      }
       let module_path = Object.keys(this.routes).find(
         key => {
           let re = new RegExp('.*' + key + '.*');

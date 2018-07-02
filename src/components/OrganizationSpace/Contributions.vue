@@ -2,7 +2,7 @@
   <div>
     <div class="row" id="contribution-manage">
       <div class="col s12">
-        <ul class="tabs">
+        <ul class="tabs transparent">
           <li class="tab col s2"><a class="active" href="#all" @click="filter = 'all'; refresh();">全部 {{ all_num }}</a>
           </li>
           <li class="tab col s2"><a href="#passed" @click="filter = 'passed'; refresh();">已通过 {{ passed_num }}</a></li>
@@ -18,7 +18,8 @@
           <div class="card-content">
             <span class="card-title activator">{{ item.title }}<i class="material-icons right">arrow_upward</i></span>
             <div class="row card-row">
-              <span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>
+              <!--<span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>-->
+              <span class="grey-text">{{ item.uploader }}</span>
               <span class="new teal badge" v-if="item.total_result === '1'">已通过</span>
               <span class="new blue badge" v-else-if="item.total_result === '0'">未审核</span>
               <span class="new orange badge" v-else-if="item.total_result === '2'">修改中</span>
@@ -31,11 +32,11 @@
                 <h6>{{ author.email }}</h6>
               </div>
             </div>
-            <div class="row card-row">
-              <div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">
-                评审{{ review.id }}
-              </div>
-            </div>
+            <!--<div class="row card-row">-->
+              <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
+                <!--评审{{ review.id }}-->
+              <!--</div>-->
+            <!--</div>-->
           </div>
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">arrow_downward</i></span>
@@ -48,7 +49,8 @@
           <div class="card-content">
             <span class="card-title activator">{{ item.title }}<i class="material-icons right">arrow_upward</i></span>
             <div class="row card-row">
-              <span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>
+              <!--<span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>-->
+              <span class="grey-text">{{ item.uploader }}</span>
             </div>
             <div class="row card-row">
               <div class="col center-align" v-bind:class="'s'+(12/item.author.length)" v-for="author in item.author">
@@ -57,11 +59,11 @@
                 <h6>{{ author.email }}</h6>
               </div>
             </div>
-            <div class="row card-row">
-              <div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">
-                评审{{ review.id }}
-              </div>
-            </div>
+            <!--<div class="row card-row">-->
+              <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
+                <!--评审{{ review.id }}-->
+              <!--</div>-->
+            <!--</div>-->
           </div>
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">arrow_downward</i></span>
@@ -74,7 +76,8 @@
           <div class="card-content">
             <span class="card-title activator">{{ item.title }}<i class="material-icons right">arrow_upward</i></span>
             <div class="row card-row">
-              <span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>
+              <!--<span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>-->
+              <span class="grey-text">{{ item.uploader }}</span>
             </div>
             <div class="row card-row">
               <div class="col center-align" v-bind:class="'s'+(12/item.author.length)" v-for="author in item.author">
@@ -83,11 +86,11 @@
                 <h6>{{ author.email }}</h6>
               </div>
             </div>
-            <div class="row card-row">
-              <div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">
-                评审{{ review.id }}
-              </div>
-            </div>
+            <!--<div class="row card-row">-->
+              <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
+                <!--评审{{ review.id }}-->
+              <!--</div>-->
+            <!--</div>-->
           </div>
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">arrow_downward</i></span>
@@ -100,7 +103,8 @@
           <div class="card-content">
             <span class="card-title activator">{{ item.title }}<i class="material-icons right">arrow_upward</i></span>
             <div class="row card-row">
-              <span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>
+              <!--<span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>-->
+              <span class="grey-text">{{ item.uploader }}</span>
             </div>
             <div class="row card-row">
               <div class="col center-align" v-bind:class="'s'+(12/item.author.length)" v-for="author in item.author">
@@ -109,11 +113,11 @@
                 <h6>{{ author.email }}</h6>
               </div>
             </div>
-            <div class="row card-row">
-              <div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">
-                评审{{ review.id }}
-              </div>
-            </div>
+            <!--<div class="row card-row">-->
+              <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
+                <!--评审{{ review.id }}-->
+              <!--</div>-->
+            <!--</div>-->
           </div>
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">arrow_downward</i></span>
@@ -126,7 +130,8 @@
           <div class="card-content">
             <span class="card-title activator">{{ item.title }}<i class="material-icons right">arrow_upward</i></span>
             <div class="row card-row">
-              <span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>
+              <!--<span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>-->
+              <span class="grey-text">{{ item.uploader }}</span>
             </div>
             <div class="row card-row">
               <div class="col center-align" v-bind:class="'s'+(12/item.author.length)" v-for="author in item.author">
@@ -135,11 +140,11 @@
                 <h6>{{ author.email }}</h6>
               </div>
             </div>
-            <div class="row card-row">
-              <div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">
-                评审{{ review.id }}
-              </div>
-            </div>
+            <!--<div class="row card-row">-->
+              <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
+                <!--评审{{ review.id }}-->
+              <!--</div>-->
+            <!--</div>-->
           </div>
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">arrow_downward</i></span>
@@ -244,5 +249,9 @@
 
   .new.badge:after {
     content: ""
+  }
+
+  .col .row {
+    margin-right: 0;
   }
 </style>
