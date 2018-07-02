@@ -14,7 +14,7 @@
           Conference Center
         </div>
         <ul class="right hide-on-med-and-down"
-            v-if="!in_search"
+            v-show="!in_search"
             style="color: #313131;">
           <li>
             <a style="color: #313131;" @click="toggle_search">
@@ -40,6 +40,7 @@
     </nav>
     <div class="fixed-action-btn" v-if="has_logged_in === 1">
       <a class="btn-floating btn-large grey darken-3">
+        <!--TODO: 跳转到用户个人空间-->
         <i class="large material-icons">assignment_ind</i>
       </a>
       <ul>
@@ -76,7 +77,7 @@ export default {
 
     choose_logout: function () {
       sessionStorage.removeItem("session");
-      this.$test('/api/user/logout').then(response => {
+      this.$axios('/api/user/logout').then(response => {
         M.toast({
           html:"<span style='font-weight: bold'>已注销</span>",
           classes: "rounded yellow darken-2"
