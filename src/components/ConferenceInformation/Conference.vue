@@ -46,7 +46,7 @@
                 <strong>会议简介</strong>:<br>
                 {{resp.data.introduction}}<br><br>
                 <strong>注册须知</strong>:<br>
-                {{resp.data.register_information}}
+                {{resp.data.register_information}}f1
               </div>
               <div id="register_notion" class="section scrollspy">
                 <h4>投稿须知</h4>
@@ -165,15 +165,36 @@
 
       this.conference_id = parseInt(this.$route.params.id);
       this.$axios.post('/api/conference/' + this.conference_id).then(response => {
-        this.resp = response.data;
-        console.log(this.resp.data);
-        this.getConferenceState();
-        this.isAbleRegister();
-        this.isAbleContribute();
-        this.getConferenceImg();
-        console.log("contribute to link:" + this.contributeToLink);
-        console.log("conference state:" + this.conferenceState);
+        if(response.status === 200) {
+          if (response.data.status === "succ") {
+            this.resp = response.data;
+            console.log(this.resp.data);
+            this.getConferenceState();
+            this.isAbleRegister();
+            this.isAbleContribute();
+            this.getConferenceImg();
+            console.log("contribute to link:" + this.contributeToLink);
+            console.log("conference state:" + this.conferenceState);
+          }
+          else {
+            M.toast({
+              html: response.data.info,
+              classes: "rounded red darken-2"
+            });
+            this.$router.push('/404');
+          }
+        }
+        else {
+          M.toast({
+            html: response.statusText,
+            classes: "rounded red darken-2"
+          });
+        }
       }).catch(error => {
+        M.toast({
+          html: error,
+          classes: "rounded red darken-2"
+        });
         console.log(1);
       });
     }
