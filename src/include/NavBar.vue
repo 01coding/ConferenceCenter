@@ -120,5 +120,7 @@ export default {
 </script>
 
 <style scoped>
-
+nav ul li a:hover {
+  background-color: #f0f0f3;
+}
 </style>

@@ -18,7 +18,7 @@
                 <div class="white-text" @click="$router.push(contributeLink)">投稿</div>
               </div>
               <div id="register" class="btn btn-large blue-grey" v-bind:class="{ disabled: registerToLink === 0 }" @click="toRegisterConference">
-                <div class="white-text" @click="$router.push(registerLink)">会议注册</div>
+                <div class="white-text" @click="$router.push(registerLink)">报名参会</div>
               </div>
             </div>
           </div>
