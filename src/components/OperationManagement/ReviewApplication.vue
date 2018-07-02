@@ -2,12 +2,13 @@
   <div>
     <NavBar></NavBar>
     <BackGround></BackGround>
+    <div class="row" style="height:2rem;"></div>
     <div class="row">
       <div class="col s1"></div>
       <div class="col s10">
         <ul class="collapsible" id="collaps">
           <li v-for="(item, index) in apply" v-bind:key="index">
-            <div class="collapsible-header active"><i class="material-icons">filter_drama</i>{{item.name}}</div>
+            <div class="collapsible-header active check-institution"><i class="material-icons">menu</i>{{item.name}}</div>
             <div class="collapsible-body">
               <p>单位地点：{{item.location}}</p>
               <div class="center">
@@ -85,3 +86,9 @@
   }
 
 </script>
+
+<style>
+.check-institution{
+  font-weight: bold;
+}
+</style>

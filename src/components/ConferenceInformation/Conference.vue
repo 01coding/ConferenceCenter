@@ -21,7 +21,7 @@
           <div class="col s4"></div>
           <div class="col s2">
             <div class="btn green" v-bind:class="{ disabled: contributeToLink === 0 }">
-              <router-link to="/api/contribute" class="white-text">投稿</router-link>
+              <router-link to="/contribute" class="white-text">投稿</router-link>
             </div>
           </div>
           <div class="col s2">
@@ -71,7 +71,7 @@
                  style="position: fixed; right: 7%; bottom: 2rem;">
               <ul class="section table-of-contents">
                 <li><a href="#introduction" class="active">会议介绍</a></li>
-                <li><a href="#register_notion">注册须知</a></li>
+                <li><a href="#register_notion">投稿须知</a></li>
                 <li><a href="#schedule">日程安排</a></li>
                 <li><a href="#traffic">住宿交通</a></li>
                 <li><a href="#relation">联系我们</a></li>
