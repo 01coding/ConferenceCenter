@@ -374,6 +374,7 @@ export default {
               html: "<span style='font-weight: bold;'>投稿成功</span>",
               classes: 'green rounded'
             });
+            that.$router.push("/conference/"+this.conference_id);
           } else {
             M.toast({
               html: "<span style='font-weight: bold;'>投稿失败</span>",

@@ -196,6 +196,10 @@
                   });
                   return;
                 }
+                 M.toast({
+                   html:"<span style='font-weight: bold'>信息已提交审核</span>",
+                   classes: "rounded green"
+                 });
                 that.$router.push('/');
               }).catch(err => {
                 console.log(err);
