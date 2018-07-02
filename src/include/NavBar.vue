@@ -62,7 +62,7 @@ export default {
     return {
       in_search: false,
       search_keyword:"",
-      has_logged_in: 0
+      has_logged_in: 0,
     };
   },
 

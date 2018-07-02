@@ -100,6 +100,7 @@
           if(this.password!==this.confirmPassword){
             this.confirmPasswordMessage="两次密码不一样";
             return
+
           }else{
             this.confirmPasswordMessage="";
           }
