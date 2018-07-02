@@ -4,7 +4,7 @@
     <div class="carousel carousel-slider center" style="height: 30rem;">
       <div class="carousel-fixed-item center">
         <a class="btn btn-large waves-effect white grey-text darken-text-4"
-           style="bottom: 3rem; font-weight: bold;">
+           style="bottom: 3rem; font-weight: bold;" @click="learn_more">
           了解更多
         </a>
       </div>
@@ -19,7 +19,7 @@
     </div>
 
     <div class="grey section lighten-5" style="padding-top: 3rem; padding-bottom: 1rem;">
-      <div style="padding-left: 5rem; padding-right: 3rem;">
+      <div style="padding-left: 7rem; padding-right: 7rem;">
         <div class="row">
           <div class="col s7"
                style="height:100%;">
@@ -55,7 +55,7 @@
               </ul>
           </div>
           <div class="col s5"
-               style="margin-left:0; padding-right: 2rem; padding-bottom: 1rem;">
+               style="margin-left:0; padding-bottom: 1rem;">
             <ul class="collection with-header hoverable" style="height:100%;width:100%;margin:0;">
               <li class="collection-header"><h4>近期事项</h4></li>
               <li class="collection-item">
@@ -204,6 +204,9 @@ export default{
     }
   },
   methods: {
+    learn_more() {
+      // this.$router.push("/conference/1");
+    }
   },
   created(){
     $(document).ready(function(){
