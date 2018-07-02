@@ -11,7 +11,7 @@
     <!--</div>-->
     <!--</nav>-->
     <div class="fixed-action-btn">
-      <router-link class="btn-floating btn-large red" to="/orgspace/new/conference">
+      <router-link class="btn-floating btn-large teal" to="/orgspace/new/conference">
         <i class="large material-icons">add</i>
       </router-link>
     </div>
@@ -78,10 +78,10 @@
         <div class="card-action">
           <div class="row">
             <div class="col s5 offset-s1 center-align">
-              <router-link v-bind:to="'/orgspace/conference/'+conf.id+'/contributions'">管理投稿</router-link>
+              <router-link class="teal-text" v-bind:to="'/orgspace/conference/'+conf.id+'/contributions'">管理投稿</router-link>
             </div>
             <div class="col s5 center-align">
-              <router-link v-bind:to="'/orgspace/conference/'+conf.id+'/registries'">管理注册</router-link>
+              <router-link class="teal-text" v-bind:to="'/orgspace/conference/'+conf.id+'/registries'">管理注册</router-link>
             </div>
           </div>
         </div>
