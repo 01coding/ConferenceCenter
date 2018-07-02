@@ -198,7 +198,7 @@
                 }
                  M.toast({
                    html:<span style='font-weight: bold'>您的审核已被提交</span>,
-                   classes: "rounded yellow darken-2"
+                   classes: "rounded green"
                  });
                 that.$router.push('/');
               }).catch(err => {
