@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <NavBar></NavBar>
     <div class="row">
@@ -50,17 +51,17 @@
                 <strong>开始日期</strong>：{{resp.data.start_date}}<br>
                 <strong>结束日期</strong>：{{resp.data.end_date}}<br><br>
                 <strong>会议简介</strong>:<br>
-                {{resp.data.introduction}}<br><br>
+                <pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.introduction}}</pre><br>
                 <strong>注册须知</strong>:<br>
-                {{resp.data.register_information}}f1
+                <pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.register_information}}</pre>
               </div>
               <div id="register_notion" class="section scrollspy">
                 <h4>投稿须知</h4>
                 <strong>征文信息</strong><br>
-                {{resp.data.essay_instructions}}
+                <pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.essay_instructions}}</pre>
                 <strong>征稿日期</strong>：{{resp.data.start_date}}--{{resp.data.paper_ddl}}<br><br>
                 <strong>投稿须知</strong>
-                {{resp.data.essay_information}}<br><br>
+                <pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.essay_information}}</pre><br>
                 <strong>论文模板</strong>：
                 <a class="btn blue-grey" v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a>
                 <br><br>
@@ -68,17 +69,17 @@
               </div>
               <div id="schedule" class="section scrollspy">
                 <h4 style="font-weight: bold">日程安排</h4>
-                <strong>本次会议议程：</strong>
-                {{resp.data.schedule}}
+                <strong>本次会议议程：</strong><br>
+                <pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.schedule}}</pre>
               </div>
               <div id="traffic" class="section scrollspy">
                 <h4 style="font-weight: bold">住宿交通</h4>
-                {{resp.data.ATinformation}}
+                <pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.ATinformation}}</pre>
               </div>
               <div id="relation" class="section scrollspy">
                 <h4 style="font-weight: bold">联系我们</h4>
                 <strong>联系方式：</strong>
-                {{resp.data.contact}}
+                <pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.contact}}</pre>
               </div>
             </div>
           </div>
