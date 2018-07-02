@@ -35,9 +35,9 @@
         <li class="bold active">
           <router-link to="/orgspace" class="waves-effect">会议管理</router-link>
         </li>
-        <li class="bold">
-          <router-link to="/orgspace" class="waves-effect">稿件管理</router-link>
-        </li>
+        <!--<li class="bold">-->
+          <!--<router-link to="/orgspace" class="waves-effect">稿件管理</router-link>-->
+        <!--</li>-->
         <li class="bold">
           <router-link to="/orgspace" class="waves-effect">机构信息设置</router-link>
         </li>

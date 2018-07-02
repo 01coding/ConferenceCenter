@@ -10,7 +10,7 @@
         <div class="collapsible-body">
           <p>单位地点：{{item.location}}</p>
           <div class="center">
-            <img src="item.backimg"/>
+            <img src="/assets/buaa.jpg"/>
           </div>
           <p>单位介绍：{{item.introduction}}</p>
           <p>证明材料：<a href="item.evidence">点我获取</a></p>
