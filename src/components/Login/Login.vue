@@ -146,8 +146,7 @@
             this.$axios.post('/api/user/token', {
               token: this.token,
             }).then(rsp => {
-              this.uid=rsp.data;
-              console.log(this.uid);
+              sessionStorage.setItem('name',rsp.data.data.name);
             }).catch(err => {
               console.log(err);
             });

@@ -151,6 +151,7 @@
                 if(rsp.data.code==="400"){
                   return;
                 }
+                this.$router.push('/');
               }).catch(err => {
                 console.log(err);
               })
