@@ -35,7 +35,7 @@
         <div class="container">
           <div class="row">
             <div class="card-panel center-align"
-                 style="position: fixed; left: 7%; bottom: 1.5rem; width: 20%;">
+                 style="position: fixed; left: 7%; top: 50%; width: 20%; height: 30%;">
                 <ul class="section table-of-contents"
                     style="padding-top: 0; padding-bottom: 0; padding-right: 1rem;">
                   <li><a href="#introduction" class="active">会议介绍</a></li>

@@ -31,7 +31,7 @@
                       <input type="radio" name="scholar" value="scholar" v-model="isScholar" checked />
                       <span>学者</span>
                     </label>
-                    <label class="col s4">
+                    <label class="col s3">
                       <input type="radio" name="institution" value="institution" v-model="isScholar" />
                       <span>主办方</span>
                     </label>
