@@ -33,7 +33,7 @@
       </a>
       <ul>
         <li>
-        <a href="/Login" class="btn-floating green">
+        <a href="/login" class="btn-floating green">
           登录
         </a>
         </li>
@@ -46,11 +46,11 @@
     </div>
     <div class="fixed-action-btn" v-if="has_logged_in === 1">
       <a class="btn-floating btn-large grey darken-3">
-        <i class="large material-icons" @click="logOut()">assignment_ind</i>
+        <i class="large material-icons">assignment_ind</i>
       </a>
       <ul>
         <li>
-          <a class="btn-floating yellow darken-2">
+          <a class="btn-floating yellow darken-2" @click="logOut">
             <i class="material-icons">exit_to_app</i>
           </a>
         </li>
@@ -82,12 +82,6 @@ export default {
 
     logOut: function () {
       sessionStorage.removeItem("session");
-      this.$test('/api/user/logout').then(response => {
-        console.log("logout OK");
-      })
-        .catch(error => {
-          console.log("logout failed");
-        })
     },
 
     toggle_search() {

@@ -8,11 +8,11 @@
           <!--<li class="tab col s3">Test 1</li>-->
           <!--<li class="tab col s3">Test 1</li>-->
           <!--<li class="tab col s2"><a href="#test1">全部 <span class="new badge blue">45</span></a></li>-->
-          <li class="tab col s2"><a class="active" href="#all" @click="filter = 'all'; refresh();">全部 145</a></li>
-          <li class="tab col s2"><a href="#passed" @click="filter = 'passed'; refresh();">已通过 23</a></li>
-          <li class="tab col s2"><a href="#pending" @click="filter = 'pending'; refresh();">审核中 80</a></li>
-          <li class="tab col s2"><a href="#fixing" @click="filter = 'fixing'; refresh();">修改中 20</a></li>
-          <li class="tab col s2"><a href="#rejected" @click="filter = 'rejected'; refresh();">已拒绝 22</a></li>
+          <li class="tab col s2"><a class="active" href="#all" @click="filter = 'all'; refresh();">全部 {{ all_num }}</a></li>
+          <li class="tab col s2"><a href="#passed" @click="filter = 'passed'; refresh();">已通过 {{ passed_num }}</a></li>
+          <li class="tab col s2"><a href="#pending" @click="filter = 'pending'; refresh();">审核中 {{ pending_num }}</a></li>
+          <li class="tab col s2"><a href="#fixing" @click="filter = 'fixing'; refresh();">修改中 {{ fixing_num }}</a></li>
+          <li class="tab col s2"><a href="#rejected" @click="filter = 'rejected'; refresh();">已拒绝 {{ rejected_num }}</a></li>
         </ul>
       </div>
       <div id="all" class="col s12">
@@ -158,10 +158,15 @@
       return {
         conference_id: 1,
         passed_list: [],
+        passed_num: 0,
         pending_list: [],
+        pending_num: 0,
         fixing_list: [],
+        fixing_num: 0,
         rejected_list: [],
+        rejected_num: 0,
         all_list: [],
+        all_num: 0,
         number: 1,
         current: 1,
         per_page: 10,
@@ -184,16 +189,26 @@
           size: this.per_page,
           type: this.filter
         }).then(rsp => {
-          if (this.filter === 'all')
+          if (this.filter === 'all') {
             this.all_list = rsp.data.data.contributions;
-          else if (this.filter === 'pending')
+          }
+          else if (this.filter === 'pending') {
             this.pending_list = rsp.data.data.contributions;
-          else if (this.filter === 'passed')
+          }
+          else if (this.filter === 'passed') {
             this.passed_list = rsp.data.data.contributions;
-          else if (this.filter === 'fixing')
+          }
+          else if (this.filter === 'fixing') {
             this.fixing_list = rsp.data.data.contributions;
-          else if (this.filter === 'rejected')
+          }
+          else if (this.filter === 'rejected') {
             this.rejected_list = rsp.data.data.contributions;
+          }
+          this.all_num = rsp.data.data.total_num[0];
+          this.pending_num = rsp.data.data.total_num[2];
+          this.passed_num = rsp.data.data.total_num[1];
+          this.fixing_num = rsp.data.data.total_num[3];
+          this.rejected_num = rsp.data.data.total_num[4];
         });
       }
     }
