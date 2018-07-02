@@ -13,7 +13,9 @@
           <img src="/static/logo.png" style="height: 2rem;">
           Conference Center
         </div>
-        <ul class="right hide-on-med-and-down" style="color: #313131;">
+        <ul class="right hide-on-med-and-down"
+            v-if="!in_search"
+            style="color: #313131;">
           <li>
             <a style="color: #313131;" @click="toggle_search">
               <i class="material-icons left">search</i> 搜索
