@@ -143,32 +143,31 @@
             };
 
             const regEmail= /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-
-          if(name===""||
-            this.email===""|| this.location===""|| this.phone===""|| this.introduction===""||
-            this.confirmEmail===""|| this.password===""|| this.confirmPassword===""||
-            this.file===""|| this.filePath===""|| this.img===""|| this.imgPath===""||
-            this.managerName===""|| this.managerPhone===""){
-            this.$dialog.alert('请完成全部表格',options)
-              .then(function () {
-                return;
-              })
+          if(this.name===""|| this.email===""|| this.location===""|| this.phone===""||
+            this.introduction===""|| this.confirmEmail===""|| this.password===""||
+            this.confirmPassword===""|| this.managerName===""|| this.managerPhone===""){
+            M.toast({
+              html:"<span style='font-weight: bold'>请完成所有表单</span>",
+              classes: "rounded yellow darken-2"
+            });
+            return;
           }
 
           else if(this.email===''||!regEmail.test(this.email)){
-            this.$dialog.alert('邮箱不符合规范',options)
-              .then(function () {
-                return;
-              })
+            M.toast({
+              html:"<span style='font-weight: bold'>邮箱不符合规范</span>",
+              classes: "rounded yellow darken-2"
+            });
+            return;
           }
 
           else if(this.email!==this.confirmEmail){
-            this.$dialog.alert('两次邮箱不一致',options)
-              .then(function () {
-                return;
-              })
+            M.toast({
+              html:"<span style='font-weight: bold'>两次邮箱不一致</span>",
+              classes: "rounded yellow darken-2"
+            });
+            return;
           }
-
 
           let that = this;
           axios.all([this.upload_file(), this.upload_img()]).then(
@@ -188,13 +187,12 @@
                 }
               }).then(rsp => {
                 if(rsp.data.code==="400"){
+                  M.toast({
+                    html:"<span style='font-weight: bold'>"+rsp.data.msg+"</span>",
+                    classes: "rounded yellow darken-2"
+                  });
                   return;
                 }
-
-                 M.toast({
-                   html:"<span style='font-weight: bold'>您的申请已提交</span>",
-                   classes: "rounded yellow darken-2"
-                 });
                 this.$router.push('/');
               }).catch(err => {
                 console.log(err);
