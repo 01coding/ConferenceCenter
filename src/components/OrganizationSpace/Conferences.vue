@@ -52,7 +52,7 @@
         <!--</div>-->
       </div>
       <div class="col s12 m12 l6 xl6" v-for="conf in conference_list">
-        <div class="card">
+        <div class="card hoverable">
           <div class="card-image">
             <img src="https://materializecss.com/images/sample-1.jpg">
             <div class="card-title">
