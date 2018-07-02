@@ -38,7 +38,7 @@ export default new Router({
       component: ConferenceInfo
     },
     {
-      path: '/contribute',
+      path: '/contribute/:id',
       name: 'Contribute',
       component: Contribute,
     },

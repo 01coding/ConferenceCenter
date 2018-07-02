@@ -3,79 +3,77 @@
     <NavBar></NavBar>
     <div class="row">
       <div class="col s1"></div>
-      <div class="card"
-           style="width: 100%; padding-top: 2rem; padding-bottom: 2rem; margin: 0;"
-           :style="{background:'url(/static/bg3.jpg)'}">
+      <div class="card customize"
+           style="width: 100%; padding-top: 2rem;
+                  padding-bottom: 2rem; margin: 0;"
+           :style="{'background': bg_overlay+'url('+conferenceImg+')'}">
         <div class="white-text row container">
-          <div class="col s10 offset-s1">
-            <h4 style="font-weight: bold">{{resp.data.title}}</h4>
-            <h5>{{resp.data.convening_place}}</h5>
-            <h5>{{resp.data.start_date}}</h5>
-            <h5>{{conferenceState}}</h5>
+          <div class="col s12">
+            <h4 class="center" style="font-weight: bold">{{resp.data.title}}</h4>
+            <h5 class="center">{{resp.data.start_date}}，{{resp.data.convening_place}}</h5>
+            <h5 style="font-weight: bold" class="center">{{conferenceState}}</h5>
+            <h5>&nbsp</h5>
+            <div class="row center-align">
+              <div class="btn btn-large green" v-bind:class="{ disabled: contributeToLink === 0 }" @click="toContribute">
+                <div class="white-text" @click="$router.push(contributeLink)">投稿</div>
+              </div>
+              <div id="register" class="btn btn-large blue-grey" v-bind:class="{ disabled: registerToLink === 0 }" @click="toRegisterConference">
+                <div class="white-text" @click="$router.push(registerLink)">会议注册</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="container">
-        <div style="height: 2rem"></div>
-        <div class="row">
-          <div class="col s4"></div>
-          <div class="col s2">
-            <div class="btn green" v-bind:class="{ disabled: contributeToLink === 0 }" @click="toContribute">
-              <router-link v-bind:to=contributeLink class="white-text">投稿</router-link>
-            </div>
-          </div>
-          <div class="col s2">
-            <div id="register" class="btn blue-grey" v-bind:class="{ disabled: registerToLink === 0 }" @click="toRegisterConference">
-              <router-link v-bind:to=registerLink class="white-text">会议注册</router-link>
-            </div>
-          </div>
-        </div>
-        <div class="row">
+      <div class="white section">
+        <div class="container">
           <div class="row">
-            <div class="col s12 m9 l10">
+            <div class="card-panel center-align"
+                 style="position: fixed; left: 7%; bottom: 1.5rem; width: 20%;">
+                <ul class="section table-of-contents"
+                    style="padding-top: 0; padding-bottom: 0; padding-right: 1rem;">
+                  <li><a href="#introduction" class="active">会议介绍</a></li>
+                  <li><a href="#register_notion">投稿须知</a></li>
+                  <li><a href="#schedule">日程安排</a></li>
+                  <li><a href="#traffic">住宿交通</a></li>
+                  <li><a href="#relation">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="col s9 offset-s3">
               <div id="introduction" class="section scrollspy">
-                <h4>会议介绍</h4>
-                开始日期：{{resp.data.start_date}}<br>
-                结束日期：{{resp.data.end_date}}<br>
-                会议简介:<br>
-                {{resp.data.introduction}}<br>
-                注册须知:<br>
+                <h4 style="font-weight: bold">会议介绍</h4>
+                <strong>开始日期</strong>：{{resp.data.start_date}}<br>
+                <strong>结束日期</strong>：{{resp.data.end_date}}<br><br>
+                <strong>会议简介</strong>:<br>
+                {{resp.data.introduction}}<br><br>
+                <strong>注册须知</strong>:<br>
                 {{resp.data.register_information}}
               </div>
               <div id="register_notion" class="section scrollspy">
                 <h4>投稿须知</h4>
-                <p>征文信息</p>
+                <strong>征文信息</strong><br>
                 {{resp.data.essay_instructions}}
-                <p>征稿日期：{{resp.data.start_date}}--{{resp.data.paper_ddl}}</p>
-                <p>投稿须知</p>
-                {{resp.data.essay_information}}
-                <p>论文模板：<a v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a></p>
-                <p>查看审核结果日期：{{resp.data.employ_date}}</p>
+                <strong>征稿日期</strong>：{{resp.data.start_date}}--{{resp.data.paper_ddl}}<br><br>
+                <strong>投稿须知</strong>
+                {{resp.data.essay_information}}<br><br>
+                <strong>论文模板</strong>：
+                <a class="btn blue-grey" v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a>
+                <br><br>
+                <strong>查看审核结果日期</strong>：{{resp.data.employ_date}}<br>
               </div>
               <div id="schedule" class="section scrollspy">
-                <h4>日程安排</h4>
-                <p>本次会议议程：</p>
+                <h4 style="font-weight: bold">日程安排</h4>
+                <strong>本次会议议程：</strong>
                 {{resp.data.schedule}}
               </div>
               <div id="traffic" class="section scrollspy">
-                <h4>住宿交通</h4>
+                <h4 style="font-weight: bold">住宿交通</h4>
                 {{resp.data.ATinformation}}
               </div>
               <div id="relation" class="section scrollspy">
-                <h4>联系我们</h4>
-                <p>联系方式：</p>
+                <h4 style="font-weight: bold">联系我们</h4>
+                <strong>联系方式：</strong>
                 {{resp.data.contact}}
               </div>
-            </div>
-            <div class="col hide-on-small-only m3 l2"
-                 style="position: fixed; right: 7%; bottom: 2rem;">
-              <ul class="section table-of-contents">
-                <li><a href="#introduction" class="active">会议介绍</a></li>
-                <li><a href="#register_notion">投稿须知</a></li>
-                <li><a href="#schedule">日程安排</a></li>
-                <li><a href="#traffic">住宿交通</a></li>
-                <li><a href="#relation">联系我们</a></li>
-              </ul>
             </div>
           </div>
         </div>
@@ -95,8 +93,9 @@
     components: { NavBar, axios, getURL },
     data() {
       return {
+        bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),",
         conference_id: 1,
-        conferenceImg: "../../../static/Image/bgimg.jpg",
+        conferenceImg: "/static/bg1.jpg",
         conferenceState: '默认',
         contributeToLink: 0,
         registerToLink: 0,
@@ -112,7 +111,7 @@
       toContribute: function () {
         if(sessionStorage.getItem("session")) {
           console.log(sessionStorage.getItem("session"));
-          this.contributeLink = "/contribute";
+          this.contributeLink = "/contribute/" + this.conference_id;
         }
         else {
           this.contributeLink = '/login';
@@ -128,7 +127,7 @@
       },
 
       isAbleRegister: function () {
-        if (this.conferenceState != "征稿中" && this.conferenceState != "会议注册中") {
+        if (this.conferenceState !== "征稿中" && this.conferenceState !== "会议注册中") {
             this.registerToLink = 0;
         }
         else {
@@ -136,7 +135,7 @@
         }
       },
       isAbleContribute: function () {
-        if (this.conferenceState == "征稿中") {
+        if (this.conferenceState === "征稿中") {
             this.contributeToLink = 1;
         }
         else {
@@ -145,16 +144,16 @@
       },
 
       getConferenceImg: function () {
-        this.conferenceImg = "http://140.143.19.133:8001/uploads/" + this.resp.data.backimg;
+        //this.conferenceImg = "http://140.143.19.133:8001/uploads/" + this.resp.data.backimg;
       },
       getConferenceState: function () {
-        if (this.resp.data.state == 4)
+        if (this.resp.data.state === 4)
           this.conferenceState = '已结束';
-        else if (this.resp.data.state == 12)
+        else if (this.resp.data.state === 12)
           this.conferenceState = '正在进行中';
-        else if (this.resp.data.state == 3 || this.resp.data.state == 11)
+        else if (this.resp.data.state === 3 || this.resp.data.state === 11)
           this.conferenceState = '征稿中';
-        else if (this.resp.data.state == 2 || this.resp.data.state == 10)
+        else if (this.resp.data.state === 2 || this.resp.data.state === 10)
           this.conferenceState = '会议注册中';
       }
     },
@@ -165,7 +164,7 @@
       });
 
       this.conference_id = parseInt(this.$route.params.id);
-      this.$axios.post('api/conference/' + this.conference_id).then(response => {
+      this.$axios.post('/api/conference/' + this.conference_id).then(response => {
         this.resp = response.data;
         console.log(this.resp.data);
         this.getConferenceState();
@@ -182,8 +181,13 @@
 </script>
 
 <style scoped>
+  .customize {
+    background-size: 100% !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+  }
+
   h1 {
-    font-family: Georgia;
     font-size: 2em;
   }
 
