@@ -115,7 +115,7 @@ export default{
             time: "2018年2月7日",
             venue: "New Orleans Riverside, USA",
             state: "征稿中",
-            bg: "/static/bg2.jpg",
+            bg: "/static/bg1.jpg",
           },
           {
             name: "IEEE Conference on Computer Vision and Pattern Recognition",
