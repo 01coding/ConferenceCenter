@@ -20,13 +20,13 @@
         <div class="row">
           <div class="col s4"></div>
           <div class="col s2">
-            <div class="btn green" v-bind:class="{ disabled: contributeToLink === 0 }">
-              <router-link to="/api/contribute" class="white-text">投稿</router-link>
+            <div class="btn green" v-bind:class="{ disabled: contributeToLink === 0 }" @click="toContribute">
+              <router-link v-bind:to=contributeLink class="white-text">投稿</router-link>
             </div>
           </div>
           <div class="col s2">
-            <div id="register" class="btn blue-grey" v-bind:class="{ disabled: registerToLink === 0 }">
-              <router-link to="/new/conference" class="white-text">会议注册</router-link>
+            <div id="register" class="btn blue-grey" v-bind:class="{ disabled: registerToLink === 0 }" @click="toRegisterConference">
+              <router-link v-bind:to=registerLink class="white-text">会议注册</router-link>
             </div>
           </div>
         </div>
@@ -38,14 +38,14 @@
                 开始日期：{{resp.data.start_date}}<br>
                 结束日期：{{resp.data.end_date}}<br>
                 会议简介:<br>
-                {{resp.data.introduction}}
+                {{resp.data.introduction}}<br>
                 注册须知:<br>
                 {{resp.data.register_information}}
               </div>
               <div id="register_notion" class="section scrollspy">
                 <h4>投稿须知</h4>
                 <p>征文信息</p>
-                {{resp.data.essay_instruction}}
+                {{resp.data.essay_instructions}}
                 <p>征稿日期：{{resp.data.start_date}}--{{resp.data.paper_ddl}}</p>
                 <p>投稿须知</p>
                 {{resp.data.essay_information}}
@@ -59,7 +59,7 @@
               </div>
               <div id="traffic" class="section scrollspy">
                 <h4>住宿交通</h4>
-                组委会已经为参会人员订购了xx酒店的房间，请参会人员到达时到前台签到并领取房卡。
+                {{resp.data.ATinformation}}
               </div>
               <div id="relation" class="section scrollspy">
                 <h4>联系我们</h4>
@@ -71,7 +71,7 @@
                  style="position: fixed; right: 7%; bottom: 2rem;">
               <ul class="section table-of-contents">
                 <li><a href="#introduction" class="active">会议介绍</a></li>
-                <li><a href="#register_notion">注册须知</a></li>
+                <li><a href="#register_notion">投稿须知</a></li>
                 <li><a href="#schedule">日程安排</a></li>
                 <li><a href="#traffic">住宿交通</a></li>
                 <li><a href="#relation">联系我们</a></li>
@@ -100,6 +100,8 @@
         conferenceState: '默认',
         contributeToLink: 0,
         registerToLink: 0,
+        contributeLink: '',
+        registerLink: '',
         resp: {
           data: {}
         },
@@ -107,8 +109,22 @@
       }
     },
     methods: {
-      getConferenceImg: function () {
-        this.conferenceImg = "http://140.143.19.133:8001/uploads/" + this.resp.data.backimg;
+      toContribute: function () {
+        if(sessionStorage.getItem("session")) {
+          console.log(sessionStorage.getItem("session"));
+          this.contributeLink = "/contribute";
+        }
+        else {
+          this.contributeLink = '/login';
+        }
+      },
+      toRegisterConference: function () {
+        if(sessionStorage.getItem("session")) {
+          this.registerLink = "/";
+        }
+        else {
+          this.registerLink = "/login";
+        }
       },
 
       isAbleRegister: function () {
@@ -116,23 +132,21 @@
             this.registerToLink = 0;
         }
         else {
-          if(sessionStorage.getItem("session")) {
             this.registerToLink = 1;
-          }
         }
       },
-
-      tocontribute: function () {
+      isAbleContribute: function () {
         if (this.conferenceState == "征稿中") {
-          if(sessionStorage.getItem("session")) {
             this.contributeToLink = 1;
-          }
         }
         else {
           this.contributeToLink = 0;
         }
       },
 
+      getConferenceImg: function () {
+        this.conferenceImg = "http://140.143.19.133:8001/uploads/" + this.resp.data.backimg;
+      },
       getConferenceState: function () {
         if (this.resp.data.state == 4)
           this.conferenceState = '已结束';
@@ -156,7 +170,7 @@
         console.log(this.resp.data);
         this.getConferenceState();
         this.isAbleRegister();
-        this.tocontribute();
+        this.isAbleContribute();
         this.getConferenceImg();
         console.log("contribute to link:" + this.contributeToLink);
         console.log("conference state:" + this.conferenceState);

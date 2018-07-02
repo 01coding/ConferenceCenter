@@ -13,7 +13,9 @@
           <img src="/static/logo.png" style="height: 2rem;">
           Conference Center
         </div>
-        <ul class="right hide-on-med-and-down" style="color: #313131;">
+        <ul class="right hide-on-med-and-down"
+            v-show="!in_search"
+            style="color: #313131;">
           <li>
             <a style="color: #313131;" @click="toggle_search">
               <i class="material-icons left">search</i> 搜索
@@ -38,12 +40,13 @@
     </nav>
     <div class="fixed-action-btn" v-if="has_logged_in === 1">
       <a class="btn-floating btn-large grey darken-3">
+        <!--TODO: 跳转到用户个人空间-->
         <i class="large material-icons">assignment_ind</i>
       </a>
       <ul>
         <li>
-          <a class="btn-floating yellow darken-2">
-            <i class="material-icons" @click="choose_logout()">exit_to_app</i>
+          <a class="btn-floating yellow darken-2" @click="choose_logout()">
+            <i class="material-icons">exit_to_app</i>
           </a>
         </li>
       </ul>
@@ -74,11 +77,18 @@ export default {
 
     choose_logout: function () {
       sessionStorage.removeItem("session");
-      this.$test('/api/user/logout').then(response => {
-        console.log("logout OK");
+      this.$axios('/api/user/logout').then(response => {
+        M.toast({
+          html:"<span style='font-weight: bold'>已注销</span>",
+          classes: "rounded yellow darken-2"
+        });
+        this.$router.replace("/")
       })
         .catch(error => {
-          console.log("logout failed");
+          M.toast({
+            html:"<span style='font-weight: bold'>注销失败</span>",
+            classes: "rounded red darken-2"
+          });
         })
     },
 

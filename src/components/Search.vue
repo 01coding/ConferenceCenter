@@ -34,16 +34,19 @@
         </div>
         <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
-            <i class="material-icons right">arrow_upward</i>
+            <i class="material-icons right">language</i>
           </span>
-          <p>{{res.convening_date.substr(0, 10)}}, 会议地点, 会议状态</p>
+          <p class="coference-date">{{res.convening_date.substr(0, 10)}}</p>
+          <p class="coference-date">{{res.convening_place}}</p>
+          <p style="height:1rem;"></p>
+          <p class="conference-introduction">{{res.introduction}}</p>
         </div>
-        <div class="card-reveal">
-          <span class="card-title grey-text text-darken-4">
-            {{res.title}}<i class="material-icons right">arrow_downward</i>
-          </span>
-          <p>{{res.introduction}}</p>
-        </div>
+        <!--<div class="card-reveal">-->
+          <!--<span class="card-title grey-text text-darken-4">-->
+            <!--{{res.title}}<i class="material-icons right">arrow_downward</i>-->
+          <!--</span>-->
+          <!--<p>{{res.introduction}}</p>-->
+        <!--</div>-->
       </div>
       <EmptyView v-if="conferences.total_num <= 0"></EmptyView>
     </div>
@@ -149,12 +152,14 @@
   }
 
   .coference-date {
-    font-size: 14px;
+    font-size: 15px;
     margin: 0px 0px;
     font-weight: 100;
+    font-family: Arial;
   }
 
   .conference-introduction {
-    font-size: 12px;
+    font-size: 16px;
+    font-family: "Times New Roman";
   }
 </style>
