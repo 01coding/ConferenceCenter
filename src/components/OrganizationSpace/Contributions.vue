@@ -148,6 +148,9 @@
         </div>
       </div>
     </div>
+    <div class="row center-align">
+      <pagination @page="page" v-bind:number="number" v-bind:current="current"></pagination>
+    </div>
   </div>
 </template>
 
@@ -185,7 +188,7 @@
         $('.tabs').tabs();
       });
       this.refresh();
-      this.$bus.emit('manage-change-title', { text: '稿件管理'});
+      this.$bus.emit('manage-change-title', { text: '稿件管理' });
     },
     methods: {
       refresh: function () {
@@ -214,10 +217,15 @@
           this.passed_num = rsp.data.data.total_num[ 1 ];
           this.fixing_num = rsp.data.data.total_num[ 3 ];
           this.rejected_num = rsp.data.data.total_num[ 4 ];
+          this.number = parseInt(rsp.data.data.page_num);
         });
       },
-      readable_time: function(str) {
+      readable_time: function (str) {
         return humanize_time(str);
+      },
+      page: function (num) {
+        this.current = num;
+        this.refresh();
       }
     }
   }

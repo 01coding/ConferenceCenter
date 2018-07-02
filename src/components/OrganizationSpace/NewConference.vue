@@ -305,7 +305,7 @@
         axios.all([ this.upload_template(), this.upload_image() ]).then(
           axios.spread(function (ut, ui) {
             that.$axios.post('/api/postConference', {
-              institution_id: 1,
+              // institution_id: 1,
               title: that.conf_topic,
               field: parseInt(that.conf_field),
               introduction: that.conf_desc,
