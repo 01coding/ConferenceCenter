@@ -161,6 +161,19 @@ static下放置静态资源，访问形式为`src="/static/a.jpg"`，如果放�
 
 #### 公用组件列表
 
+##### 时间戳转XX天前字符串
+
+```javascript
+import { humanize_time } from '@/js/utils';
+let str = humanize_time(time);
+```
+
+##### 图片路径wrapper
+
+```javascript
+let path = this.$image(relative_path);
+```
+
 ##### 导航栏
 
 ```javascript
