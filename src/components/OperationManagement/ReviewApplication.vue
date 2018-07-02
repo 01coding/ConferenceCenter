@@ -94,13 +94,18 @@
         $('#collaps').collapsible();
       });
 
-      this.$axios.post('/api/getInstitutionToCheck').then(response => {
-        console.log(JSON.stringify(response));
-        this.applyNumber=response.data.data.length;
-        this.apply = response.data.data;
-      }).catch(error => {
-        console.log(1);
-      });
+      if(sessionStorage.getItem("session")) {
+        this.$axios.post('/api/getInstitutionToCheck').then(response => {
+          console.log(JSON.stringify(response));
+          this.applyNumber = response.data.data.length;
+          this.apply = response.data.data;
+        }).catch(error => {
+          console.log(1);
+        });
+      }
+      else {
+
+      }
     }
   }
 

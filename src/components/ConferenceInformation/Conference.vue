@@ -20,8 +20,8 @@
         <div class="row">
           <div class="col s4"></div>
           <div class="col s2">
-            <div class="btn green" v-bind:class="{ disabled: contributeToLink === 0 }">
-              <router-link to="/contribute" class="white-text">投稿</router-link>
+            <div class="btn green" v-bind:class="{ disabled: contributeToLink === 0 }" @click="toContribute">
+              <router-link v-bind:to=contributeLink class="white-text">投稿</router-link>
             </div>
           </div>
           <div class="col s2">
@@ -111,6 +111,7 @@
     methods: {
       toContribute: function () {
         if(sessionStorage.getItem("session")) {
+          console.log(sessionStorage.getItem("session"));
           this.contributeLink = "/contribute";
         }
         else {
