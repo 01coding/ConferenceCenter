@@ -41,12 +41,12 @@
           <p style="height:1rem;"></p>
           <p class="conference-introduction">{{res.introduction}}</p>
         </div>
-        <div class="card-reveal">
-          <span class="card-title grey-text text-darken-4">
-            {{res.title}}<i class="material-icons right">arrow_downward</i>
-          </span>
-          <p>{{res.introduction}}</p>
-        </div>
+        <!--<div class="card-reveal">-->
+          <!--<span class="card-title grey-text text-darken-4">-->
+            <!--{{res.title}}<i class="material-icons right">arrow_downward</i>-->
+          <!--</span>-->
+          <!--<p>{{res.introduction}}</p>-->
+        <!--</div>-->
       </div>
       <EmptyView v-if="conferences.total_num <= 0"></EmptyView>
     </div>
