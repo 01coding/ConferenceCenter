@@ -138,17 +138,18 @@ export default{
 </script>
 
 <style scoped>
+  .title {
+    font-weight: bold !important;
+  }
   .index_page_slide {
     background-size: 100% !important;
     background-repeat: no-repeat !important;
     background-position: center center !important;
   }
   .famous-expert-institution{
-    font-family:"Georgia";
     font-size: 14px;
   }
   .famous-expert-intro{
-    font-family:"Times New Roman";
     font-size: 16px;
   }
 </style>
