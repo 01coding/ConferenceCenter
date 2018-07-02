@@ -77,12 +77,20 @@ export default {
 
     choose_logout: function () {
       sessionStorage.removeItem("session");
-      this.$axios('/api/user/logout').then(response => {
+      this.$axios.post('/api/user/logout').then(response => {
         M.toast({
           html:"<span style='font-weight: bold'>已注销</span>",
           classes: "rounded yellow darken-2"
         });
-        this.$router.replace("/")
+        this.$router.replace("/");
+
+        //renew
+        this.choose_login();
+        $(document).ready(function(){
+          $('.fixed-action-btn').floatingActionButton();
+          $(".dropdown-trigger").dropdown();
+        });
+
       })
         .catch(error => {
           M.toast({

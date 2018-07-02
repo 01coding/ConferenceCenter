@@ -15,6 +15,8 @@ import OrgConferences from '@/components/OrganizationSpace/Conferences';
 import NewConference from '@/components/OrganizationSpace/NewConference';
 import OrgContributions from '@/components/OrganizationSpace/Contributions';
 
+import page404 from '@/components/404';
+
 Vue.use(Router);
 
 export default new Router({
@@ -81,6 +83,11 @@ export default new Router({
       path:'/review/application',
       name:'ReviewApplication',
       component:ReviewApplication
+    },
+    {
+      path: '/404',
+      name:'page404',
+      component: page404
     }
   ]
 })

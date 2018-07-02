@@ -49,7 +49,7 @@
                 <p>征稿日期：{{resp.data.start_date}}--{{resp.data.paper_ddl}}</p>
                 <p>投稿须知</p>
                 {{resp.data.essay_information}}
-                <p>论文模板：{{resp.data.paper_template}}</p>
+                <p>论文模板：<a v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a></p>
                 <p>查看审核结果日期：{{resp.data.employ_date}}</p>
               </div>
               <div id="schedule" class="section scrollspy">
