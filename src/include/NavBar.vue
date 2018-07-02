@@ -76,7 +76,7 @@ export default {
 
     choose_logout: function () {
       sessionStorage.removeItem("session");
-      this.$test('/api/user/logout').then(response => {
+      this.$axios('/api/user/logout').then(response => {
         M.toast({
           html:"<span style='font-weight: bold'>已注销</span>",
           classes: "rounded yellow darken-2"
