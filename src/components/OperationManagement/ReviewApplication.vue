@@ -15,7 +15,7 @@
                 <img v-bind:src="'http://140.143.19.133:8001'+ item.backimg" />
               </div>
               <p>单位介绍：{{item.introduction}}</p>
-              <p>证明材料：<a href="item.evidence">点我获取</a></p>
+              <p>证明材料：<a v-bind:href="'http://140.143.19.133:8001' + item.evidence">点我获取</a></p>
               <p>id:{{item.id}}</p>
               <button class="btn" @click="reviewPass(item.id)">通过</button>
               <button class="btn" @click="reviewReject(item.id)">拒绝</button>
