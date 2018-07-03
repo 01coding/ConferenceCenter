@@ -1,7 +1,7 @@
 <template>
   <div>
     <NavBar></NavBar>
-    <div class="carousel carousel-slider center" style="height: 30rem;margin-top:3rem;">
+    <div class="carousel carousel-slider center" style="height: 30rem;margin-top:4.3rem;">
       <div class="carousel-fixed-item center">
         <a class="btn btn-large waves-effect white grey-text darken-text-4"
            style="bottom: 3rem; font-weight: bold;" @click="learn_more">

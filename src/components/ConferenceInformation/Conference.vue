@@ -2,7 +2,7 @@
 
   <div>
     <NavBar></NavBar>
-    <div class="row" style="margin-top:4rem;">
+    <div class="row" style="margin-top:4.3rem;">
       <div class="col s1"></div>
       <div class="card customize"
            style="width: 100%; padding-top: 2rem;

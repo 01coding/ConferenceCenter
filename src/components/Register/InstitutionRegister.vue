@@ -1,7 +1,7 @@
 <template>
 <div>
   <navbar></navbar>
-  <div class="row center-align container" style="margin-top: 3rem;">
+  <div class="row center-align container" style="margin-top: 4.3rem;">
     <div class="row" style="margin-top: 30px"></div>
     <div class="row">
       <div class="card-panel white-text text grey darken-2 " style="vertical-align: center; padding-top: 8px;padding-bottom: 8px;font-size: 17px">基本信息</div>
