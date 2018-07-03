@@ -2,7 +2,7 @@
   <div>
     <NavBar></NavBar>
     <BackGround></BackGround>
-    <div class="row" style="height:2rem;"></div>
+    <div class="row" style="height:2rem;margin-top:3rem;"></div>
     <div class="row">
       <div class="col s1"></div>
       <div class="col s10">

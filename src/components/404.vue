@@ -2,7 +2,7 @@
   <div :style="{'height': height+'px'}">
   <!--<div>-->
     <navbar></navbar>
-    <div class="center">
+    <div class="center" style="margin-top: 3rem;">
       <h1>404</h1>
       <h2>您访问的页面不存在</h2>
       <a style="cursor: pointer" @click="go_back()"><h4>返回</h4></a>

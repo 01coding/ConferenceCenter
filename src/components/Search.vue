@@ -2,7 +2,7 @@
   <div>
     <background></background>
     <navbar></navbar>
-    <div class="valign-wrapper white" style="width: 100%; height: 10rem;">
+    <div class="valign-wrapper white" style="width: 100%; height: 10rem;margin-top:3rem;">
       <div class="row container">
         <div class="container">
           <div class="nav-wrapper searchBar">
