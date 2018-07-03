@@ -8,11 +8,12 @@ import Login from '@/components/Login/Login'
 import UserRegister from '@/components/Register/UserRegister'
 import InstitutionRegister from '@/components/Register/InstitutionRegister'
 import Search from '@/components/Search'
-import ReviewApplication from '../components/OperationManagement/ReviewApplication'
+import ReviewApplication from '@/components/OperationManagement/ReviewApplication'
 import OrganizationSpace from '@/components/OrganizationSpace/Main';
 import OrgConferences from '@/components/OrganizationSpace/Conferences';
 import NewConference from '@/components/OrganizationSpace/NewConference';
 import OrgContributions from '@/components/OrganizationSpace/Contributions';
+import OrgReview from '@/components/OrganizationSpace/Review';
 
 import page404 from '@/components/404';
 
@@ -61,6 +62,10 @@ const router = new Router({
         {
           path: 'conference/:id/contributions',
           component: OrgContributions
+        },
+        {
+          path: 'review/:id',
+          component: OrgReview
         }
       ]
     },

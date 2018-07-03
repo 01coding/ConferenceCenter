@@ -16,16 +16,17 @@
       <div id="all" class="col s12 m10 offset-m1">
         <div class="card hoverable" v-for="(item, index) in all_list" v-bind:key="index">
           <div class="card-content">
-            <span class="card-title activator">{{ item.title }}<i class="material-icons right">arrow_upward</i></span>
-            <div class="row card-row">
-              <!--<span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>-->
-              <span class="grey-text">{{ item.uploader }}</span>
+            <span class="card-title activator">{{ item.title }}<i class="material-icons right">more_vert</i></span>
+            <div class="row card-row" @click="goto_review('/orgspace/review/'+item.id)">
+              <span class="grey-text">{{ item.uploader }} 最近上传于 {{ readable_time(item.total_submit) }} #{{ item.paper_number }}</span>
+              <!--<span class="grey-text" v-if="item.review.length > 0">{{ item.uploader }} 最近上传于 {{ readable_time(item.review[item.review.length-1].submit_time) }}</span>-->
+              <!--<span class="grey-text" v-else>{{ item.uploader }}</span>-->
               <span class="new teal badge" v-if="item.total_result === '1'">已通过</span>
               <span class="new blue badge" v-else-if="item.total_result === '0'">未审核</span>
               <span class="new orange badge" v-else-if="item.total_result === '2'">修改中</span>
               <span class="new red badge" v-else="item.total_result === '3'">已拒绝</span>
             </div>
-            <div class="row card-row">
+            <div class="row card-row" @click="goto_review('/orgspace/review/'+item.id)">
               <div class="col center-align" v-bind:class="'s'+(12/item.author.length)" v-for="author in item.author">
                 <h5>{{ author.name }}</h5>
                 <h6>{{ author.institution }}</h6>
@@ -33,9 +34,9 @@
               </div>
             </div>
             <!--<div class="row card-row">-->
-              <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
-                <!--评审{{ review.id }}-->
-              <!--</div>-->
+            <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
+            <!--评审{{ review.id }}-->
+            <!--</div>-->
             <!--</div>-->
           </div>
           <div class="card-reveal">
@@ -47,7 +48,7 @@
       <div id="passed" class="col s12 m10 offset-m1">
         <div class="card hoverable" v-for="(item, index) in passed_list" v-bind:key="index">
           <div class="card-content">
-            <span class="card-title activator">{{ item.title }}<i class="material-icons right">arrow_upward</i></span>
+            <span class="card-title activator">{{ item.title }}<i class="material-icons right">more_vert</i></span>
             <div class="row card-row">
               <!--<span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>-->
               <span class="grey-text">{{ item.uploader }}</span>
@@ -60,9 +61,9 @@
               </div>
             </div>
             <!--<div class="row card-row">-->
-              <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
-                <!--评审{{ review.id }}-->
-              <!--</div>-->
+            <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
+            <!--评审{{ review.id }}-->
+            <!--</div>-->
             <!--</div>-->
           </div>
           <div class="card-reveal">
@@ -74,7 +75,7 @@
       <div id="pending" class="col s12 m10 offset-m1">
         <div class="card hoverable" v-for="(item, index) in pending_list" v-bind:key="index">
           <div class="card-content">
-            <span class="card-title activator">{{ item.title }}<i class="material-icons right">arrow_upward</i></span>
+            <span class="card-title activator">{{ item.title }}<i class="material-icons right">more_vert</i></span>
             <div class="row card-row">
               <!--<span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>-->
               <span class="grey-text">{{ item.uploader }}</span>
@@ -87,9 +88,9 @@
               </div>
             </div>
             <!--<div class="row card-row">-->
-              <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
-                <!--评审{{ review.id }}-->
-              <!--</div>-->
+            <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
+            <!--评审{{ review.id }}-->
+            <!--</div>-->
             <!--</div>-->
           </div>
           <div class="card-reveal">
@@ -101,7 +102,7 @@
       <div id="fixing" class="col s12 m10 offset-m1">
         <div class="card hoverable" v-for="(item, index) in fixing_list" v-bind:key="index">
           <div class="card-content">
-            <span class="card-title activator">{{ item.title }}<i class="material-icons right">arrow_upward</i></span>
+            <span class="card-title activator">{{ item.title }}<i class="material-icons right">more_vert</i></span>
             <div class="row card-row">
               <!--<span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>-->
               <span class="grey-text">{{ item.uploader }}</span>
@@ -114,9 +115,9 @@
               </div>
             </div>
             <!--<div class="row card-row">-->
-              <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
-                <!--评审{{ review.id }}-->
-              <!--</div>-->
+            <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
+            <!--评审{{ review.id }}-->
+            <!--</div>-->
             <!--</div>-->
           </div>
           <div class="card-reveal">
@@ -128,7 +129,7 @@
       <div id="rejected" class="col s12 m10 offset-m1">
         <div class="card hoverable" v-for="(item, index) in rejected_list" v-bind:key="index">
           <div class="card-content">
-            <span class="card-title activator">{{ item.title }}<i class="material-icons right">arrow_upward</i></span>
+            <span class="card-title activator">{{ item.title }}<i class="material-icons right">more_vert</i></span>
             <div class="row card-row">
               <!--<span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>-->
               <span class="grey-text">{{ item.uploader }}</span>
@@ -141,9 +142,9 @@
               </div>
             </div>
             <!--<div class="row card-row">-->
-              <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
-                <!--评审{{ review.id }}-->
-              <!--</div>-->
+            <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
+            <!--评审{{ review.id }}-->
+            <!--</div>-->
             <!--</div>-->
           </div>
           <div class="card-reveal">
@@ -231,6 +232,9 @@
       page: function (num) {
         this.current = num;
         this.refresh();
+      },
+      goto_review: function (url) {
+        this.$router.push(url);
       }
     }
   }
@@ -253,5 +257,9 @@
 
   .col .row {
     margin-right: 0;
+  }
+
+  .card {
+    cursor: pointer;
   }
 </style>
