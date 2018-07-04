@@ -130,8 +130,9 @@
         this.$router.push(this.contributeLink);
       },
       toRegisterConference: function () {
-        this.registerLink = "/login";
-        this.$router.push(this.registerLink)
+        this.registerLink = "/conference/" + this.conference_id + '/join';
+        console.log(this.registerLink);
+        this.$router.push(this.registerLink);
       },
 
       isAbleRegister: function () {
@@ -155,13 +156,14 @@
         //this.conferenceImg = "http://140.143.19.133:8001/uploads/" + this.resp.data.backimg;
       },
       getConferenceState: function () {
-        if (this.resp.data.state === 4)
+        let state = this.resp.data.state & 0x0F;
+        if (state === 4)
           this.conferenceState = '已结束';
-        else if (this.resp.data.state === 12)
+        else if (state === 12)
           this.conferenceState = '正在进行中';
-        else if (this.resp.data.state === 3 || this.resp.data.state === 11)
+        else if (state === 3 || state === 11)
           this.conferenceState = '征稿中';
-        else if (this.resp.data.state === 2 || this.resp.data.state === 10)
+        else if (state === 2 || state === 10)
           this.conferenceState = '会议注册中';
       }
     },
