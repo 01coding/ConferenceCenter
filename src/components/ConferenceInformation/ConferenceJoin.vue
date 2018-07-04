@@ -31,27 +31,6 @@
             <div class="row">
               <h5>以xx身份注册会议</h5>
             </div>
-            <!--<div>
-                <div class="row valign-wrapper">
-                  <label class="col s3">
-                    <input type="radio" value="yes" v-model="whetherAuthor" checked />
-                    <span>是</span>
-                  </label>
-                  &lt;!&ndash;<div class="input-field col s9">&ndash;&gt;
-                    &lt;!&ndash;<i class="material-icons prefix">title</i>&ndash;&gt;
-                    &lt;!&ndash;<input id="thesis-code" type="text"&ndash;&gt;
-                    &lt;!&ndash;v-bind:class="{disabled: whetherAuthor === 'yes'}">&ndash;&gt;
-                    &lt;!&ndash;<label for="thesis-code">携带论文请填写论文编号</label>&ndash;&gt;
-                  &lt;!&ndash;</div>&ndash;&gt;
-                </div>
-                <div class="row">
-                  <label class="col s3">
-                    <input type="radio" value="not" v-model="whetherAuthor" />
-                    <span>否</span>
-                  </label>
-                  <label class="col s6"></label>
-                </div>
-              </div>-->
           </div>
           <div class="row">
             <h5>参会人</h5>
@@ -62,10 +41,8 @@
                 在这里添加参会人
               </h5>
               <div class="col s4" v-for="(participate, idx) in participates"
-                   style="margin-bottom: 1rem;"
-                   @click="">
-                <div class="card-panel"
-                     style="padding-top: 0.5rem;">
+                   style="margin-bottom: 1rem;">
+                <div class="card-panel" v-bind:id=idx style="padding-top: 0.5rem;" @click="update_participate(idx)">
                   <div style="height: 24px;">
                     <i class="material-icons right"
                        @click="participates.splice(idx, 1)"
@@ -346,6 +323,13 @@
         }
       },
 
+      update_participate: function(idx) {
+        //加阴影
+        $('#'+idx).addClass("z-depth-5");
+        //自动填充name
+
+      },
+
       add_participate() {
         let name = this.participate_field.name.trim();
         let telephone = this.participate_field.phone.trim();
@@ -392,6 +376,7 @@
         $(document).ready(function() {
           $('.after-add').show();
           $('.init').hide();
+          $('.').css("":"");
         });
 
         this.participate_field.name = "";
