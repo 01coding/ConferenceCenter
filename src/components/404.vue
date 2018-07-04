@@ -1,11 +1,11 @@
 <template>
-  <div :style="{'height': height+'px'}">
+  <div>
   <!--<div>-->
     <navbar></navbar>
-    <div class="center">
-      <h1>404</h1>
-      <h2>您访问的页面不存在</h2>
-      <a style="cursor: pointer" @click="go_back()"><h4>返回</h4></a>
+    <div class="center white section" :style="{'height': page_height+'px'}">
+      <h1 class="grey-text">404</h1>
+      <h5>您访问的页面不存在</h5>
+      <a style="cursor: pointer" @click="go_back()"><h5>返回</h5></a>
     </div>
   </div>
   <!--<div class="ui middle aligned grid container" style="height: 100%;">-->
@@ -18,24 +18,25 @@
   <!--</div>-->
 </template>
 <script>
-  import navbar from "@/include/NavBar";
+import navbar from "@/include/NavBar";
 
-  export default {
-    data: function () {
-      return {
-        height: document.documentElement.clientHeight,
-      }
-    },
-    components: { navbar },
-    methods: {
-      to_home() {
-        this.$router.replace("/");
-      },
-      go_back() {
-        this.$router.go(-1);
-      }
+export default {
+  data: function () {
+    return {
+      page_height: $(window).height(),
+      height: document.documentElement.clientHeight,
     }
-  };
+  },
+  components: { navbar },
+  methods: {
+    to_home() {
+      this.$router.replace("/");
+    },
+    go_back() {
+      this.$router.go(-1);
+    }
+  }
+};
 </script>
 
 <style scoped>

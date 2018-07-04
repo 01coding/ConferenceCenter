@@ -25,7 +25,7 @@
           <li v-if="!has_logged_in">
             <a class="dropdown-trigger" style="color: #313131;" data-target="dropdown1">
               <i class="material-icons left">account_circle</i>
-              <span>账户</span>
+              <span>登录/注册</span>
               <i class="material-icons right">arrow_drop_down</i>
             </a>
           </li>
@@ -40,17 +40,28 @@
       </div>
     </nav>
     <div class="fixed-action-btn" v-if="has_logged_in === 1">
-      <a class="btn-floating btn-large grey darken-3">
+      <a class="btn-floating btn-large grey darken-3 tooltipped" data-position="left" data-tooltip="进入个人空间">
         <!--TODO: 跳转到用户个人空间-->
         <i class="large material-icons">assignment_ind</i>
       </a>
       <ul>
         <li>
-          <a class="btn-floating yellow darken-2" @click="choose_logout()">
+          <a class="btn-floating red darken-2 tooltipped"  data-position="left" data-tooltip="注销" @click="choose_logout()">
             <i class="material-icons">exit_to_app</i>
           </a>
         </li>
+        <li>
+          <a class="btn-floating yellow darken-2 tooltipped"  data-position="left" data-tooltip="回到顶部" @click="back_top()">
+            <i class="material-icons">arrow_upward</i>
+          </a>
+        </li>
       </ul>
+    </div>
+    <div class="fixed-action-btn" v-else>
+      <a class="btn-floating btn-large grey darken-3 tooltipped" data-position="left" data-tooltip="回到顶部" @click="back_top()">
+        <!--TODO: 跳转到用户个人空间-->
+        <i class="large material-icons">arrow_upward</i>
+      </a>
     </div>
   </div>
 </template>
@@ -108,6 +119,10 @@ export default {
       if (event.keyCode === 13 && this.search_keyword.length > 0)
         this.$router.push("/search/" + this.search_keyword);
     },
+    back_top: function(){
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
+      $('.tooltip').isHovered=true;
+    },
   },
   created: function() {
     $(document).ready(function(){
@@ -122,5 +137,12 @@ export default {
 <style scoped>
 nav ul li a:hover {
   background-color: #f0f0f3;
+}
+.nav-fix{
+  position:fixed;
+  top:0;
+  z-index:990;
+  height:3rem;
+  width:100%;
 }
 </style>

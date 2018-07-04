@@ -1,56 +1,53 @@
 <template>
   <div>
     <navbar></navbar>
-    <br/>
-    <div class="row center-align" style="margin-top:40px; margin-bottom: 1px">
-      <h2>登录</h2>
-    </div>
-    <div class="row">
-      <div class="col s12 m4 offset-m4 l4 offset-l4">
-        <div class="card-panel" style="padding-bottom: 5px">
-          <div class="row">
-              <div class="row">
-                <div class="input-field col s12" style="margin-bottom: 0">
-                  <i class="medium material-icons prefix">email</i>
-                  <input id="email" type="email" class="validate"  v-model="email"/>
-                  <label for="email">邮箱</label>
-                </div>
-                <span class="red-text" style="margin-left: 55px">{{emailMessage}}</span>
-              </div>
-              <div class="row">
-                <div class="input-field col s12" style="margin-bottom: 0">
-                  <i class="medium material-icons prefix">vpn_key</i>
-                  <input id="password" type="password" class="validate" v-model="password" />
-                  <label for="password">密码</label>
-                </div>
-                <span class="red-text" style="margin-left: 55px">{{passwordMessage}}</span>
-              </div>
-              <div class="row center-align">
-                  <p>
-                    <label class="col s3 offset-l1">
-                      <input type="radio" name="scholar" value="scholar" v-model="isScholar" checked />
-                      <span>学者</span>
-                    </label>
-                    <label class="col s3">
-                      <input type="radio" name="institution" value="institution" v-model="isScholar" />
-                      <span>主办方</span>
-                    </label>
-                    <label class="col s3">
-                      <input type="radio" name="manager" value="manager" v-model="isScholar" />
-                      <span>管理员</span>
-                    </label>
-                  </p>
-              </div>
-              <div class="row center-align">
-                <button class="col s6 offset-l3 btn waves-effect waves-light" style="margin-top: 7px;" type="submit" name="action" v-on:click="loginfuc()">
-                  登录
-                </button>
-              </div>
+    <div class="white section"
+         :style="{'height': page_height + 'px'}"
+         style="padding-top: 5rem; padding-bottom: 5rem;">
+      <div class="center container" style="width: 35%; min-width: 30rem;">
+        <div class="row">
+          <h4 class="center grey-text text-darken-3">登录</h4>
+        </div>
+        <div class="row">
+          <div class="input-field col s12" style="margin-bottom: 0">
+            <i class="medium material-icons prefix">email</i>
+            <input id="email" type="email" class="validate"  v-model="email"/>
+            <label for="email">邮箱</label>
           </div>
+          <span class="red-text" style="margin-left: 55px">{{emailMessage}}</span>
+        </div>
+        <div class="row">
+          <div class="input-field col s12" style="margin-bottom: 0">
+            <i class="medium material-icons prefix">vpn_key</i>
+            <input id="password" type="password" class="validate" v-model="password" />
+            <label for="password">密码</label>
+          </div>
+          <span class="red-text" style="margin-left: 55px">{{passwordMessage}}</span>
+        </div>
+        <div class="row center-align">
+          <label class="col s3 offset-l1">
+            <input type="radio" name="scholar" value="scholar" v-model="isScholar" checked />
+            <span>学者</span>
+          </label>
+          <label class="col s3">
+            <input type="radio" name="institution" value="institution" v-model="isScholar" />
+            <span>主办方</span>
+          </label>
+          <label class="col s3">
+            <input type="radio" name="manager" value="manager" v-model="isScholar" />
+            <span>管理员</span>
+          </label>
+        </div>
+        <div class="row center-align">
+          <button class="btn-large waves-effect waves-light blue darken-2"
+                  style="margin-top: 7px;" type="submit" name="action"
+                  v-on:click="loginfuc()">
+            <i class="material-icons left">send</i>
+            GO
+          </button>
         </div>
       </div>
     </div>
-    <div style="height: 5rem;"></div>
   </div>
 </template>
 
@@ -61,6 +58,8 @@
         components: { navbar},
         data() {
           return {
+            bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),",
+            page_height: $(window).height(),
             email : '',
             password : '',
             isScholar: 'scholar',
@@ -179,5 +178,9 @@
 </script>
 
 <style scoped>
-
+  .customize {
+    background-size: 100% !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+  }
 </style>

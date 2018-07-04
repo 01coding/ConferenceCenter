@@ -1,96 +1,116 @@
 <template>
 <div>
   <navbar></navbar>
-  <div class="row center-align container">
-    <div class="row" style="margin-top: 30px"></div>
-    <div class="row">
-      <div class="card-panel white-text text grey darken-2 " style="vertical-align: center; padding-top: 8px;padding-bottom: 8px;font-size: 17px">基本信息</div>
-      <div class="input-field col s5">
-        <i class="medium material-icons prefix">account_circle</i>
-        <input id="name" type="text" class="validate"  v-model="name"/>
-        <label for="name">机构名</label>
-      </div>
-      <div class="input-field col s6 offset-l1">
-        <i class="medium material-icons prefix">email</i>
-        <input id="email" type="email" class="validate"  v-model="email"/>
-        <label for="email">邮箱</label>
-      </div>
-      <div class="input-field col s12">
-        <i class="medium material-icons prefix">add_location</i>
-        <input id="location" type="text" class="validate"  v-model="location"/>
-        <label for="location">地址</label>
-      </div>
-      <div class="input-field col s12">
-        <i class="medium material-icons prefix">local_phone</i>
-        <input id="phone" type="text" class="validate"  v-model="phone"/>
-        <label for="phone">联系电话</label>
-      </div>
-      <div class="input-field col s12">
-        <i class="medium material-icons prefix">subject</i>
-        <textarea id="introduction" class="materialize-textarea"  v-model="introduction"/>
-        <label for="introduction">介绍</label>
+  <div class="card customize"
+       style="width: 100%; padding-top: 2rem; padding-bottom: 2rem; margin: 0;"
+       :style="{'background-image':bg_overlay+'url(/static/bg3.jpg)'}">
+    <div class="white-text row container">
+      <div class="col s10 offset-s1">
+        <h4 class="center">机构注册</h4>
       </div>
     </div>
-    <div class="row">
-      <div class="card-panel white-text text grey darken-2 " style="vertical-align: center; padding-top: 8px;padding-bottom: 8px; margin-bottom:25px;font-size: 17px">上传照片</div>
-      <div class="file-field input-field input-field">
-        <div class="btn col s2" @change="getImg($event)">
-          <span>上传照片</span>
-          <input type="file">
-        </div>
-        <div class="file-path-wrapper">
-          <input class="file-path validate" type="text">
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="card-panel white-text text grey darken-2 " style="vertical-align: center; padding-top: 8px;padding-bottom: 8px; margin-bottom:25px;font-size: 17px">上传证明材料</div>
-      <div class="file-field input-field input-field">
-        <div class="btn col s2" @change="getFile($event)">
-          <span>上传证明材料</span>
-          <input type="file">
-        </div>
-        <div class="file-path-wrapper">
-          <input class="file-path validate" type="text">
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="card-panel white-text text grey darken-2 " style="vertical-align: center; padding-top: 8px;padding-bottom: 8px;font-size: 17px">管理员信息</div>
-      <div class="input-field col s12">
-        <i class="medium material-icons prefix">account_circle</i>
-        <input id="managerName" type="text" class="validate"  v-model="managerName"/>
-        <label for="managerName">管理员姓名</label>
-      </div>
-      <div class="input-field col s12">
-        <i class="medium material-icons prefix">email</i>
-        <input id="confirmEmail" type="email" class="validate"  v-model="confirmEmail"/>
-        <label for="confirmEmail">再次确认邮箱</label>
-      </div>
-      <div class="input-field col s12">
-        <i class="medium material-icons prefix">local_phone</i>
-        <input id="managerPhone" type="text" class="validate"  v-model="managerPhone"/>
-        <label for="managerPhone">管理员电话</label>
-      </div>
-      <div class="input-field col s12">
-        <i class="medium material-icons prefix">vpn_key</i>
-        <input id="password" type="password" class="validate"  v-model="password"/>
-        <label for="password">密码</label>
-      </div>
-      <div class="input-field col s12">
-        <i class="medium material-icons prefix">vpn_key</i>
-        <input id="confirmPassword" type="password" class="validate"  v-model="confirmPassword"/>
-        <label for="confirmPassword">确认密码</label>
-      </div>
-    </div>
-    <div class="row">
-      <button class="col s8 offset-l2 btn waves-effect waves-light" style="margin-top: 7px;" type="submit" @click="institutionRegisterFuc($event)">
-        提交
-      </button>
-    </div>
-    <div style="height: 6rem;"></div>
   </div>
 
+  <div class="white section">
+    <div class="container" style="width: 60%;">
+
+      <div class="row">
+        <h5>基本信息</h5>
+      </div>
+      <div class="row">
+        <div class="input-field col s5">
+          <i class="medium material-icons prefix">account_circle</i>
+          <input id="name" type="text" class="validate"  v-model="name"/>
+          <label for="name">机构名</label>
+        </div>
+        <div class="input-field col s6 offset-l1">
+          <i class="medium material-icons prefix">email</i>
+          <input id="email" type="email" class="validate"  v-model="email"/>
+          <label for="email">邮箱</label>
+        </div>
+        <div class="input-field col s12">
+          <i class="medium material-icons prefix">add_location</i>
+          <input id="location" type="text" class="validate"  v-model="location"/>
+          <label for="location">地址</label>
+        </div>
+        <div class="input-field col s12">
+          <i class="medium material-icons prefix">local_phone</i>
+          <input id="phone" type="text" class="validate"  v-model="phone"/>
+          <label for="phone">联系电话</label>
+        </div>
+        <div class="input-field col s12">
+          <i class="medium material-icons prefix">subject</i>
+          <textarea id="introduction" class="materialize-textarea"  v-model="introduction"/>
+          <label for="introduction">介绍</label>
+        </div>
+      </div>
+      <div class="row">
+        <h5>上传照片</h5>
+      </div>
+      <div class="row">
+        <div class="file-field input-field input-field">
+          <div class="file-path-wrapper col s10">
+            <input class="file-path validate" type="text">
+          </div>
+          <div class="btn col s2 blue-grey white-text" @change="getImg($event)">
+            <span>上传照片</span>
+            <input type="file">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <h5>上传证明材料</h5>
+      </div>
+      <div class="row">
+        <div class="file-field input-field input-field">
+          <div class="file-path-wrapper col s10">
+            <input class="file-path validate" type="text">
+          </div>
+          <div class="btn col s2 blue-grey white-text" @change="getFile($event)">
+            <span>上传证明材料</span>
+            <input type="file">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <h5>管理员信息</h5>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="medium material-icons prefix">account_circle</i>
+          <input id="managerName" type="text" class="validate"  v-model="managerName"/>
+          <label for="managerName">管理员姓名</label>
+        </div>
+        <div class="input-field col s12">
+          <i class="medium material-icons prefix">email</i>
+          <input id="confirmEmail" type="email" class="validate"  v-model="email"/>
+          <label for="confirmEmail" v-if="email===''">再次确认邮箱</label>
+        </div>
+        <div class="input-field col s12">
+          <i class="medium material-icons prefix">local_phone</i>
+          <input id="managerPhone" type="text" class="validate"  v-model="managerPhone"/>
+          <label for="managerPhone">管理员电话</label>
+        </div>
+        <div class="input-field col s12">
+          <i class="medium material-icons prefix">vpn_key</i>
+          <input id="password" type="password" class="validate"  v-model="password"/>
+          <label for="password">密码</label>
+        </div>
+        <div class="input-field col s12">
+          <i class="medium material-icons prefix">vpn_key</i>
+          <input id="confirmPassword" type="password" class="validate"  v-model="confirmPassword"/>
+          <label for="confirmPassword">确认密码</label>
+        </div>
+      </div>
+      <div class="center row">
+        <button class="btn-large waves-effect waves-light blue darken-2" style="margin-top: 7px;" type="submit" @click="institutionRegisterFuc($event)">
+          <i class="material-icons left">send</i>
+          提交
+        </button>
+      </div>
+      <div style="height: 6rem;"></div>
+    </div>
+  </div>
 </div>
 </template>
 
@@ -107,12 +127,12 @@
       components: { navbar},
       data() {
         return {
+          bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),",
           name: '',
           email : '',
           location : '',
           phone:'',
           introduction:'',
-          confirmEmail:'',
           password:'',
           confirmPassword:'',
           file:'',
@@ -144,8 +164,8 @@
 
             const regEmail= /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
           if(this.name===""|| this.email===""|| this.location===""|| this.phone===""||
-            this.introduction===""|| this.confirmEmail===""|| this.password===""||
-            this.confirmPassword===""|| this.managerName===""|| this.managerPhone===""){
+            this.introduction===""||this.password===""|| this.confirmPassword===""||
+            this.managerName===""|| this.managerPhone===""){
             M.toast({
               html:"<span style='font-weight: bold'>请完成所有表单</span>",
               classes: "rounded yellow darken-2"
@@ -161,13 +181,6 @@
             return;
           }
 
-          else if(this.email!==this.confirmEmail){
-            M.toast({
-              html:"<span style='font-weight: bold'>两次邮箱不一致</span>",
-              classes: "rounded yellow darken-2"
-            });
-            return;
-          }
 
           let that = this;
           axios.all([this.upload_file(), this.upload_img()]).then(
@@ -254,5 +267,9 @@
 </script>
 
 <style scoped>
-
+  .customize {
+    background-size: 100% !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+  }
 </style>

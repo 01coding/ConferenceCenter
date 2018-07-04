@@ -1,55 +1,53 @@
 <template>
   <div>
     <navbar></navbar>
-  <br/>
-  <div class="row center-align" style="margin-bottom: 1px">
-    <h2>注册</h2>
-  </div>
-  <div class="row">
-    <div class="col s12 m4 offset-m4 l4 offset-l4">
-      <div class="card-panel" style="padding-bottom: 5px">
+    <div class="white section valign-wrapper" style="padding-bottom: 5rem;">
+      <div class="center container" style="width: 35%; min-width: 30rem;">
         <div class="row">
-          <div class="row" style="margin-bottom: 0;">
-            <div class="input-field col s12" style="margin-bottom: 0">
-              <i class="medium material-icons prefix">account_circle</i>
-              <input id="name" type="text" class="validate"  v-model="name"/>
-              <label for="name">姓名</label>
-            </div>
-            <span class="red-text" style="margin-left: 55px">{{nameMessage}}</span>
+          <h4 class="center grey-text text-darken-3">个人注册</h4>
+        </div>
+        <div class="row" style="margin-bottom: 0;">
+          <div class="input-field col s12" style="margin-bottom: 0">
+            <i class="medium material-icons prefix">account_circle</i>
+            <input id="name" type="text" class="validate"  v-model="name"/>
+            <label for="name">姓名</label>
           </div>
-          <div class="row" style="margin-bottom: 0;">
-            <div class="input-field col s12" style="margin-bottom: 0">
-              <i class="medium material-icons prefix">email</i>
-              <input id="email" type="email" class="validate"  v-model="email"/>
-              <label for="email">邮箱</label>
-            </div>
-            <span class="red-text" style="margin-left: 55px">{{emailMessage}}</span>
+          <span class="red-text" style="margin-left: 55px">{{nameMessage}}</span>
+        </div>
+        <div class="row" style="margin-bottom: 0;">
+          <div class="input-field col s12" style="margin-bottom: 0">
+            <i class="medium material-icons prefix">email</i>
+            <input id="email" type="email" class="validate"  v-model="email"/>
+            <label for="email">邮箱</label>
           </div>
-          <div class="row" style="margin-bottom: 0;">
-            <div class="input-field col s12" style="margin-bottom: 0">
-              <i class="medium material-icons prefix">vpn_key</i>
-              <input id="password" type="password" class="validate" v-model="password" />
-              <label for="password">密码</label>
-            </div>
-            <span class="red-text" style="margin-left: 55px">{{passwordMessage}}</span>
+          <span class="red-text" style="margin-left: 55px">{{emailMessage}}</span>
+        </div>
+        <div class="row" style="margin-bottom: 0;">
+          <div class="input-field col s12" style="margin-bottom: 0">
+            <i class="medium material-icons prefix">vpn_key</i>
+            <input id="password" type="password" class="validate" v-model="password" />
+            <label for="password">密码</label>
           </div>
-          <div class="row" style="margin-bottom: 0;">
-            <div class="input-field col s12 " style="margin-bottom: 0">
-              <i class="medium material-icons prefix">vpn_key</i>
-              <input id="confirmPassword" type="password" class="validate" v-model="confirmPassword" />
-              <label for="confirmPassword">确认密码</label>
-            </div>
-            <span class="red-text" style="margin-left: 55px">{{confirmPasswordMessage}}</span>
+          <span class="red-text" style="margin-left: 55px">{{passwordMessage}}</span>
+        </div>
+        <div class="row" style="margin-bottom: 0;">
+          <div class="input-field col s12 " style="margin-bottom: 0">
+            <i class="medium material-icons prefix">vpn_key</i>
+            <input id="confirmPassword" type="password" class="validate" v-model="confirmPassword" />
+            <label for="confirmPassword">确认密码</label>
           </div>
-          <div class="row center-align">
-            <button class="col s6 offset-l3 btn waves-effect waves-light" style="margin-top: 7px;" type="submit" name="action" v-on:click="userRegisterFuc()">
-              注册
-            </button>
-          </div>
+          <span class="red-text" style="margin-left: 55px">{{confirmPasswordMessage}}</span>
+        </div>
+        <div class="row center-align">
+          <button class="btn-large waves-effect waves-light blue darken-2"
+                  style="margin-top: 7px;" type="submit"
+                  name="action" v-on:click="userRegisterFuc()">
+            <i class="material-icons left">send</i>
+            提交
+          </button>
         </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -57,9 +55,11 @@
   import navbar from '@/include/NavBar';
     export default {
       name: "UserRegister",
-      components: { navbar},
+      components: { navbar },
       data() {
         return {
+          bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),",
+          page_height: $(window).height(),
           name: '',
           email : '',
           password : '',
@@ -113,6 +113,10 @@
               this.emailMessage = rsp.data.msg;
               return;
             }
+            M.toast({
+              html:"<span style='font-weight: bold'>注册成功</span>",
+              classes: "rounded green"
+            });
             this.$router.push('/');
           }).catch(err => {
             console.log(err);
