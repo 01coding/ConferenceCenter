@@ -48,6 +48,7 @@
         </div>
       </div>
     </div>
+    <div style="height: 5rem;"></div>
   </div>
 </template>
 
@@ -85,9 +86,6 @@
               }else{
                 this.passwordMessage="";
               }
-            let formData = new FormData();
-            formData.append('email',this.email);
-            formData.append('password',this.password);
               if(this.isScholar==='scholar') {
                 this.$user.post('/user/login', {
                   email: this.email,

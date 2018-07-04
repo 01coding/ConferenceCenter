@@ -49,17 +49,16 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
   import navbar from '@/include/NavBar';
     export default {
       name: "UserRegister",
-      components: { navbar },
+      components: { navbar},
       data() {
         return {
-          bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),",
-          page_height: $(window).height(),
           name: '',
           email : '',
           password : '',
@@ -71,7 +70,8 @@
         }
       },
       methods:{
-        userRegisterFuc:function () {
+        userRegisterFuc:function (event) {
+          event.preventDefault();
           const regEmail= /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
           if(this.name===""){
             this.nameMessage="请输入姓名";
