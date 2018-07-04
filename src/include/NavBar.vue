@@ -123,4 +123,11 @@ export default {
 nav ul li a:hover {
   background-color: #f0f0f3;
 }
+.nav-fix{
+  position:fixed;
+  top:0;
+  z-index:990;
+  height:3rem;
+  width:100%;
+}
 </style>

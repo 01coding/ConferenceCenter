@@ -1,7 +1,7 @@
 <template>
 <div>
   <navbar></navbar>
-  <div class="row center-align container">
+  <div class="row center-align container" style="">
     <div class="row" style="margin-top: 30px"></div>
     <div class="row">
       <div class="card-panel white-text text grey darken-2 " style="vertical-align: center; padding-top: 8px;padding-bottom: 8px;font-size: 17px">基本信息</div>
@@ -64,8 +64,8 @@
       </div>
       <div class="input-field col s12">
         <i class="medium material-icons prefix">email</i>
-        <input id="confirmEmail" type="email" class="validate"  v-model="confirmEmail"/>
-        <label for="confirmEmail">再次确认邮箱</label>
+        <input id="confirmEmail" type="email" class="validate"  v-model="email"/>
+        <label for="confirmEmail" v-if="email===''">再次确认邮箱</label>
       </div>
       <div class="input-field col s12">
         <i class="medium material-icons prefix">local_phone</i>
@@ -112,7 +112,6 @@
           location : '',
           phone:'',
           introduction:'',
-          confirmEmail:'',
           password:'',
           confirmPassword:'',
           file:'',
@@ -144,8 +143,8 @@
 
             const regEmail= /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
           if(this.name===""|| this.email===""|| this.location===""|| this.phone===""||
-            this.introduction===""|| this.confirmEmail===""|| this.password===""||
-            this.confirmPassword===""|| this.managerName===""|| this.managerPhone===""){
+            this.introduction===""||this.password===""|| this.confirmPassword===""||
+            this.managerName===""|| this.managerPhone===""){
             M.toast({
               html:"<span style='font-weight: bold'>请完成所有表单</span>",
               classes: "rounded yellow darken-2"
@@ -161,13 +160,6 @@
             return;
           }
 
-          else if(this.email!==this.confirmEmail){
-            M.toast({
-              html:"<span style='font-weight: bold'>两次邮箱不一致</span>",
-              classes: "rounded yellow darken-2"
-            });
-            return;
-          }
 
           let that = this;
           axios.all([this.upload_file(), this.upload_img()]).then(

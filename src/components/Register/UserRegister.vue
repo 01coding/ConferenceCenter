@@ -2,7 +2,7 @@
   <div>
     <navbar></navbar>
   <br/>
-  <div class="row center-align" style="margin-bottom: 1px">
+  <div class="row center-align" style="margin-bottom: 1px;">
     <h2>注册</h2>
   </div>
   <div class="row">
@@ -113,6 +113,10 @@
               this.emailMessage = rsp.data.msg;
               return;
             }
+            M.toast({
+              html:"<span style='font-weight: bold'>注册成功</span>",
+              classes: "rounded green"
+            });
             this.$router.push('/');
           }).catch(err => {
             console.log(err);

@@ -32,12 +32,12 @@
             <!--<a href="#email">jdandturk@gmail.com</a>-->
           </div>
         </li>
-        <li class="bold active">
+        <li class="bold" v-bind:class="{ active: menu_active === 0 }">
           <router-link to="/orgspace" class="waves-effect">会议管理</router-link>
         </li>
-        <!--<li class="bold">-->
-          <!--<router-link to="/orgspace" class="waves-effect">稿件管理</router-link>-->
-        <!--</li>-->
+        <li class="bold" v-bind:class="{ active: menu_active === 1 }">
+          <router-link to="/orgspace/new/conference" class="waves-effect">发布新会议</router-link>
+        </li>
         <li class="bold">
           <router-link to="/orgspace" class="waves-effect">机构信息设置</router-link>
         </li>
@@ -71,15 +71,16 @@
     data: function () {
       return {
         nav_title: '',
-        routes: {
-          '/orgspace': '会议管理',
-          '/conferences': '会议管理',
-          '/contributions': '稿件管理',
-          '/setting': '机构信息设置',
-          '/admin': '管理员设置',
-          '/account': '账户设置',
-          '/new/conference': '发布新会议'
-        }
+        // routes: {
+        //   '/orgspace': '会议管理',
+        //   '/conferences': '会议管理',
+        //   '/contributions': '稿件管理',
+        //   '/setting': '机构信息设置',
+        //   '/admin': '管理员设置',
+        //   '/account': '账户设置',
+        //   '/new/conference': '发布新会议'
+        // },
+        menu_active: 0
       };
     },
     created: function () {
@@ -88,22 +89,27 @@
       });
       this.$bus.on('manage-change-title', data => {
         this.nav_title = data.text;
+        // console.log(this.nav_title);
+        if (data.text === '会议管理')
+          this.menu_active = 0;
+        else if (data.text === '发布新会议')
+          this.menu_active = 1;
       });
     },
     mounted: function () {
       if (!sessionStorage.getItem('session')) {
         this.$router.push('/login');
       }
-      let module_path = Object.keys(this.routes).find(
-        key => {
-          let re = new RegExp('.*' + key + '.*');
-          return re.test(this.$route.path);
-        }
-      );
-      this.nav_title = this.routes[ module_path ];
-      console.log(this.nav_title);
+      //   let module_path = Object.keys(this.routes).find(
+      //     key => {
+      //       let re = new RegExp('.*' + key + '.*');
+      //       return re.test(this.$route.path);
+      //     }
+      //   );
+      //   this.nav_title = this.routes[ module_path ];
+      //   console.log(this.nav_title);
     },
-    beforeDestroy: function() {
+    beforeDestroy: function () {
       this.$bus.off('manage-change-title');
     }
   }

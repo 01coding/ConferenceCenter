@@ -21,10 +21,10 @@
     <div style="height:20px;"></div>
 
     <div class="row container">
-      <div class="card" v-if="conferences.total_num > 0" v-for="(res,id) in conferences.result" :key="id">
+      <div class="card hoverable" v-if="conferences.total_num > 0" v-for="(res,id) in conferences.result" :key="id">
         <div class="card-image waves-effect waves-block waves-light"
              style="height: 10rem; background:black;">
-          <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg"></img>
+          <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg">
           <!--TODO: 这里放会议的背景图-->
           <router-link v-bind:to="'/conference/'+res.id">
             <span class="card-title" style="font-weight: bold">
@@ -36,8 +36,7 @@
           <span class="card-title activator grey-text text-darken-4">
             <i class="material-icons right">language</i>
           </span>
-          <p class="coference-date">{{res.convening_date.substr(0, 10)}}</p>
-          <p class="coference-date">{{res.convening_place}}</p>
+          <p class="coference-date">{{res.convening_date.substr(0, 10)}}, {{res.convening_place}}</p>
           <p style="height:1rem;"></p>
           <p class="conference-introduction">{{res.introduction}}</p>
         </div>
@@ -48,9 +47,9 @@
           <!--<p>{{res.introduction}}</p>-->
         <!--</div>-->
       </div>
-      <EmptyView v-if="conferences.total_num <= 0"></EmptyView>
+      <EmptyView v-if="conferences.total_num <= 0" style="height: 25rem;"></EmptyView>
     </div>
-    <div class="center-align">
+    <div class="center-align" v-if="conferences.total_num > 0">
       <Pagination @page="page"
                   :number="number"
                   :current="current"
@@ -148,18 +147,16 @@
   }
 
   .coference-title {
-    margin: 0px 0px;
+    margin: 0;
   }
 
   .coference-date {
-    font-size: 15px;
-    margin: 0px 0px;
-    font-weight: 100;
-    font-family: Arial;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0;
   }
 
   .conference-introduction {
     font-size: 16px;
-    font-family: "Times New Roman";
   }
 </style>

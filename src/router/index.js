@@ -8,13 +8,12 @@ import Login from '@/components/Login/Login'
 import UserRegister from '@/components/Register/UserRegister'
 import InstitutionRegister from '@/components/Register/InstitutionRegister'
 import Search from '@/components/Search'
-import ReviewApplication from '../components/OperationManagement/ReviewApplication'
+import ReviewApplication from '@/components/OperationManagement/ReviewApplication'
 import OrganizationSpace from '@/components/OrganizationSpace/Main';
 import OrgConferences from '@/components/OrganizationSpace/Conferences';
 import NewConference from '@/components/OrganizationSpace/NewConference';
 import OrgContributions from '@/components/OrganizationSpace/Contributions';
-import RegisteredConferences from '@/components/PersonalSpace/RegisteredConferences';
-import PersonalSpace from '@/components/PersonalSpace/PersonalSpace';
+import OrgReview from '@/components/OrganizationSpace/Review';
 
 import page404 from '@/components/404';
 
@@ -40,11 +39,6 @@ const router = new Router({
       component: ConferenceInfo
     },
     {
-      path:'/registeredconferences',
-      name:'RegisteredConferences',
-      component:RegisteredConferences
-    },
-    {
       path: '/contribute/:id',
       name: 'Contribute',
       component: Contribute,
@@ -68,20 +62,10 @@ const router = new Router({
         {
           path: 'conference/:id/contributions',
           component: OrgContributions
-        }
-      ]
-    },
-    {
-      path:'/personalspace',
-      component:PersonalSpace,
-      children:[
-        {
-          path:'',
-          component:RegisteredConferences
         },
         {
-          path:'registeredconferences',
-          component:RegisteredConferences
+          path: 'review/:id',
+          component: OrgReview
         }
       ]
     },

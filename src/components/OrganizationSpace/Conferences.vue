@@ -10,11 +10,11 @@
     <!--</div>-->
     <!--</div>-->
     <!--</nav>-->
-    <div class="fixed-action-btn">
-      <router-link class="btn-floating btn-large teal" to="/orgspace/new/conference">
-        <i class="large material-icons">add</i>
-      </router-link>
-    </div>
+    <!--<div class="fixed-action-btn">-->
+      <!--<router-link class="btn-floating btn-large teal" to="/orgspace/new/conference">-->
+        <!--<i class="large material-icons">add</i>-->
+      <!--</router-link>-->
+    <!--</div>-->
     <div class="row">
       <!--<div class="col s12 m12 l6 xl6">-->
       <!--<div class="card">-->

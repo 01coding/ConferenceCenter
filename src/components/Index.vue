@@ -130,7 +130,7 @@ export default{
             time: "2018年11月2日",
             venue: "Palais des Congres de Montreal, CANADA",
             state: "征稿中",
-            bg: "/static/bg4.jpg",
+            bg: "/static/bg2.jpg",
           },
         ],
       },
