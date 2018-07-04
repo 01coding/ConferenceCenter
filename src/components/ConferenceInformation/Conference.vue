@@ -2,7 +2,7 @@
 
   <div>
     <NavBar></NavBar>
-    <div class="row" style="">
+    <div class="row" style="margin-bottom: 0;">
       <div class="col s1"></div>
       <div class="card customize"
            style="width: 100%; padding-top: 2rem;
@@ -43,7 +43,7 @@
       </div>
       <div class="white section" style="min-height: 35rem;">
         <div class="container">
-          <div class="row">
+          <div class="row" style="margin-bottom: 0;">
             <div class="col s3">
               <div style="height:6rem;"></div>
               <div class="card-panel center-align" style="width: 100%;">
@@ -63,20 +63,19 @@
                   <li class="collection-header"><h4 style="">会议介绍</h4></li>
                   <li class="collection-item avatar">
                     <i class="material-icons circle red lighten-1">schedule</i>
-                    <p class="coference-date">开始日期：<span style="font-size:1.1rem;">{{resp.data.start_date}}</span></p>
+                    <p class="coference-date"><strong>开始日期</strong>：<span style="font-size:1.1rem;">{{resp.data.start_date}}</span></p>
                     <p style="height:0.5rem;"></p>
-                    <p class="coference-date">结束日期：<span style="font-size:1.1rem;">{{resp.data.end_date}}</span></p>
+                    <p class="coference-date"><strong>结束日期</strong>：<span style="font-size:1.1rem;">{{resp.data.end_date}}</span></p>
                   </li>
                   <li class="collection-item avatar">
                     <i class="material-icons circle light-blue darken-1">description</i>
-                    <p class="coference-title">会议简介</p>
+                    <p class="coference-title"><strong>会议简介</strong></p>
                     <p style="height: 0.5rem;"></p>
                     <p>{{resp.data.introduction}}</p>
                   </li>
                   <li class="collection-item avatar">
                     <i class="material-icons circle grey darken-1">assignment</i>
-                    <p class="coference-title">注册须知</p>
-                    <p style="height: 0.5rem;"></p>
+                    <p class="coference-title"><strong>注册须知</strong></p>
                     <pre>{{resp.data.register_information}}</pre>
                   </li>
                 </ul>
@@ -86,26 +85,26 @@
                   <li class="collection-header"><h4 style="">投稿须知</h4></li>
                   <li class="collection-item avatar">
                     <i class="material-icons circle red lighten-1">schedule</i>
-                    <p class="coference-date">征稿日期：<span style="font-size:1.1rem;">{{resp.data.start_date}}--{{resp.data.paper_ddl}}</span></p>
+                    <p class="coference-date"><strong>征稿日期：</strong><span style="font-size:1.1rem;">{{resp.data.start_date}}--{{resp.data.paper_ddl}}</span></p>
                     <p style="height:0.5rem;"></p>
-                    <p class="coference-date">查看审核结果日期：<span style="font-size:1.1rem;">{{resp.data.employ_date}}</span></p>
+                    <p class="coference-date"><strong>查看审核结果日期：</strong><span style="font-size:1.1rem;">{{resp.data.employ_date}}</span></p>
                   </li>
                   <li class="collection-item avatar">
                     <i class="material-icons circle light-blue darken-1">description</i>
-                    <p class="coference-title">征文要求</p>
+                    <p class="coference-title"><strong>征文要求</strong></p>
                     <p style="height: 0.5rem;"></p>
                     <pre>{{resp.data.essay_instructions}}</pre>
                   </li>
                   <li class="collection-item avatar">
                     <i class="material-icons circle grey darken-1">assignment</i>
-                    <p class="coference-title">投稿信息</p>
+                    <p class="coference-title"><strong>投稿信息</strong></p>
                     <p style="height: 0.5rem;"></p>
                     <pre>{{resp.data.essay_information}}</pre>
                   </li>
                   <li class="collection-item avatar">
                     <i class="material-icons circle deep-orange lighten-1">picture_as_pdf</i>
                     <p class="coference-title">
-                      论文模板:&nbsp &nbsp &nbsp &nbsp
+                      <strong>论文模板</strong>:&nbsp &nbsp &nbsp &nbsp
                       <a class="btn blue-grey" v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a>
                     </p>
                   </li>
@@ -116,7 +115,7 @@
                   <li class="collection-header"><h4 style="">日程安排</h4></li>
                   <li class="collection-item avatar">
                     <i class="material-icons circle red lighten-1">schedule</i>
-                    <p class="coference-title">会议议程</p>
+                    <p class="coference-title"><strong>会议议程</strong></p>
                     <p style="height: 0.5rem;"></p>
                     <pre>{{resp.data.schedule}}</pre>
                   </li>
@@ -127,7 +126,7 @@
                   <li class="collection-header"><h4 style="">住宿交通</h4></li>
                   <li class="collection-item avatar">
                     <i class="material-icons circle light-blue darken-1">flight</i>
-                    <p class="coference-title">安排方式</p>
+                    <p class="coference-title"><strong>安排方式</strong></p>
                     <p style="height: 0.5rem;"></p>
                     <pre>{{resp.data.ATinformation}}</pre>
                   </li>
@@ -138,7 +137,7 @@
                   <li class="collection-header"><h4 style="">联系我们</h4></li>
                   <li class="collection-item avatar">
                     <i class="material-icons circle deep-orange lighten-1">dialer_sip</i>
-                    <p class="coference-title">联系方式</p>
+                    <p class="coference-title"><strong>联系方式</strong></p>
                     <p style="height: 0.5rem;"></p>
                     <pre>{{resp.data.contact}}</pre>
                   </li>

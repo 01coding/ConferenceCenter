@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <nav class="white">
+  <div id="top">
+    <nav class="white" style="box-shadow: 0px 3px 3px #eeeeee; -webkit-box-shadow:none;">
       <ul id="dropdown1" class="dropdown-content">
         <li><router-link class="grey-text text-darken-3" to="/login">登录</router-link></li>
         <li><router-link class="grey-text text-darken-3" to="/user/register">个人注册</router-link></li>
@@ -57,7 +57,7 @@
           <a class="btn-floating yellow darken-2 tooltipped"  data-position="left" data-tooltip="回到顶部" @click="back_top()">
             <i class="material-icons">arrow_upward</i>
           </a>
-          <a class="btn-floating mobile-fab-tip" @click="back_top">返回顶部</a>
+          <a href="#top" class="btn-floating mobile-fab-tip" @click="back_top">返回顶部</a>
         </li>
       </ul>
     </div>
@@ -123,8 +123,8 @@ export default {
         this.$router.push("/search/" + this.search_keyword);
     },
     back_top: function(){
-      document.body.scrollTop = document.documentElement.scrollTop = 0;
-      $('.tooltip').isHovered=true;
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+      return false;
     },
     go_to_userspace: function() {
       this.$router.push("/personalspace");
