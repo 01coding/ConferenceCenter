@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import ConferenceInfo from '@/components/ConferenceInformation/Conference'
+import ConferenceJoin from '@/components/ConferenceInformation/ConferenceJoin'
 import Contribute from '@/components/Contribute';
 import Index from '@/components/Index'
 import Login from '@/components/Login/Login'
@@ -14,6 +15,8 @@ import OrgConferences from '@/components/OrganizationSpace/Conferences';
 import NewConference from '@/components/OrganizationSpace/NewConference';
 import OrgContributions from '@/components/OrganizationSpace/Contributions';
 import OrgReview from '@/components/OrganizationSpace/Review';
+import PersonalSpace from '@/components/PersonalSpace/PersonalSpace'
+import RegisteredConferences from '@/components/PersonalSpace/RegisteredConferences'
 
 import page404 from '@/components/404';
 
@@ -37,6 +40,11 @@ const router = new Router({
       path: '/conference/:id',
       name: 'ConferenceInfo',
       component: ConferenceInfo
+    },
+    {
+      path: '/conference/:id/join',
+      name: 'ConferenceJoin',
+      component: ConferenceJoin
     },
     {
       path: '/contribute/:id',
@@ -93,6 +101,16 @@ const router = new Router({
       path: '/404',
       name:'page404',
       component: page404
+    },
+    {
+      path:'/personalspace',
+      component:PersonalSpace,
+      children:[
+        {
+          path:'',
+          component:RegisteredConferences
+        }
+      ]
     }
   ],
 });
