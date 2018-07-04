@@ -34,21 +34,22 @@
             <div>
                 <div class="row valign-wrapper">
                   <label class="col s3">
-                    <input type="radio" name="yesAuthor" value="yesAuthor" v-model="whetherAuthor" checked />
+                    <input type="radio" value="yes" v-model="whetherAuthor" checked />
                     <span>是</span>
                   </label>
-                  <div class="input-field col s9">
+                  <!--<div class="input-field col s9">
                     <i class="material-icons prefix">title</i>
-                    <input id="thesis-code" type="text" v-model="whetherAuthor"
-                    :class="{disabled: whetherAuthor === 'yesAuthor'}">
-                    <label for="thesis-code">论文编号</label>
-                  </div>
-                </div>
-                <div class="row">
+                    <input id="thesis-code" type="text"
+                    v-bind:class="{disabled: whetherAuthor === 'yes'}">
+                    <label for="thesis-code">携带论文请填写论文编号</label>
+                  </div>-->
+                <!--</div>
+                <div class="row">-->
                   <label class="col s3">
-                    <input type="radio" name="noAuthor" value="noAuthor" v-model="whetherAuthor" />
+                    <input type="radio" value="not" v-model="whetherAuthor" />
                     <span>否</span>
                   </label>
+                  <label class="col s6"></label>
                 </div>
               </div>
           </div>
@@ -57,7 +58,7 @@
           </div>
           <div class="row" style="margin-bottom: 0;">
             <div class="center row">
-              <h5 style="font-size: 1.5rem; margin: 0; padding-top: 1rem; padding-bottom: 1rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;" v-if="authors.length===0">
+              <h5 style="font-size: 1.5rem; margin: 0; padding-top: 1rem; padding-bottom: 1rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;" v-if="participates.length===0">
                 在这里添加参会人
               </h5>
               <div class="col s4" v-for="(participate, idx) in participates" style="margin-bottom: 1rem;">
@@ -94,11 +95,11 @@
                     性别
                   </div>
                   <label class="col s2">
-                    <input type="radio" name="male" value="male" v-model="participate_field.gender" />
+                    <input type="radio" value="male" v-model="participate_field.gender" />
                     <span>男</span>
                   </label>
                   <label class="col s2">
-                    <input type="radio" name="famale" value="female" v-model="participate_field.gender" />
+                    <input type="radio" value="female" v-model="participate_field.gender" />
                     <span>女</span>
                   </label>
                   <div class="col s3 valign-wrapper">
@@ -208,23 +209,17 @@
     components: { NavBar, FileUpload },
     data: function () {
       return {
-        session_token: sessionStorage.getItem('session'),
         bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),",
         conference_id: 1,
         conferenceImg: "/static/bg1.jpg",
         conferenceState: '默认',
         contributeToLink: 0,
         registerToLink: 0,
-        /*contributeLink: '',
-        registerLink: '',*/
-        whetherAuthor: yes,
+        whetherAuthor: "",
         resp: {
           data: {}
         },
-        user: null,
-        display_id: 1,
-        title: "",
-        abstract: "",
+        user_info: {},
         participates: [
         ],
         upload: {
@@ -253,11 +248,9 @@
         });
         this.$router.push("/404");
       }
-
-      if (!this.session_token)  {
+      if (!sessionStorage.getItem("session"))  {
         this.$router.push("/login");
       }
-
       this.load_user_info();
       this.load_conference();
     },
@@ -275,9 +268,10 @@
       load_user_info() {
         let that = this;
         this.$axios.post("/api/user/token", {
-          token: this.session_token
+          token: sessionStorage.getItem("session")
         }).then(response => {
           let resp = response.data;
+          console.log(resp);
           if (resp.status === "succ") {
             that.user_info = resp.data;
           } else {
@@ -288,6 +282,7 @@
       load_conference() {
         this.$axios.post('api/conference/' + this.conference_id).then(response => {
           this.resp = response.data;
+          console.log(this.resp);
           this.getConferenceState();
           this.isAbleRegister();
           this.getConferenceImg();
@@ -295,23 +290,7 @@
           console.log(1);
         });
       },
-      /*toContribute: function () {
-        if(sessionStorage.getItem("session")) {
-          console.log(sessionStorage.getItem("session"));
-          this.contributeLink = "/contribute";
-        }
-        else {
-          this.contributeLink = '/login';
-        }
-      },
-      toRegisterConference: function () {
-        if(sessionStorage.getItem("session")) {
-          this.registerLink = "/";
-        }
-        else {
-          this.registerLink = "/login";
-        }
-      },*/
+
       isAbleRegister: function () {
         if (this.conferenceState !== "征稿中") {
           this.$router.push("/404");
@@ -331,22 +310,14 @@
           this.conferenceState = '会议注册中';
       },
 
-      hasThesis: function() {
-        if(this.whetherAuthor === '是') {
-
-        }
-        else {
-
-        }
-      },
-
       add_author() {
         let name = this.participate_field.name.trim();
         let telephone = this.participate_field.phone.trim();
         let gender = this.participate_field.gender.trim();
-        let accommodate = this.participate_field.accommodate.trim();
         let job = this.participate_field.work.trim();
         let note = this.participate_field.note.trim();
+
+        console.log("gender:" + this.participate_field.gender);
 
         if (name.length === 0) {
           M.toast({html: "<span style='font-weight: bold;'>请填写作者姓名</span>", classes: 'yellow darken-2 rounded'});
@@ -377,32 +348,31 @@
         this.participate_field.note = "";
       },
       submit() {
-        let title = this.title;
-        let abstract = this.abstract;
-        let authors = this.authors;
+        let registerType = 0;
+        let thesisCode = "";
+        if(this.whetherAuthor === "yes") {
+          registerType = 0;
+          }
+          else {
+          registerType = 2;
+        }
         let files = this.upload.files;
-        if (title.length === 0) {
-          M.toast({html: "<span style='font-weight: bold;'>请填写标题</span>", classes: 'yellow darken-2 rounded'});
-          return;
-        }
-        if (abstract.length === 0) {
-          M.toast({html: "<span style='font-weight: bold;'>请填写摘要</span>", classes: 'yellow darken-2 rounded'});
-          return;
-        }
-        if (authors.length === 0) {
-          M.toast({html: "<span style='font-weight: bold;'>请填写作者</span>", classes: 'yellow darken-2 rounded'});
+
+        if (registerType.length === 0) {
+          M.toast({html: "<span style='font-weight: bold;'>请选择参会类型</span>", classes: 'yellow darken-2 rounded'});
           return;
         } else {
           let ok = false;
-          for (let i = 0; i < authors.length; i++) {
-            if (authors[i].name === this.user_info.name) {
+          for (let i = 0; i < participates.length; i++) {
+            /*user is a person of participates*/
+            if (participates[i].name === this.user_info.name) {
               ok = true;
               break;
             }
           }
           if (!ok) {
             M.toast({
-              html: "<span style='font-weight: bold;'>你必须是作者之一才能投递这篇论文</span>",
+              html: "<span style='font-weight: bold;'>你必须是作者之一才能参与</span>",
               classes: 'yellow darken-2 rounded'
             });
             return;
