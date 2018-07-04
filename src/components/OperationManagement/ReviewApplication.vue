@@ -50,6 +50,10 @@ export default {
 
         } else {
           if (resp.info === "没有管理员权限") {
+            M.toast({
+              html:"<span style='font-weight: bold'>你无权访问该页面</span>",
+              classes: "rounded  red"
+            });
             this.$router.push("/404");
           } else {
             M.toast({

@@ -23,7 +23,7 @@ import navbar from "@/include/NavBar";
 export default {
   data: function () {
     return {
-      page_height: $(document).height(),
+      page_height: $(window).height(),
       height: document.documentElement.clientHeight,
     }
   },

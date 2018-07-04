@@ -25,7 +25,7 @@
           <li v-if="!has_logged_in">
             <a class="dropdown-trigger" style="color: #313131;" data-target="dropdown1">
               <i class="material-icons left">account_circle</i>
-              <span>账户</span>
+              <span>登录/注册</span>
               <i class="material-icons right">arrow_drop_down</i>
             </a>
           </li>
