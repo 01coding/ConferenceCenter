@@ -274,8 +274,8 @@
       load_conference() {
         this.$axios.post('api/conference/' + this.conference_id).then(response => {
           this.resp = response.data;
-          console.log(this.resp);
           this.getConferenceState();
+          console.log(this.resp);
           this.isAbleRegister();
           this.getConferenceImg();
         }).catch(error => {
@@ -373,10 +373,11 @@
         };
         this.participates[index] = participate;
         this.participates.push(participate);
+
         $(document).ready(function() {
           $('.after-add').show();
           $('.init').hide();
-          $('.').css("":"");
+          $('#'+idx).addClass("teal z-depth-5");
         });
 
         this.participate_field.name = "";
