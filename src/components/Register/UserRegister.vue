@@ -113,6 +113,10 @@
               this.emailMessage = rsp.data.msg;
               return;
             }
+            M.toast({
+              html:"<span style='font-weight: bold'>注册成功</span>",
+              classes: "rounded green"
+            });
             this.$router.push('/');
           }).catch(err => {
             console.log(err);
