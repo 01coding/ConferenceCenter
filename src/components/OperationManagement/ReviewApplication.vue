@@ -2,7 +2,7 @@
   <div>
     <NavBar></NavBar>
     <div class="center white section">
-      <h5 style="margin-top: 0;">有 {{apps.length}} 个新申请</h5>
+      <h5 style="margin-top: 0;">有 {{apps.length}} 个待处理的申请</h5>
     </div>
 
     <div class="row container">
@@ -12,12 +12,61 @@
                  :style="{'height': page_height*0.6+'px'}"></EmptyView>
       <div class="card" v-for="app in apps">
         <div class="card-content">
-          <span class="card-title">{{app.name}}</span>
-          <p>{{app.introduction}}</p>
+          <div class="card-title">{{app.name}}</div>
+          <div class="row"><div class="divider"></div></div>
+          <div class="row">
+            <div class="col s3 grey-text text-darken-2" style="font-weight: bold;">
+              <i class="material-icons left">location_on</i>
+              地址
+            </div>
+            <div class="col s9">{{app.location}}</div>
+          </div>
+          <div class="row">
+            <div class="col s3 grey-text text-darken-2" style="font-weight: bold;">
+              <i class="material-icons left">phone</i>
+              联系方式
+            </div>
+            <div class="col s9">{{app.phone}}</div>
+          </div>
+
+          <div class="row">
+            <div class="col s3 grey-text text-darken-2" style="font-weight: bold;">
+              <i class="material-icons left">subject</i>
+              简介
+            </div>
+            <div class="col s9">{{app.introduction}}</div>
+          </div>
+
+          <div class="row">
+            <div class="col s3 grey-text text-darken-2" style="font-weight: bold;">
+              <i class="material-icons left">insert_drive_file</i>
+              证明材料
+            </div>
+            <div class="col s9">
+              <div class="chip">
+                {{app.evf_name}}
+                <i class="material-icons download" @click="download_ev(app.evidence)">file_download</i>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s3 grey-text text-darken-2" style="font-weight: bold;">
+              <i class="material-icons left">image</i>
+              背景图片
+            </div>
+            <div class="col s9">
+              <div class="card-panel teal" style="display:inline-block; padding: 0;">
+                <img class="materialboxed" style="height: 10rem; object-fit: contain;" :src="file_server+app.backimg">
+              </div>
+            </div>
+          </div>
+
+
         </div>
-        <div class="card-action">
-          <a class="green-text">通过</a>
-          <a class="red-text">拒绝</a>
+        <div class="card-action right-align">
+          <a class="green-text" @click="reviewPass(app.id)" style="cursor: pointer">通过</a>
+          <a class="red-text" @click="reviewReject(app.id)" style="cursor: pointer">拒绝</a>
         </div>
       </div>
     </div>
@@ -35,11 +84,16 @@ export default {
   data: function() {
     return {
       page_height: $(document).height(),
+      file_server: 'http://140.143.19.133:8001',
       apps: [],
     }
   },
 
   created: function() {
+    $(document).ready(function(){
+      $('.materialboxed').materialbox();
+    });
+
     if (this.verify_session())
       this.load_apps();
   },
@@ -60,11 +114,17 @@ export default {
 
     load_apps: function() {
       let that = this;
+      this.verify_session();
       this.$axios.post('/api/getInstitutionToCheck').then(response => {
         let resp = response.data;
-        console.log(resp);
         if (resp.status === "succ") {
-          that.apps = resp.data;
+          let apps = resp.data;
+          for (let i = 0; i < apps.length; i++) {
+            let ind = apps[i].evidence.lastIndexOf("/");
+            apps[i].evf_name = apps[i].evidence.substring(ind);
+          }
+          console.log(apps);
+          that.apps = apps;
         } else {
           if (resp.info === "没有管理员权限") {
             M.toast({
@@ -72,11 +132,13 @@ export default {
               classes: "rounded  red"
             });
             this.$router.push("/404");
+          } else if (resp.info === "no institution") {
           } else {
             M.toast({
               html:"<span style='font-weight: bold'>请求发生错误</span>",
               classes: "rounded  red"
             });
+            console.log(resp.info);
             this.$router.push("/");
           }
         }
@@ -85,51 +147,50 @@ export default {
           html:"<span style='font-weight: bold'>请求发生错误</span>",
           classes: "rounded  red"
         });
+        console.log(error)
         this.$router.push("/");
       });
     },
 
+    download_ev(link) {
+      window.open(this.file_server + link, '_blank');
+    },
+
     reviewPass: function (applyid) {
       //console.log(localStorage);
+      let that = this;
       sessionStorage.getItem('session');
       this.$axios.post('/api/setInstitutionStatus/'+applyid+'/1').then(response => {
         //set status
-        console.log("pass OK");
-        console.log(response);
-        console.log(this.apply);
-
-        //get new list
-        this.$axios.post('/api/getInstitutionToCheck').then(response => {
-          console.log(JSON.stringify(response));
-          this.applyNumber=response.data.data.length;
-          this.apply = response.data.data;
-        }).catch(error => {
-          console.log(1);
+        M.toast({
+          html:"<span style='font-weight: bold'>已通过该请求</span>",
+          classes: "rounded green"
         });
 
+        //get new list
+        that.load_apps()
+
       }).catch(error => {
-        console.log("ERROR");
+        console.log(error);
       });
 
     },
 
     reviewReject: function (applyid) {
       //console.log(localStorage);
+      let that = this;
       sessionStorage.getItem('session');
       this.$axios.post('/api/setInstitutionStatus/'+applyid+'/-1').then(response => {
-        console.log("reject OK");
-
-        //get new list
-        this.$axios.post('/api/getInstitutionToCheck').then(response => {
-          console.log(JSON.stringify(response));
-          this.applyNumber=response.data.data.length;
-          this.apply = response.data.data;
-        }).catch(error => {
-          console.log(1);
+        M.toast({
+          html:"<span style='font-weight: bold'>已拒绝该请求</span>",
+          classes: "rounded green"
         });
 
+        //get new list
+        that.load_apps()
+
       }).catch(error => {
-        console.log("ERROR");
+        console.log(error)
       })
     }
   },
@@ -140,7 +201,14 @@ export default {
 <style>
 .check-institution{
   font-weight: 500;
-  font-family: "Times New Roman";
   font-size: 1.4rem;
+}
+
+.download {
+  cursor: pointer;
+  float: right;
+  font-size: 16px;
+  line-height: 32px;
+  padding-left: 8px;
 }
 </style>
