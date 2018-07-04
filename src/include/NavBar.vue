@@ -40,8 +40,10 @@
       </div>
     </nav>
     <div class="fixed-action-btn" v-if="has_logged_in === 1">
-      <a class="btn-floating btn-large grey darken-3 tooltipped" data-position="left" data-tooltip="进入个人空间">
-        <!--TODO: 跳转到用户个人空间-->
+      <a class="btn-floating btn-large grey darken-3 tooltipped"
+         data-position="left"
+         @click="go_to_userspace"
+         data-tooltip="进入个人空间">
         <i class="large material-icons">assignment_ind</i>
       </a>
       <ul>
@@ -49,17 +51,18 @@
           <a class="btn-floating red darken-2 tooltipped"  data-position="left" data-tooltip="注销" @click="choose_logout()">
             <i class="material-icons">exit_to_app</i>
           </a>
+          <a class="btn-floating mobile-fab-tip" @click="choose_logout">注销</a>
         </li>
         <li>
           <a class="btn-floating yellow darken-2 tooltipped"  data-position="left" data-tooltip="回到顶部" @click="back_top()">
             <i class="material-icons">arrow_upward</i>
           </a>
+          <a class="btn-floating mobile-fab-tip" @click="back_top">返回顶部</a>
         </li>
       </ul>
     </div>
     <div class="fixed-action-btn" v-else>
       <a class="btn-floating btn-large grey darken-3 tooltipped" data-position="left" data-tooltip="回到顶部" @click="back_top()">
-        <!--TODO: 跳转到用户个人空间-->
         <i class="large material-icons">arrow_upward</i>
       </a>
     </div>
@@ -123,6 +126,9 @@ export default {
       document.body.scrollTop = document.documentElement.scrollTop = 0;
       $('.tooltip').isHovered=true;
     },
+    go_to_userspace: function() {
+      this.$router.push("/personalspace");
+    }
   },
   created: function() {
     $(document).ready(function(){
