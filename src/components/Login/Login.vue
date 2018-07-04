@@ -2,7 +2,7 @@
   <div>
     <navbar></navbar>
     <br/>
-    <div class="row center-align" style="margin-top:4.3rem; margin-bottom: 1px">
+    <div class="row center-align" style="margin-bottom: 1px">
       <h2>登录</h2>
     </div>
     <div class="row">

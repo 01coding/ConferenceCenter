@@ -3,7 +3,7 @@
     <NavBar></NavBar>
 
     <div class="card customize"
-         style="width: 100%; padding-top: 2rem; padding-bottom: 2rem; margin-top: 4.3rem;"
+         style="width: 100%; padding-top: 2rem; padding-bottom: 2rem;"
          :style="{'background-image':bg_overlay+'url(/static/bg1.jpg)'}">
       <div class="white-text row container">
         <div class="col s10 offset-s1">

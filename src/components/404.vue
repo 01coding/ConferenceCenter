@@ -1,10 +1,10 @@
 <template>
-  <div :style="{'height': height+'px'}">
+  <div>
   <!--<div>-->
     <navbar></navbar>
-    <div class="center" style="margin-top: 4.3rem;">
+    <div class="center white section" :style="{'height': page_height+'px'}">
       <h1>404</h1>
-      <h2>您访问的页面不存在</h2>
+      <h4>您访问的页面不存在</h4>
       <a style="cursor: pointer" @click="go_back()"><h4>返回</h4></a>
     </div>
   </div>
@@ -23,6 +23,7 @@
   export default {
     data: function () {
       return {
+        page_height: $(document).height(),
         height: document.documentElement.clientHeight,
       }
     },

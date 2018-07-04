@@ -2,7 +2,7 @@
   <div>
     <navbar></navbar>
   <br/>
-  <div class="row center-align" style="margin-bottom: 1px;margin-top: 4.3rem;">
+  <div class="row center-align" style="margin-bottom: 1px;">
     <h2>注册</h2>
   </div>
   <div class="row">

@@ -2,7 +2,7 @@
   <div>
     <background></background>
     <navbar></navbar>
-    <div class="valign-wrapper white" style="width: 100%; height: 10rem;margin-top:4.3rem;">
+    <div class="valign-wrapper white" style="width: 100%; height: 10rem;">
       <div class="row container">
         <div class="container">
           <div class="nav-wrapper searchBar">
@@ -24,7 +24,7 @@
       <div class="card hoverable" v-if="conferences.total_num > 0" v-for="(res,id) in conferences.result" :key="id">
         <div class="card-image waves-effect waves-block waves-light"
              style="height: 10rem; background:black;">
-          <img class="activator" style="opacity: 0.5;" src="/static/bg3.jpg">
+          <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg">
           <!--TODO: 这里放会议的背景图-->
           <router-link v-bind:to="'/conference/'+res.id">
             <span class="card-title" style="font-weight: bold">
@@ -47,9 +47,9 @@
           <!--<p>{{res.introduction}}</p>-->
         <!--</div>-->
       </div>
-      <EmptyView v-if="conferences.total_num <= 0"></EmptyView>
+      <EmptyView v-if="conferences.total_num <= 0" style="height: 25rem;"></EmptyView>
     </div>
-    <div class="center-align">
+    <div class="center-align" v-if="conferences.total_num > 0">
       <Pagination @page="page"
                   :number="number"
                   :current="current"

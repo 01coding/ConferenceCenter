@@ -1,5 +1,5 @@
 <template>
-  <div class="nav-fix">
+  <div>
     <nav class="white">
       <ul id="dropdown1" class="dropdown-content">
         <li><router-link class="grey-text text-darken-3" to="/login">登录</router-link></li>
@@ -125,7 +125,7 @@ nav ul li a:hover {
 }
 .nav-fix{
   position:fixed;
-  top:0rem;
+  top:0;
   z-index:990;
   height:3rem;
   width:100%;
