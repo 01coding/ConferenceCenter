@@ -1,17 +1,11 @@
 <template>
   <div>
     <navbar></navbar>
-    <div class="card customize"
-         style="width: 100%; padding-top: 2rem; padding-bottom: 2rem; margin: 0;"
-         :style="{'background-image':bg_overlay+'url(/static/bg1.jpg)'}">
-      <div class="white-text row container">
-        <div class="col s10 offset-s1">
-          <h4 class="center">个人注册</h4>
-        </div>
-      </div>
-    </div>
     <div class="white section valign-wrapper" style="padding-bottom: 5rem;">
       <div class="center container" style="width: 35%; min-width: 30rem;">
+        <div class="row">
+          <h4 class="center grey-text text-darken-3">个人注册</h4>
+        </div>
         <div class="row" style="margin-bottom: 0;">
           <div class="input-field col s12" style="margin-bottom: 0">
             <i class="medium material-icons prefix">account_circle</i>
@@ -133,9 +127,5 @@
 </script>
 
 <style scoped>
-  .customize {
-    background-size: 100% !important;
-    background-repeat: no-repeat !important;
-    background-position: center center !important;
-  }
+
 </style>

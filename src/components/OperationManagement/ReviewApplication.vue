@@ -2,11 +2,24 @@
   <div>
     <NavBar></NavBar>
     <div class="center white section">
-      <h5 style="margin-top: 0;">有 0 个新申请</h5>
+      <h5 style="margin-top: 0;">有 {{apps.length}} 个新申请</h5>
     </div>
 
     <div class="row container">
-      <EmptyView message="还没有新的申请" :style="{'height': page_height*0.6+'px'}"></EmptyView>
+      <div style="height: 3rem;"></div>
+      <EmptyView v-if="apps.length === 0"
+                 message="还没有新的申请"
+                 :style="{'height': page_height*0.6+'px'}"></EmptyView>
+      <div class="card" v-for="app in apps">
+        <div class="card-content">
+          <span class="card-title">{{app.name}}</span>
+          <p>{{app.introduction}}</p>
+        </div>
+        <div class="card-action">
+          <a class="green-text">通过</a>
+          <a class="red-text">拒绝</a>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -22,12 +35,13 @@ export default {
   data: function() {
     return {
       page_height: $(document).height(),
+      apps: [],
     }
   },
 
   created: function() {
-    this.verify_session();
-    this.load_apps();
+    if (this.verify_session())
+      this.load_apps();
   },
 
   methods: {
@@ -38,16 +52,19 @@ export default {
           html:"<span style='font-weight: bold'>请先登录</span>",
           classes: "rounded yellow darken-2"
         });
-        this.$router.push("/login")
+        this.$router.push("/login");
+        return false;
       }
+      return true;
     },
 
     load_apps: function() {
+      let that = this;
       this.$axios.post('/api/getInstitutionToCheck').then(response => {
         let resp = response.data;
         console.log(resp);
         if (resp.status === "succ") {
-
+          that.apps = resp.data;
         } else {
           if (resp.info === "没有管理员权限") {
             M.toast({
