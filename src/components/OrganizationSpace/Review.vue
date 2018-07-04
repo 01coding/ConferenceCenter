@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col s12">
+    <div class="col s10 offset-s1">
       <div id="contrib_detail" class="card">
         <div class="card-content">
           <span class="card-title">{{ contrib.title }}</span>
@@ -20,16 +20,115 @@
             </div>
           </div>
           <div class="row">
+            <h5>摘要</h5>
             <span>{{ contrib.abstract_ }}</span>
           </div>
         </div>
+      </div>
+      <!--<div class="center row">-->
+      <!--<h5-->
+      <!--style="font-size: 1.5rem; margin: 0; padding-top: 1rem; padding-bottom: 1rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;">-->
+      <!--评审记录-->
+      <!--</h5>-->
+      <!--</div>-->
+      <div id="contrib_review">
+        <ul class="collapsible z-depth-1" style="border: none;">
+          <li v-for="(review, index) in contrib.review" v-bind:key="index">
+            <div class="collapsible-header">
+              <span>{{ review_names[index] }}</span>
+              <span class="new teal badge" v-if="review.result === '1'">已通过</span>
+              <span class="new blue badge" v-else-if="review.result === '0'">未审核</span>
+              <span class="new orange badge" v-else-if="review.result === '2'">修改中</span>
+              <span class="new red badge" v-else="review.result === '3'">已拒绝</span>
+            </div>
+            <div class="collapsible-body white">
+              <h5>提交描述</h5>
+              <span class="grey-text">提交于 {{ readable_time(review.submit_time) }}</span>
+              <a v-bind:href="review.attachment" target="_blank">下载</a>
+              <span>{{ review.description }}</span>
+              <h5>评审意见</h5>
+              <div v-if="review.result === '0'">
+                <div class="input-field">
+                  <textarea id="suggestion" class="materialize-textarea" v-model="suggestion"></textarea>
+                  <label for="suggestion">评审意见</label>
+                </div>
+                <div class="center-left" style="width: fit-content">
+                  <label>
+                    <input id="approve" name="review" type="radio" value="1" checked/>
+                    <span id="span-approve">通过</span>
+                  </label>
+                  <label>
+                    <input id="fixing" name="review" type="radio" value="2"/>
+                    <span id="span-fixing">修改</span>
+                  </label>
+                  <label>
+                    <input id="reject" name="review" type="radio" value="3"/>
+                    <span id="span-reject">拒绝</span>
+                  </label>
+                  <br/>
+                  <br/>
+                  <!--<a class="waves-effect waves-light btn grey">取消</a>-->
+                  <a class="waves-effect waves-light btn" @click="submit_review(review.id)">提交</a>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <!--<div class="card" v-if="contrib.review && contrib.review[contrib.review.length - 1].result === '0'">-->
+          <!--<div class="card-content">-->
+            <!--&lt;!&ndash;<div class="col s12">&ndash;&gt;-->
+            <!--<div>-->
+              <!--<h5>{{ review_names[contrib.review.length - 1]}}</h5>-->
+              <!--<div class="input-field">-->
+                <!--<textarea id="suggestion" class="materialize-textarea" v-model="suggestion"></textarea>-->
+                <!--<label for="suggestion">评审意见</label>-->
+              <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;<div class="col s12 center-align">&ndash;&gt;-->
+            <!--<div class="center-align">-->
+              <!--<label>-->
+                <!--<input id="approve" name="review" type="radio" checked/>-->
+                <!--<span id="span-approve">通过</span>-->
+              <!--</label>-->
+              <!--<label>-->
+                <!--<input id="fixing" name="review" type="radio"/>-->
+                <!--<span id="span-fixing">修改</span>-->
+              <!--</label>-->
+              <!--<label>-->
+                <!--<input id="reject" name="review" type="radio"/>-->
+                <!--<span id="span-reject">拒绝</span>-->
+              <!--</label>-->
+              <!--<br/>-->
+              <!--<br/>-->
+              <!--<a class="waves-effect waves-light btn grey">取消</a>-->
+              <!--<a class="waves-effect waves-light btn" @click="submit_conference()">提交</a>-->
+              <!--&lt;!&ndash;<label class="teal-text">&ndash;&gt;-->
+              <!--&lt;!&ndash;<input id="approve" name="review" type="radio" checked/>&ndash;&gt;-->
+              <!--&lt;!&ndash;<span id="span-approve">通过</span>&ndash;&gt;-->
+              <!--&lt;!&ndash;</label>&ndash;&gt;-->
+              <!--&lt;!&ndash;<label class="orange-text">&ndash;&gt;-->
+              <!--&lt;!&ndash;<input id="fixing" name="review" type="radio"/>&ndash;&gt;-->
+              <!--&lt;!&ndash;<span id="span-fixing">修改</span>&ndash;&gt;-->
+              <!--&lt;!&ndash;</label>&ndash;&gt;-->
+              <!--&lt;!&ndash;<label class="red-text">&ndash;&gt;-->
+              <!--&lt;!&ndash;<input id="reject" name="review" type="radio"/>&ndash;&gt;-->
+              <!--&lt;!&ndash;<span id="span-reject">拒绝</span>&ndash;&gt;-->
+              <!--&lt;!&ndash;</label>&ndash;&gt;-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row" v-else>-->
+          <!--<div class="col s12">-->
+            <!--<h5>已完成评审</h5>-->
+          <!--</div>-->
+        <!--</div>-->
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import { readable_time } from '@/js/utils';
+  import { humanize_time } from '@/js/utils';
 
   export default {
     name: "Review",
@@ -41,21 +140,113 @@
           '第一次评审',
           '第二次评审',
           '第三次评审'
-        ]
+        ],
+        states: [
+          '未评审',
+          '已通过',
+          '修改中',
+          '已拒绝'
+        ],
+        suggestion: ''
       }
     },
     mounted: function () {
       this.contrib_id = parseInt(this.$route.params.id);
-      this.$bua.emit('manage-change-title', { text: '审核稿件' });
+      this.$bus.emit('manage-change-title', { text: '审核稿件' });
+      this.get_detail();
+      $('.collapsible').collapsible();
     },
     methods: {
       get_detail: function () {
-        this.$axios.post()
+        this.$axios.post('/api/manage/contribution', {
+          id: this.contrib_id
+        }).then(rsp => {
+          if (rsp.data.status === 'succ')
+            this.contrib = rsp.data.data;
+          else {
+            M.toast({
+              html: "<span style='font-weight: bold'>" + rsp.data.info + "</span>",
+              classes: "rounded red"
+            });
+          }
+        }).catch(err => {
+          M.toast({
+            html: "<span style='font-weight: bold'>" + err.toString() + "</span>",
+            classes: "rounded red"
+          })
+        })
+      },
+      readable_time: function (str) {
+        return humanize_time(str);
+      },
+      submit_review: function(review_id) {
+        let action = parInt($('input[name="review"]:checked').val());
+        this.$axios.pos('/api/manage/review', {
+          id: review_id,
+          action: action,
+          suggestion: this.suggestion
+        }).then(rsp => {
+          if (rsp.data.status === 'succ') {
+            M.toast({
+              html: "<span style='font-weight: bold'>评审成功</span>",
+              class: "rounded green"
+            });
+          }
+          else {
+            M.toast({
+              html: "<span style='font-weight: bold'>" + rsp.data.info + "</span>",
+              classes: "rounded red"
+            });
+          }
+        }).catch(err => {
+          M.toast({
+            html: "<span style='font-weight: bold'>" + err.toString() + "</span>",
+            classes: "rounded red"
+          })
+        })
       }
     }
   }
 </script>
 
 <style scoped>
+  .new.badge::after {
+    content: ""
+  }
 
+  .col .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .row {
+    margin-bottom: 0;
+  }
+
+  #span-approve::after {
+    background-color: #009688;
+    border: 2px solid #009688;
+  }
+
+  #span-approve::before {
+    border: 2px solid #009688;
+  }
+
+  #span-fixing::after {
+    background-color: #FF9800;
+    border: 2px solid #FF9800;
+  }
+
+  #span-fixing::before {
+    border: 2px solid #FF9800;
+  }
+
+  #span-reject::after {
+    background-color: #F44336;
+    border: 2px solid #F44336;
+  }
+
+  #span-reject::before {
+    border: 2px solid #F44336;
+  }
 </style>
