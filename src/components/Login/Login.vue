@@ -2,27 +2,27 @@
   <div>
     <navbar></navbar>
     <div class="row">
-      <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 100px">
+      <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 80px;width:35%">
         <div class="card-panel" style="padding-bottom: 5px;padding-top: 12px">
           <div class="row center-align" style="margin-top:0; margin-bottom: 12px">
             <h3>登录</h3>
           </div>
           <div class="row">
               <div class="row">
-                <div class="input-field col s11" style="margin-bottom: 0; margin-left: 12px" >
+                <div class="input-field col s11" style="margin-bottom: 0; margin-left: 18px" >
                   <i class="medium material-icons prefix">email</i>
                   <input id="email" type="email" class="validate"  v-model="email"/>
                   <label for="email">邮箱</label>
                 </div>
-                <span class="red-text" style="margin-left: 66px">{{emailMessage}}</span>
+                <span class="red-text" style="margin-left: 72px">{{emailMessage}}</span>
               </div>
               <div class="row">
-                <div class="input-field col s11" style="margin-bottom: 0; margin-left: 12px">
+                <div class="input-field col s11" style="margin-bottom: 0; margin-left: 18px">
                   <i class="medium material-icons prefix">vpn_key</i>
                   <input id="password" type="password" class="validate" v-model="password" />
                   <label for="password">密码</label>
                 </div>
-                <span class="red-text" style="margin-left: 66px">{{passwordMessage}}</span>
+                <span class="red-text" style="margin-left: 72px">{{passwordMessage}}</span>
               </div>
               <div class="row center-align">
                   <p>
@@ -41,7 +41,7 @@
                   </p>
               </div>
               <div class="row center-align">
-                <button class="col s6 offset-l3 btn waves-effect waves-light" style="margin-top: 7px;" type="submit" name="action" v-on:click="loginfuc()">
+                <button class="col s6 offset-l3 btn waves-effect waves-light" style="margin-top: 7px;" type="submit" id="submit" v-on:click="loginfuc()">
                   登录
                 </button>
               </div>
