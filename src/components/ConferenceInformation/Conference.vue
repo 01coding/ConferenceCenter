@@ -15,15 +15,25 @@
             <h5 style="font-weight: bold" class="center">{{conferenceState}}</h5>
             <h5>&nbsp</h5>
             <div class="row center-align">
+              <div class="btn btn-large red accent-2">
+                <div class="white-text">
+                  <i class="material-icons left">star_border</i>
+                  收藏
+                </div>
+              </div>
               <div class="btn btn-large green"
                    :class="{ disabled: contributeToLink === 0 }"
                    @click="toContribute">
-                <div class="white-text">投稿</div>
+                <div class="white-text">
+                  <i class="material-icons left">send</i>
+                  投稿
+                </div>
               </div>
               <div id="register" class="btn btn-large blue-grey"
                    @click="toRegisterConference"
                    :class="{ disabled: registerToLink === 0 }">
                 <div class="white-text">
+                  <i class="material-icons left">group_add</i>
                   报名参会
                 </div>
               </div>
