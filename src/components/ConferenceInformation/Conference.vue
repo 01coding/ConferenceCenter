@@ -56,14 +56,28 @@
                 </ul>
             </div>
             <div class="col s9 offset-s3">
-              <div id="introduction" class="section scrollspy">
-                <h4 style="font-weight: bold">会议介绍</h4>
-                <strong>开始日期</strong>：{{resp.data.start_date}}<br>
-                <strong>结束日期</strong>：{{resp.data.end_date}}<br><br>
-                <strong>会议简介</strong>:<br>
-                <pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.introduction}}</pre><br>
-                <strong>注册须知</strong>:<br>
-                <pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.register_information}}</pre>
+              <div id="introduction" class="card-container">
+                <ul class="collection with-header hoverable">
+                  <li class="collection-header"><h4 style="">会议介绍</h4></li>
+                  <li class="collection-item avatar">
+                    <i class="material-icons circle red lighten-1">alarm</i>
+                    <p class="coference-date"><strong>开始日期：</strong>{{resp.data.start_date}}</p>
+                    <p style="height:0.5rem;"></p>
+                    <p class="coference-date">结束日期：{{resp.data.end_date}}</p>
+                  </li>
+                  <li class="collection-item avatar">
+                    <i class="material-icons circle light-blue darken-1">assignment</i>
+                    <p class="coference-title">会议简介</p>
+                    <p style="height: 0.7rem;"></p>
+                    <p>{{resp.data.introduction}}</p>
+                  </li>
+                  <!--<strong>开始日期</strong>：{{resp.data.start_date}}<br>-->
+                  <!--<strong>结束日期</strong>：{{resp.data.end_date}}<br><br>-->
+                  <strong>会议简介</strong>:<br>
+                  <pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.introduction}}</pre><br>
+                  <strong>注册须知</strong>
+                  <pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.register_information}}</pre>
+                </ul>
               </div>
               <div id="register_notion" class="section scrollspy">
                 <h4>投稿须知</h4>
@@ -258,5 +272,17 @@
   .row {
     margin-bottom: 0px;
     height: 100%;
+  }
+
+  .coference-date {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .coference-title {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin: 0;
   }
 </style>
