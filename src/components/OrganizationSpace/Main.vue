@@ -48,6 +48,10 @@
           <router-link to="/orgspace" class="waves-effect">账户设置</router-link>
         </li>
         <li class="bold">
+          <!--<router-link to="/" class="waves-effect" @click="sessionStorage.removeItem('session')">退出管理中心并注销</router-link>-->
+          <a class="waves-effect" @click="logout()" style="cursor: pointer">退出管理中心并注销</a>
+        </li>
+        <li class="bold">
           <router-link to="/" class="waves-effect">回到主页</router-link>
         </li>
       </ul>
@@ -111,6 +115,12 @@
     },
     beforeDestroy: function () {
       this.$bus.off('manage-change-title');
+    },
+    methods: {
+      logout: function() {
+        sessionStorage.removeItem('session');
+        this.$router.push('/');
+      }
     }
   }
 </script>

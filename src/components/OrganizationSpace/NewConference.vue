@@ -346,36 +346,6 @@
             });
           })
         );
-        /*
-        this.$axios.post('/api/postConference', {
-          // axios.post('http://10.138.48.237:8080/api/postConference', {
-          institution_id: 1,
-          title: this.conf_topic,
-          field: parseInt(this.conf_field),
-          introduction: this.conf_desc,
-          start_date: this.conf_start_date + ' 00:00:00',
-          end_date: this.conf_end_date + ' 23:59:59',
-          convening_place: this.conf_location,
-          eassy_information: this.conf_eassy_info,
-          eassy_instructions: this.conf_eassy_inst,
-          paper_ddl: this.conf_eassy_ddl + ' ' + this.conf_eassy_time + ':59',
-          employ_date: this.conf_release_ddl + ' 00:00:00',
-          register_ddl: this.conf_register_ddl + ' ' + this.conf_register_time + ':59',
-          schedule: this.conf_schedule,
-          paper_template: this.conf_paper_template,
-          register_information: this.conf_register_info,
-          ATinformation: this.conf_commute_info,
-          contact: this.conf_contact,
-          conference_template: this.conf_conference_template,
-          backimg: this.conf_bg_img
-        }).then(data => {
-          if (data.status === 'succ') {
-            console.log('post succ');
-          }
-        }).catch(err => {
-          console.log(err);
-        })
-        */
       },
       get_template: function (event) {
         this.paper_template = event.target.files[ 0 ];
@@ -415,4 +385,7 @@
   /*#conf-topic {*/
   /*font-size: 5em;*/
   /*}*/
+  .col .row {
+    margin-right: 0;
+  }
 </style>

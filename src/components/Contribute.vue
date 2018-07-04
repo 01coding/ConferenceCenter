@@ -163,7 +163,7 @@ export default {
   components: { NavBar, FileUpload },
   data: function () {
     return {
-      session_token: sessionStorage.getItem('session'),
+      session_token: '',
       bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),",
       conference_id: 1,
       conferenceImg: "/static/bg1.jpg",
@@ -202,8 +202,11 @@ export default {
         html: "<span style='font-weight: bold;'>需要路由参数</span>",
         classes: 'red rounded'
       });
+      console.log(404);
       this.$router.push("/404");
     }
+
+    this.session_token = sessionStorage.getItem('session');
 
     if (!this.session_token)  {
       this.$router.push("/login");
@@ -270,14 +273,18 @@ export default {
       this.conferenceImg = "http://140.143.19.133:8001/uploads/" + this.resp.data.backimg;
     },
     getConferenceState: function () {
-      if (this.resp.data.state === 4)
+      if (this.resp.data.state & 0b1000) {
         this.conferenceState = '已结束';
-      else if (this.resp.data.state === 12)
+      }
+      else if (!this.resp.data.state & 0b0100) {
         this.conferenceState = '正在进行中';
-      else if (this.resp.data.state === 3 || this.resp.data.state === 11)
+      }
+      else if (this.resp.data.state & 0b0001) {
         this.conferenceState = '征稿中';
-      else if (this.resp.data.state === 2 || this.resp.data.state === 10)
+      }
+      else if (this.resp.data.state & 0b0010) {
         this.conferenceState = '会议注册中';
+      }
     },
     add_author() {
       let name = this.authors_field.name.trim();
