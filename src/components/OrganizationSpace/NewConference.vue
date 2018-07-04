@@ -173,11 +173,11 @@
 
 <script>
   import axios from 'axios';
-  import NavBar from "../../include/NavBar";
+  // import NavBar from "../../include/NavBar";
 
   export default {
     name: "NewConference",
-    components: { NavBar },
+    // components: { NavBar },
     data: function () {
       return {
         conf_topic: '',
@@ -189,11 +189,13 @@
         conf_eassy_info: '',
         conf_eassy_inst: '',
         conf_eassy_ddl: '',
-        conf_eassy_time: "23:59",
+        // conf_eassy_time: "23:59",
+        conf_eassy_time: '',
         conf_release_ddl: '',
         conf_release_time: '',
         conf_register_ddl: '',
-        conf_register_time: "23:59",
+        // conf_register_time: "23:59",
+        conf_register_time: '',
         conf_schedule: '',
         conf_paper_template: '',
         conf_register_info: '',
@@ -218,82 +220,86 @@
       });
     },
     mounted: function () {
-      document.addEventListener('DOMContentLoaded', () => {
-        let options = {
-          onSelect: date => {
-            date = date.toDateString().slice(4, 15);
-            this.conf_start_date = date;
-          }
-        };
-        let elem = document.querySelector('#conf-start-date');
-        let instance = M.Datepicker.init(elem, options);
+      this.$bus.emit('manage-change-title', { text: '发布新会议' });
+      // document.addEventListener('DOMContentLoaded', () => {
+      let options = {
+        onSelect: date => {
+          date = date.toDateString().slice(4, 15);
+          this.conf_start_date = date;
+        }
+      };
+      let elem = document.querySelector('#conf-start-date');
+      let instance = M.Datepicker.init(elem, options);
 
-        options = {
-          onSelect: date => {
-            date = date.toDateString().slice(4, 15);
-            this.conf_end_date = date;
-          }
-        };
-        elem = document.querySelector('#conf-end-date');
-        instance = M.Datepicker.init(elem, options);
+      options = {
+        onSelect: date => {
+          date = date.toDateString().slice(4, 15);
+          this.conf_end_date = date;
+        }
+      };
+      elem = document.querySelector('#conf-end-date');
+      instance = M.Datepicker.init(elem, options);
 
-        options = {
-          onSelect: date => {
-            date = date.toDateString().slice(4, 15);
-            this.conf_eassy_ddl = date;
-          }
-        };
-        elem = document.querySelector('#conf-eassy-ddl');
-        instance = M.Datepicker.init(elem, options);
+      options = {
+        onSelect: date => {
+          date = date.toDateString().slice(4, 15);
+          this.conf_eassy_ddl = date;
+        }
+      };
+      elem = document.querySelector('#conf-eassy-ddl');
+      instance = M.Datepicker.init(elem, options);
 
-        options = {
-          onSelect: date => {
-            date = date.toDateString().slice(4, 15);
-            this.conf_release_ddl = date;
-          }
-        };
-        elem = document.querySelector('#conf-release-ddl');
-        instance = M.Datepicker.init(elem, options);
+      options = {
+        onSelect: date => {
+          date = date.toDateString().slice(4, 15);
+          this.conf_release_ddl = date;
+        }
+      };
+      elem = document.querySelector('#conf-release-ddl');
+      instance = M.Datepicker.init(elem, options);
 
-        options = {
-          onSelect: date => {
-            date = date.toDateString().slice(4, 15);
-            this.conf_register_ddl = date;
-          }
-        };
-        elem = document.querySelector('#conf-register-ddl');
-        instance = M.Datepicker.init(elem, options);
+      options = {
+        onSelect: date => {
+          date = date.toDateString().slice(4, 15);
+          this.conf_register_ddl = date;
+        }
+      };
+      elem = document.querySelector('#conf-register-ddl');
+      instance = M.Datepicker.init(elem, options);
 
-        options = {
-          defaultTime: '23:59',
-          twelveHour: false,
-          onSelect: (hour, minute) => {
-            this.conf_eassy_time = hour + ':' + minute;
-          }
-        };
-        elem = document.querySelector('#conf-eassy-time');
-        instance = M.Timepicker.init(elem, options);
+      options = {
+        defaultTime: '23:59',
+        twelveHour: false,
+        onSelect: (hour, minute) => {
+          this.conf_eassy_time = hour + ':' + minute;
+        }
+      };
+      elem = document.querySelector('#conf-eassy-time');
+      instance = M.Timepicker.init(elem, options);
 
-        options = {
-          defaultTime: '23:59',
-          twelveHour: false,
-          onSelect: (hour, minute) => {
-            this.conf_register_time = hour + ':' + minute;
-          }
-        };
-        elem = document.querySelector('#conf-register-time');
-        instance = M.Timepicker.init(elem, options);
-      });
+      options = {
+        defaultTime: '23:59',
+        twelveHour: false,
+        onSelect: (hour, minute) => {
+          this.conf_register_time = hour + ':' + minute;
+        }
+      };
+      elem = document.querySelector('#conf-register-time');
+      instance = M.Timepicker.init(elem, options);
+      // });
 
       // get fields
       this.$axios.post('/api/subjects', {}).then(rsp => {
         let data = rsp.data;
         if (data.status === 'succ') {
           this.field_list = data.data;
-          console.log(data.data);
+          // console.log(data.data);
         }
       }).catch(err => {
-        console.log(1);
+        M.toast({
+          html: "<span style='font-weight: bold'>获取领域失败</span>",
+          classes: "rounded red"
+        });
       })
     },
     updated: function () {
