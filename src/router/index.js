@@ -17,6 +17,7 @@ import OrgContributions from '@/components/OrganizationSpace/Contributions';
 import OrgReview from '@/components/OrganizationSpace/Review';
 import PersonalSpace from '@/components/PersonalSpace/PersonalSpace'
 import RegisteredConferences from '@/components/PersonalSpace/RegisteredConferences'
+import MySubmissions from '@/components/PersonalSpace/MySubmissions'
 
 import page404 from '@/components/404';
 
@@ -109,6 +110,14 @@ const router = new Router({
         {
           path:'',
           component:RegisteredConferences
+        },
+        {
+          path:'registeredconferences',
+          component:RegisteredConferences
+        },
+        {
+          path:'mysubmissions',
+          component:MySubmissions
         }
       ]
     }

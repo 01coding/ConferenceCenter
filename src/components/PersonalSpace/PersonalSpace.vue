@@ -27,19 +27,24 @@
 
           </div>
         </li>
-        <li class="bold active">
-          <router-link to="/orgspace" class="waves-effect">会议管理</router-link>
+        <li class="bold">
+          <router-link to="/orgspace" class="waves-effect">收藏的会议</router-link>
         </li>
 
         <li class="bold">
-          <router-link to="/personalspace/registeredconferences" class="waves-effect">注册的会议</router-link>
+          <router-link to="/personalspace/registeredconferences" class="waves-effect">参加的会议</router-link>
         </li>
         <li class="bold">
-          <router-link to="/orgspace" class="waves-effect">机构管理员设置</router-link>
+          <router-link to="/personalspace/mysubmissions" class="waves-effect">我的投稿</router-link>
+        </li>
+        <div class="divider"></div>
+        <li class="bold">
+          <router-link to="/orgspace" class="waves-effect">个人信息</router-link>
         </li>
         <li class="bold">
           <router-link to="/orgspace" class="waves-effect">账户设置</router-link>
         </li>
+        <div class="divider"></div>
         <li class="bold">
           <router-link to="/" class="waves-effect">回到主页</router-link>
         </li>
