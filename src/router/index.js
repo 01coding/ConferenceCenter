@@ -14,6 +14,8 @@ import OrgConferences from '@/components/OrganizationSpace/Conferences';
 import NewConference from '@/components/OrganizationSpace/NewConference';
 import OrgContributions from '@/components/OrganizationSpace/Contributions';
 import OrgReview from '@/components/OrganizationSpace/Review';
+import PersonalSpace from '@/components/PersonalSpace/PersonalSpace'
+import RegisteredConferences from '@/components/PersonalSpace/RegisteredConferences'
 
 import page404 from '@/components/404';
 
@@ -93,6 +95,16 @@ const router = new Router({
       path: '/404',
       name:'page404',
       component: page404
+    },
+    {
+      path:'/personalspace',
+      component:PersonalSpace,
+      children:[
+        {
+          path:'',
+          component:RegisteredConferences
+        }
+      ]
     }
   ],
 });
