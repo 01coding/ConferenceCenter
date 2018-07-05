@@ -8,39 +8,14 @@
 
     <div id="test1" class="col s12" style="padding-top: 1%">
       <div class="container">
-      <div class="card" v-for="item in this.conferencesBefore">
-        <div class="card-image waves-effect waves-block waves-light"
-             style="height: 10rem; background:black;">
-          <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg"></img>
-          <!--TODO: 这里放会议的背景图-->
-          <router-link v-bind:to="'/conference/'">
-            <span class="card-title" style="font-weight: bold">
-              {{item.title}}
-            </span>
-          </router-link>
-        </div>
-        <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4">
-            <i class="material-icons right">language</i>
-          </span>
-          <p >{{item.start_date}}, {{item.convening_place}}</p>
-          <p style="height:1rem;"></p>
-          <p >{{item.introduction}}</p>
-        </div>
-
-      </div>
-      </div>
-    </div>
-    <div id="test2" class="col s12" style="padding-top: 1%">
-      <div class="container">
-        <div class="card" v-for="item in this.conferencesOn">
+        <div class="card" >
           <div class="card-image waves-effect waves-block waves-light"
                style="height: 10rem; background:black;">
             <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg"></img>
             <!--TODO: 这里放会议的背景图-->
             <router-link v-bind:to="'/conference/'">
             <span class="card-title" style="font-weight: bold">
-              {{item.title}}
+              为开幕
             </span>
             </router-link>
           </div>
@@ -48,9 +23,36 @@
           <span class="card-title activator grey-text text-darken-4">
             <i class="material-icons right">language</i>
           </span>
-            <p >{{item.start_date}}, {{item.convening_place}}</p>
+            <p class="coference-date">某日期</p>
+            <p class="coference-date">某日期</p>
             <p style="height:1rem;"></p>
-            <p >{{item.introduction}}</p>
+            <p class="conference-introduction">某机构</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div id="test2" class="col s12" style="padding-top: 1%">
+      <div class="container">
+        <div class="card" >
+          <div class="card-image waves-effect waves-block waves-light"
+               style="height: 10rem; background:black;">
+            <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg"></img>
+            <!--TODO: 这里放会议的背景图-->
+            <router-link v-bind:to="'/conference/'">
+            <span class="card-title" style="font-weight: bold">
+              标题
+            </span>
+            </router-link>
+          </div>
+          <div class="card-content">
+          <span class="card-title activator grey-text text-darken-4">
+            <i class="material-icons right">language</i>
+          </span>
+            <p class="coference-date">某日期</p>
+            <p class="coference-date">某日期</p>
+            <p style="height:1rem;"></p>
+            <p class="conference-introduction">某机构</p>
           </div>
 
         </div>
@@ -60,7 +62,7 @@
 
     <div id="test3" class="col s12" style="padding-top: 1%">
       <div class="container">
-        <div class="card" v-for="item in conferencesAfter">
+        <div class="card" >
           <div class="card-image waves-effect waves-block waves-light"
                style="height: 10rem; background:black;">
             <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg"></img>
@@ -75,9 +77,10 @@
           <span class="card-title activator grey-text text-darken-4">
             <i class="material-icons right">language</i>
           </span>
-            <p >{{item.start_date}}, {{item.convening_place}}</p>
+            <p class="coference-date">某日期</p>
+            <p class="coference-date">某日期</p>
             <p style="height:1rem;"></p>
-            <p class="conference-introduction">{{item.introduction}}</p>
+            <p class="conference-introduction">某机构</p>
           </div>
 
         </div>
@@ -92,7 +95,7 @@
 
 <script>
   export default {
-    name:'RegisteredConferences',
+    name:'CollectedConferences',
     created:function () {
       $(document).ready(function(){
         $('.tabs').tabs();
@@ -104,41 +107,10 @@
 
 
       let that=this;
-      this.$axios.post('/api/user/getRegisterConference',{"type":'notOpen'})
+      this.$axios.post('/api/user/getCollectConference',{"type":'notOpen'})
         .then(response=>{
-          that.conferencesBefore=response.data.data.result;
-        }
-      ).catch(
-        error=>{
-          M.toast({
-            html: error,
-            classes: "rounded red darken-2"
-          });
-        }
-      );
-
-
-
-      this.$axios.post('/api/user/getRegisterConference',{"type":'opened'})
-        .then(response=>{
-            that.conferencesOn=response.data.data.result;
-            //console.log(JSON.stringify(that.conferencesOn));
-          }
-        ).catch(
-        error=>{
-          M.toast({
-            html: error,
-            classes: "rounded red darken-2"
-          });
-        }
-      );
-
-
-
-      this.$axios.post('/api/user/getRegisterConference',{"type":'enden'})
-        .then(response=>{
-            that.conferencesAfter=response.data.data.result;
-            //console.log(JSON.stringify(that.conferencesOn));
+            alert(JSON.stringify(response));
+            that.conferencesBefore=response.data;
           }
         ).catch(
         error=>{
@@ -162,12 +134,11 @@
         }
       }
     },
+    mounted:function () {
+      this.$bus.emit('manage-change-title', { text: '收藏的会议' });
+    },
     methods:{
 
-    },
-    mounted:function () {
-      this.$bus.emit('manage-change-title', { text: '参加的会议' });
-    },
-
+    }
   }
 </script>
