@@ -6,33 +6,42 @@
       <li class="tab col s4"><a href="#test3">被拒稿</a></li>
     </ul>
 
+
     <div id="test1" class="col s12">
       <div class="container">
-        <div class="card" >
-          <div class="card-image waves-effect waves-block waves-light"
-               style="height: 10rem; background:black;">
-            <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg"></img>
-            <!--TODO: 这里放会议的背景图-->
-            <router-link v-bind:to="'/conference/'">
-            <span class="card-title" style="font-weight: bold">
-              为开幕
-            </span>
-            </router-link>
-          </div>
-          <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4">
-            <i class="material-icons right">language</i>
-          </span>
-            <p class="coference-date">某日期</p>
-            <p class="coference-date">某日期</p>
-            <p style="height:1rem;"></p>
-            <p class="conference-introduction">某机构</p>
-          </div>
 
-        </div>
-      </div>
+            <div class="card">
+              <div class="card-content">
+                <div class="row">
+                  <div class="col s10">
+                    <!--<span class="flow-text">Card Title</span>-->
+                    <h5>title</h5>
+
+                  </div>
+                  <div class="col s2" style="text-align: right;">
+                    <p style="color: #03a9f4">审稿中</p>
+                    <p style="color: #4fc3f7">修改后录用</p>
+                  </div>
+                </div>
+                <div class="row center-align">
+                  <div class="col s6">
+                    <p>495827808@qq.com</p>
+                    <p>cc</p>
+                  </div>
+                  <div class="col s6">
+                    <p>495827808@qq.com</p>
+                    <p>cc</p>
+                  </div>
+                </div>
+
+              </div>
+              <div class="card-action" style="text-align: right">
+                <a href="#" style="color: #03a9f4">查看详情</a>
+                <a href="#" style="color: #bf360c">放弃投稿</a>
+              </div>
+            </div>
+          </div>
     </div>
-
   </div>
 </template>
 
@@ -41,16 +50,32 @@
     name:'MySubmissions',
     data:function () {
       return{
-        submissions:{
-
-        }
+        submissionsPending:{},
+        submissionsPassed:{},
+        submissionsRejected:{}
       }
     },
     methods:{
 
     },
     created:function () {
+      $(document).ready(function(){
+        $('.tabs').tabs();
+      });
 
-    }
+      let that=this;
+      this.$axios.post('/api/user/getContribution',{type:'pending'})
+        .then(response=>{
+
+        }).catch(error=>{
+        M.toast({
+          html: error,
+          classes: "rounded red darken-2"
+        });
+      });
+    },
+    mounted:function () {
+      this.$bus.emit('manage-change-title', { text: '我的投稿' });
+    },
   }
 </script>
