@@ -213,7 +213,6 @@
     data: function () {
       return {
         bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),",
-        hasload: false,
         conference_id: 1,
         conferenceImg: "/static/bg1.jpg",
         conferenceState: '默认',
@@ -318,10 +317,9 @@
           else {
             originThis.identify = "聆听者";
           }
-          console.log("response.data.data.papers");
-          console.log(response.data.data.papers);
+          console.log("response.data.data");
+          console.log(response.data.data);
           originThis.papers = response.data.data.papers;
-          originThis.hasload = true;
         }).catch(error => {
           console.log(1);
         });
@@ -427,7 +425,7 @@
           is_book: accommodate
         };
         let index = this.participants.findIndex(function(item) {
-          return item.name === name;
+          return item.name === tempParticipant.name;
         });
         console.log("index==" + index);
         if(index === -1) {
@@ -439,10 +437,10 @@
 
         //remove shadow
         $('#'+index).removeClass("z-depth-5");
-        /*console.log("temp participant:");
+        console.log("temp participant:");
         console.log(tempParticipant);
         console.log("participants:");
-        console.log(this.participants);*/
+        console.log(this.participants);
         //clear
         this.participant_field.name = "";
         this.participant_field.contract = "";
