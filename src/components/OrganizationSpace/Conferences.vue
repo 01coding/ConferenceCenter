@@ -8,7 +8,7 @@
               <!--<img src="https://materializecss.com/images/sample-1.jpg">-->
               <!--<img v-bind:src="$image(conf.backimg)"/>-->
               <div class="card-title">
-                <h5><router-link to="">{{ conf.title }}</router-link></h5>
+                <h5><router-link v-bind:to="'/orgspace/conference/'+conf.id+'/modify'" style="color: white; font-weight: bold">{{ conf.title }}</router-link></h5>
                 <!--<br/>-->
                 <!--<h3>{{ conf.title }}</h3>-->
                 <!--<h5>2018/06/18 - 06/23</h5>-->
