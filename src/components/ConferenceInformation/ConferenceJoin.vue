@@ -28,51 +28,56 @@
       <div class="row container">
         <div class="col s10 offset-s1">
           <div class="row" style="margin-bottom: 0;">
-            <div class="row">
-              <h5>以xx身份注册会议</h5>
-            </div>
+            <h5>以{{identify}}身份注册会议</h5>
+          </div>
+          <div class="row">
+
           </div>
           <div class="row">
             <h5>参会人</h5>
           </div>
           <div class="row" style="margin-bottom: 0;">
             <div class="center row">
-              <h5 style="font-size: 1.5rem; margin: 0; padding-top: 1rem; padding-bottom: 1rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;" v-if="participates.length===0">
+              <h5 style="font-size: 1.5rem; margin: 0; padding-top: 1rem; padding-bottom: 1rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;" v-if="participants.length===0">
                 在这里添加参会人
               </h5>
-              <div class="col s4" v-for="(participate, idx) in participates"
+              <div class="col s4" v-for="(participant, idx) in participants"
                    style="margin-bottom: 1rem;">
-                <div class="card-panel" v-bind:id=idx style="padding-top: 0.5rem;" @click="update_participate(idx)">
+                <div class="card-panel" v-bind:id=idx
+                     style="padding-top: 0.5rem;"
+                     :class="{ green:participant.isUpdate }"
+                     @click="update_participant(idx)">
                   <div style="height: 24px;">
                     <i class="material-icons right"
-                       @click="participates.splice(idx, 1)"
+                       @click="participants.splice(idx, 1)"
                        style="cursor: pointer">
                       clear
                     </i><!--delete card-->
                   </div>
                   <div>
-                    <h5 style="font-weight: bold; margin-top: 0;">{{participate.name}}</h5>
-                    <i class="material-icons prefix after-add">person</i>
-                    <i class="material-icons prefix after-add"
-                    v-bind:class="{disabled: participate.accommodate === false}">home</i>
+                    <h5 style="font-weight: bold; margin-top: 0;">{{participant.name}}</h5>
+                    <i class="material-icons prefix right"
+                    :class="{ green: participant.gender === 'male', red: participant.gender === 'famale'}">person</i>
+                    <i class="material-icons prefix right"
+                    v-show="participant.accommodate">home</i>
                   </div>
-                  <div class="init">{{participate.institution}}</div>
-                  <div class="init">{{participate.email}}</div>
-                  <div class="after-add">{{participate.phone}}</div>
-                  <div class="after-add">{{participate.work}}</div>
+                  <!--<div class="init">{{participant.institution}}</div>-->
+                  <div v-show="!participant.isUpdate">{{participant.email}}</div>
+                  <div v-show="participant.isUpdate">{{participant.phone}}</div>
+                  <div v-show="participant.isUpdate">{{participant.work}}</div>
                 </div>
               </div>
             </div>
               <div class="row valign-wrapper" style="margin-bottom: 0;">
                 <div class="input-field col s6">
                   <i class="material-icons prefix">account_circle</i>
-                  <input id="first_name" type="text" v-model="participate_field.name">
+                  <input id="first_name" type="text" v-model="participant_field.name">
                   <label for="first_name">姓名</label>
                 </div>
                 <div class="input-field col s6">
                   <i class="material-icons prefix">call</i>
-                  <input id="email" type="email" v-model="participate_field.phone">
-                  <label for="email">联系方式</label>
+                  <input id="phone" type="text" v-model="participant_field.phone">
+                  <label for="phone">联系方式</label>
                 </div>
               </div>
               <div class="row valign-wrapper" style="margin-bottom: 0;padding-top: 3px;padding-bottom: 3px;">
@@ -81,11 +86,11 @@
                     性别
                   </div>
                   <label class="col s2">
-                    <input type="radio" value="male" v-model="participate_field.gender" />
+                    <input type="radio" value="male" v-model="participant_field.gender" />
                     <span>男</span>
                   </label>
                   <label class="col s2">
-                    <input type="radio" value="female" v-model="participate_field.gender" />
+                    <input type="radio" value="female" v-model="participant_field.gender" />
                     <span>女</span>
                   </label>
                   <div class="col s3 valign-wrapper">
@@ -95,7 +100,7 @@
                   <div class="switch col s3">
                     <label>
                       Off
-                      <input type="checkbox" v-model="participate_field.accommodate">
+                      <input type="checkbox" v-model="participant_field.accommodate">
                       <span class="lever"></span>
                       On
                     </label>
@@ -104,19 +109,19 @@
             <div class="row valign-wrapper" style="margin-bottom: 0;">
               <div class="input-field col s12">
                 <i class="material-icons prefix">work</i>
-                <input id="job" type="text" v-model="participate_field.work">
+                <input id="job" type="text" v-model="participant_field.work">
                 <label for="job">工作</label>
               </div>
             </div>
             <div class="row valign-wrapper" style="margin-bottom: 0;">
               <div class="input-field col s12">
                 <i class="material-icons prefix">note</i>
-                <input id="note" type="text" v-model="participate_field.note">
+                <input id="note" type="text" v-model="participant_field.note">
                 <label for="note">备注</label>
               </div>
             </div>
             <div class="row valign-wrapper" style="margin-bottom: 0;">
-              <div class="waves-effect waves-light btn green col s1" @click="add_participate">添加
+              <div class="waves-effect waves-light btn green col s1" @click="add_participant">添加
                 <i class="material-icons right">add</i>
               </div>
             </div>
@@ -200,11 +205,12 @@
         contributeToLink: 0,
         registerToLink: 0,
         identify: "",
+        isUpdate: 0,
         resp: {
           data: {}
         },
         user_info: {},
-        participates: [],
+        participants: [],
         papers: [],
         upload: {
           files: [],
@@ -212,13 +218,14 @@
           size: 100 * 1024 * 1024,
           maximum: 1
         },
-        participate_field: {
+        participant_field: {
           name: "",
           phone: "",
           gender:"",
           accommodate: 0,
           work: "",
-          note: ""
+          note: "",
+          isUpdate: 0
         },
       }
     },
@@ -283,7 +290,7 @@
         });
       },
       load_author_info: function() {
-        this.$axios.post('/api/user/getRegister',{
+        this.$test.post('/api/user/getRegister',{
           token: sessionStorage.getItem("session"),
           conference_id: this.conference_id
         }).then(response => {
@@ -293,7 +300,7 @@
           else {
             this.identify = "聆听者";
           }
-          this.participates = response.data.data.author;
+          this.participants = response.data.data.author;
           this.papers = response.data.data.paper;
         }).catch(error => {
           console.log(1);
@@ -323,22 +330,19 @@
         }
       },
 
-      update_participate: function(idx) {
+      update_participant: function(idx) {
         //加阴影
         $('#'+idx).addClass("z-depth-5");
         //自动填充name
-
+        this.participant_field = this.participants[idx];
       },
-
-      add_participate() {
-        let name = this.participate_field.name.trim();
-        let telephone = this.participate_field.phone.trim();
-        let gender = this.participate_field.gender.trim();
-        let job = this.participate_field.work.trim();
-        let note = this.participate_field.note.trim();
-        let accommodate = this.participate_field.accommodate;
-
-        console.log("gender:" + this.participate_field.gender);
+      add_participant() {
+        let name = this.participant_field.name.trim();
+        let telephone = this.participant_field.phone.trim();
+        let gender = this.participant_field.gender.trim();
+        let job = this.participant_field.work.trim();
+        let note = this.participant_field.note.trim();
+        let accommodate = this.participant_field.accommodate;
 
         if (name.length === 0) {
           M.toast({html: "<span style='font-weight: bold;'>请填写作者姓名</span>", classes: 'yellow darken-2 rounded'});
@@ -357,65 +361,52 @@
           return;
         }
 
-        let index = this.participates.findIndex(name);
-        let institution = this.participates[index].institution;
-        let email = this.participates[index].email;
+        let index = this.participants.findIndex(function(item) {
+          return item.name === name;
+        });
+        /*let institution = this.participants[index].institution;*/
+        let email = this.participants[index].email;
 
-        let participate = {
+        let participant = {
           name: name,
           phone:telephone,
           work: job,
           note: note,
           gender: gender,
           accommodate: accommodate,
-          institution: institution,
+          /*institution: institution,*/
           email: email
         };
-        this.participates[index] = participate;
-        this.participates.push(participate);
+        this.participants[index] = participant;
+        this.participants[index].isUpdate = 1;
 
-        $(document).ready(function() {
-          $('.after-add').show();
-          $('.init').hide();
-          $('#'+idx).addClass("teal z-depth-5");
-        });
-
-        this.participate_field.name = "";
-        this.participate_field.phone = "";
-        this.participate_field.work = "";
-        this.participate_field.note = "";
+        this.participant_field.name = "";
+        this.participant_field.phone = "";
+        this.participant_field.work = "";
+        this.participant_field.note = "";
       },
       submit() {
-        let registerType = 0;
-        let thesisCode = "";
-        if(this.whetherAuthor === "yes") {
-          registerType = 0;
-          }
-          else {
-          registerType = 2;
-        }
         let files = this.upload.files;
+        let type = 0;
 
-        if (registerType.length === 0) {
-          M.toast({html: "<span style='font-weight: bold;'>请选择参会类型</span>", classes: 'yellow darken-2 rounded'});
-          return;
-        } else {
-          let ok = false;
-          for (let i = 0; i < participates.length; i++) {
-            /*user is a person of participates*/
-            if (participates[i].name === this.user_info.name) {
-              ok = true;
-              break;
-            }
-          }
-          if (!ok) {
-            M.toast({
-              html: "<span style='font-weight: bold;'>你必须是作者之一才能参与</span>",
-              classes: 'yellow darken-2 rounded'
-            });
-            return;
+        if(this.identify === "聆听者") {
+          type = 1;
+        }
+        //check participants including the user himself
+        let ok = false;
+        for(let i = 0; i < participants.length; i++) {
+          if(participants[i].name == this.user_info.name) {
+            ok = true;
+            break;
           }
         }
+        if(ok === false) {
+          M.toast({
+            html: "<span style='font-weight: bold;'>参会人中必须有本人</span>",
+            classes: 'yellow darken-2 rounded'
+          });
+        }
+        //check have pdf or picture
         if (files.length === 0) {
           M.toast({
             html: "<span style='font-weight: bold;'>请上传文件</span>",
@@ -432,16 +423,21 @@
             // TODO: resolve WebIO
           }
         }
-        let participate_str = JSON.stringify(participates);
+
+        //todo: delete useless attributes in participants
+        let participant_str = JSON.stringify(participants);
         let file_url = "";
         //let file_url = files[0].response;
         let params = {
+          token: sessionStorage.getItem("session"),
           conference_id: this.conference_id,
-          participates: participate_str,
-          file_url: file_url
+          payment: file_url,
+          type: type,
+          paper_number: papers,
+          participants: participant_str
         };
         let that = this;
-        this.$axios.post("/api/contribute", params).then(
+        this.$axios.post("/api/user/register", params).then(
           rsp => {
             let data = rsp.data;
             if (data.status==="succ") {
