@@ -2,7 +2,7 @@
   <div>
     <navbar></navbar>
     <test-robot v-on:child-say="fill_form"></test-robot>
-    <div class="row" style="background: url(/static/bg7.jpg) no-repeat; background-size: cover;height:41.1em;margin-bottom: 0;">
+    <div class="row" style="background: url(/static/bg7.jpg) no-repeat; background-size: cover;height:43rem;margin-bottom: 0;">
       <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 80px;width:35%">
         <div class="card-panel" style="padding-bottom: 5px;padding-top: 12px;opacity: 0.9">
           <div class="row center-align" style="margin-top:0; margin-bottom: 1.5rem;">
@@ -52,7 +52,7 @@
     </div>
     <div class="grey lighten-1 footer-copyright">
       <div class="container center" style="padding-top:5px;padding-bottom: 5px">
-        © 2014 Copyright Text
+        © 2018 Copyright Text
       </div>
     </div>
   </div>
@@ -112,7 +112,7 @@
                   sessionStorage.setItem('session',this.token);
                   sessionStorage.setItem('type','scholar');
                   this.session_callback();
-                  this.$router.push('/');
+                  this.$router.go(-1);
 
                   M.toast({
                     html:"<span style='font-weight: bold'>登录成功</span>",
