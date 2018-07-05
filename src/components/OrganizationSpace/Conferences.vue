@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col s10 offset-s1">
+    <div class="col s12 m10 offset-m1">
       <div class="row">
         <div class="col s12 m12 l6 xl6" v-for="conf in conference_list">
           <div class="card hoverable">
@@ -8,7 +8,7 @@
               <!--<img src="https://materializecss.com/images/sample-1.jpg">-->
               <!--<img v-bind:src="$image(conf.backimg)"/>-->
               <div class="card-title">
-                <h5>{{ conf.title }}</h5>
+                <h5><router-link to="">{{ conf.title }}</router-link></h5>
                 <!--<br/>-->
                 <!--<h3>{{ conf.title }}</h3>-->
                 <!--<h5>2018/06/18 - 06/23</h5>-->
