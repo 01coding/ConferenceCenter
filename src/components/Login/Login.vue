@@ -112,7 +112,7 @@
                   sessionStorage.setItem('session',this.token);
                   sessionStorage.setItem('type','scholar');
                   this.session_callback();
-                  this.$router.push('/');
+                  this.$router.go(-1);
 
                   M.toast({
                     html:"<span style='font-weight: bold'>登录成功</span>",
