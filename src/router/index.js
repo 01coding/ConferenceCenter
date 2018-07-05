@@ -22,7 +22,8 @@ import RegisteredConferences from '@/components/PersonalSpace/RegisteredConferen
 import MySubmissions from '@/components/PersonalSpace/MySubmissions'
 import CollectedConferences from '@/components/PersonalSpace/CollectedConferences'
 import PersonalInformation from '@/components/PersonalSpace/PersonalInformation'
-import AccountSet from '@/components/PersonalSpace/AccountSet'
+import AccountSet from '@/components/PersonalSpace/AccountSet';
+import Account from '@/components/OrganizationSpace/Account'
 
 import page404 from '@/components/404';
 
@@ -84,6 +85,10 @@ const router = new Router({
         {
           path: 'principals',
           component: OrgPrincipal
+        },
+        {
+          path: 'account',
+          component: Account
         },
         {
           path: 'conference/:id/registries',

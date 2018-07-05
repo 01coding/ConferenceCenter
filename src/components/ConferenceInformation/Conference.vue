@@ -16,8 +16,12 @@
             <h5 style="font-weight: bold" class="center">{{conferenceState}}</h5>
             <h5>&nbsp</h5>
             <div class="row center-align">
-              <div class="btn btn-large teal">
-                <div class="white-text">
+              <!--<div class="btn btn-large teal" @click="toCollect">
+                <div class="white-text">-->
+              <div class="btn btn-large teal"
+                  :class="{ disabled: hasCollect === 1 }"
+                   @click="toCollect">
+                <div :class="{'white-text': hasCollect === 0, 'grey-text': hasCollect !== 0}">
                   <i class="material-icons left">star_border</i>
                   收藏
                 </div>
@@ -171,6 +175,7 @@
         conference_id: 1,
         conferenceImg: "/static/bg1.jpg",
         conferenceState: '默认',
+        hasCollect: 0,
         contributeToLink: 0,
         registerToLink: 0,
         contributeLink: '',
@@ -190,6 +195,32 @@
         this.registerLink = "/conference/" + this.conference_id + '/join';
         console.log(this.registerLink);
         this.$router.push(this.registerLink);
+      },
+      toCollect: function() {
+        this.$axios.post('/api/user/collect',{
+          token: sessionStorage.getItem("session"),
+          conference_id: this.conference_id
+        }).then(response => {
+          let resp = response.data;
+          if(resp.status == 'succ') {
+            this.hasCollect = 1;
+            M.toast({
+              html: "<span style='font-weight: bold;'>已收藏</span>",
+              classes: 'green rounded'
+            });
+          }
+          else {
+            M.toast({
+              html: "<span style='font-weight: bold;'>收藏失败</span>",
+              classes: 'red rounded'
+            });
+          }
+        }).catch(error => {
+          M.toast({
+            html: "<span style='font-weight: bold;'>ERROR!</span>",
+            classes: 'red rounded'
+          });
+        })
       },
 
       isAbleRegister: function () {
@@ -231,8 +262,21 @@
     },
 
     created() {
-
       this.conference_id = parseInt(this.$route.params.id);
+      this.$axios.post('/api/conference/iscollect/' + this.conference_id).then(response => {
+        if(response.data.data === 1) {
+          this.hasCollect = 1;
+        }
+        else {
+          this.hasCollect = 0;
+        }
+      }).catch(error => {
+        M.toast({
+          html: error,
+          classes: "rounded red darken-2"
+        });
+        console.log(1);
+      });
       this.$axios.post('/api/conference/' + this.conference_id).then(response => {
         if(response.status === 200) {
           if (response.data.status === "succ") {
