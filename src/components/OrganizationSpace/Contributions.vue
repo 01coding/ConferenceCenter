@@ -251,6 +251,7 @@
 
   .col .row {
     margin-right: 0;
+    margin-left: 0;
   }
 
   .card {

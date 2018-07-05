@@ -61,18 +61,18 @@
     },
     mounted: function () {
       this.conf_id = this.$route.params.id;
-      // this.refresh();
+      this.refresh();
     },
     methods: {
       refresh: function () {
-        this.$axios.push('/api/manage/registry', {
+        this.$axios.post('/api/manage/registry', {
           conference_id: this.conf_id,
           index: this.current,
           size: this.per_page
         }).then(rsp => {
           if (rsp.data.status === 'succ') {
-            this.registries = rsp.data.data;
-            this.page_num = rsp.data.page_num;
+            this.registries = rsp.data.data.registries;
+            this.page_num = rsp.data.data.page_num;
           }
         }).catch(err => {
 
@@ -86,6 +86,7 @@
     computed: {
       registry_list: function () {
         let list = [];
+        // if (this.registries.length !== 0) {
         for (let item in this.registries) {
           list.push({
             user_name: item.user_name,
@@ -113,8 +114,9 @@
               note: item.participant[ i ].note
             });
           }
-          return list;
+          // }
         }
+        return list;
       }
     }
   }

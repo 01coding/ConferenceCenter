@@ -4,6 +4,15 @@
   <div style="height: 3rem;"></div>
   <div class="container" style="max-width: 75rem;">
     <div class="card">
+      <div class="card-action">
+        <span>
+            投稿至 <span class="chip" style="margin: 0;">{{contrib.conference}}</span>
+          </span>
+        <span class="right" style="line-height: 2.5rem;">
+            <strong>创建于 4 天前</strong>&nbsp&nbsp&nbsp
+            <strong class="teal-text">{{contrib.state}}</strong>
+          </span>
+      </div>
       <div class="card-content">
         <div class="row">
           <div class="col s12 center-align">
@@ -20,14 +29,9 @@
           </div>
         </div>
       </div>
-      <div class="card-action">
-        <span>
-          投稿至 <span class="chip" style="margin: 0;">{{contrib.conference}}</span>
-        </span>
-        <span class="right" style="line-height: 2.5rem;">
-          <strong>创建于 4 天前</strong>&nbsp&nbsp&nbsp
-          <strong class="blue-text">{{contrib.state}}</strong>
-          </span>
+      <div class="card-action right-align">
+        <a class="blue-text"><strong>查看详情</strong></a>
+        <a class="red-text" style="margin: 0;"><strong>撤销投稿</strong></a>
       </div>
     </div>
   </div>
