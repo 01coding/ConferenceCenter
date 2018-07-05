@@ -42,7 +42,7 @@
           <router-link to="/personalspace/personalinformation" class="waves-effect">个人信息</router-link>
         </li>
         <li class="bold">
-          <router-link to="/orgspace" class="waves-effect">账户设置</router-link>
+          <router-link to="/personalspace/accountset" class="waves-effect">账户设置</router-link>
         </li>
         <div class="divider"></div>
         <li class="bold">
