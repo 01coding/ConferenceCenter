@@ -28,7 +28,7 @@
           </div>
         </li>
         <li class="bold">
-          <router-link to="/orgspace" class="waves-effect">收藏的会议</router-link>
+          <router-link to="/personalspace/collectedconferences" class="waves-effect">收藏的会议</router-link>
         </li>
 
         <li class="bold">
@@ -135,4 +135,8 @@
   a.sidenav-trigger.top-nav {
     left: 0;
   }
+
+
 </style>
+
+
