@@ -11,6 +11,7 @@
           </div>
           <div class="row">
             <div class="input-field col s8">
+              <i class="prefix material-icons">title</i>
               <input id="conf-topic" type="text" v-model="conf_topic" data-length="40"/>
               <label for="conf-topic">会议名称</label>
             </div>
@@ -27,22 +28,26 @@
           </div>
           <div class="row">
             <div class="input-field col s12">
+              <i class="medium material-icons prefix">subject</i>
               <textarea id="conf-desc" class="materialize-textarea" v-model="conf_desc"></textarea>
               <label for="conf-desc">会议简介</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s6 m5 l5 xl4">
+              <i class="medium material-icons prefix">event</i>
               <input id="conf-start-date" type="text" class="datepicker" v-model="conf_start_date"/>
               <label for="conf-start-date">会议开始日期</label>
             </div>
             <div class="input-field col s6 m5 l5 xl4">
+              <i class="medium material-icons prefix">event</i>
               <input id="conf-end-date" type="text" class="datepicker" v-model="conf_end_date"/>
               <label for="conf-end-date">会议结束日期</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s8">
+              <i class="medium material-icons prefix">place</i>
               <input id="conf-location" type="text" v-model="conf_location"/>
               <label for="conf-location">会议地点</label>
             </div>
@@ -54,26 +59,31 @@
           </div>
           <div class="row">
             <div class="input-field col s3">
+              <i class="medium material-icons prefix">event</i>
               <input id="conf-eassy-ddl" type="text" class="datepicker" v-model="conf_eassy_ddl"/>
               <label for="conf-eassy-ddl">截稿日期</label>
             </div>
             <div class="input-field col s3">
+              <i class="medium material-icons prefix">access_time</i>
               <input id="conf-eassy-time" type="text" class="timepicker" v-model="conf_eassy_time"/>
               <label for="conf-eassy-time">截稿时间</label>
             </div>
             <div class="input-field col s6">
+              <i class="medium material-icons prefix">event</i>
               <input id="conf-release-ddl" type="text" class="datepicker" v-model="conf_release_ddl"/>
               <label for="conf-release-ddl">录用通知日期</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
+              <i class="medium material-icons prefix">library_books</i>
               <textarea id="conf-eassy-info" class="materialize-textarea" v-model="conf_eassy_info"></textarea>
               <label for="conf-eassy-info">征文信息</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
+              <i class="medium material-icons prefix">event_note</i>
               <textarea id="conf-eassy-inst" class="materialize-textarea" v-model="conf_eassy_inst"></textarea>
               <label for="conf-eassy-inst">投稿须知</label>
             </div>
@@ -100,34 +110,40 @@
           </div>
           <div class="row">
             <div class="input-field col s12">
+              <i class="medium material-icons prefix">event</i>
               <textarea id="conf-schedule" class="materialize-textarea" v-model="conf_schedule"></textarea>
               <label for="conf-schedule">日程安排</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s4">
+              <i class="medium material-icons prefix">event</i>
               <input id="conf-register-ddl" type="text" class="datepicker" v-model="conf_register_ddl"/>
               <label for="conf-register-ddl">注册截止日期</label>
             </div>
             <div class="input-field col s2">
+              <i class="medium material-icons prefix">access_time</i>
               <input id="conf-register-time" type="text" class="timepicker" v-model="conf_register_time"/>
               <label for="conf-register-time">时间</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
+              <i class="medium material-icons prefix">subject</i>
               <textarea id="conf-register-info" class="materialize-textarea" v-model="conf_register_info"></textarea>
               <label for="conf-register-info">注册信息</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
+              <i class="medium material-icons prefix">airport_shuttle</i>
               <textarea id="conf-commute-info" class="materialize-textarea" v-model="conf_commute_info"></textarea>
               <label for="conf-commute-info">住宿交通</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
+              <i class="medium material-icons prefix">local_phone</i>
               <textarea id="conf-contact" class="materialize-textarea" v-model="conf_contact"></textarea>
               <label for="conf-contact">联系方式</label>
             </div>
