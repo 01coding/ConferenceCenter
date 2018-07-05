@@ -148,7 +148,7 @@
   }
 
   .user-view {
-    height: 240px;
+    height: 220px;
   }
 
   a.sidenav-trigger.top-nav {
