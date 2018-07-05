@@ -15,6 +15,7 @@ import OrgConferences from '@/components/OrganizationSpace/Conferences';
 import NewConference from '@/components/OrganizationSpace/NewConference';
 import OrgContributions from '@/components/OrganizationSpace/Contributions';
 import OrgReview from '@/components/OrganizationSpace/Review';
+import OrgPrincipal from '@/components/OrganizationSpace/Principals';
 import PersonalSpace from '@/components/PersonalSpace/PersonalSpace'
 import RegisteredConferences from '@/components/PersonalSpace/RegisteredConferences'
 import MySubmissions from '@/components/PersonalSpace/MySubmissions'
@@ -75,6 +76,10 @@ const router = new Router({
         {
           path: 'review/:id',
           component: OrgReview
+        },
+        {
+          path: 'principals',
+          component: OrgPrincipal
         }
       ]
     },

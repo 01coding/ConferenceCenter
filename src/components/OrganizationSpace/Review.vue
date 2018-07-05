@@ -189,7 +189,7 @@
           if (rsp.data.status === 'succ') {
             M.toast({
               html: "<span style='font-weight: bold'>评审成功</span>",
-              class: "rounded green"
+              classes: "rounded green"
             });
           }
           else {
