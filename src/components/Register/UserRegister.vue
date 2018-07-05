@@ -3,7 +3,7 @@
     <navbar></navbar>
     <test-robot v-on:child-say="fill_form"></test-robot>
   <div class="row">
-    <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 80px;width:35%">
+    <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 60px;width:35%">
       <div class="card-panel" style="padding-bottom: 5px;padding-top: 10px">
         <div class="row center-align" style="margin-top:0; margin-bottom: 8px">
           <h3>注册</h3>
