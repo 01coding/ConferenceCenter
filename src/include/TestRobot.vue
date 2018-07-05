@@ -25,6 +25,11 @@
             注册
           </a>
         </li>
+        <li v-if="url==='/institution/register'">
+          <a class="btn-floating green darken-2 tooltipped"  style="margin-bottom: 65px" data-position="left" data-tooltip="机构注册" @click="institution_register()">
+            注册
+          </a>
+        </li>
       </ul>
     </div>
   </div>
@@ -46,6 +51,17 @@
               email:'',
               password:'',
               confirmPassword:''
+            },
+            institution_register_data:{
+              name: '',
+              email : '',
+              location : '',
+              phone:'',
+              introduction:'',
+              password:'',
+              confirmPassword:'',
+              managerName:'',
+              managerPhone:'',
             }
           }
         },
@@ -74,6 +90,18 @@
             this.user_register_data.password="123456";
             this.user_register_data.confirmPassword="123456";
             this.$emit('child-say',this.user_register_data);
+          },
+          institution_register:function () {
+              this.institution_register_data.name="北京航空航天大学";
+              this.institution_register_data.email='Beihang@buaa.edu.cn';
+              this.institution_register_data.location="北京市海淀区学院路37号";
+              this.institution_register_data.phone="82317114";
+              this.institution_register_data.introduction="北京航空航天大学位列“211工程”、“985工程”、“世界一流大学建设高校";
+              this.institution_register_data.password="123456";
+              this.institution_register_data.confirmPassword="123456";
+              this.institution_register_data.managerName="徐慧彬";
+              this.institution_register_data.managerPhone="82317114";
+              this.$emit('child-say',this.institution_register_data);
           }
         },
         created(){
