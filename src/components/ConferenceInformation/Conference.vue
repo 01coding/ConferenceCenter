@@ -23,7 +23,7 @@
                    @click="toCollect">
                 <div :class="{'white-text': hasCollect === 0, 'grey-text': hasCollect !== 0}">
                   <i class="material-icons left">star_border</i>
-                  <span :class="{disabled: hasCollect === 0}">已</span>收藏
+                  <span v-show="hasCollect">已</span>收藏
                 </div>
               </div>
               <div class="btn btn-large green"
