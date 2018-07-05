@@ -7,36 +7,68 @@
     </ul>
 
 
-    <div id="test1" class="col s12" style="padding-top: 1%">
+    <div id="test1" class="col s12" style="padding-top: 1%" >
       <div class="container">
 
-            <div class="card" v-for="item in submissionsPending">
-              <div class="card-content">
-                <div class="row">
-                  <div class="col s10 center-align">
-                    <!--<span class="flow-text">Card Title</span>-->
-                    <h5>{{item.title}}</h5>
-
-                  </div>
-                  <div class="col s2" style="text-align: right;">
-                    <p style="color: #03a9f4">审稿中</p>
-                    <p style="color: #4fc3f7">修改后录用</p>
-                  </div>
-                </div>
-                <div class="row center-align">
-                  <div v-bind:class="'col s'+12/item.author.length" v-for="author in item.author">
-                    <p>{{author.email}}</p>
-                    <p>{{author.name}}</p>
-                  </div>
-
-                </div>
-
-              </div>
-              <div class="card-action" style="text-align: right">
-                <a href="#" style="color: #03a9f4">查看详情</a>
-                <a href="#" style="color: #bf360c">放弃投稿</a>
+        <div class="card" v-for="item in submissionsPending">
+          <div class="card-action">
+        <span>
+            投稿至 <span class="chip" style="margin: 0;">{{item.conference_title}}</span>
+          </span>
+            <span class="right" style="line-height: 2.5rem;">
+            <strong>创建于 {{ readable_time(item.total_submit) }} </strong>&nbsp&nbsp&nbsp
+            <strong class="teal-text">修改后录用</strong>
+          </span>
+          </div>
+          <div class="card-content">
+            <div class="row">
+              <div class="col s12 center-align">
+                <!--<span class="flow-text">Card Title</span>-->
+                <h4 style="font-weight: bold; margin: 0;">{{item.title}}</h4>
               </div>
             </div>
+            <div class="row center-align" style="margin-bottom: 0;">
+              <div v-bind:class="'col s'+12/(item.author.length < 4 ? item.author.length: 4)"
+                   v-for="author in item.author">
+                <h5>{{author.name}}</h5>
+                <p>{{author.institution}}</p>
+                <p style="font-size: 1rem; font-family: 'Courier';">{{author.email}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-action right-align">
+            <a class="blue-text"><strong>查看详情</strong></a>
+            <!--<a class="red-text modal-trigger" style="margin: 0;" href="#modal1" v-on:click="this.selectedId=item.id"><strong>撤销投稿</strong></a>-->
+          </div>
+        </div>
+
+            <!--<div class="card" v-for="item in submissionsPending">-->
+              <!--<div class="card-content">-->
+                <!--<div class="row">-->
+                  <!--<div class="col s10 center-align">-->
+                    <!--&lt;!&ndash;<span class="flow-text">Card Title</span>&ndash;&gt;-->
+                    <!--<h5>{{item.title}}</h5>-->
+
+                  <!--</div>-->
+                  <!--<div class="col s2" style="text-align: right;">-->
+                    <!--<p style="color: #03a9f4">审稿中</p>-->
+                    <!--<p style="color: #4fc3f7">修改后录用</p>-->
+                  <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row center-align">-->
+                  <!--<div v-bind:class="'col s'+12/item.author.length" v-for="author in item.author">-->
+                    <!--<p>{{author.email}}</p>-->
+                    <!--<p>{{author.name}}</p>-->
+                  <!--</div>-->
+
+                <!--</div>-->
+
+              <!--</div>-->
+              <!--<div class="card-action" style="text-align: right">-->
+                <!--<a href="#" style="color: #03a9f4">查看详情</a>-->
+                <!--<a href="#" style="color: #bf360c">放弃投稿</a>-->
+              <!--</div>-->
+            <!--</div>-->
           </div>
     </div>
 
@@ -46,30 +78,34 @@
       <div class="container">
 
         <div class="card" v-for="item in submissionsPassed">
+          <div class="card-action">
+        <span>
+            投稿至 <span class="chip" style="margin: 0;">{{item.conference_title}}</span>
+          </span>
+            <span class="right" style="line-height: 2.5rem;">
+            <strong>创建于 {{ readable_time(item.total_submit) }} </strong>&nbsp&nbsp&nbsp
+            <strong class="green-text">通过</strong>
+          </span>
+          </div>
           <div class="card-content">
             <div class="row">
-              <div class="col s10 center-align">
+              <div class="col s12 center-align">
                 <!--<span class="flow-text">Card Title</span>-->
-                <h5>{{item.title}}</h5>
-
-              </div>
-              <div class="col s2" style="text-align: right;">
-                <p style="color: #03a9f4">已录用</p>
-                <!--<p style="color: #4fc3f7">修改后录用</p>-->
+                <h4 style="font-weight: bold; margin: 0;">{{item.title}}</h4>
               </div>
             </div>
-            <div class="row center-align">
-              <div v-bind:class="'col s'+12/item.author.length" v-for="author in item.author">
-                <p>{{author.email}}</p>
-                <p>{{author.name}}</p>
+            <div class="row center-align" style="margin-bottom: 0;">
+              <div v-bind:class="'col s'+12/(item.author.length < 4 ? item.author.length: 4)"
+                   v-for="author in item.author">
+                <h5>{{author.name}}</h5>
+                <p>{{author.institution}}</p>
+                <p style="font-size: 1rem; font-family: 'Courier';">{{author.email}}</p>
               </div>
-
             </div>
-
           </div>
-          <div class="card-action" style="text-align: right">
-            <a href="#" style="color: #03a9f4">查看详情</a>
-            <!--<a href="#" style="color: #bf360c">放弃投稿</a>-->
+          <div class="card-action right-align">
+            <a class="blue-text"><strong>查看详情</strong></a>
+            <!--<a class="red-text modal-trigger" style="margin: 0;" href="#modal1" v-on:click="this.selectedId=item.id"><strong>撤销投稿</strong></a>-->
           </div>
         </div>
       </div>
@@ -81,30 +117,34 @@
       <div class="container">
 
         <div class="card" v-for="item in submissionsRejected">
+          <div class="card-action">
+        <span>
+            投稿至 <span class="chip" style="margin: 0;">{{item.conference_title}}</span>
+          </span>
+            <span class="right" style="line-height: 2.5rem;">
+            <strong>创建于 {{ readable_time(item.total_submit) }} </strong>&nbsp&nbsp&nbsp
+            <strong class="red-text">拒稿</strong>
+          </span>
+          </div>
           <div class="card-content">
             <div class="row">
-              <div class="col s10 center-align">
+              <div class="col s12 center-align">
                 <!--<span class="flow-text">Card Title</span>-->
-                <h5>{{item.title}}</h5>
-
-              </div>
-              <div class="col s2" style="text-align: right;">
-                <p style="color: #03a9f4">已拒绝</p>
-                <!--<p style="color: #4fc3f7">修改后录用</p>-->
+                <h4 style="font-weight: bold; margin: 0;">{{item.title}}</h4>
               </div>
             </div>
-            <div class="row center-align">
-              <div v-bind:class="'col s'+12/item.author.length" v-for="author in item.author">
-                <p>{{author.email}}</p>
-                <p>{{author.name}}</p>
+            <div class="row center-align" style="margin-bottom: 0;">
+              <div v-bind:class="'col s'+12/(item.author.length < 4 ? item.author.length: 4)"
+                   v-for="author in item.author">
+                <h5>{{author.name}}</h5>
+                <p>{{author.institution}}</p>
+                <p style="font-size: 1rem; font-family: 'Courier';">{{author.email}}</p>
               </div>
-
             </div>
-
           </div>
-          <div class="card-action" style="text-align: right">
-            <a href="#" style="color: #03a9f4">查看详情</a>
-            <!--<a href="#" style="color: #bf360c">放弃投稿</a>-->
+          <div class="card-action right-align">
+            <a class="blue-text"><strong>查看详情</strong></a>
+            <!--<a class="red-text modal-trigger" style="margin: 0;" href="#modal1" v-on:click="this.selectedId=item.id"><strong>撤销投稿</strong></a>-->
           </div>
         </div>
       </div>
@@ -112,27 +152,55 @@
 
 
 
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <h4>撤销投稿</h4>
+        <p>你确定要撤销投稿吗？</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">确认</a>
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">取消</a>
+      </div>
+    </div>
+
 
   </div>
 </template>
 
 <script>
+  import { humanize_time } from '@/js/utils';
   export default {
     name:'MySubmissions',
     data:function () {
       return{
         submissionsPending:{},
         submissionsPassed:{},
-        submissionsRejected:{}
+        submissionsRejected:{},
+        selectedId:0
       }
     },
     methods:{
+      readable_time: function (str) {
+        return humanize_time(str);
+      },
+      cancelContribution:function (id) {
 
+      }
     },
     created:function () {
       $(document).ready(function(){
         $('.tabs').tabs();
+        $('.modal').modal();
       });
+
+
+      document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems, options);
+      });
+
+
 
 
 
