@@ -125,11 +125,11 @@
   /*height: 110px;*/
   /*}*/
   nav.top-nav {
-    height: 120px;
+    height: 140px;
   }
 
   .user-view {
-    height: 240px;
+    height: 220px;
   }
 
   a.sidenav-trigger.top-nav {
