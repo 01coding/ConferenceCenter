@@ -4,11 +4,11 @@
     <div class="row">
       <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 80px;width:35%">
         <div class="card-panel" style="padding-bottom: 5px;padding-top: 12px">
-          <div class="row center-align" style="margin-top:0; margin-bottom: 12px">
+          <div class="row center-align" style="margin-top:0; margin-bottom: 1.5rem;">
             <h3>登录</h3>
           </div>
           <div class="row">
-              <div class="row">
+              <div class="row" style="margin-bottom: 0;">
                 <div class="input-field col s11" style="margin-bottom: 0; margin-left: 18px" >
                   <i class="medium material-icons prefix">email</i>
                   <input id="email" type="email" class="validate"  v-model="email"/>
