@@ -100,11 +100,15 @@
             </div>
             <div class="center row" v-if="upload.files.length>0">
               <div class="col s12" style="font-size: 1.5rem; margin: 0; padding-top: 2rem; padding-bottom: 2rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;">
-                <button class="btn blue-grey"
+                <button class="btn"
                         style="cursor: pointer"
-                        :class="{ green: file.success, teal: file.active, red: file.error}"
+                        :class="{ green: file.success, teal: file.active, red: file.error, 'blue-grey': !file.success && !file.active && !file.error}"
                         v-for="(file, index) in upload.files" :key="file.id">
-                  {{file.name}}
+                  {{file.name}}&nbsp
+                  <span v-if="file.error">{{file.error}}</span>
+                  <span v-else-if="file.success">成功</span>
+                  <span class="detail" v-else-if="file.active">{{file.progress}}%</span>
+                  <span class="detail" v-else></span>
                   <i class="material-icons right"
                      style="cursor: pointer"
                      @click.prevent="$refs.upload.remove(file)">
@@ -183,7 +187,8 @@ export default {
       ],
       upload: {
         files: [],
-        url: 'http://140.143.19.133:8001',
+        web_io: "http://118.89.229.204:8080",
+        url: 'http://118.89.229.204:8080/ERM-WebIO-1.0/file/upload.do',
         size: 100 * 1024 * 1024,
         maximum: 1
       },
