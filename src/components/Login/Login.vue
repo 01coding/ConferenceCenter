@@ -2,9 +2,9 @@
   <div>
     <navbar></navbar>
     <test-robot v-on:child-say="fill_form"></test-robot>
-    <div class="row">
+    <div class="row" style="background: url(/static/bg7.jpg) no-repeat; background-size: cover;height: 658px;margin-bottom: 0;">
       <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 80px;width:35%">
-        <div class="card-panel" style="padding-bottom: 5px;padding-top: 12px">
+        <div class="card-panel" style="padding-bottom: 5px;padding-top: 12px;opacity: 0.9">
           <div class="row center-align" style="margin-top:0; margin-bottom: 1.5rem;">
             <h3>登录</h3>
           </div>
@@ -50,7 +50,11 @@
         </div>
       </div>
     </div>
-    <div style="height: 5rem;"></div>
+    <div class="grey lighten-1 footer-copyright">
+      <div class="container center" style="padding-top:5px;padding-bottom: 5px">
+        © 2014 Copyright Text
+      </div>
+    </div>
   </div>
 </template>
 
