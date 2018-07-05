@@ -23,8 +23,8 @@
           </div>
           <div class="input-field col s6">
             <i class="material-icons prefix">email</i>
-            <input id="icon_telephone" type="email" class="validate" v-model="individual_information.email">
-            <label for="icon_telephone">Email</label>
+            <input disabled id="icon_telephone" type="email" class="validate" v-model="individual_information.email">
+            <label for="disabled">Email</label>
           </div>
         </div>
         <div class="row">
@@ -44,7 +44,7 @@
       <div class="col s2" style="margin-left: 3rem;">
         <div class="card">
           <div class="card-image">
-            <img v-bind:src="individual_information.avator"></img>
+            <img v-bind:src="file_server+individual_information.avator"></img>
           </div>
         </div>
       </div>
@@ -64,20 +64,24 @@ export default{
           avator: "../../../static/Image/C1.png",
           profile: "简介",
           telephone:"18811526200",
-          institution:"清华大学"
-        }
+          institution:"斯坦福大学"
+        },
+        file_server: 'http://140.143.19.133:8001',
     }
   },
   methods:{
-    created(){
-
-    },
-    mounted(){
-      this.$axios.post('/api/user/info', {}).then(rsp => {
+    submit: function () {
+      let individual_update={
+          name:this.individual_information.name,
+          avator:this.individual_information.avator,
+          profile:this.individual_information.profile
+      };
+      this.$axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/user/modify', individual_update).then(rsp => {
         if (rsp.data.status === 'succ') {
-          if (rsp.data.data.principal.power === 'all') {
-            this.is_superuser = true;
-          }
+          M.toast({
+            html: "<span style='font-weight: bold'>" + "修改成功" + "</span>",
+            classes: "rounded green"
+          });
         }
       }).catch(err => {
         M.toast({
@@ -86,6 +90,28 @@ export default{
         });
       })
     }
-  }
+  },
+  created(){
+
+  },
+  mounted(){
+    $(document).ready(function() {
+      M.updateTextFields();
+    });
+    this.$axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/user/info', {}).then(rsp => {
+      if (rsp.data.status === 'succ') {
+        let individual_info=rsp.data.data;
+        this.individual_information.name=individual_info.name;
+        this.individual_information.email=individual_info.email;
+        this.individual_information.avator=individual_info.avator;
+        this.individual_information.profile=individual_info.profile;
+      }
+    }).catch(err => {
+      M.toast({
+        html: "<span style='font-weight: bold'>" + err.toString() + "</span>",
+        classes: "rounded red"
+      });
+    })
+  },
 };
 </script>

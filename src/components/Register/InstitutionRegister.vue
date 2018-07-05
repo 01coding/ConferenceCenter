@@ -1,6 +1,7 @@
 <template>
 <div>
   <navbar></navbar>
+  <test-robot v-on:child-say="fill_form"></test-robot>
   <div class="card customize"
        style="width: 100%; padding-top: 2rem; padding-bottom: 2rem; margin: 0;"
        :style="{'background-image':bg_overlay+'url(/static/bg5.jpg)'}">
@@ -21,27 +22,27 @@
         <div class="input-field col s5">
           <i class="medium material-icons prefix">account_circle</i>
           <input id="name" type="text" class="validate"  v-model="name"/>
-          <label for="name">机构名</label>
+          <label for="name" v-show="name===''">机构名</label>
         </div>
         <div class="input-field col s6 offset-l1">
           <i class="medium material-icons prefix">email</i>
           <input id="email" type="email" class="validate"  v-model="email"/>
-          <label for="email">邮箱</label>
+          <label for="email" v-show="email===''">邮箱</label>
         </div>
         <div class="input-field col s12">
           <i class="medium material-icons prefix">add_location</i>
           <input id="location" type="text" class="validate"  v-model="location"/>
-          <label for="location">地址</label>
+          <label for="location" v-show="location===''">地址</label>
         </div>
         <div class="input-field col s12">
           <i class="medium material-icons prefix">local_phone</i>
           <input id="phone" type="text" class="validate"  v-model="phone"/>
-          <label for="phone">联系电话</label>
+          <label for="phone" v-show="phone===''">联系电话</label>
         </div>
         <div class="input-field col s12">
           <i class="medium material-icons prefix">subject</i>
           <textarea id="introduction" class="materialize-textarea"  v-model="introduction"/>
-          <label for="introduction">介绍</label>
+          <label for="introduction" v-show="introduction===''">介绍</label>
         </div>
       </div>
       <div class="row">
@@ -79,27 +80,27 @@
         <div class="input-field col s12">
           <i class="medium material-icons prefix">account_circle</i>
           <input id="managerName" type="text" class="validate"  v-model="managerName"/>
-          <label for="managerName">管理员姓名</label>
+          <label for="managerName" v-show="managerName===''">管理员姓名</label>
         </div>
         <div class="input-field col s12">
           <i class="medium material-icons prefix">email</i>
           <input id="confirmEmail" type="email" class="validate"  v-model="email"/>
-          <label for="confirmEmail" v-if="email===''">再次确认邮箱</label>
+          <label for="confirmEmail" v-show="email===''">再次确认邮箱</label>
         </div>
         <div class="input-field col s12">
           <i class="medium material-icons prefix">local_phone</i>
           <input id="managerPhone" type="text" class="validate"  v-model="managerPhone"/>
-          <label for="managerPhone">管理员电话</label>
+          <label for="managerPhone" v-show="managerPhone===''">管理员电话</label>
         </div>
         <div class="input-field col s12">
           <i class="medium material-icons prefix">vpn_key</i>
           <input id="password" type="password" class="validate"  v-model="password"/>
-          <label for="password">密码</label>
+          <label for="password" v-show="password===''">密码</label>
         </div>
         <div class="input-field col s12">
           <i class="medium material-icons prefix">vpn_key</i>
           <input id="confirmPassword" type="password" class="validate"  v-model="confirmPassword"/>
-          <label for="confirmPassword">确认密码</label>
+          <label for="confirmPassword" v-show="confirmPassword===''">确认密码</label>
         </div>
       </div>
       <div class="center row">
@@ -119,12 +120,13 @@
     import axios from 'axios';
     import Vue from "vue"
     import VuejsDialog from "vuejs-dialog"
+    import TestRobot from "../../include/TestRobot";
 
     Vue.use(VuejsDialog);
 
     export default {
       name: "InstitutionRegister",
-      components: { navbar},
+      components: {TestRobot, navbar},
       data() {
         return {
           bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),",
@@ -146,6 +148,17 @@
       created: function() {
       },
       methods:{
+        fill_form:function(form_data){
+          this.name=form_data.name;
+          this.email = form_data.email;
+          this.location = form_data.location;
+          this.phone = form_data.phone;
+          this.introduction=form_data.introduction;
+          this.password=form_data.password;
+          this.confirmPassword=form_data.confirmPassword;
+          this.managerName=form_data.managerName;
+          this.managerPhone=form_data.managerPhone;
+        },
         getFile(event){
           this.file = event.target.files[0];
         },
