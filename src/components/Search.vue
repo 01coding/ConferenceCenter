@@ -99,7 +99,7 @@
             let results = that.conferences.result;
             for (let i = 0; i < results.length; i++) {
               let res = results[i];
-              let img_num = that.getRandomInt(2, 7);
+              let img_num = that.getRandomInt(2, 6);
               res.conf_bg_img = "/static/bg" + img_num + ".jpg";
             }
             //TODO: 实装会议的背景图

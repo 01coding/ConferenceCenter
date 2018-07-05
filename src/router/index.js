@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import ConferenceInfo from '@/components/ConferenceInformation/Conference'
 import ConferenceJoin from '@/components/ConferenceInformation/ConferenceJoin'
-import Contribute from '@/components/Contribute';
+import Contribute from '@/components/Contribution/Contribute';
+import Contribution from '@/components/Contribution/Contribution';
 import Index from '@/components/Index'
 import Login from '@/components/Login/Login'
 import UserRegister from '@/components/Register/UserRegister'
@@ -57,6 +58,11 @@ const router = new Router({
       path: '/contribute/:id',
       name: 'Contribute',
       component: Contribute,
+    },
+    {
+      path: '/contribution/:id',
+      name: 'Contribution',
+      component: Contribution,
     },
     {
       path: '/orgspace',

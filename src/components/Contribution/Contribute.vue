@@ -157,7 +157,7 @@
 </template>
 
 <script>
-import NavBar from "../include/NavBar";
+import NavBar from "../../include/NavBar";
 import FileUpload from "vue-upload-component";
 
 export default {
@@ -170,10 +170,6 @@ export default {
       conference_id: 1,
       conferenceImg: "/static/bg1.jpg",
       conferenceState: '默认',
-      contributeToLink: 0,
-      registerToLink: 0,
-      contributeLink: '',
-      registerLink: '',
       resp: {
         data: {}
       },
@@ -249,23 +245,6 @@ export default {
       }).catch(error => {
         console.log(1);
       });
-    },
-    toContribute: function () {
-      if(sessionStorage.getItem("session")) {
-        console.log(sessionStorage.getItem("session"));
-        this.contributeLink = "/contribute";
-      }
-      else {
-        this.contributeLink = '/login';
-      }
-    },
-    toRegisterConference: function () {
-      if(sessionStorage.getItem("session")) {
-        this.registerLink = "/";
-      }
-      else {
-        this.registerLink = "/login";
-      }
     },
     isAbleContribute: function () {
       if (this.conferenceState !== "征稿中") {

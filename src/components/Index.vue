@@ -19,7 +19,7 @@
     </div>
 
     <div class="grey section lighten-5" style="padding-top: 3rem; padding-bottom: 1rem;">
-      <div style="padding-left: 7rem; padding-right: 7rem;">
+      <div class="container" style="width: 85%; max-width: 90rem;">
         <div class="row">
           <div class="col s7"
                style="height:100%;">
