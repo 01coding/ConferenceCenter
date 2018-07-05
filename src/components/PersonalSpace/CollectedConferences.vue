@@ -1,8 +1,8 @@
 <template>
   <div>
     <ul class="tabs">
-      <li class="tab col s4"><a href="#test1">未开幕</a></li>
-      <li class="tab col s4"><a class="active" href="#test2">已开幕</a></li>
+      <li class="tab col s4"><a class="active" href="#test1">未开幕</a></li>
+      <li class="tab col s4"><a href="#test2">已开幕</a></li>
       <li class="tab col s4"><a href="#test3">已结束</a></li>
     </ul>
 
@@ -106,7 +106,6 @@
         $('.tabs').tabs();
       });
 
-
       let that = this;
       this.$axios.post('/api/user/getCollectConference', {"type": 'notOpen'})
         .then(response => {
@@ -122,7 +121,6 @@
         }
       );
 
-
       this.$axios.post('/api/user/getCollectConference', {"type": 'opened'})
         .then(response => {
             that.conferencesOn = response.data.data.result;
@@ -136,7 +134,6 @@
           });
         }
       );
-
 
       this.$axios.post('/api/user/getCollectConference', {"type": 'enden'})
         .then(response => {
@@ -164,24 +161,30 @@
     },
     methods: {
       cancellCollect: function(type, id) {
-        this.$axios.post('/api/conference/cancel/collect/:'+ id, {
+        this.$axios.post('/api/conference/cancel/collect/'+ id, {
           token: sessionStorage.getItem("session")
         }).then(response => {
           let resp = response.data;
           if(resp.status === 'succ') {
             let that = this;
             this.$axios.post('/api/user/getCollectConference', {
-              type: type}).then(response => {
-                  that.conferencesBefore = response.data.data.result;
-                }
-              ).catch(
-              error => {
+              type: type
+            }).then(response => {
+              if(type === 'notOpen') {
+                that.conferencesBefore = response.data.data.result;
+              }
+              else if(type === 'opend') {
+                that.conferencesOn = response.data.data.result;
+              }
+              else if(type === 'enden') {
+                that.conferencesAfter = response.data.data.result;
+              }
+            }).catch(error => {
                 M.toast({
                   html: error,
                   classes: "rounded red darken-2"
                 });
-              }
-            );
+            });
           }
           else {
             M.toast({
