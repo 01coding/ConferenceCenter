@@ -197,6 +197,15 @@
         this.$router.push(this.registerLink);
       },
       toCollect: function() {
+        if(!sessionStorage.getItem("session")) {
+          M.toast({
+            html: "<span style='font-weight: bold;'>请先登录</span>",
+            classes: 'yellow rounded'
+          });
+          this.$router.push('/login');
+          return;
+        }
+
         this.$axios.post('/api/user/collect',{
           token: sessionStorage.getItem("session"),
           conference_id: this.conference_id
