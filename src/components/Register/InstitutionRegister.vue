@@ -7,7 +7,7 @@
        :style="{'background-image':bg_overlay+'url(/static/bg5.jpg)'}">
     <div class="white-text row container">
       <div class="col s10 offset-s1">
-        <h4 class="center">机构注册</h4>
+        <h3 class="center">机构注册</h3>
       </div>
     </div>
   </div>

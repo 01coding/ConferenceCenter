@@ -24,7 +24,7 @@
       <div class="card hoverable" v-if="conferences.total_num > 0" v-for="(res,id) in conferences.result" :key="id">
         <div class="card-image waves-effect waves-block waves-light"
              style="height: 8rem; background:black;">
-          <img style="opacity: 0.5; object-fit: cover" :src="res.conf_bg_img">
+          <img style="opacity: 0.5; object-fit: cover; object-position: center center;" :src="res.conf_bg_img">
           <!--TODO: 这里放会议的背景图-->
             <span class="card-title" style="font-weight: bold; cursor: pointer;" @click="$router.push('/conference/'+res.id)">
               {{res.title}}
@@ -94,12 +94,12 @@
           let resp = response.data;
           if (resp.status === "succ") {
             that.conferences = resp.data;
-            that.number = resp.page_num;
+            that.number = resp.data.page_num;
             that.current = 1;
             let results = that.conferences.result;
             for (let i = 0; i < results.length; i++) {
               let res = results[i];
-              let img_num = that.getRandomInt(2, 6);
+              let img_num = that.getRandomInt(2, 7);
               res.conf_bg_img = "/static/bg" + img_num + ".jpg";
             }
             //TODO: 实装会议的背景图
