@@ -191,6 +191,7 @@
               html: "<span style='font-weight: bold'>评审成功</span>",
               classes: "rounded green"
             });
+            this.get_detail();
           }
           else {
             M.toast({
