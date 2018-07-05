@@ -30,8 +30,20 @@
           <div class="row" style="margin-bottom: 0;">
             <h5>以{{identify}}身份注册会议</h5>
           </div>
-          <div class="row">
-
+          <div class="center row">
+            <div class="col s6" v-for="(item, index) in papers"
+                 style="margin-bottom: 1rem;">
+              <div class="card-panel" v-bind:id=index style="padding-top: 0.5rem;">
+                <div style="height: 24px;">
+                  <i class="material-icons right"
+                     @click="papers.splice(index, 1)"
+                     style="cursor: pointer">
+                    clear
+                  </i><!--delete card-->
+                </div>
+                <div>{{item.title}}#{{item.paper_number}}</div>
+              </div>
+            </div>
           </div>
           <div class="row">
             <h5>参会人</h5>
