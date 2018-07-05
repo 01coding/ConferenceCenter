@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <nav class="white">
+  <div id="top">
+    <nav class="white" style="box-shadow: 0px 3px 3px #eeeeee; -webkit-box-shadow:none;">
       <ul id="dropdown1" class="dropdown-content">
         <li><router-link class="grey-text text-darken-3" to="/login">登录</router-link></li>
         <li><router-link class="grey-text text-darken-3" to="/user/register">个人注册</router-link></li>
@@ -40,8 +40,10 @@
       </div>
     </nav>
     <div class="fixed-action-btn" v-if="has_logged_in === 1">
-      <a class="btn-floating btn-large grey darken-3 tooltipped" data-position="left" data-tooltip="进入个人空间">
-        <!--TODO: 跳转到用户个人空间-->
+      <a class="btn-floating btn-large grey darken-3 tooltipped"
+         data-position="left"
+         @click="go_to_userspace"
+         data-tooltip="进入个人空间">
         <i class="large material-icons">assignment_ind</i>
       </a>
       <ul>
@@ -49,17 +51,18 @@
           <a class="btn-floating red darken-2 tooltipped"  data-position="left" data-tooltip="注销" @click="choose_logout()">
             <i class="material-icons">exit_to_app</i>
           </a>
+          <a class="btn-floating mobile-fab-tip" @click="choose_logout">注销</a>
         </li>
         <li>
           <a class="btn-floating yellow darken-2 tooltipped"  data-position="left" data-tooltip="回到顶部" @click="back_top()">
             <i class="material-icons">arrow_upward</i>
           </a>
+          <a href="#top" class="btn-floating mobile-fab-tip" @click="back_top">返回顶部</a>
         </li>
       </ul>
     </div>
     <div class="fixed-action-btn" v-else>
       <a class="btn-floating btn-large grey darken-3 tooltipped" data-position="left" data-tooltip="回到顶部" @click="back_top()">
-        <!--TODO: 跳转到用户个人空间-->
         <i class="large material-icons">arrow_upward</i>
       </a>
     </div>
@@ -120,9 +123,12 @@ export default {
         this.$router.push("/search/" + this.search_keyword);
     },
     back_top: function(){
-      document.body.scrollTop = document.documentElement.scrollTop = 0;
-      $('.tooltip').isHovered=true;
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+      return false;
     },
+    go_to_userspace: function() {
+      this.$router.push("/personalspace");
+    }
   },
   created: function() {
     $(document).ready(function(){
