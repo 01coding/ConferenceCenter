@@ -131,8 +131,6 @@
               <button type="button" class="btn green"
                       v-if="!$refs.upload || !$refs.upload.active"
                       @click.prevent="$refs.upload.active = true">
-                <!--TODO: 把面向演示编程的东西删掉-->
-                <!--@click.prevent="$refs.upload.active = true"-->
                 <i class="material-icons right" aria-hidden="true">file_upload</i>
                 开始上传
               </button>
@@ -357,12 +355,11 @@ export default {
         return;
       } else {
         if (!files[0].success) {
-          // M.toast({
-          //   html: "<span style='font-weight: bold;'>请先点“开始上传”</span>",
-          //   classes: 'yellow darken-2 rounded'
-          // });
-          // return;
-          // TODO: resolve WebIO
+          M.toast({
+            html: "<span style='font-weight: bold;'>请先点“开始上传”</span>",
+            classes: 'yellow darken-2 rounded'
+          });
+          return;
         }
       }
       let authors_str = JSON.stringify(authors);

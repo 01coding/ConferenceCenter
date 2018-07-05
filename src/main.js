@@ -36,7 +36,7 @@ Vue.prototype.$user = axios.create({
 });
 
 Vue.prototype.$file = axios.create({
-  baseURL: 'http://140.143.19.133:8001'
+  baseURL: 'http://118.89.229.204:8080'
 });
 
 Vue.prototype.$test = axios.create({
