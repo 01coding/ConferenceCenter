@@ -2,7 +2,7 @@
   <div scroll="no">
     <header>
       <nav class="top-nav">
-        <div class="container" style="background: url(/static/bg5.jpg);background-size:100% 100%;">
+        <div id="top-title" class="container" style="background: url(/static/bg5.jpg); background-size: cover;">
           <div class="nav-wrapper">
             <div class="row" >
               <div class="col s12 m10 offset-m1">
@@ -22,7 +22,7 @@
         <li>
           <div class="user-view">
             <div class="background"
-                 style="background-image: url(/static/bg6.jpg);;background-size:100% 100%;">
+                 style="background-image: url(/static/bg6.jpg); background-size: cover;">
               <!--<img src="https://materializecss.com/images/office.jpg">-->
             </div>
             <a href="#user"><img class="circle" src="https://materializecss.com/images/yuna.jpg"></a>
@@ -153,5 +153,15 @@
 
   a.sidenav-trigger.top-nav {
     left: 0;
+  }
+
+  #top-title {
+    margin: 0;
+    max-width: 4160px;
+    height: 100%;
+  }
+
+  #top-title .row {
+    margin-bottom: 0;
   }
 </style>
