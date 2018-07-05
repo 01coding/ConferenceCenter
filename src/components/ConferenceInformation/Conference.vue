@@ -15,7 +15,7 @@
             <h5 style="font-weight: bold" class="center">{{conferenceState}}</h5>
             <h5>&nbsp</h5>
             <div class="row center-align">
-              <div class="btn btn-large red accent-2">
+              <div class="btn btn-large teal">
                 <div class="white-text">
                   <i class="material-icons left">star_border</i>
                   收藏
@@ -41,26 +41,28 @@
           </div>
         </div>
       </div>
-      <div class="white section">
+      <div class="white section" style="min-height: 35rem;">
         <div class="container">
           <div class="row">
-            <div class="card-panel center-align"
-                 style="position: fixed; left: 7%; top: 50%; width: 20%; height: 30%;">
+            <div class="col s3">
+              <div style="height:6rem;"></div>
+              <div class="card-panel center-align" style="width: 100%;">
                 <ul class="section table-of-contents"
                     style="padding-top: 0; padding-bottom: 0; padding-right: 1rem;">
-                  <li><a href="#introduction" class="active">会议介绍</a></li>
-                  <li><a href="#register_notion">投稿须知</a></li>
-                  <li><a href="#schedule">日程安排</a></li>
-                  <li><a href="#traffic">住宿交通</a></li>
-                  <li><a href="#relation">联系我们</a></li>
+                  <li><a style="cursor: pointer" :class="{'active':active_tab===0}" @click="switch_tab(0)">会议介绍</a></li>
+                  <li><a style="cursor: pointer" :class="{'active':active_tab===1}" @click="switch_tab(1)">投稿须知</a></li>
+                  <li><a style="cursor: pointer" :class="{'active':active_tab===2}" @click="switch_tab(2)">日程安排</a></li>
+                  <li><a style="cursor: pointer" :class="{'active':active_tab===3}" @click="switch_tab(3)">住宿交通</a></li>
+                  <li><a style="cursor: pointer" :class="{'active':active_tab===4}" @click="switch_tab(4)">联系我们</a></li>
                 </ul>
+              </div>
             </div>
-            <div class="col s9 offset-s3">
-              <div id="introduction" class="card-container">
-                <ul class="collection with-header hoverable">
+            <div class="col s9">
+              <div id="introduction" class="card-container" v-if="active_tab===0">
+                <ul class="collection with-header">
                   <li class="collection-header"><h4 style="">会议介绍</h4></li>
                   <li class="collection-item avatar">
-                    <i class="material-icons circle red lighten-1">alarm</i>
+                    <i class="material-icons circle red lighten-1">schedule</i>
                     <p class="coference-date">开始日期：<span style="font-size:1.1rem;">{{resp.data.start_date}}</span></p>
                     <p style="height:0.5rem;"></p>
                     <p class="coference-date">结束日期：<span style="font-size:1.1rem;">{{resp.data.end_date}}</span></p>
@@ -77,19 +79,13 @@
                     <p style="height: 0.5rem;"></p>
                     <pre>{{resp.data.register_information}}</pre>
                   </li>
-                  <!--<strong>开始日期</strong>：{{resp.data.start_date}}<br>-->
-                  <!--<strong>结束日期</strong>：{{resp.data.end_date}}<br><br>-->
-                  <!--<strong>会议简介</strong>:<br>-->
-                  <!--<pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.introduction}}</pre><br>-->
-                  <!--<strong>注册须知</strong>-->
-                  <!--<pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.register_information}}</pre>-->
                 </ul>
               </div>
-              <div id="register_notion" class="card-container">
-                <ul class="collection with-header hoverable">
+              <div id="register_notion" class="card-container" v-if="active_tab===1">
+                <ul class="collection with-header">
                   <li class="collection-header"><h4 style="">投稿须知</h4></li>
                   <li class="collection-item avatar">
-                    <i class="material-icons circle red lighten-1">alarm</i>
+                    <i class="material-icons circle red lighten-1">schedule</i>
                     <p class="coference-date">征稿日期：<span style="font-size:1.1rem;">{{resp.data.start_date}}--{{resp.data.paper_ddl}}</span></p>
                     <p style="height:0.5rem;"></p>
                     <p class="coference-date">查看审核结果日期：<span style="font-size:1.1rem;">{{resp.data.employ_date}}</span></p>
@@ -115,31 +111,19 @@
                   </li>
                 </ul>
               </div>
-              <!--<div id="register_notion" class="section scrollspy">-->
-                <!--<h4>投稿须知</h4>-->
-                <!--<strong>征文信息</strong><br>-->
-                <!--<pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.essay_instructions}}</pre>-->
-                <!--<strong>征稿日期</strong>：{{resp.data.start_date}}&#45;&#45;{{resp.data.paper_ddl}}<br><br>-->
-                <!--<strong>投稿须知</strong>-->
-                <!--<pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.essay_information}}</pre><br>-->
-                <!--<strong>论文模板</strong>：-->
-                <!--<a class="btn blue-grey" v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a>-->
-                <!--<br><br>-->
-                <!--<strong>查看审核结果日期</strong>：{{resp.data.employ_date}}<br>-->
-              <!--</div>-->
-              <div id="schedule" class="card-container">
-                <ul class="collection with-header hoverable">
+              <div id="schedule" class="card-container" v-if="active_tab===2">
+                <ul class="collection with-header">
                   <li class="collection-header"><h4 style="">日程安排</h4></li>
                   <li class="collection-item avatar">
-                    <i class="material-icons circle red lighten-1">alarm</i>
+                    <i class="material-icons circle red lighten-1">schedule</i>
                     <p class="coference-title">会议议程</p>
                     <p style="height: 0.5rem;"></p>
                     <pre>{{resp.data.schedule}}</pre>
                   </li>
                 </ul>
               </div>
-              <div id="traffic" class="card-container">
-                <ul class="collection with-header hoverable">
+              <div id="traffic" class="card-container" v-if="active_tab===3">
+                <ul class="collection with-header">
                   <li class="collection-header"><h4 style="">住宿交通</h4></li>
                   <li class="collection-item avatar">
                     <i class="material-icons circle light-blue darken-1">flight</i>
@@ -149,8 +133,8 @@
                   </li>
                 </ul>
               </div>
-              <div id="relation" class="card-container">
-                <ul class="collection with-header hoverable">
+              <div id="relation" class="card-container" v-if="active_tab===4">
+                <ul class="collection with-header">
                   <li class="collection-header"><h4 style="">联系我们</h4></li>
                   <li class="collection-item avatar">
                     <i class="material-icons circle deep-orange lighten-1">dialer_sip</i>
@@ -179,6 +163,7 @@
     components: { NavBar, axios, getURL },
     data() {
       return {
+        active_tab: 0,
         bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),",
         conference_id: 1,
         conferenceImg: "/static/bg1.jpg",
@@ -234,13 +219,13 @@
           this.conferenceState = '征稿中';
         else if (state === 2 || state === 10)
           this.conferenceState = '会议注册中';
+      },
+      switch_tab(i) {
+        this.active_tab = i;
       }
     },
 
     created() {
-      $(document).ready(function(){
-        $('.scrollspy').scrollSpy();
-      });
 
       this.conference_id = parseInt(this.$route.params.id);
       this.$axios.post('/api/conference/' + this.conference_id).then(response => {
@@ -287,58 +272,14 @@
     background-position: center center !important;
   }
 
-  h1 {
-    font-size: 2em;
+  .collection {
+    border: none !important;
+  }
+  .collection-header {
+    border: none !important;
+  }
+  .collection-item {
+    border: none !important;
   }
 
-  li {
-    padding-top: 5px;
-    padding-bottom: 5px;
-  }
-
-  .title {
-    color: white;
-  }
-
-  .titleBgimg {
-    background: black;
-    opacity: 0.5;
-  }
-
-  .button {
-    width: 100%;
-    text-align: center;
-
-  }
-
-  .sidediv {
-    text-align: center;
-  }
-
-  .confstate {
-    text-align: center;
-  }
-
-  .row .col.s10 {
-    margin-left: 0rem;
-    margin-right: 0rem;
-  }
-
-  .row {
-    margin-bottom: 0px;
-    height: 100%;
-  }
-
-  .coference-date {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 0;
-  }
-
-  .coference-title {
-    font-size: 1.3rem;
-    font-weight: 500;
-    margin: 0;
-    font-family:Times New Roman;
-  }
 </style>
