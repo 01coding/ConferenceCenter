@@ -189,10 +189,12 @@
 
 <script>
   import axios from 'axios';
+  import TestRobot from "../../include/TestRobot";
   // import NavBar from "../../include/NavBar";
 
   export default {
     name: "NewConference",
+    components: {TestRobot},
     // components: { NavBar },
     data: function () {
       return {

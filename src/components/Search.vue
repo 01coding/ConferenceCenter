@@ -20,32 +20,25 @@
     </div>
     <div style="height:20px;"></div>
 
-    <div class="row container">
+    <div class="row container" style="max-width: 65rem;">
       <div class="card hoverable" v-if="conferences.total_num > 0" v-for="(res,id) in conferences.result" :key="id">
         <div class="card-image waves-effect waves-block waves-light"
              style="height: 8rem; background:black;">
-          <img class="activator" style="opacity: 0.5; object-fit: cover" src="/static/bg5.jpg">
+          <img style="opacity: 0.5; object-fit: cover; object-position: center center;" :src="res.conf_bg_img">
           <!--TODO: 这里放会议的背景图-->
-          <router-link v-bind:to="'/conference/'+res.id">
-            <span class="card-title" style="font-weight: bold">
+            <span class="card-title" style="font-weight: bold; cursor: pointer;" @click="$router.push('/conference/'+res.id)">
               {{res.title}}
             </span>
-          </router-link>
         </div>
         <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4">
-            <i class="material-icons right">language</i>
-          </span>
-          <p v-if="res.convening_date">{{res.convening_date.substr(0, 10)}}, {{res.convening_place}}</p>
+          <i class="material-icons right">arrow_forward</i>
+          <div style="font-size: 1.35rem;">
+            <span v-if="res.convening_date"><strong>{{res.convening_date.substr(0, 10)}},</strong> </span>
+            <span><strong>{{res.convening_place}}</strong></span>
+          </div>
           <p style="height:1rem;"></p>
-          <p class="conference-introduction">{{res.introduction}}</p>
+          <p >{{res.introduction}}</p>
         </div>
-        <!--<div class="card-reveal">-->
-          <!--<span class="card-title grey-text text-darken-4">-->
-            <!--{{res.title}}<i class="material-icons right">arrow_downward</i>-->
-          <!--</span>-->
-          <!--<p>{{res.introduction}}</p>-->
-        <!--</div>-->
       </div>
       <EmptyView v-if="conferences.total_num <= 0" style="height: 25rem;"></EmptyView>
     </div>
@@ -98,12 +91,29 @@
           "index": 1,
           "size": 10
         }).then(function (response) {
-          console.log(response);
-          that.conferences = response.data.data;
-          this.number = response.data.page_num;
-          this.current = 1;
+          let resp = response.data;
+          if (resp.status === "succ") {
+            that.conferences = resp.data;
+            that.number = resp.data.page_num;
+            that.current = 1;
+            let results = that.conferences.result;
+            for (let i = 0; i < results.length; i++) {
+              let res = results[i];
+              let img_num = that.getRandomInt(2, 7);
+              res.conf_bg_img = "/static/bg" + img_num + ".jpg";
+            }
+            //TODO: 实装会议的背景图
+          } else {
+            M.toast({
+              html:"<span style='font-weight: bold'> 请求错误:"+ resp.info +"</span>",
+              classes: "rounded red"
+            });
+          }
         }).catch(function (error) {
-          console.log(error);
+          M.toast({
+            html:"<span style='font-weight: bold'> 请求错误</span>",
+            classes: "rounded red"
+          });
         });
       },
       enter_search: function (event) {
@@ -112,26 +122,37 @@
       },
       page: function (page) {
         const field = this.search_field;
-        // console.log(page);
         let that = this;
         axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/SearchCoferences', {
           "keyword": field,
           "index": page,
           "size": 10
-        })
-          .then(function (response) {
-            that.conferences = response.data.data;
-            this.number = response.data.page_num;
+        }).then(function (response) {
+            let resp = response.data;
+            if (resp.status === "succ") {
+              that.conferences = response.data.data;
+              that.number = response.data.page_num;
+            } else {
+              M.toast({
+                html:"<span style='font-weight: bold'> 请求错误:"+ resp.info +"</span>",
+                classes: "rounded red"
+              });
+            }
           })
           .catch(function (error) {
-            console.log(error);
+            M.toast({
+              html:"<span style='font-weight: bold'> 请求错误</span>",
+              classes: "rounded red"
+            });
           });
       },
+      getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+      }
     },
     created() {
-//    this.lazy_keyword = this.$route.params.keyword;
-//    console.log(this.$route.params.keyword)
-
     },
     mounted() {
       this.init();

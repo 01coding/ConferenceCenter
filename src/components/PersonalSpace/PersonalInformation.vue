@@ -36,16 +36,35 @@
         </div>
         <div class="row center-align">
           <div class="btn-large blue darken-1" @click="submit">
-          <i class="material-icons left">send</i>
+            <i class="material-icons left">send</i>
             提交
+          </div>
         </div>
-        </div>
+    <div class="row center-align">
+      <div class="btn-large blue darken-1" @click="print">
+      <i class="material-icons left">send</i>
+      提交
+    </div>
+  </div>
       </form>
       <div class="col s2" style="margin-left: 3rem;">
         <div class="card">
           <div class="card-image">
-            <img v-bind:src="file_server+individual_information.avator"></img>
+            <img v-bind:src="file_server+individual_information.avator" v-if="files.length==0"></img>
+            <img v-bind:src="files[0].url" v-if="files.length>0"></img>
           </div>
+        </div>
+        <div class="row center-align">
+          <file-upload
+            class="waves-effect waves-light btn blue-grey lighten-1"
+            :post-action="upload.url"
+            :size="upload.size"
+            :maximum="upload.maximum"
+            v-model="files"
+            ref="upload">
+            <i class="material-icons right">attach_file</i>
+            上传图片
+          </file-upload>
         </div>
       </div>
     </div>
@@ -53,9 +72,11 @@
 </template>
 
 <script>
+import FileUpload from "vue-upload-component";
+
 export default{
   name:"PersonalInformation",
-  components:{},
+  components:{FileUpload},
   data: function () {
     return{
         individual_information:{
@@ -67,6 +88,13 @@ export default{
           institution:"斯坦福大学"
         },
         file_server: 'http://140.143.19.133:8001',
+        upload: {
+          files: [],
+          url: 'http://140.143.19.133:8001',
+          size: 100 * 1024 * 1024,
+          maximum: 1
+        },
+        files: [],
     }
   },
   methods:{
@@ -89,6 +117,12 @@ export default{
           classes: "rounded red"
         });
       })
+    },
+    print:function () {
+      M.toast({
+        html: "<span style='font-weight: bold'>" + "llala"+this.files[0].url + "</span>",
+        classes: "rounded red"
+      });
     }
   },
   created(){

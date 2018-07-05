@@ -2,11 +2,11 @@
 <div>
     <header>
       <nav class="top-nav">
-        <div class="container">
+        <div id="top-title" class="container" style="background: url(/static/bg5.jpg) no-repeat; background-size: cover; opacity: 0.9">
           <div class="nav-wrapper">
             <div class="row">
               <div class="col s12 m10 offset-m1">
-                <h2 class="header black-text">{{ nav_title }}</h2>
+                <h2 class="header white-text">{{ nav_title }}</h2>
               </div>
             </div>
           </div>
@@ -21,7 +21,8 @@
         <li>
           <div class="user-view">
             <div class="background"
-                 style="background-image: url(https://materializecss.com/images/office.jpg); background-size: cover">
+                 style="background-image: url(/static/bg6.jpg); background-size: cover;">
+              <!--<img src="https://materializecss.com/images/office.jpg">-->
             </div>
             <a href="#user"><img class="circle" src="https://materializecss.com/images/yuna.jpg"></a>
 
@@ -42,7 +43,7 @@
           <router-link to="/personalspace/personalinformation" class="waves-effect">个人信息</router-link>
         </li>
         <li class="bold">
-          <router-link to="/orgspace" class="waves-effect">账户设置</router-link>
+          <router-link to="/personalspace/accountset" class="waves-effect">账户设置</router-link>
         </li>
         <div class="divider"></div>
         <li class="bold">
@@ -138,7 +139,15 @@
   body{
     color:#1a237e;
   }
+  #top-title {
+    margin: 0;
+    max-width: 4160px;
+    height: 100%;
+  }
 
+  #top-title .row {
+    margin-bottom: 0;
+  }
 
 </style>
 
