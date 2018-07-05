@@ -2,15 +2,36 @@
   <div class="col s10 offset-s1">
     <div class="row">
       <div class="col s6 m4" v-for="(one, index) in principals" v-bind:key="index">
-        <div class="card">
+        <div class="card user-card">
+          <div class="row right-align" style="padding-right: .5em; padding-top: .5em">
+            <i class="material-icons righe" style="cursor: pointer">close</i>
+          </div>
           <div class="card-content center-align">
-            <h5>{{ one.name }}</h5>
+            <div class="row">
+              <div class="col s6 offset-s3">
+                <div class="avatar">
+                  <img v-bind:src="$image(one.avator)" alt="" class="circle" style="max-width: 100%"/>
+                </div>
+              </div>
+              <div class="col s3">
+                <span class="new red badge" v-if="one.power === 'all'">超级</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s12">
+                <h5>{{ one.name }}</h5>
+              </div>
+            </div>
+            <!--<span class="new badge"></span><h5>{{ one.name }}</h5>-->
+            <h6>{{ one.email }}</h6>
+            <h6>{{ one.phone }}</h6>
+            <h6>{{ one.location }}</h6>
           </div>
         </div>
       </div>
-      <div class="col s6 m4">
-        <div class="card modal-trigger" style="cursor: pointer" data-target="add_modal">
-          <div class="card-content valign-wrapper" style="height: 200px">
+      <div class="col s6 m4" v-show="hack_show">
+        <div class="card modal-trigger" style="cursor: pointer; min-height: 200px" data-target="add_modal" id="new-card">
+          <div class="card-content valign-wrapper" style="height: 100%">
             <div class="center-align" style="width: 100%">
               <i class="medium material-icons">add</i>
             </div>
@@ -70,21 +91,37 @@
         new_email: '',
         new_phone: '',
         new_password: '',
-        new_location: ''
+        new_location: '',
+        hack_update: false,
+        hack_show: false
       };
     },
     mounted: function () {
       this.$bus.emit('manage-change-title', { text: '工作人员管理' });
-      this.$axios.post('/api/manage/principals', {}).then(rsp => {
-        if (rsp.data.status === 'succ') {
-          this.principals = rsp.data.data.principal;
-        } else {
-        }
-      });
+      this.refresh();
       $('.modal').modal();
     },
+    updated: function () {
+      if (this.hack_update) {
+        let height = $('.user-card').height();
+        $('#new-card').css({ height: height + 'px' });
+        this.hack_update = false;
+        this.hack_show = true;
+        console.log(height);
+      }
+    },
     methods: {
-      add_princ: function() {
+      refresh: function () {
+        this.$axios.post('/api/manage/principals', {}).then(rsp => {
+          if (rsp.data.status === 'succ') {
+            this.principals = rsp.data.data.principal;
+            this.hack_update = true;
+            this.hack_show = false;
+          } else {
+          }
+        });
+      },
+      add_princ: function () {
         this.$axios.post('/api/manage/addPrincipal', {
           email: this.new_email,
           password: this.new_password,
@@ -102,6 +139,7 @@
             this.new_password = '';
             this.new_location = '';
             this.new_phone = '';
+            this.refresh();
           } else {
             M.toast({
               html: "<span style='font-weight: bold'>" + rsp.data.info + "</span>",
@@ -131,5 +169,22 @@
 
   .modal .row {
     margin-bottom: 0;
+  }
+
+  .card .row {
+    margin: 0;
+  }
+
+  .card h5, h6 {
+    margin-top: 0;
+    margin-bottom: .2em;
+  }
+
+  .badge::after {
+    content: ""
+  }
+
+  .card-content {
+    padding-top: .5em;
   }
 </style>

@@ -135,6 +135,10 @@
     left: 0;
   }
 
+  body{
+    color:#1a237e;
+  }
+
 
 </style>
 

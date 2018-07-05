@@ -30,12 +30,12 @@
                   投稿
                 </div>
               </div>
-              <div id="register" class="btn btn-large blue-grey"
+              <div id="register" class="btn btn-large blue lighten-1"
                    @click="toRegisterConference"
                    :class="{ disabled: registerToLink === 0 }">
-                <div :class="{'white-text': contributeToLink !== 0, 'grey-text': contributeToLink === 0}">
+                <div :class="{'white-text': contributeToLink !== 0, 'grey-text': registerToLink === 0}">
                   <i class="material-icons left">group_add</i>
-                  报名参会
+                  注册参会
                 </div>
               </div>
             </div>
@@ -86,7 +86,8 @@
                   <li class="collection-header"><h4 style="">投稿须知</h4></li>
                   <li class="collection-item avatar">
                     <i class="material-icons circle red lighten-1">schedule</i>
-                    <p class="coference-date"><strong>征稿日期：</strong><span style="font-size:1.1rem;">{{resp.data.start_date}}--{{resp.data.paper_ddl}}</span></p>
+                    <p class="coference-date"><strong>征稿开始：</strong><span style="font-size:1.1rem;">{{resp.data.start_date}}</span></p>
+                    <p class="coference-date"><strong>征稿截止：</strong><span style="font-size:1.1rem;">{{resp.data.paper_ddl}}</span></p>
                     <p style="height:0.5rem;"></p>
                     <p class="coference-date"><strong>查看审核结果日期：</strong><span style="font-size:1.1rem;">{{resp.data.employ_date}}</span></p>
                   </li>
@@ -153,14 +154,14 @@
 </template>
 
 <script>
-  import NavBar from "../../include/NavBar";
+  import NavBar from "@/include/NavBar";
   import axios from 'axios';
-  import getURL, { mapUrl } from '../../router/';
-
+  import getURL, { mapUrl } from '@/router/';
+  import Loader from '@/include/Loader';
 
   export default {
     name: "Conference",
-    components: { NavBar, axios, getURL },
+    components: { NavBar, axios, getURL, Loader },
     data() {
       return {
         is_loading: true,

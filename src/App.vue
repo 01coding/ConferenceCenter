@@ -16,6 +16,7 @@
   body {
     background: #f5f5f7;
   }
+
   #app {
     /*font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
     font-family: 'Microsoft YaHei UI Light', Helvetica, Arial, sans-serif;
@@ -32,7 +33,8 @@
   }
 
   ::-webkit-scrollbar {
-    width: 2px;
+    /*width: 2px;*/
+    width: 8px;
   }
 
   /* Track */
@@ -40,17 +42,24 @@
     /*box-shadow: inset 0 0 5px grey;*/
     background: #fafafa;
     /*background: white;*/
-    border-radius: 2px;
+    /*border-radius: 2px;*/
+    border-radius: 8px;
   }
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: #009688;
-    border-radius: 2px;
+    /*background: #009688;*/
+    background: #9e9e9e;
+    border-radius: 8px;
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #009688;
+    /*background: #009688;*/
+    background-color: #757575;
+  }
+
+  .pagination li.active {
+    background-color: teal !important;
   }
 </style>

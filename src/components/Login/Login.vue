@@ -13,7 +13,7 @@
                 <div class="input-field col s11" style="margin-bottom: 0; margin-left: 18px" >
                   <i class="medium material-icons prefix">email</i>
                   <input id="email" type="email" class="validate"  v-model="email"/>
-                  <label for="email" v-if="email==''">邮箱</label>
+                  <label for="email" v-show="email===''">邮箱</label>
                 </div>
                 <span class="red-text" style="margin-left: 72px">{{emailMessage}}</span>
               </div>
@@ -21,7 +21,7 @@
                 <div class="input-field col s11" style="margin-bottom: 0; margin-left: 18px">
                   <i class="medium material-icons prefix">vpn_key</i>
                   <input id="password" type="password" class="validate" v-model="password" />
-                  <label for="password" v-if="password==''">密码</label>
+                  <label for="password" v-show="password===''">密码</label>
                 </div>
                 <span class="red-text" style="margin-left: 72px">{{passwordMessage}}</span>
               </div>
@@ -72,10 +72,10 @@
           }
         },
         methods:{
-          fill_form:function(login_data){
-              this.email=login_data.email;
-              this.password = login_data.password;
-              this.isScholar = login_data.isScholar;
+          fill_form:function(form_data){
+              this.email=form_data.email;
+              this.password = form_data.password;
+              this.isScholar = form_data.isScholar;
           },
           loginfuc :function(){
 
