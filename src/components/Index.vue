@@ -3,7 +3,7 @@
     <NavBar></NavBar>
     <div class="carousel carousel-slider center" style="height: 30rem;">
       <div class="carousel-fixed-item center">
-        <a class="btn btn-large waves-effect white grey-text darken-text-4"
+        <a class="btn btn-large waves-effect white grey-text text-darken-2"
            style="bottom: 3rem; font-weight: bold;" @click="learn_more">
           了解更多
         </a>

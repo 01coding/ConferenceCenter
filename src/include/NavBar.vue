@@ -201,10 +201,11 @@ nav ul li a:hover {
   .mobile-fab-tip {
     position: fixed;
     right: 85px;
-    padding: 7px 5px 4px 5px;
+    padding: 4px 10px 4px 10px;
     text-align: right;
     background-color: rgba(240, 240, 240, 0.8);
     border-radius: 2px;
+    font-size: 14px;
     color: #424242;
     opacity: 0;
   }
