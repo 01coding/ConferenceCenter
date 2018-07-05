@@ -66,11 +66,12 @@
             {{subm.comments}}
           </p>
         </div>
-        <div class="card-action center-align"
-             :class="{'blue darken-2': subm.decision==='修改后录用', 'green darken-2': subm.decision==='录用'}">
+        <div class="card-action center-align grey lighten-5" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
           &nbsp
-          <span class="right white-text">{{subm.datetime}}</span>
+          <span class="right grey-text text-darken-1">{{subm.datetime}}</span>
         </div>
+        <div :class="{'blue': subm.decision==='修改后录用', 'green': subm.decision==='录用'}"
+             style="height: 0.2rem;"></div>
       </div>
     </div>
     <div class="row" v-if="active_tab===1">
