@@ -16,6 +16,7 @@ import NewConference from '@/components/OrganizationSpace/NewConference';
 import OrgContributions from '@/components/OrganizationSpace/Contributions';
 import OrgReview from '@/components/OrganizationSpace/Review';
 import OrgPrincipal from '@/components/OrganizationSpace/Principals';
+import OrgRegistry from '@/components/OrganizationSpace/Registries';
 import PersonalSpace from '@/components/PersonalSpace/PersonalSpace'
 import RegisteredConferences from '@/components/PersonalSpace/RegisteredConferences'
 import MySubmissions from '@/components/PersonalSpace/MySubmissions'
@@ -80,6 +81,10 @@ const router = new Router({
         {
           path: 'principals',
           component: OrgPrincipal
+        },
+        {
+          path: 'conference/:id/registries',
+          component: OrgRegistry
         }
       ]
     },
