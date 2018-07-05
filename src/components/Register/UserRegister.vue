@@ -1,6 +1,7 @@
 <template>
   <div>
     <navbar></navbar>
+    <test-robot v-on:child-say="fill_form"></test-robot>
   <div class="row">
     <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 80px;width:35%">
       <div class="card-panel" style="padding-bottom: 5px;padding-top: 10px">
@@ -12,7 +13,7 @@
             <div class="input-field col s11" style="margin-bottom: 0; margin-left: 18px" >
               <i class="medium material-icons prefix">account_circle</i>
               <input id="name" type="text" class="validate"  v-model="name"/>
-              <label for="name">姓名</label>
+              <label for="name" v-show="name===''">姓名</label>
             </div>
             <span class="red-text" style="margin-left: 72px">{{nameMessage}}</span>
           </div>
@@ -20,7 +21,7 @@
             <div class="input-field col s11" style="margin-bottom: 0; margin-left: 18px" >
               <i class="medium material-icons prefix">email</i>
               <input id="email" type="email" class="validate"  v-model="email"/>
-              <label for="email">邮箱</label>
+              <label for="email" v-show="email===''">邮箱</label>
             </div>
             <span class="red-text" style="margin-left: 72px">{{emailMessage}}</span>
           </div>
@@ -28,7 +29,7 @@
             <div class="input-field col s11" style="margin-bottom: 0; margin-left: 18px" >
               <i class="medium material-icons prefix">vpn_key</i>
               <input id="password" type="password" class="validate" v-model="password" />
-              <label for="password">密码</label>
+              <label for="password" v-show="password===''">密码</label>
             </div>
             <span class="red-text" style="margin-left: 72px">{{passwordMessage}}</span>
           </div>
@@ -36,7 +37,7 @@
             <div class="input-field col s11" style="margin-bottom: 0; margin-left: 18px" >
               <i class="medium material-icons prefix">vpn_key</i>
               <input id="confirmPassword" type="password" class="validate" v-model="confirmPassword" />
-              <label for="confirmPassword">确认密码</label>
+              <label for="confirmPassword" v-show="confirmPassword===''">确认密码</label>
             </div>
             <span class="red-text" style="margin-left: 72px">{{confirmPasswordMessage}}</span>
           </div>
@@ -54,9 +55,10 @@
 
 <script>
   import navbar from '@/include/NavBar';
+  import TestRobot from "../../include/TestRobot";
     export default {
       name: "UserRegister",
-      components: { navbar},
+      components: { navbar,TestRobot},
       data() {
         return {
           name: '',
@@ -70,6 +72,12 @@
         }
       },
       methods:{
+        fill_form:function(form_data){
+          this.name=form_data.name;
+          this.email = form_data.email;
+          this.password = form_data.password;
+          this.confirmPassword = form_data.confirmPassword
+        },
         userRegisterFuc:function () {
           const regEmail= /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
           if(this.name===""){
