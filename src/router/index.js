@@ -19,6 +19,8 @@ import OrgPrincipal from '@/components/OrganizationSpace/Principals';
 import PersonalSpace from '@/components/PersonalSpace/PersonalSpace'
 import RegisteredConferences from '@/components/PersonalSpace/RegisteredConferences'
 import MySubmissions from '@/components/PersonalSpace/MySubmissions'
+import PersonalInformation from '@/components/PersonalSpace/PersonalInformation'
+import AccountSet from '@/components/PersonalSpace/AccountSet'
 
 import page404 from '@/components/404';
 
@@ -123,7 +125,15 @@ const router = new Router({
         {
           path:'mysubmissions',
           component:MySubmissions
-        }
+        },
+        {
+          path:'personalinformation',
+          component:PersonalInformation
+        },
+        {
+          path:'accountset',
+          component:AccountSet
+        },
       ]
     }
   ],

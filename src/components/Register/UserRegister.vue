@@ -3,8 +3,8 @@
     <navbar></navbar>
   <div class="row">
     <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 80px;width:35%">
-      <div class="card-panel" style="padding-bottom: 5px;padding-top: 12px">
-        <div class="row center-align" style="margin-top:0; margin-bottom: 12px">
+      <div class="card-panel" style="padding-bottom: 5px;padding-top: 10px">
+        <div class="row center-align" style="margin-top:0; margin-bottom: 8px">
           <h3>注册</h3>
         </div>
         <div class="row">

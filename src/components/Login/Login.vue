@@ -1,6 +1,7 @@
 <template>
   <div>
     <navbar></navbar>
+    <test-robot v-on:child-say="fill_form"></test-robot>
     <div class="row">
       <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 80px;width:35%">
         <div class="card-panel" style="padding-bottom: 5px;padding-top: 12px">
@@ -12,7 +13,7 @@
                 <div class="input-field col s11" style="margin-bottom: 0; margin-left: 18px" >
                   <i class="medium material-icons prefix">email</i>
                   <input id="email" type="email" class="validate"  v-model="email"/>
-                  <label for="email">邮箱</label>
+                  <label for="email" v-if="email==''">邮箱</label>
                 </div>
                 <span class="red-text" style="margin-left: 72px">{{emailMessage}}</span>
               </div>
@@ -20,7 +21,7 @@
                 <div class="input-field col s11" style="margin-bottom: 0; margin-left: 18px">
                   <i class="medium material-icons prefix">vpn_key</i>
                   <input id="password" type="password" class="validate" v-model="password" />
-                  <label for="password">密码</label>
+                  <label for="password" v-if="password==''">密码</label>
                 </div>
                 <span class="red-text" style="margin-left: 72px">{{passwordMessage}}</span>
               </div>
@@ -55,9 +56,10 @@
 
 <script>
   import navbar from '@/include/NavBar';
+  import TestRobot from "../../include/TestRobot";
     export default {
         name: "Login",
-        components: { navbar},
+        components: {TestRobot, navbar},
         data() {
           return {
             email : '',
@@ -70,6 +72,11 @@
           }
         },
         methods:{
+          fill_form:function(login_data){
+              this.email=login_data.email;
+              this.password = login_data.password;
+              this.isScholar = login_data.isScholar;
+          },
           loginfuc :function(){
 
               const regEmail= /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
