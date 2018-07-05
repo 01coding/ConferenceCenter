@@ -40,31 +40,44 @@
             提交
           </div>
         </div>
-    <div class="row center-align">
-      <div class="btn-large blue darken-1" @click="print">
-      <i class="material-icons left">send</i>
-      提交
-    </div>
-  </div>
       </form>
       <div class="col s2" style="margin-left: 3rem;">
         <div class="card">
           <div class="card-image">
-            <img v-bind:src="file_server+individual_information.avator" v-if="files.length==0"></img>
-            <img v-bind:src="files[0].url" v-if="files.length>0"></img>
+            <img v-bind:src="this.file_server+this.individual_information.avator"></img>
+          </div>
+          <div class="card-content" style="padding-left:0rem;padding-right:0rem;">
+            <vue-core-image-upload
+              class="center-align"
+            @imageuploaded="avatar_uploaded"
+            :crop="true"
+            :max-file-size="5242880"
+            :url="avatar.url"
+            :headers="avatar.headers"
+            :credentials="avatar.credentials"
+            >
+            <button type="button" class="btn   red lighten-1">
+              <i class="material-icons right" aria-hidden="true">file_upload</i>
+              更新头像
+            </button>
+          </vue-core-image-upload>
           </div>
         </div>
         <div class="row center-align">
-          <file-upload
-            class="waves-effect waves-light btn blue-grey lighten-1"
-            :post-action="upload.url"
-            :size="upload.size"
-            :maximum="upload.maximum"
-            v-model="files"
-            ref="upload">
-            <i class="material-icons right">attach_file</i>
-            上传图片
-          </file-upload>
+          <vue-core-image-upload
+            text="上传图片"
+          @imageuploaded="avatar_uploaded"
+          :crop="true"
+          :max-file-size="5242880"
+          :url="avatar.url"
+          :headers="avatar.headers"
+          :credentials="avatar.credentials"
+          >
+          <button type="button" class="btn   red lighten-1">
+            <i class="material-icons right" aria-hidden="true">file_upload</i>
+            更新头像
+          </button>
+        </vue-core-image-upload>
         </div>
       </div>
     </div>
@@ -73,10 +86,11 @@
 
 <script>
 import FileUpload from "vue-upload-component";
+import VueCoreImageUpload from 'vue-core-image-upload';
 
 export default{
   name:"PersonalInformation",
-  components:{FileUpload},
+  components:{FileUpload, 'vue-core-image-upload': VueCoreImageUpload,},
   data: function () {
     return{
         individual_information:{
@@ -87,12 +101,18 @@ export default{
           telephone:"18811526200",
           institution:"斯坦福大学"
         },
-        file_server: 'http://140.143.19.133:8001',
-        upload: {
-          files: [],
-          url: 'http://140.143.19.133:8001',
-          size: 100 * 1024 * 1024,
-          maximum: 1
+        file_server: 'http://118.89.229.204:8080/',
+//        upload: {
+//          files: [],
+//          web_io: "http://118.89.229.204:8080",
+//          url: 'http://118.89.229.204:8080/ERM-WebIO-1.0/file/upload.do',
+//          size: 100 * 1024 * 1024,
+//          maximum: 1
+//        },
+        avatar: {
+          credentials: false,
+          url: 'http://118.89.229.204:8080/ERM-WebIO-1.0/file/upload.do',
+          headers: {}
         },
         files: [],
     }
@@ -118,11 +138,14 @@ export default{
         });
       })
     },
-    print:function () {
-      M.toast({
-        html: "<span style='font-weight: bold'>" + "llala"+this.files[0].url + "</span>",
-        classes: "rounded red"
-      });
+    avatar_uploaded(ret) {
+      if (ret && ret.link) {
+        this.individual_information.avator=ret.link;
+        console.warn("wuxingzhe")
+        console.warn(this.individual_information.avator)
+      } else {
+        console.log(ret);
+      }
     }
   },
   created(){

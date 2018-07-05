@@ -76,7 +76,7 @@ export default{
             origin_pass:this.origin_pass,
             new_pass:this.first_pass
           };
-          this.$axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/individual/passord/modify', pass_info).then(rsp => {
+          this.$axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/user/password', pass_info).then(rsp => {
             if (rsp.data.status === 'succ') {
               M.toast({
                 html: "<span style='font-weight: bold'>" + "修改成功" + "</span>",
