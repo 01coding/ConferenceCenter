@@ -52,7 +52,7 @@
     </div>
     <div class="grey lighten-1 footer-copyright">
       <div class="container center" style="padding-top:5px;padding-bottom: 5px">
-        © 2014 Copyright Text
+        © 2018 Copyright Text
       </div>
     </div>
   </div>
