@@ -2,15 +2,15 @@
   <div>
     <div class="row" id="contribution-manage">
       <div class="col s12">
-        <ul class="tabs transparent">
-          <li class="tab col s2"><a class="active" href="#all" @click="filter = 'all'; refresh();">全部 {{ all_num }}</a>
-          </li>
+        <ul class="tabs transparent center">
+          <!--<li class="col s1"></li>-->
+          <li class="tab col s2"><a class="active" href="#all" @click="filter = 'all'; refresh();">全部 {{ all_num }}</a></li>
           <li class="tab col s2"><a href="#passed" @click="filter = 'passed'; refresh();">已通过 {{ passed_num }}</a></li>
-          <li class="tab col s2"><a href="#pending" @click="filter = 'pending'; refresh();">审核中 {{ pending_num }}</a>
-          </li>
+          <li class="tab col s2"><a href="#pending" @click="filter = 'pending'; refresh();">审核中 {{ pending_num }}</a></li>
           <li class="tab col s2"><a href="#fixing" @click="filter = 'fixing'; refresh();">修改中 {{ fixing_num }}</a></li>
-          <li class="tab col s2"><a href="#rejected" @click="filter = 'rejected'; refresh();">已拒绝 {{ rejected_num }}</a>
-          </li>
+          <li class="tab col s2"><a href="#rejected" @click="filter = 'rejected'; refresh();">已拒绝 {{ rejected_num }}</a></li>
+          <!--<li class="tab col s2"><a v-bind:href="download_link" target="_blank">导出投稿列表</a></li>-->
+          <li class="tab col s2"><a style="cursor: pointer" @click="download()">导出投稿列表</a></li>
         </ul>
       </div>
       <div id="all" class="col s12 m10 offset-m1">
@@ -33,11 +33,6 @@
                 <h6>{{ author.email }}</h6>
               </div>
             </div>
-            <!--<div class="row card-row">-->
-            <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
-            <!--评审{{ review.id }}-->
-            <!--</div>-->
-            <!--</div>-->
           </div>
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">arrow_downward</i></span>
@@ -60,11 +55,6 @@
                 <h6>{{ author.email }}</h6>
               </div>
             </div>
-            <!--<div class="row card-row">-->
-            <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
-            <!--评审{{ review.id }}-->
-            <!--</div>-->
-            <!--</div>-->
           </div>
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">arrow_downward</i></span>
@@ -87,11 +77,6 @@
                 <h6>{{ author.email }}</h6>
               </div>
             </div>
-            <!--<div class="row card-row">-->
-            <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
-            <!--评审{{ review.id }}-->
-            <!--</div>-->
-            <!--</div>-->
           </div>
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">arrow_downward</i></span>
@@ -114,11 +99,6 @@
                 <h6>{{ author.email }}</h6>
               </div>
             </div>
-            <!--<div class="row card-row">-->
-            <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
-            <!--评审{{ review.id }}-->
-            <!--</div>-->
-            <!--</div>-->
           </div>
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">arrow_downward</i></span>
@@ -141,11 +121,6 @@
                 <h6>{{ author.email }}</h6>
               </div>
             </div>
-            <!--<div class="row card-row">-->
-            <!--<div class="col center-align" v-bind:class="'s'+(12/item.review.length)" v-for="review in item.review">-->
-            <!--评审{{ review.id }}-->
-            <!--</div>-->
-            <!--</div>-->
           </div>
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4">摘要<i class="material-icons right">arrow_downward</i></span>
@@ -183,7 +158,8 @@
         number: 1,
         current: 1,
         per_page: 10,
-        filter: 'all'
+        filter: 'all',
+        download_link: '',
       }
     },
     created: function () {
@@ -195,6 +171,21 @@
       });
       this.refresh();
       this.$bus.emit('manage-change-title', { text: '稿件管理' });
+      this.$axios.post('/api/conference/' + this.conference_id + '/contributions/export', {}).then(rsp => {
+        if (rsp.data.status === 'succ') {
+          this.download_link = rsp.data.data;
+        } else {
+          M.toast({
+            html: "<span style='font-weight: bold'>" + rsp.data.info + "</span>",
+            classes: "rounded red"
+          });
+        }
+      }).catch(err => {
+        M.toast({
+          html: "<span style='font-weight: bold'>" + err.toString() + "</span>",
+          classes: "rounded red"
+        });
+      });
     },
     methods: {
       refresh: function () {
@@ -235,6 +226,9 @@
       },
       goto_review: function (url) {
         this.$router.push(url);
+      },
+      download: function() {
+        window.open(this.download_link, '_blank');
       }
     }
   }

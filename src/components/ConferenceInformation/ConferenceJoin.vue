@@ -29,29 +29,8 @@
         <div class="col s10 offset-s1">
           <div class="row" style="margin-bottom: 0;">
             <div class="row">
-              <h5>是否带论文参会</h5>
+              <h5>以xx身份注册会议</h5>
             </div>
-            <div>
-                <div class="row valign-wrapper">
-                  <label class="col s3">
-                    <input type="radio" value="yes" v-model="whetherAuthor" checked />
-                    <span>是</span>
-                  </label>
-                  <!--<div class="input-field col s9">
-                    <i class="material-icons prefix">title</i>
-                    <input id="thesis-code" type="text"
-                    v-bind:class="{disabled: whetherAuthor === 'yes'}">
-                    <label for="thesis-code">携带论文请填写论文编号</label>
-                  </div>-->
-                <!--</div>
-                <div class="row">-->
-                  <label class="col s3">
-                    <input type="radio" value="not" v-model="whetherAuthor" />
-                    <span>否</span>
-                  </label>
-                  <label class="col s6"></label>
-                </div>
-              </div>
           </div>
           <div class="row">
             <h5>参会人</h5>
@@ -61,19 +40,26 @@
               <h5 style="font-size: 1.5rem; margin: 0; padding-top: 1rem; padding-bottom: 1rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;" v-if="participates.length===0">
                 在这里添加参会人
               </h5>
-              <div class="col s4" v-for="(participate, idx) in participates" style="margin-bottom: 1rem;">
-                <div class="card-panel"
-                     style="padding-top: 0.5rem;">
+              <div class="col s4" v-for="(participate, idx) in participates"
+                   style="margin-bottom: 1rem;">
+                <div class="card-panel" v-bind:id=idx style="padding-top: 0.5rem;" @click="update_participate(idx)">
                   <div style="height: 24px;">
                     <i class="material-icons right"
                        @click="participates.splice(idx, 1)"
                        style="cursor: pointer">
                       clear
-                    </i>
+                    </i><!--delete card-->
                   </div>
-                  <div><h5 style="font-weight: bold; margin-top: 0;">{{participate.name}}</h5></div>
-                  <div>{{participate.phone}}</div>
-                  <div>{{participate.work}}</div>
+                  <div>
+                    <h5 style="font-weight: bold; margin-top: 0;">{{participate.name}}</h5>
+                    <i class="material-icons prefix after-add">person</i>
+                    <i class="material-icons prefix after-add"
+                    v-bind:class="{disabled: participate.accommodate === false}">home</i>
+                  </div>
+                  <div class="init">{{participate.institution}}</div>
+                  <div class="init">{{participate.email}}</div>
+                  <div class="after-add">{{participate.phone}}</div>
+                  <div class="after-add">{{participate.work}}</div>
                 </div>
               </div>
             </div>
@@ -130,7 +116,7 @@
               </div>
             </div>
             <div class="row valign-wrapper" style="margin-bottom: 0;">
-              <div class="waves-effect waves-light btn green col s1" @click="add_author">添加
+              <div class="waves-effect waves-light btn green col s1" @click="add_participate">添加
                 <i class="material-icons right">add</i>
               </div>
             </div>
@@ -173,8 +159,6 @@
               <button type="button" class="btn green"
                       v-if="!$refs.upload || !$refs.upload.active"
                       @click.prevent="demo_oriented_upload">
-                <!--TODO: 把面向演示编程的东西删掉-->
-                <!--@click.prevent="$refs.upload.active = true"-->
                 <i class="material-icons right" aria-hidden="true">file_upload</i>
                 开始上传
               </button>
@@ -215,13 +199,13 @@
         conferenceState: '默认',
         contributeToLink: 0,
         registerToLink: 0,
-        whetherAuthor: "",
+        identify: "",
         resp: {
           data: {}
         },
         user_info: {},
-        participates: [
-        ],
+        participates: [],
+        papers: [],
         upload: {
           files: [],
           url: 'http://140.143.19.133:8001',
@@ -239,6 +223,12 @@
       }
     },
     created: function() {
+      //hide some of card attributions
+      $(document).ready(function() {
+        $('.after-add').hide();
+        $('.init').show();
+      });
+
       if (this.$route.params.id) {
         this.conference_id = this.$route.params.id;
       } else {
@@ -251,8 +241,10 @@
       if (!sessionStorage.getItem("session"))  {
         this.$router.push("/login");
       }
+
       this.load_user_info();
       this.load_conference();
+      this.load_author_info();
     },
     mounted: function () {
     },
@@ -282,10 +274,27 @@
       load_conference() {
         this.$axios.post('api/conference/' + this.conference_id).then(response => {
           this.resp = response.data;
-          console.log(this.resp);
           this.getConferenceState();
+          console.log(this.resp);
           this.isAbleRegister();
           this.getConferenceImg();
+        }).catch(error => {
+          console.log(1);
+        });
+      },
+      load_author_info: function() {
+        this.$axios.post('/api/user/getRegister',{
+          token: sessionStorage.getItem("session"),
+          conference_id: this.conference_id
+        }).then(response => {
+          if(response.data.data.type === 0) {
+            this.identify = "作者";
+          }
+          else {
+            this.identify = "聆听者";
+          }
+          this.participates = response.data.data.author;
+          this.papers = response.data.data.paper;
         }).catch(error => {
           console.log(1);
         });
@@ -300,22 +309,34 @@
         this.conferenceImg = "http://140.143.19.133:8001/uploads/" + this.resp.data.backimg;
       },
       getConferenceState: function () {
-        if (this.resp.data.state === 4)
+        if (this.resp.data.state & 0b1000) {
           this.conferenceState = '已结束';
-        else if (this.resp.data.state === 12)
+        }
+        else if (!this.resp.data.state & 0b0100) {
           this.conferenceState = '正在进行中';
-        else if (this.resp.data.state === 3 || this.resp.data.state === 11)
+        }
+        else if (this.resp.data.state & 0b0001) {
           this.conferenceState = '征稿中';
-        else if (this.resp.data.state === 2 || this.resp.data.state === 10)
+        }
+        else if (this.resp.data.state & 0b0010) {
           this.conferenceState = '会议注册中';
+        }
       },
 
-      add_author() {
+      update_participate: function(idx) {
+        //加阴影
+        $('#'+idx).addClass("z-depth-5");
+        //自动填充name
+
+      },
+
+      add_participate() {
         let name = this.participate_field.name.trim();
         let telephone = this.participate_field.phone.trim();
         let gender = this.participate_field.gender.trim();
         let job = this.participate_field.work.trim();
         let note = this.participate_field.note.trim();
+        let accommodate = this.participate_field.accommodate;
 
         console.log("gender:" + this.participate_field.gender);
 
@@ -336,12 +357,29 @@
           return;
         }
 
+        let index = this.participates.findIndex(name);
+        let institution = this.participates[index].institution;
+        let email = this.participates[index].email;
+
         let participate = {
           name: name,
           phone:telephone,
-          work: job
+          work: job,
+          note: note,
+          gender: gender,
+          accommodate: accommodate,
+          institution: institution,
+          email: email
         };
+        this.participates[index] = participate;
         this.participates.push(participate);
+
+        $(document).ready(function() {
+          $('.after-add').show();
+          $('.init').hide();
+          $('#'+idx).addClass("teal z-depth-5");
+        });
+
         this.participate_field.name = "";
         this.participate_field.phone = "";
         this.participate_field.work = "";
@@ -394,15 +432,13 @@
             // TODO: resolve WebIO
           }
         }
-        let authors_str = JSON.stringify(authors);
+        let participate_str = JSON.stringify(participates);
         let file_url = "";
         //let file_url = files[0].response;
         let params = {
           conference_id: this.conference_id,
-          title: title,
-          abstract: abstract,
-          authors: authors_str,
-          file_url: file_url,
+          participates: participate_str,
+          file_url: file_url
         };
         let that = this;
         this.$axios.post("/api/contribute", params).then(

@@ -56,40 +56,109 @@
                 </ul>
             </div>
             <div class="col s9 offset-s3">
-              <div id="introduction" class="section scrollspy">
-                <h4 style="font-weight: bold">会议介绍</h4>
-                <strong>开始日期</strong>：{{resp.data.start_date}}<br>
-                <strong>结束日期</strong>：{{resp.data.end_date}}<br><br>
-                <strong>会议简介</strong>:<br>
-                <pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.introduction}}</pre><br>
-                <strong>注册须知</strong>:<br>
-                <pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.register_information}}</pre>
+              <div id="introduction" class="card-container">
+                <ul class="collection with-header hoverable">
+                  <li class="collection-header"><h4 style="">会议介绍</h4></li>
+                  <li class="collection-item avatar">
+                    <i class="material-icons circle red lighten-1">alarm</i>
+                    <p class="coference-date">开始日期：<span style="font-size:1.1rem;">{{resp.data.start_date}}</span></p>
+                    <p style="height:0.5rem;"></p>
+                    <p class="coference-date">结束日期：<span style="font-size:1.1rem;">{{resp.data.end_date}}</span></p>
+                  </li>
+                  <li class="collection-item avatar">
+                    <i class="material-icons circle light-blue darken-1">description</i>
+                    <p class="coference-title">会议简介</p>
+                    <p style="height: 0.5rem;"></p>
+                    <p>{{resp.data.introduction}}</p>
+                  </li>
+                  <li class="collection-item avatar">
+                    <i class="material-icons circle grey darken-1">assignment</i>
+                    <p class="coference-title">注册须知</p>
+                    <p style="height: 0.5rem;"></p>
+                    <pre>{{resp.data.register_information}}</pre>
+                  </li>
+                  <!--<strong>开始日期</strong>：{{resp.data.start_date}}<br>-->
+                  <!--<strong>结束日期</strong>：{{resp.data.end_date}}<br><br>-->
+                  <!--<strong>会议简介</strong>:<br>-->
+                  <!--<pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.introduction}}</pre><br>-->
+                  <!--<strong>注册须知</strong>-->
+                  <!--<pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.register_information}}</pre>-->
+                </ul>
               </div>
-              <div id="register_notion" class="section scrollspy">
-                <h4>投稿须知</h4>
-                <strong>征文信息</strong><br>
-                <pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.essay_instructions}}</pre>
-                <strong>征稿日期</strong>：{{resp.data.start_date}}--{{resp.data.paper_ddl}}<br><br>
-                <strong>投稿须知</strong>
-                <pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.essay_information}}</pre><br>
-                <strong>论文模板</strong>：
-                <a class="btn blue-grey" v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a>
-                <br><br>
-                <strong>查看审核结果日期</strong>：{{resp.data.employ_date}}<br>
+              <div id="register_notion" class="card-container">
+                <ul class="collection with-header hoverable">
+                  <li class="collection-header"><h4 style="">投稿须知</h4></li>
+                  <li class="collection-item avatar">
+                    <i class="material-icons circle red lighten-1">alarm</i>
+                    <p class="coference-date">征稿日期：<span style="font-size:1.1rem;">{{resp.data.start_date}}--{{resp.data.paper_ddl}}</span></p>
+                    <p style="height:0.5rem;"></p>
+                    <p class="coference-date">查看审核结果日期：<span style="font-size:1.1rem;">{{resp.data.employ_date}}</span></p>
+                  </li>
+                  <li class="collection-item avatar">
+                    <i class="material-icons circle light-blue darken-1">description</i>
+                    <p class="coference-title">征文要求</p>
+                    <p style="height: 0.5rem;"></p>
+                    <pre>{{resp.data.essay_instructions}}</pre>
+                  </li>
+                  <li class="collection-item avatar">
+                    <i class="material-icons circle grey darken-1">assignment</i>
+                    <p class="coference-title">投稿信息</p>
+                    <p style="height: 0.5rem;"></p>
+                    <pre>{{resp.data.essay_information}}</pre>
+                  </li>
+                  <li class="collection-item avatar">
+                    <i class="material-icons circle deep-orange lighten-1">picture_as_pdf</i>
+                    <p class="coference-title">
+                      论文模板:&nbsp &nbsp &nbsp &nbsp
+                      <a class="btn blue-grey" v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a>
+                    </p>
+                  </li>
+                </ul>
               </div>
-              <div id="schedule" class="section scrollspy">
-                <h4 style="font-weight: bold">日程安排</h4>
-                <strong>本次会议议程：</strong><br>
-                <pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.schedule}}</pre>
+              <!--<div id="register_notion" class="section scrollspy">-->
+                <!--<h4>投稿须知</h4>-->
+                <!--<strong>征文信息</strong><br>-->
+                <!--<pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.essay_instructions}}</pre>-->
+                <!--<strong>征稿日期</strong>：{{resp.data.start_date}}&#45;&#45;{{resp.data.paper_ddl}}<br><br>-->
+                <!--<strong>投稿须知</strong>-->
+                <!--<pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.essay_information}}</pre><br>-->
+                <!--<strong>论文模板</strong>：-->
+                <!--<a class="btn blue-grey" v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a>-->
+                <!--<br><br>-->
+                <!--<strong>查看审核结果日期</strong>：{{resp.data.employ_date}}<br>-->
+              <!--</div>-->
+              <div id="schedule" class="card-container">
+                <ul class="collection with-header hoverable">
+                  <li class="collection-header"><h4 style="">日程安排</h4></li>
+                  <li class="collection-item avatar">
+                    <i class="material-icons circle red lighten-1">alarm</i>
+                    <p class="coference-title">会议议程</p>
+                    <p style="height: 0.5rem;"></p>
+                    <pre>{{resp.data.schedule}}</pre>
+                  </li>
+                </ul>
               </div>
-              <div id="traffic" class="section scrollspy">
-                <h4 style="font-weight: bold">住宿交通</h4>
-                <pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.ATinformation}}</pre>
+              <div id="traffic" class="card-container">
+                <ul class="collection with-header hoverable">
+                  <li class="collection-header"><h4 style="">住宿交通</h4></li>
+                  <li class="collection-item avatar">
+                    <i class="material-icons circle light-blue darken-1">flight</i>
+                    <p class="coference-title">安排方式</p>
+                    <p style="height: 0.5rem;"></p>
+                    <pre>{{resp.data.ATinformation}}</pre>
+                  </li>
+                </ul>
               </div>
-              <div id="relation" class="section scrollspy">
-                <h4 style="font-weight: bold">联系我们</h4>
-                <strong>联系方式：</strong>
-                <pre style="word-wrap: break-word;white-space: pre-wrap;">{{resp.data.contact}}</pre>
+              <div id="relation" class="card-container">
+                <ul class="collection with-header hoverable">
+                  <li class="collection-header"><h4 style="">联系我们</h4></li>
+                  <li class="collection-item avatar">
+                    <i class="material-icons circle deep-orange lighten-1">dialer_sip</i>
+                    <p class="coference-title">联系方式</p>
+                    <p style="height: 0.5rem;"></p>
+                    <pre>{{resp.data.contact}}</pre>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
@@ -258,5 +327,18 @@
   .row {
     margin-bottom: 0px;
     height: 100%;
+  }
+
+  .coference-date {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0;
+  }
+
+  .coference-title {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin: 0;
+    font-family:Times New Roman;
   }
 </style>
