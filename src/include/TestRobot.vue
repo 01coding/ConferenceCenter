@@ -151,7 +151,7 @@
             this.new_conference_data.conf_register_info="1.投稿人可带至多三人参会；2.普通与会人员：300/人次。";
             this.new_conference_data.conf_commute_info="北航招待 地铁十三号线知春路站";
             this.new_conference_data.conf_contact="谭老师 电话：123456789";
-            this.$emit('child-say',this.user_register_data);
+            this.$emit('child-say',this.new_conference_data);
           }
         },
         created(){
