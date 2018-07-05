@@ -16,10 +16,14 @@
             <h5 style="font-weight: bold" class="center">{{conferenceState}}</h5>
             <h5>&nbsp</h5>
             <div class="row center-align">
-              <div class="btn btn-large teal">
-                <div class="white-text">
+              <!--<div class="btn btn-large teal" @click="toCollect">
+                <div class="white-text">-->
+              <div class="btn btn-large teal"
+                  :class="{ disabled: hasCollect === 1 }"
+                   @click="toCollect">
+                <div :class="{'white-text': hasCollect === 0, 'grey-text': hasCollect !== 0}">
                   <i class="material-icons left">star_border</i>
-                  收藏
+                  <span v-show="hasCollect">已</span>收藏
                 </div>
               </div>
               <div class="btn btn-large green"
@@ -47,7 +51,7 @@
           <div class="row" style="margin-bottom: 0;">
             <div class="col s3">
               <div style="height:6rem;"></div>
-              <div class="card-panel center-align" style="width: 100%;">
+              <div class="card-panel center-align" style="width: 100%; max-width: 15rem;">
                 <ul class="section table-of-contents"
                     style="padding-top: 0; padding-bottom: 0; padding-right: 1rem;">
                   <li><a style="cursor: pointer" :class="{'active':active_tab===0}" @click="switch_tab(0)">会议介绍</a></li>
@@ -171,6 +175,7 @@
         conference_id: 1,
         conferenceImg: "/static/bg1.jpg",
         conferenceState: '默认',
+        hasCollect: 0,
         contributeToLink: 0,
         registerToLink: 0,
         contributeLink: '',
@@ -190,6 +195,41 @@
         this.registerLink = "/conference/" + this.conference_id + '/join';
         console.log(this.registerLink);
         this.$router.push(this.registerLink);
+      },
+      toCollect: function() {
+        if(!sessionStorage.getItem("session")) {
+          M.toast({
+            html: "<span style='font-weight: bold;'>请先登录</span>",
+            classes: 'yellow rounded'
+          });
+          this.$router.push('/login');
+          return;
+        }
+
+        this.$axios.post('/api/user/collect',{
+          token: sessionStorage.getItem("session"),
+          conference_id: this.conference_id
+        }).then(response => {
+          let resp = response.data;
+          if(resp.status == 'succ') {
+            this.hasCollect = 1;
+            M.toast({
+              html: "<span style='font-weight: bold;'>已收藏</span>",
+              classes: 'green rounded'
+            });
+          }
+          else {
+            M.toast({
+              html: "<span style='font-weight: bold;'>收藏失败</span>",
+              classes: 'red rounded'
+            });
+          }
+        }).catch(error => {
+          M.toast({
+            html: "<span style='font-weight: bold;'>ERROR!</span>",
+            classes: 'red rounded'
+          });
+        })
       },
 
       isAbleRegister: function () {
@@ -231,8 +271,21 @@
     },
 
     created() {
-
       this.conference_id = parseInt(this.$route.params.id);
+      this.$axios.post('/api/conference/iscollect/' + this.conference_id).then(response => {
+        if(response.data.data === 1) {
+          this.hasCollect = 1;
+        }
+        else {
+          this.hasCollect = 0;
+        }
+      }).catch(error => {
+        M.toast({
+          html: error,
+          classes: "rounded red darken-2"
+        });
+        console.log(1);
+      });
       this.$axios.post('/api/conference/' + this.conference_id).then(response => {
         if(response.status === 200) {
           if (response.data.status === "succ") {
@@ -290,6 +343,12 @@
 
   .btn.disabled, .disabled.btn-large, .disabled.btn-small, .btn-floating.disabled, .btn-large.disabled, .btn-small.disabled, .btn-flat.disabled, .btn:disabled, .btn-large:disabled, .btn-small:disabled, .btn-floating:disabled, .btn-large:disabled, .btn-small:disabled, .btn-flat:disabled, .btn[disabled], .btn-large[disabled], .btn-small[disabled], .btn-floating[disabled], .btn-large[disabled], .btn-small[disabled], .btn-flat[disabled] {
     background-color: #434343 !important;
+  }
+
+  .table-of-contents a {
+    font-size: 1.4rem;
+    height: 2.4rem;
+    line-height: 2.4rem;
   }
 
 </style>

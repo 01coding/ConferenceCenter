@@ -1,6 +1,6 @@
 <template>
   <div class="col s10 offset-s1">
-    <div class="row">
+    <div class="row" style="margin-top: 20px">
       <div class="col s6 m4" v-for="(one, index) in principals" v-bind:key="index">
         <div class="card user-card">
           <div class="row right-align" style="padding-right: .5em; padding-top: .5em">
@@ -44,38 +44,43 @@
         <h5>添加工作人员</h5>
         <div class="row">
           <div class="input-field col s8">
+            <i class="medium material-icons prefix">account_circle</i>
             <input id="new_name" type="text" class="validate" v-model="new_name">
             <label for="new_name">姓名</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
+            <i class="medium material-icons prefix">email</i>
             <input id="new_email" type="email" class="validate" v-model="new_email">
             <label for="new_email">邮箱</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
+            <i class="medium material-icons prefix">local_phone</i>
             <input id="new_phone" type="tel" class="validate" v-model="new_phone">
             <label for="new_phone">手机</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
+            <i class="medium material-icons prefix">vpn_key</i>
             <input id="new_password" type="password" class="validate" v-model="new_password">
             <label for="new_password">密码</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
+            <i class="medium material-icons prefix">place</i>
             <input id="new_location" type="text" class="validate" v-model="new_location">
             <label for="new_location">工作地点</label>
           </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <a style="cursor: pointer;" class="modal-close waves-effect waves-teal btn-flat">取消</a>
-        <a style="cursor: pointer;" class="modal-close waves-effect waves-teal btn-flat" @click="add_princ()">添加</a>
+      <div class="modal-footer" style="padding-top: 0;padding-right: 30px">
+        <a style="cursor: pointer;" class="red lighten-2 modal-close waves-effect waves-teal btn-flat">取消</a>
+        <a style="cursor: pointer;" class="teal lighten-1 modal-close waves-effect waves-teal btn-flat" @click="add_princ()">添加</a>
       </div>
     </div>
   </div>

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <test-robot v-on:child-say="fill_form"></test-robot>
     <div class="row white section">
       <div class="col s10 offset-s1">
         <div style="height: 3rem;"></div>
@@ -60,13 +61,13 @@
           <div class="row">
             <div class="input-field col s3">
               <i class="medium material-icons prefix">event</i>
-              <input id="conf-eassy-ddl" type="text" class="datepicker" v-model="conf_eassy_ddl"/>
-              <label for="conf-eassy-ddl">截稿日期</label>
+              <input id="conf-essay-ddl" type="text" class="datepicker" v-model="conf_essay_ddl"/>
+              <label for="conf-essay-ddl">截稿日期</label>
             </div>
             <div class="input-field col s3">
               <i class="medium material-icons prefix">access_time</i>
-              <input id="conf-eassy-time" type="text" class="timepicker" v-model="conf_eassy_time"/>
-              <label for="conf-eassy-time">截稿时间</label>
+              <input id="conf-essay-time" type="text" class="timepicker" v-model="conf_essay_time"/>
+              <label for="conf-essay-time">截稿时间</label>
             </div>
             <div class="input-field col s6">
               <i class="medium material-icons prefix">event</i>
@@ -77,15 +78,15 @@
           <div class="row">
             <div class="input-field col s12">
               <i class="medium material-icons prefix">library_books</i>
-              <textarea id="conf-eassy-info" class="materialize-textarea" v-model="conf_eassy_info"></textarea>
-              <label for="conf-eassy-info">征文信息</label>
+              <textarea id="conf-essay-info" class="materialize-textarea" v-model="conf_essay_info"></textarea>
+              <label for="conf-essay-info">征文信息</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
               <i class="medium material-icons prefix">event_note</i>
-              <textarea id="conf-eassy-inst" class="materialize-textarea" v-model="conf_eassy_inst"></textarea>
-              <label for="conf-eassy-inst">投稿须知</label>
+              <textarea id="conf-essay-inst" class="materialize-textarea" v-model="conf_essay_inst"></textarea>
+              <label for="conf-essay-inst">投稿须知</label>
             </div>
           </div>
           <div class="row">
@@ -116,12 +117,12 @@
             </div>
           </div>
           <div class="row">
-            <div class="input-field col s4">
+            <div class="input-field col s5">
               <i class="medium material-icons prefix">event</i>
               <input id="conf-register-ddl" type="text" class="datepicker" v-model="conf_register_ddl"/>
               <label for="conf-register-ddl">注册截止日期</label>
             </div>
-            <div class="input-field col s2">
+            <div class="input-field col s6 offset-l1">
               <i class="medium material-icons prefix">access_time</i>
               <input id="conf-register-time" type="text" class="timepicker" v-model="conf_register_time"/>
               <label for="conf-register-time">时间</label>
@@ -189,10 +190,12 @@
 
 <script>
   import axios from 'axios';
+  import TestRobot from "../../include/TestRobot";
   // import NavBar from "../../include/NavBar";
 
   export default {
     name: "NewConference",
+    components: {TestRobot},
     // components: { NavBar },
     data: function () {
       return {
@@ -202,11 +205,11 @@
         conf_start_date: '',
         conf_end_date: '',
         conf_location: '',
-        conf_eassy_info: '',
-        conf_eassy_inst: '',
-        conf_eassy_ddl: '',
-        // conf_eassy_time: "23:59",
-        conf_eassy_time: '',
+        conf_essay_info: '',
+        conf_essay_inst: '',
+        conf_essay_ddl: '',
+        // conf_essay_time: "23:59",
+        conf_essay_time: '',
         conf_release_ddl: '',
         conf_release_time: '',
         conf_register_ddl: '',
@@ -259,10 +262,10 @@
       options = {
         onSelect: date => {
           date = date.toDateString().slice(4, 15);
-          this.conf_eassy_ddl = date;
+          this.conf_essay_ddl = date;
         }
       };
-      elem = document.querySelector('#conf-eassy-ddl');
+      elem = document.querySelector('#conf-essay-ddl');
       instance = M.Datepicker.init(elem, options);
 
       options = {
@@ -287,10 +290,10 @@
         defaultTime: '23:59',
         twelveHour: false,
         onSelect: (hour, minute) => {
-          this.conf_eassy_time = hour + ':' + minute;
+          this.conf_essay_time = hour + ':' + minute;
         }
       };
-      elem = document.querySelector('#conf-eassy-time');
+      elem = document.querySelector('#conf-essay-time');
       instance = M.Timepicker.init(elem, options);
 
       options = {
@@ -322,6 +325,27 @@
       $('select').formSelect();
     },
     methods: {
+      fill_form:function(form_data){
+          this.conf_topic=form_data.conf_topic;
+          this.conf_field=form_data.conf_field;
+          this.conf_desc = form_data.conf_desc;
+          this.conf_start_date=form_data.conf_start_date;
+          this.conf_end_date=form_data.conf_end_date;
+          this.conf_location=form_data.conf_location;
+          this.conf_essay_info=form_data.conf_essay_info;
+          this.conf_essay_inst=form_data.conf_essay_inst;
+          this.conf_essay_ddl=form_data.conf_essay_ddl;
+          // conf_essay_time: "23:59",
+          this.conf_essay_time=form_data.conf_essay_time;
+          this.conf_release_ddl=form_data.conf_release_ddl;
+          this.conf_register_ddl=form_data.conf_release_ddl;
+          // conf_register_time: "23:59",
+          this.conf_register_time=form_data.conf_register_time;
+          this.conf_schedule=form_data.conf_schedule;
+          this.conf_register_info=form_data.conf_register_info;
+          this.conf_commute_info=form_data.conf_commute_info;
+          this.conf_contact=form_data.conf_contact;
+      },
       submit_conference: function () {
         let that = this;
         axios.all([ this.upload_template(), this.upload_image() ]).then(
@@ -334,9 +358,9 @@
               start_date: that.conf_start_date + ' 00:00:00',
               end_date: that.conf_end_date + ' 23:59:59',
               convening_place: that.conf_location,
-              eassy_information: that.conf_eassy_info,
-              eassy_instructions: that.conf_eassy_inst,
-              paper_ddl: that.conf_eassy_ddl + ' ' + that.conf_eassy_time + ':59',
+              essay_information: that.conf_essay_info,
+              essay_instructions: that.conf_essay_inst,
+              paper_ddl: that.conf_essay_ddl + ' ' + that.conf_essay_time + ':59',
               employ_date: that.conf_release_ddl + ' 00:00:00',
               register_ddl: that.conf_register_ddl + ' ' + that.conf_register_time + ':59',
               schedule: that.conf_schedule,

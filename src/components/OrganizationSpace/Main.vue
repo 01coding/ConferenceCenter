@@ -1,10 +1,10 @@
 <template>
-  <div scroll="no">
+  <div>
     <header>
       <nav class="top-nav">
-        <div id="top-title" style="background: url(/static/bg5.jpg); background-size: cover;">
+        <div id="top-title" class="container" style="background: url(/static/bg5.jpg) no-repeat; background-size: cover; opacity: 0.9">
           <div class="nav-wrapper">
-            <div class="row" >
+            <div class="row">
               <div class="col s12 m10 offset-m1">
                 <h2 class="header white-text">{{ nav_title }}</h2>
               </div>
@@ -148,7 +148,7 @@
   }
 
   .user-view {
-    height: 240px;
+    height: 220px;
   }
 
   a.sidenav-trigger.top-nav {

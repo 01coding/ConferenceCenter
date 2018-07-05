@@ -1,6 +1,3 @@
-
-
-
 <template>
   <div>
     <ul class="tabs">
@@ -16,7 +13,7 @@
                style="height: 10rem; background:black;">
             <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg"></img>
             <!--TODO: 这里放会议的背景图-->
-            <router-link v-bind:to="'/conference/'">
+            <router-link v-bind:to="'/conference/'+item.id">
             <span class="card-title" style="font-weight: bold">
               {{item.title}}
             </span>
@@ -24,7 +21,10 @@
           </div>
           <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
-            <i class="material-icons right">language</i>
+            <!--<i class="material-icons right">language</i>-->
+            <a class="secondary-content" @click="cancellCollect('notOpen',item.id)">
+              <i class="material-icons">grade</i>
+            </a>
           </span>
             <p>{{item.start_date}}, {{item.convening_place}}</p>
             <p style="height:1rem;"></p>
@@ -41,7 +41,7 @@
                style="height: 10rem; background:black;">
             <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg"></img>
             <!--TODO: 这里放会议的背景图-->
-            <router-link v-bind:to="'/conference/'">
+            <router-link v-bind:to="'/conference/'+item.id">
             <span class="card-title" style="font-weight: bold">
               {{item.title}}
             </span>
@@ -49,7 +49,10 @@
           </div>
           <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
-            <i class="material-icons right">language</i>
+            <!--<i class="material-icons right">language</i>-->
+            <a class="secondary-content" @click="cancellCollect(item.id)">
+              <i class="material-icons">grade</i>
+            </a>
           </span>
             <p>{{item.start_date}}, {{item.convening_place}}</p>
             <p style="height:1rem;"></p>
@@ -68,7 +71,7 @@
                style="height: 10rem; background:black;">
             <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg"></img>
             <!--TODO: 这里放会议的背景图-->
-            <router-link v-bind:to="'/conference/'">
+            <router-link v-bind:to="'/conference/'+item.id">
             <span class="card-title" style="font-weight: bold">
               标题
             </span>
@@ -76,7 +79,10 @@
           </div>
           <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
-            <i class="material-icons right">language</i>
+            <!--<i class="material-icons right">language</i>-->
+            <a class="secondary-content" @click="cancellCollect(item.id)">
+              <i class="material-icons">grade</i>
+            </a>
           </span>
             <p>{{item.start_date}}, {{item.convening_place}}</p>
             <p style="height:1rem;"></p>
@@ -156,6 +162,40 @@
     mounted: function () {
       this.$bus.emit('manage-change-title', {text: '收藏的会议'});
     },
-    methods: {}
+    methods: {
+      cancellCollect: function(type, id) {
+        this.$axios.post('/api/conference/cancel/collect/:'+ id, {
+          token: sessionStorage.getItem("session")
+        }).then(response => {
+          let resp = response.data;
+          if(resp.status === 'succ') {
+            let that = this;
+            this.$axios.post('/api/user/getCollectConference', {
+              type: type}).then(response => {
+                  that.conferencesBefore = response.data.data.result;
+                }
+              ).catch(
+              error => {
+                M.toast({
+                  html: error,
+                  classes: "rounded red darken-2"
+                });
+              }
+            );
+          }
+          else {
+            M.toast({
+              html: "<span style='font-weight: bold;'>取消收藏失败</span>",
+              classes: 'red rounded'
+            });
+          }
+        }).catch(error => {
+          M.toast({
+            html: "<span style='font-weight: bold;'>ERROR!</span>",
+            classes: 'red rounded'
+          });
+        });
+      }
+    }
   }
 </script>

@@ -36,15 +36,31 @@
         </div>
         <div class="row center-align">
           <div class="btn-large blue darken-1" @click="submit">
-          <i class="material-icons left">send</i>
+            <i class="material-icons left">send</i>
             提交
-        </div>
+          </div>
         </div>
       </form>
       <div class="col s2" style="margin-left: 3rem;">
         <div class="card">
           <div class="card-image">
-            <img v-bind:src="file_server+individual_information.avator"></img>
+            <img v-bind:src="this.file_server+this.individual_information.avator"></img>
+          </div>
+          <div class="card-content" style="padding-left:0rem;padding-right:0rem;">
+            <vue-core-image-upload
+              class="center-align"
+            @imageuploaded="avatar_uploaded"
+            :crop="true"
+            :max-file-size="5242880"
+            :url="avatar.url"
+            :headers="avatar.headers"
+            :credentials="avatar.credentials"
+            >
+            <button type="button" class="btn   red lighten-1">
+              <i class="material-icons right" aria-hidden="true">file_upload</i>
+              更新头像
+            </button>
+          </vue-core-image-upload>
           </div>
         </div>
       </div>
@@ -53,9 +69,12 @@
 </template>
 
 <script>
+import FileUpload from "vue-upload-component";
+import VueCoreImageUpload from 'vue-core-image-upload';
+
 export default{
   name:"PersonalInformation",
-  components:{},
+  components:{FileUpload, 'vue-core-image-upload': VueCoreImageUpload,},
   data: function () {
     return{
         individual_information:{
@@ -66,15 +85,34 @@ export default{
           telephone:"18811526200",
           institution:"斯坦福大学"
         },
-        file_server: 'http://140.143.19.133:8001',
+        file_server: 'http://118.89.229.204:8080/',
+//        upload: {
+//          files: [],
+//          web_io: "http://118.89.229.204:8080",
+//          url: 'http://118.89.229.204:8080/ERM-WebIO-1.0/file/upload.do',
+//          size: 100 * 1024 * 1024,
+//          maximum: 1
+//        },
+        avatar: {
+          credentials: false,
+          url: 'http://118.89.229.204:8080/ERM-WebIO-1.0/file/upload.do',
+          headers: {}
+        },
+        files: [],
     }
   },
   methods:{
     submit: function () {
+      let session_token = sessionStorage.getItem('type');
+      console.log("xingzhe");
+      console.log(session_token);
+      console.log("wu");
       let individual_update={
           name:this.individual_information.name,
           avator:this.individual_information.avator,
-          profile:this.individual_information.profile
+          profile:this.individual_information.profile,
+          phone:this.individual_information.telephone,
+          agency: this.individual_information.institution
       };
       this.$axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/user/modify', individual_update).then(rsp => {
         if (rsp.data.status === 'succ') {
@@ -89,6 +127,15 @@ export default{
           classes: "rounded red"
         });
       })
+    },
+    avatar_uploaded(ret) {
+      if (ret && ret.link) {
+        this.individual_information.avator=ret.link;
+        console.warn("wuxingzhe")
+        console.warn(this.individual_information.avator)
+      } else {
+        console.log(ret);
+      }
     }
   },
   created(){
@@ -105,6 +152,8 @@ export default{
         this.individual_information.email=individual_info.email;
         this.individual_information.avator=individual_info.avator;
         this.individual_information.profile=individual_info.profile;
+        this.individual_information.institution=individual_info.agency;
+        this.individual_information.telephone=individual_info.phone;
       }
     }).catch(err => {
       M.toast({
