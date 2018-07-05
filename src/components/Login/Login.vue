@@ -110,6 +110,7 @@
                   }
                   this.token = rsp.data.data.token;
                   sessionStorage.setItem('session',this.token);
+                  sessionStorage.setItem('type','scholar');
                   this.session_callback();
                   this.$router.push('/');
 
@@ -134,6 +135,7 @@
                   }
                   this.token = rsp.data.data.token;
                   sessionStorage.setItem('session',this.token);
+                  sessionStorage.setItem('type','institution');
                   this.session_callback();
                   this.$router.push('/orgspace');
 
@@ -157,6 +159,7 @@
                   }
                   this.token = rsp.data.data.token;
                   sessionStorage.setItem('session',this.token);
+                  sessionStorage.setItem('type','manager');
                   this.session_callback();
                   this.$router.push('/review/application');
 

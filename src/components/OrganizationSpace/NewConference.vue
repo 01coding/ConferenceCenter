@@ -1,5 +1,6 @@
 <template>
   <div>
+    <test-robot v-on:child-say="fill_form"></test-robot>
     <div class="row white section">
       <div class="col s10 offset-s1">
         <div style="height: 3rem;"></div>
@@ -324,6 +325,7 @@
       $('select').formSelect();
     },
     methods: {
+
       submit_conference: function () {
         let that = this;
         axios.all([ this.upload_template(), this.upload_image() ]).then(
