@@ -2,7 +2,7 @@
   <div scroll="no">
     <header>
       <nav class="top-nav">
-        <div id="top-title" class="container" style="background: url(/static/bg5.jpg); background-size: cover;">
+        <div id="top-title" style="background: url(/static/bg5.jpg); background-size: cover;">
           <div class="nav-wrapper">
             <div class="row" >
               <div class="col s12 m10 offset-m1">

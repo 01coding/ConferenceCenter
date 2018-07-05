@@ -35,12 +35,14 @@
   ::-webkit-scrollbar {
     /*width: 2px;*/
     width: 8px;
+    margin-left: -8px;
   }
 
   /* Track */
   ::-webkit-scrollbar-track {
     /*box-shadow: inset 0 0 5px grey;*/
-    background: #fafafa;
+    /*background: #fafafa;*/
+    background: transparent;
     /*background: white;*/
     /*border-radius: 2px;*/
     border-radius: 8px;

@@ -36,7 +36,7 @@ Vue.prototype.$user = axios.create({
 });
 
 Vue.prototype.$file = axios.create({
-  baseURL: 'http://140.143.19.133:8001'
+  baseURL: 'http://118.89.229.204:8080/ERM-WebIO-1.0/file/upload.do'
 });
 
 Vue.prototype.$test = axios.create({
@@ -44,7 +44,7 @@ Vue.prototype.$test = axios.create({
 });
 
 Vue.prototype.$image = function(relative) {
-  return 'http://140.143.19.133:8001' + relative;
+  return 'http://118.89.229.204:8080/' + relative;
 };
 
 /* eslint-disable no-new */
