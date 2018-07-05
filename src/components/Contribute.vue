@@ -126,7 +126,7 @@
               </file-upload>
               <button type="button" class="btn green"
                       v-if="!$refs.upload || !$refs.upload.active"
-                      @click.prevent="demo_oriented_upload">
+                      @click.prevent="$refs.upload.active = true">
                 <!--TODO: 把面向演示编程的东西删掉-->
                 <!--@click.prevent="$refs.upload.active = true"-->
                 <i class="material-icons right" aria-hidden="true">file_upload</i>

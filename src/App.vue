@@ -16,6 +16,7 @@
   body {
     background: #f5f5f7;
   }
+
   #app {
     /*font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
     font-family: 'Microsoft YaHei UI Light', Helvetica, Arial, sans-serif;
@@ -52,5 +53,9 @@
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #009688;
+  }
+
+  .pagination li.active {
+    background-color: teal !important;
   }
 </style>

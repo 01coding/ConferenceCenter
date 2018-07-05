@@ -23,8 +23,8 @@
     <div class="row container">
       <div class="card hoverable" v-if="conferences.total_num > 0" v-for="(res,id) in conferences.result" :key="id">
         <div class="card-image waves-effect waves-block waves-light"
-             style="height: 10rem; background:black;">
-          <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg">
+             style="height: 8rem; background:black;">
+          <img class="activator" style="opacity: 0.5; object-fit: cover" src="/static/bg5.jpg">
           <!--TODO: 这里放会议的背景图-->
           <router-link v-bind:to="'/conference/'+res.id">
             <span class="card-title" style="font-weight: bold">
@@ -36,7 +36,7 @@
           <span class="card-title activator grey-text text-darken-4">
             <i class="material-icons right">language</i>
           </span>
-          <p class="coference-date">{{res.convening_date.substr(0, 10)}}, {{res.convening_place}}</p>
+          <p v-if="res.convening_date">{{res.convening_date.substr(0, 10)}}, {{res.convening_place}}</p>
           <p style="height:1rem;"></p>
           <p class="conference-introduction">{{res.introduction}}</p>
         </div>
@@ -55,6 +55,7 @@
                   :current="current"
       ></Pagination>
     </div>
+    <div style="height: 3rem;"></div>
   </div>
 </template>
 
@@ -158,5 +159,11 @@
 
   .conference-introduction {
     font-size: 16px;
+  }
+
+  .customize {
+    background-size: 100% !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
   }
 </style>
