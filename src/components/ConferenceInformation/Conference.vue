@@ -1,6 +1,7 @@
 <template>
 
   <div>
+    <Loader v-show="is_loading"></Loader>
     <NavBar></NavBar>
     <div class="row" style="margin-bottom: 0;">
       <div class="col s1"></div>
@@ -24,7 +25,7 @@
               <div class="btn btn-large green"
                    :class="{ disabled: contributeToLink === 0 }"
                    @click="toContribute">
-                <div class="white-text">
+                <div :class="{'white-text': contributeToLink !== 0, 'grey-text': contributeToLink === 0}">
                   <i class="material-icons left">send</i>
                   投稿
                 </div>
@@ -32,7 +33,7 @@
               <div id="register" class="btn btn-large blue-grey"
                    @click="toRegisterConference"
                    :class="{ disabled: registerToLink === 0 }">
-                <div class="white-text">
+                <div :class="{'white-text': contributeToLink !== 0, 'grey-text': contributeToLink === 0}">
                   <i class="material-icons left">group_add</i>
                   报名参会
                 </div>
@@ -162,8 +163,10 @@
     components: { NavBar, axios, getURL },
     data() {
       return {
+        is_loading: true,
         active_tab: 0,
         bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),",
+
         conference_id: 1,
         conferenceImg: "/static/bg1.jpg",
         conferenceState: '默认',
@@ -210,6 +213,8 @@
       },
       getConferenceState: function () {
         let state = this.resp.data.state & 0x0F;
+        console.log("state:");
+        console.log(state);
         if (state === 4)
           this.conferenceState = '已结束';
         else if (state === 12)
@@ -236,6 +241,7 @@
             this.isAbleRegister();
             this.isAbleContribute();
             this.getConferenceImg();
+            this.is_loading = false;
             console.log("contribute to link:" + this.contributeToLink);
             console.log("conference state:" + this.conferenceState);
           }
@@ -279,6 +285,10 @@
   }
   .collection-item {
     border: none !important;
+  }
+
+  .btn.disabled, .disabled.btn-large, .disabled.btn-small, .btn-floating.disabled, .btn-large.disabled, .btn-small.disabled, .btn-flat.disabled, .btn:disabled, .btn-large:disabled, .btn-small:disabled, .btn-floating:disabled, .btn-large:disabled, .btn-small:disabled, .btn-flat:disabled, .btn[disabled], .btn-large[disabled], .btn-small[disabled], .btn-floating[disabled], .btn-large[disabled], .btn-small[disabled], .btn-flat[disabled] {
+    background-color: #434343 !important;
   }
 
 </style>
