@@ -41,11 +41,24 @@
     </nav>
     <div class="overlay-trigger">
       <div class="fixed-action-btn" v-if="has_logged_in === 1">
-        <a class="btn-floating btn-large grey darken-3"
-           data-position="left"
-           @click="go_to_userspace">
-          <i class="large material-icons">assignment_ind</i>
-        </a>
+        <router-link v-if="user_type=='scholar'" to="/personalspace">
+          <a class="btn-floating btn-large grey darken-3"
+             data-position="left">
+            <i class="large material-icons">assignment_ind</i>
+          </a>
+        </router-link>
+        <router-link v-if="user_type=='institution'" to="/orgspace">
+          <a class="btn-floating btn-large grey darken-3"
+             data-position="left">
+            <i class="large material-icons">assignment_ind</i>
+          </a>
+        </router-link>
+        <router-link v-if="user_type=='manager'" to="/review/application">
+          <a class="btn-floating btn-large grey darken-3"
+             data-position="left">
+            <i class="large material-icons">assignment_ind</i>
+          </a>
+        </router-link>
         <ul>
           <li>
             <span class="mobile-fab-tip">注销</span>
@@ -78,6 +91,7 @@ export default {
       in_search: false,
       search_keyword:"",
       has_logged_in: 0,
+      user_type:""
     };
   },
 
@@ -155,6 +169,10 @@ export default {
     }
   },
   created: function() {
+    if(sessionStorage.getItem("type")){
+      this.user_type=sessionStorage.getItem('type');
+    }
+
     $(document).ready(function(){
       $('.fixed-action-btn').floatingActionButton();
       $(".dropdown-trigger").dropdown();

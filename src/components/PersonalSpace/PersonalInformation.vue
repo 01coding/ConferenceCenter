@@ -103,6 +103,10 @@ export default{
   },
   methods:{
     submit: function () {
+      let session_token = sessionStorage.getItem('type');
+      console.log("xingzhe");
+      console.log(session_token);
+      console.log("wu");
       let individual_update={
           name:this.individual_information.name,
           avator:this.individual_information.avator,
