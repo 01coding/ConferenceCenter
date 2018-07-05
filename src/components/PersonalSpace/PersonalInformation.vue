@@ -63,22 +63,6 @@
           </vue-core-image-upload>
           </div>
         </div>
-        <div class="row center-align">
-          <vue-core-image-upload
-            text="上传图片"
-          @imageuploaded="avatar_uploaded"
-          :crop="true"
-          :max-file-size="5242880"
-          :url="avatar.url"
-          :headers="avatar.headers"
-          :credentials="avatar.credentials"
-          >
-          <button type="button" class="btn   red lighten-1">
-            <i class="material-icons right" aria-hidden="true">file_upload</i>
-            更新头像
-          </button>
-        </vue-core-image-upload>
-        </div>
       </div>
     </div>
   </div>
@@ -122,7 +106,9 @@ export default{
       let individual_update={
           name:this.individual_information.name,
           avator:this.individual_information.avator,
-          profile:this.individual_information.profile
+          profile:this.individual_information.profile,
+          phone:this.individual_information.telephone,
+          agency: this.individual_information.institution
       };
       this.$axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/user/modify', individual_update).then(rsp => {
         if (rsp.data.status === 'succ') {
@@ -162,6 +148,8 @@ export default{
         this.individual_information.email=individual_info.email;
         this.individual_information.avator=individual_info.avator;
         this.individual_information.profile=individual_info.profile;
+        this.individual_information.institution=individual_info.agency;
+        this.individual_information.telephone=individual_info.phone;
       }
     }).catch(err => {
       M.toast({

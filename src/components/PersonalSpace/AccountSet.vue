@@ -57,10 +57,12 @@ export default{
   components:{},
   data:function () {
       return{
-        individual_information:{},
-        origin_pass:"",
-        first_pass:"",
-        second_pass:""
+        individual_information:{
+            email:"23"
+        },
+        origin_pass:"123",
+        first_pass:"123",
+        second_pass:"123"
       }
   },
   methods:{
@@ -115,6 +117,10 @@ export default{
         classes: "rounded red"
       });
     })
+
+    this.origin_pass="";
+    this.first_pass="";
+    this.second_pass="";
   },
 };
 </script>
