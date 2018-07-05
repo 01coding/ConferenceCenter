@@ -73,6 +73,9 @@
           classes: "rounded red darken-2"
         });
       });
-    }
+    },
+    mounted:function () {
+      this.$bus.emit('manage-change-title', { text: '我的投稿' });
+    },
   }
 </script>

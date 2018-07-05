@@ -109,8 +109,9 @@
       let that=this;
       this.$axios.post('/api/user/getRegisterConference',{"type":'notOpen'})
         .then(response=>{
-          alert(JSON.stringify(response));
-          that.conferencesBefore=response.data;
+          //alert(JSON.stringify(response));
+          console.log(JSON.stringify(response.data.data));
+          that.conferencesBefore=response.data.data.result;
         }
       ).catch(
         error=>{
@@ -136,6 +137,10 @@
     },
     methods:{
 
-    }
+    },
+    mounted:function () {
+      this.$bus.emit('manage-change-title', { text: '参加的会议' });
+    },
+
   }
 </script>

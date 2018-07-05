@@ -6,7 +6,7 @@
       <li class="tab col s4"><a href="#test3">已结束</a></li>
     </ul>
 
-    <div id="test1" class="col s12">
+    <div id="test1" class="col s12" style="padding-top: 1%">
       <div class="container">
         <div class="card" >
           <div class="card-image waves-effect waves-block waves-light"
@@ -32,7 +32,7 @@
         </div>
       </div>
     </div>
-    <div id="test2" class="col s12">
+    <div id="test2" class="col s12" style="padding-top: 1%">
       <div class="container">
         <div class="card" >
           <div class="card-image waves-effect waves-block waves-light"
@@ -60,7 +60,7 @@
     </div>
 
 
-    <div id="test3" class="col s12">
+    <div id="test3" class="col s12" style="padding-top: 1%">
       <div class="container">
         <div class="card" >
           <div class="card-image waves-effect waves-block waves-light"
@@ -107,7 +107,7 @@
 
 
       let that=this;
-      this.$axios.post('/api/user/getRegisterConference',{"type":'notOpen'})
+      this.$axios.post('/api/user/getCollectConference',{"type":'notOpen'})
         .then(response=>{
             alert(JSON.stringify(response));
             that.conferencesBefore=response.data;
@@ -133,6 +133,9 @@
 
         }
       }
+    },
+    mounted:function () {
+      this.$bus.emit('manage-change-title', { text: '收藏的会议' });
     },
     methods:{
 

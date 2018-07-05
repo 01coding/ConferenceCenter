@@ -75,8 +75,7 @@
       return {
         nav_title: '',
         routes: {
-          '/personalspace': '个人空间',
-
+          '/personalspace': '参加的会议',
         }
       };
     },
