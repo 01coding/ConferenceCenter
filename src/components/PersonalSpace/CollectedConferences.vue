@@ -16,7 +16,7 @@
                style="height: 10rem; background:black;">
             <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg"></img>
             <!--TODO: 这里放会议的背景图-->
-            <router-link v-bind:to="'/conference/'">
+            <router-link v-bind:to="'/conference/'+item.id">
             <span class="card-title" style="font-weight: bold">
               {{item.title}}
             </span>
@@ -41,7 +41,7 @@
                style="height: 10rem; background:black;">
             <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg"></img>
             <!--TODO: 这里放会议的背景图-->
-            <router-link v-bind:to="'/conference/'">
+            <router-link v-bind:to="'/conference/'+item.id">
             <span class="card-title" style="font-weight: bold">
               {{item.title}}
             </span>
@@ -68,7 +68,7 @@
                style="height: 10rem; background:black;">
             <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg"></img>
             <!--TODO: 这里放会议的背景图-->
-            <router-link v-bind:to="'/conference/'">
+            <router-link v-bind:to="'/conference/'+item.id">
             <span class="card-title" style="font-weight: bold">
               标题
             </span>
