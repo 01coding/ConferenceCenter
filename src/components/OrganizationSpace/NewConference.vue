@@ -161,6 +161,22 @@
           <!--</div>-->
           <!--</div>-->
           <div class="row">
+            <div class="col s6">
+              <h6>选择模板</h6>
+            </div>
+          </div>
+          <choseTemplate></choseTemplate>
+          <div class="row">
+            <a class=" btn-floating btn-large waves-effect waves-light red"  @click="choseTP()"><i class="material-icons">add</i></a>
+
+            <!--<a  class="waves-effect waves-light btn" ><i class="material-icons left">cloud</i>选择模板</a>-->
+          </div>
+          <div class="row">
+            <div class="col s6">
+              <h6>背景图</h6>
+            </div>
+          </div>
+          <div class="row">
             <div class="file-field input-field col s10">
               <div class="btn" @change="get_image($event)">
                 <span>上传背景图片</span>
@@ -191,11 +207,12 @@
 <script>
   import axios from 'axios';
   import TestRobot from "../../include/TestRobot";
+  import choseTemplate from "./choseTemplate"
   // import NavBar from "../../include/NavBar";
 
   export default {
     name: "NewConference",
-    components: {TestRobot},
+    components: {choseTemplate, TestRobot},
     // components: { NavBar },
     data: function () {
       return {
@@ -346,6 +363,10 @@
           this.conf_commute_info=form_data.conf_commute_info;
           this.conf_contact=form_data.conf_contact;
       },
+      choseTP:function(){
+        this.$bus.emit("showChose")
+      },
+
       submit_conference: function () {
         let that = this;
         axios.all([ this.upload_template(), this.upload_image() ]).then(
