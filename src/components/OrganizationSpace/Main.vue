@@ -144,7 +144,7 @@
 
 <style scoped>
   nav.top-nav {
-    height: 120px;
+    height: 140px;
   }
 
   .user-view {

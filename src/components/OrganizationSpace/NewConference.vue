@@ -3,7 +3,7 @@
     <test-robot v-on:child-say="fill_form"></test-robot>
     <div class="row white section">
       <div class="col s10 offset-s1">
-        <div style="height: 3rem;"></div>
+        <div style="height: 2.3rem;"></div>
         <form class="col s12">
           <div class="row">
             <div class="col s6">

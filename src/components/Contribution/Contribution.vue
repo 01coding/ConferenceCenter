@@ -30,8 +30,26 @@
         </div>
       </div>
       <div class="card-action right-align">
-        <a class="blue-text"><strong>查看详情</strong></a>
+        <a class="blue-text"><strong>提交新版本</strong></a>
         <a class="red-text" style="margin: 0;"><strong>撤销投稿</strong></a>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 4rem;">
+      <div class="col s4 offset-s2 center-align">
+        <div class="chip"
+             :style="{'background-color': active_tab===0 ? '#e4e4e4': 'rgba(0, 0, 0, 0)'}"
+             @click="switch_tab(0)"
+             style="font-size: 1.2rem; padding: 0 1.5rem;">
+          审稿过程
+        </div>
+      </div>
+      <div class="col s4 center-align">
+        <div class="chip"
+             :style="{'background-color': active_tab===1 ? '#e4e4e4': 'rgba(0, 0, 0, 0)'}"
+             @click="switch_tab(0)"
+             style="font-size: 1.2rem; padding: 0 1.5rem;">
+          基本信息
+        </div>
       </div>
     </div>
   </div>
@@ -45,6 +63,7 @@ export default {
   components: {NavBar},
   data: function() {
     return {
+      active_tab: 0,
       contrib: {
         session_token: null,
         title: "Deep Hashing: A Joint Approach for Image Signature Learning",
@@ -63,6 +82,11 @@ export default {
           }
         ]
       }
+    }
+  },
+  methods: {
+    switch_tab(i) {
+      this.acceleration = i;
     }
   }
 }
