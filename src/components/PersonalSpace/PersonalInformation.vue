@@ -23,8 +23,8 @@
           </div>
           <div class="input-field col s6">
             <i class="material-icons prefix">email</i>
-            <input id="icon_telephone" type="email" class="validate" v-model="individual_information.email">
-            <label for="icon_telephone">Email</label>
+            <input disabled id="icon_telephone" type="email" class="validate" v-model="individual_information.email">
+            <label for="disabled">Email</label>
           </div>
         </div>
         <div class="row">
