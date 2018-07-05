@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <nav class="white">
+  <div id="top">
+    <nav class="white" style="box-shadow: 0px 3px 3px #eeeeee; -webkit-box-shadow:none;">
       <ul id="dropdown1" class="dropdown-content">
         <li><router-link class="grey-text text-darken-3" to="/login">登录</router-link></li>
         <li><router-link class="grey-text text-darken-3" to="/user/register">个人注册</router-link></li>
@@ -39,32 +39,33 @@
         </div>
       </div>
     </nav>
-    <div class="fixed-action-btn" v-if="has_logged_in === 1">
-      <a class="btn-floating btn-large grey darken-3 tooltipped"
-         data-position="left"
-         @click="go_to_userspace"
-         data-tooltip="进入个人空间">
-        <i class="large material-icons">assignment_ind</i>
-      </a>
-      <ul>
-        <li>
-          <a class="btn-floating red darken-2 tooltipped"  data-position="left" data-tooltip="注销" @click="choose_logout()">
-            <i class="material-icons">exit_to_app</i>
-          </a>
-          <a class="btn-floating mobile-fab-tip" @click="choose_logout">注销</a>
-        </li>
-        <li>
-          <a class="btn-floating yellow darken-2 tooltipped"  data-position="left" data-tooltip="回到顶部" @click="back_top()">
-            <i class="material-icons">arrow_upward</i>
-          </a>
-          <a class="btn-floating mobile-fab-tip" @click="back_top">返回顶部</a>
-        </li>
-      </ul>
-    </div>
-    <div class="fixed-action-btn" v-else>
-      <a class="btn-floating btn-large grey darken-3 tooltipped" data-position="left" data-tooltip="回到顶部" @click="back_top()">
-        <i class="large material-icons">arrow_upward</i>
-      </a>
+    <div class="overlay-trigger">
+      <div class="fixed-action-btn" v-if="has_logged_in === 1">
+        <a class="btn-floating btn-large grey darken-3"
+           data-position="left"
+           @click="go_to_userspace">
+          <i class="large material-icons">assignment_ind</i>
+        </a>
+        <ul>
+          <li>
+            <span class="mobile-fab-tip">注销</span>
+            <a class="btn-floating red darken-2"  data-position="left" @click="choose_logout()">
+              <i class="material-icons">exit_to_app</i>
+            </a>
+          </li>
+          <li>
+            <span class="mobile-fab-tip">返回顶部</span>
+            <a class="btn-floating yellow darken-2"  data-position="left" @click="back_top()">
+              <i class="material-icons">arrow_upward</i>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="fixed-action-btn" v-else>
+        <a class="btn-floating btn-large grey darken-3" data-position="left" @click="back_top()">
+          <i class="large material-icons">arrow_upward</i>
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -123,11 +124,34 @@ export default {
         this.$router.push("/search/" + this.search_keyword);
     },
     back_top: function(){
-      document.body.scrollTop = document.documentElement.scrollTop = 0;
-      $('.tooltip').isHovered=true;
+      $("html, body").animate({ scrollTop: 0 }, "slow");
+      return false;
     },
     go_to_userspace: function() {
       this.$router.push("/personalspace");
+    },
+    overlay(event) {
+      let ol = $('.overlay');
+      if (ol.css('display') === 'none') {
+        ol.css({
+          'display': 'block'
+        });
+        width = window.innerWidth;
+      }
+    },
+    hideOverlay(event) {
+      let ol = $('.overlay');
+      if (ol.css('display') === 'block') {
+        ol.css({
+          'display': 'none'
+        });
+      }
+    },
+    init_fab_tip: function () {
+      let width = 0;
+      $('.overlay-trigger').click(this.overlay);
+      $('.overlay').click(this.hideOverlay);
+      $(window).on("scroll", this.hideOverlay);
     }
   },
   created: function() {
@@ -135,8 +159,9 @@ export default {
       $('.fixed-action-btn').floatingActionButton();
       $(".dropdown-trigger").dropdown();
     });
+    this.init_fab_tip();
     this.choose_login();
-  }
+  },
 }
 </script>
 
@@ -151,4 +176,72 @@ nav ul li a:hover {
   height:3rem;
   width:100%;
 }
+
+@media only screen {
+  .overlay {
+    display: none;
+    background-color: #E1E1E1;
+    opacity: 0.80;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 900;
+  }
+  .fixed-action-btn ul {
+    display: none;
+  }
+  .fixed-action-btn:hover ul {
+    display: block;
+  }
+  .material-tooltip {
+    display: none !important;
+  }
+  .mobile-fab-tip {
+    position: fixed;
+    right: 85px;
+    padding: 4px 10px 4px 10px;
+    text-align: right;
+    background-color: rgba(240, 240, 240, 0.8);
+    border-radius: 2px;
+    font-size: 14px;
+    color: #424242;
+    opacity: 0;
+  }
+  .mobile-fab-tip {
+    -webkit-animation: fadein 1s;
+    -moz-animation: fadein 1s;
+    -o-animation: fadein 1s;
+    animation: fadein 1s;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-delay: 0.5s;
+    -moz-animation-delay: 0.5s;
+    -o-animation-delay: 0.5s;
+    animation-delay: 0.5s;
+  }
+  @keyframes fadein {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @-moz-keyframes fadein {
+    /* Firefox */
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @-webkit-keyframes fadein {
+    /* Safari and Chrome */
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @-o-keyframes fadein {
+    /* Opera */
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+}
+
 </style>

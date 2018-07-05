@@ -28,7 +28,7 @@
           </div>
         </li>
         <li class="bold">
-          <router-link to="/orgspace" class="waves-effect">收藏的会议</router-link>
+          <router-link to="/personalspace/collectedconferences" class="waves-effect">收藏的会议</router-link>
         </li>
 
         <li class="bold">
@@ -39,7 +39,7 @@
         </li>
         <div class="divider"></div>
         <li class="bold">
-          <router-link to="/orgspace" class="waves-effect">个人信息</router-link>
+          <router-link to="/personalspace/personalinformation" class="waves-effect">个人信息</router-link>
         </li>
         <li class="bold">
           <router-link to="/orgspace" class="waves-effect">账户设置</router-link>
@@ -75,8 +75,7 @@
       return {
         nav_title: '',
         routes: {
-          '/personalspace': '个人空间',
-
+          '/personalspace': '参加的会议',
         }
       };
     },
@@ -135,4 +134,8 @@
   a.sidenav-trigger.top-nav {
     left: 0;
   }
+
+
 </style>
+
+

@@ -3,7 +3,7 @@
   <navbar></navbar>
   <div class="card customize"
        style="width: 100%; padding-top: 2rem; padding-bottom: 2rem; margin: 0;"
-       :style="{'background-image':bg_overlay+'url(/static/bg3.jpg)'}">
+       :style="{'background-image':bg_overlay+'url(/static/bg5.jpg)'}">
     <div class="white-text row container">
       <div class="col s10 offset-s1">
         <h4 class="center">机构注册</h4>
@@ -127,7 +127,7 @@
       components: { navbar},
       data() {
         return {
-          bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),",
+          bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),",
           name: '',
           email : '',
           location : '',

@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div scroll="no">
     <header>
       <nav class="top-nav">
-        <div class="container">
+        <div class="container" style="background: url(/static/bg5.jpg);background-size:100% 100%;">
           <div class="nav-wrapper">
-            <div class="row">
+            <div class="row" >
               <div class="col s12 m10 offset-m1">
-                <h2 class="header black-text">{{ nav_title }}</h2>
+                <h2 class="header white-text">{{ nav_title }}</h2>
               </div>
             </div>
           </div>
@@ -22,7 +22,7 @@
         <li>
           <div class="user-view">
             <div class="background"
-                 style="background-image: url(https://materializecss.com/images/office.jpg); background-size: cover">
+                 style="background-image: url(/static/bg6.jpg);;background-size:100% 100%;">
               <!--<img src="https://materializecss.com/images/office.jpg">-->
             </div>
             <a href="#user"><img class="circle" src="https://materializecss.com/images/yuna.jpg"></a>
