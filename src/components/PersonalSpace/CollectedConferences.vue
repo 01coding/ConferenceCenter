@@ -22,7 +22,7 @@
           <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
             <!--<i class="material-icons right">language</i>-->
-            <a class="secondary-content" @click="cancellCollect('notOpen',item.id)">
+            <a class="secondary-content" @click="cancalCollect('notOpen',item.id)">
               <i class="material-icons">grade</i>
             </a>
           </span>
@@ -50,7 +50,7 @@
           <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
             <!--<i class="material-icons right">language</i>-->
-            <a class="secondary-content" @click="cancellCollect(item.id)">
+            <a class="secondary-content" @click="cancalCollect('opened', item.id)">
               <i class="material-icons">grade</i>
             </a>
           </span>
@@ -80,7 +80,7 @@
           <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
             <!--<i class="material-icons right">language</i>-->
-            <a class="secondary-content" @click="cancellCollect(item.id)">
+            <a class="secondary-content" @click="cancalCollect('enden', item.id)">
               <i class="material-icons">grade</i>
             </a>
           </span>
@@ -160,7 +160,7 @@
       this.$bus.emit('manage-change-title', {text: '收藏的会议'});
     },
     methods: {
-      cancellCollect: function(type, id) {
+      cancalCollect: function(type, id) {
         this.$axios.post('/api/conference/cancel/collect/'+ id, {
           token: sessionStorage.getItem("session")
         }).then(response => {
@@ -168,17 +168,22 @@
           if(resp.status === 'succ') {
             let that = this;
             this.$axios.post('/api/user/getCollectConference', {
+              token: sessionStorage.getItem("session"),
               type: type
             }).then(response => {
-              if(type === 'notOpen') {
+              if(type === "notOpen") {
                 that.conferencesBefore = response.data.data.result;
               }
-              else if(type === 'opend') {
+              else if(type === 'opened') {
                 that.conferencesOn = response.data.data.result;
               }
               else if(type === 'enden') {
                 that.conferencesAfter = response.data.data.result;
               }
+              M.toast({
+                html: "<span style='font-weight: bold;'>取消成功</span>",
+                classes: "rounded green darken-2"
+              });
             }).catch(error => {
                 M.toast({
                   html: error,
