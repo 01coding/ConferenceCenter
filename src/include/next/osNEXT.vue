@@ -3,7 +3,7 @@
     <div class="fixed-action-btn" >
       <router-link  to="/orgspace/new/conference">
         <span class="mobile-fab-tip">添加会议</span>
-        <a class="btn-floating btn-large grey darken-3"
+        <a class="btn-floating btn-large green darken-3"
            data-position="left">
           <i class="large material-icons">add</i>
         </a>

@@ -2,7 +2,7 @@
   <div class="overlay-trigger">
     <div class="fixed-action-btn" >
       <span class="mobile-fab-tip">发送</span>
-        <a class="btn-floating btn-large grey darken-3" @click="send"
+        <a class="btn-floating btn-large green darken-3" @click="send"
            data-position="left">
           <i class="large material-icons">send</i>
         </a>
