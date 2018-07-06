@@ -227,7 +227,8 @@
         papers: [],
         upload: {
           files: [],
-          url: 'http://140.143.19.133:8001',
+          web_io: "http://118.89.229.204:8080",
+          url: 'http://118.89.229.204:8080/ERM-WebIO-1.0/file/upload.do',
           size: 100 * 1024 * 1024,
           maximum: 1
         },
@@ -480,7 +481,11 @@
           return;
         } else {
           if (!files[0].success) {
-            // TODO: resolve WebIO
+            M.toast({
+              html: "<span style='font-weight: bold;'>请先点“开始上传”</span>",
+              classes: 'yellow darken-2 rounded'
+            });
+            return;
           }
         }
         //check participants information
@@ -504,7 +509,7 @@
           }
         }
         //set parameters to transmit
-        let file_url = "";
+        let file_url = this.web_io + this.files[0].response;
         //let file_url = files[0].response;
         let params = {
           token: sessionStorage.getItem("session"),

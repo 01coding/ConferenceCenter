@@ -342,8 +342,7 @@ export default {
         }
       }
       let authors_str = JSON.stringify(authors);
-      let file_url = "";
-      //let file_url = files[0].response;
+      let file_url = this.web_io + files[0].response;
       let params = {
         conference_id: this.conference_id,
         title: title,

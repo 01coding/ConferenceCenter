@@ -52,6 +52,7 @@
       <div class="card" v-for="(subm, idx) in contrib.subms" style="margin-bottom: 2rem;">
         <div class="card-content">
           <span class="card-title"
+                style="font-weight: 400"
                 :class="{'green-text':subm.decision==='录用', 'blue-text':subm.decision==='修改后录用'}">
             {{subm.decision}}
           </span>
@@ -73,6 +74,67 @@
         <div :class="{'blue': subm.decision==='修改后录用', 'green': subm.decision==='录用'}"
              style="height: 0.2rem;"></div>
       </div>
+
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title" style="font-weight: bold">提交新版本</span>
+          <div class="row" style="margin-bottom: 0;">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">subject</i>
+              <textarea id="abstract" class="materialize-textarea" v-model="abstract"></textarea>
+              <label for="abstract">说明</label>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 0;">
+            <div class="center row" v-if="upload.files.length===0">
+              <h5 style="font-size: 1.5rem; margin: 0; padding-top: 2rem; padding-bottom: 2rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;">
+                在这里上传文件
+              </h5>
+            </div>
+            <div class="center row" v-if="upload.files.length>0">
+              <div class="col s12" style="font-size: 1.5rem; margin: 0; padding-top: 2rem; padding-bottom: 2rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;">
+                <button class="btn"
+                        style="cursor: pointer"
+                        :class="{ green: file.success, teal: file.active, red: file.error, 'blue-grey': !file.success && !file.active && !file.error}"
+                        v-for="(file, index) in upload.files" :key="file.id">
+                  {{file.name}}&nbsp
+                  <span v-if="file.error">{{file.error}}</span>
+                  <span v-else-if="file.success">成功</span>
+                  <span class="detail" v-else-if="file.active">{{file.progress}}%</span>
+                  <span class="detail" v-else></span>
+                  <i class="material-icons right"
+                     style="cursor: pointer"
+                     @click.prevent="$refs.upload.remove(file)">
+                    clear
+                  </i>
+                </button>
+              </div>
+            </div>
+            <div class="center row">
+              <file-upload
+                class="waves-effect waves-light btn blue-grey lighten-1"
+                :post-action="upload.url"
+                :size="upload.size"
+                :maximum="upload.maximum"
+                v-model="upload.files"
+                ref="upload">
+                <i class="material-icons right">attach_file</i>
+                选择文件
+              </file-upload>
+              <button type="button" class="btn green"
+                      v-if="!$refs.upload || !$refs.upload.active"
+                      @click.prevent="$refs.upload.active = true">
+                <i class="material-icons right" aria-hidden="true">file_upload</i>
+                开始上传
+              </button>
+              <button type="button" class="btn red" v-else @click.prevent="$refs.upload.active = false">
+                <i class="material-icons right" aria-hidden="true">clear</i>
+                停止上传
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="row" v-if="active_tab===1">
     </div>
@@ -83,9 +145,11 @@
 <script>
 import NavBar from "@/include/NavBar";
 import {humanize_time} from "@/js/utils";
+import FileUpload from "vue-upload-component";
+
 export default {
   name: "Contribution",
-  components: {NavBar},
+  components: {NavBar, FileUpload},
   data: function() {
     return {
       active_tab: 0,
@@ -126,8 +190,15 @@ export default {
             file: 'paper3.pdf',
             comments: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
           },
-        ]
-      }
+        ],
+      },
+      upload: {
+        files: [],
+        web_io: "http://118.89.229.204:8080",
+        url: 'http://118.89.229.204:8080/ERM-WebIO-1.0/file/upload.do',
+        size: 100 * 1024 * 1024,
+        maximum: 1
+      },
     }
   },
   methods: {
