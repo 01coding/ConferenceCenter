@@ -677,7 +677,7 @@
     border-width: 2px!important;
   }
   .my-not-inline{
-    display:block!important;
+    display:inline-block!important;
   }
   .my-margin-5{
     margin: 5px;
