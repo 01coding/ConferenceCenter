@@ -1,6 +1,5 @@
 <template>
   <div>
-    <navbar></navbar>
     <test-robot v-on:child-say="fill_form"></test-robot>
     <div class="row"
          style="background: #272733; margin-bottom: 0;"
