@@ -160,21 +160,21 @@
             let results = that.conferences.result;
             for (let i = 0; i < results.length; i++) {
               let res = results[i];
-              let start = this.getRandomInt();
-              let img_num = (start + i) % 7 + 1;
+              let start = 1;
+              let img_num = (start + i) % 3 + 1;
               res.conf_bg_img = "/static/bg" + img_num + ".jpg";
               console.log(res.conf_bg_img);
             }
             //TODO: 实装会议的背景图
           } else {
             M.toast({
-              html:"<span style='font-weight: bold'> 请求错误:"+ resp.info +"</span>",
+              html:"<span style='font-weight: bold'>请求错误:"+ resp.info +"</span>",
               classes: "rounded red"
             });
           }
         }).catch(function (error) {
           M.toast({
-            html:"<span style='font-weight: bold'> 请求错误</span>",
+            html:"<span style='font-weight: bold'>处理请求时发生错误</span>",
             classes: "rounded red"
           });
         });
