@@ -1,6 +1,7 @@
 <template>
   <div>
     <test-robot v-on:child-say="fill_form"></test-robot>
+    <navbar></navbar>
     <div class="row"
          style="background: #272733; margin-bottom: 0;"
          :style="{'min-height': (page_height)+'px'}">
