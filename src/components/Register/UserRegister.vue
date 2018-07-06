@@ -5,7 +5,7 @@
     <div class="row" style="background: url(/static/bg10.jpg);background-size: cover"
          :style="{'height': (page_height-60)+'px'}">
     <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 4rem;width:35%">
-      <div class="card-panel" style="padding-bottom: 5px;padding-top: 10px;opacity: 0.95">
+      <div class="card-panel" style="padding-bottom: 5.8%;padding-top: 4.7%;;opacity: 0.95">
         <div class="row center-align" style="margin-top:0; margin-bottom: 8px">
           <h3>注册</h3>
         </div>
