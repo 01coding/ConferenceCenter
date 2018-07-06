@@ -20,6 +20,14 @@
             <i class="large material-icons">desktop_mac</i>
           </a>
         </router-link>
+        <ul>
+          <li>
+            <span class="mobile-fab-tip">首页</span>
+            <a class="btn-floating red darken-2"  data-position="left" @click="toIndex()">
+              <i class="material-icons">desktop_mac</i>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
 </template>
@@ -48,6 +56,9 @@
       methods:{
         collect:function () {
           this.$bus.emit("nextCollect")
+        },
+        toIndex:function () {
+          this.$router.push("/")
         }
       }
     }

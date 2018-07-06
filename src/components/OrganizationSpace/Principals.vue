@@ -114,6 +114,9 @@
       this.$bus.emit('manage-change-title', { text: '工作人员管理' });
       this.refresh();
       $('.modal').modal();
+
+        this.$bus.emit("toOS")
+
     },
     updated: function () {
       if (this.hack_update) {
