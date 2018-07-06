@@ -229,6 +229,7 @@ import FileUpload from "vue-upload-component";
 export default {
   name: "Contribution",
   components: {NavBar, FileUpload},
+
   data: function() {
     return {
       active_tab: 0,
@@ -320,7 +321,9 @@ export default {
       })
     }
   },
-
+  mounted:function(){
+    this.$bus.emit("toContribute")
+  },
   methods: {
     switch_tab(i) {
       this.active_tab = i;

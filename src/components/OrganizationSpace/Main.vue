@@ -106,6 +106,8 @@
       });
     },
     mounted: function () {
+      this.$bus.emit("toOS")
+
       if (!sessionStorage.getItem('session')) {
         this.$router.push('/login');
       }

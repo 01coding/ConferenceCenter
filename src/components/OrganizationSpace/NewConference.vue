@@ -259,6 +259,7 @@
     }
     ,
     mounted: function () {
+      this.$bus.emit("newCF")
       this.$bus.on("TPChoseOver",(num)=>{console.log("选择模板:"+num)})
       this.$bus.emit('manage-change-title', { text: '发布新会议' });
       // document.addEventListener('DOMContentLoaded', () => {

@@ -1,5 +1,6 @@
 <template>
 <div>
+  <!--<NEXT></NEXT>-->
     <header>
       <nav class="top-nav">
         <div id="top-title" class="container" style="background: url(/static/bg8.jpg) no-repeat; background-size: cover; opacity: 0.9">
@@ -71,10 +72,11 @@
 
 <script>
   import navbar from '@/include/NavBar';
+  import NEXT from "../../include/NEXT";
 
   export default {
     name: "PersonalSpace",
-    components: { navbar },
+    components: {NEXT, navbar },
     data: function () {
       return {
         nav_title: '',
@@ -114,6 +116,7 @@
       );
     },
     mounted: function () {
+      this.$bus.emit("toPS")
       if (!sessionStorage.getItem('session')) {
         this.$router.push('/login');
       }

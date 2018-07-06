@@ -186,6 +186,10 @@
         display_id: 1
       }
     },
+    mounted:function () {
+      this.$bus.emit("toCF")
+    }
+    ,
     methods: {
       toContribute: function () {
         this.contributeLink = "/contribute/" + this.conference_id;

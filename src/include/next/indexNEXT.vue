@@ -57,7 +57,7 @@
       methods:{
         logout: function () {
           sessionStorage.removeItem('session');
-          this.$router.push('/');
+          this.$router.push('/login');
         }
       }
 

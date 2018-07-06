@@ -1,6 +1,7 @@
 <template>
   <div>
     <NavBar></NavBar>
+    <!--<NEXT></NEXT>-->
     <div class="carousel carousel-slider center" style="height: 30rem;">
       <div class="carousel-fixed-item center">
         <a class="btn btn-large waves-effect white grey-text text-darken-2"
@@ -101,10 +102,11 @@
 
 import Background from "../include/Background";
 import NavBar from "../include/NavBar";
+import NEXT from "../include/NEXT";
 
 export default{
   name:'Index',
-  components: {NavBar, Background},
+  components: {NEXT, NavBar, Background},
   data: function(){
     return{
       slides: {
@@ -224,6 +226,7 @@ export default{
     }
   },
   mounted() {
+    this.$bus.emit("toIndex")
   },
   beforeDestroy: function() {
     clearTimeout();
