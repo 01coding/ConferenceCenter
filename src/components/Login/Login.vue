@@ -186,6 +186,7 @@
         created(){
         },
         mounted(){
+          this.$bus.emit("toOther")
           this.page_height=$(window).height();
           const that = this;
           window.onresize = function temp() {

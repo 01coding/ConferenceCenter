@@ -3,12 +3,15 @@
     <!--<img src="./assets/logo.png">-->
 
     <router-view/>
+    <NEXT></NEXT>
   </div>
 </template>
 
 <script>
+  import NEXT from "./include/NEXT";
   export default {
-    name: 'App'
+    name: 'App',
+    components: {NEXT}
   }
 </script>
 

@@ -25,7 +25,7 @@
              v-for="author in contrib.author">
           <h5>{{author.name}}</h5>
           <p style="font-size: 1rem;">{{author.institution}}</p>
-          <p style="font-size: 1rem; font-family: 'Courier';">{{author.email}}</p>
+          <p style="font-size: 1rem; font-family: 'Courier'; overflow-wrap: break-word;">{{author.email}}</p>
         </div>
       </div>
     </div>
@@ -229,6 +229,7 @@ import FileUpload from "vue-upload-component";
 export default {
   name: "Contribution",
   components: {NavBar, FileUpload},
+
   data: function() {
     return {
       active_tab: 0,
@@ -320,7 +321,9 @@ export default {
       })
     }
   },
-
+  mounted:function(){
+    this.$bus.emit("toContribute")
+  },
   methods: {
     switch_tab(i) {
       this.active_tab = i;
@@ -362,9 +365,9 @@ export default {
           for (let i = 0; i < contrib.review.length; i++) {
             contrib.review[i].state_text = this.state_text(contrib.review[i].result);
             contrib.review[i].submit_time = humanize_time(contrib.review[i].submit_time);
-            contrib.review[i].download_link = this.upload.web_io + "/" + contrib.review[i].attachment;
+            contrib.review[i].download_link = contrib.review[i].attachment;
             let ind = contrib.review[i].attachment.lastIndexOf("/");
-            contrib.review[i].file_name = contrib.review[i].attachment.substring(ind);
+            contrib.review[i].file_name = contrib.review[i].attachment.substring(ind+1);
           }
           contrib.conf = { title: "" };
           this.contrib = contrib;

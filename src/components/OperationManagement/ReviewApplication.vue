@@ -1,8 +1,13 @@
 <template>
   <div>
     <NavBar></NavBar>
-    <div class="center white section">
-      <h5 style="margin-top: 0;">有 {{apps.length}} 个待处理的申请</h5>
+    <div class="divider"></div>
+    <div class="center red accent-2 section" v-show="apps.length>0">
+      <h5 style="margin-top: 0;margin-bottom: 0;">有 {{apps.length}} 个待处理的申请</h5>
+    </div>
+
+    <div class="center green accent-2 section" v-show="apps.length===0">
+      <h5 style="margin-top: 0;margin-bottom: 0;">有 {{apps.length}} 个待处理的申请</h5>
     </div>
 
     <div class="row container">
@@ -84,7 +89,7 @@ export default {
   data: function() {
     return {
       page_height: $(document).height(),
-      file_server: 'http://140.143.19.133:8001',
+      file_server: 'http://118.89.229.204:8080/',
       apps: [],
     }
   },
@@ -198,7 +203,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 .check-institution{
   font-weight: 500;
   font-size: 1.4rem;

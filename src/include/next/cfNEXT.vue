@@ -9,12 +9,11 @@
         </router-link>
       </div>
       <div class="fixed-action-btn" v-else>
-        <router-link v-if="state=='scholar'" @click="collect" >
+
           <a class="btn-floating btn-large grey darken-3"
-             data-position="left">
+             data-position="left"  v-if="state=='scholar'"  @click="collect">
             <i class="large material-icons">star_border</i>
           </a>
-        </router-link>
         <router-link v-else to="/">
           <a class="btn-floating btn-large grey darken-3"
              data-position="left">

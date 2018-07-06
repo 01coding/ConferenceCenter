@@ -25,7 +25,8 @@ import MySubmissions from '@/components/PersonalSpace/MySubmissions'
 import CollectedConferences from '@/components/PersonalSpace/CollectedConferences'
 import PersonalInformation from '@/components/PersonalSpace/PersonalInformation'
 import AccountSet from '@/components/PersonalSpace/AccountSet';
-import Account from '@/components/OrganizationSpace/Account'
+import Account from '@/components/OrganizationSpace/Account';
+import PersonalMessage from '@/components/PersonalSpace/PersonalMessage';
 
 import page404 from '@/components/404';
 
@@ -159,6 +160,10 @@ const router = new Router({
         {
           path:'accountset',
           component:AccountSet
+        },
+        {
+          path:'personalmessage',
+          component:PersonalMessage
         },
       ]
     }

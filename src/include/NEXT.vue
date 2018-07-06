@@ -34,7 +34,7 @@
         this.$bus.on("toCF",()=>{this.state='cf'})
         this.$bus.on("toContribute",()=>{this.state='contri'})
         this.$bus.on("toOther",()=>{this.state='other'})
-
+        // setInterval(this.updateState,1000)
       },
       beforeDestroy:function () {
         this.$bus.off("toIndex")
@@ -46,6 +46,10 @@
         this.$bus.off("toOther")
       },
       methods:{
+        updateState:function () {
+          // let rt= this.$router.currentRoute
+          // console.log("路由如下:"+rt)
+        }
       }
 
     }

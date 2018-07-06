@@ -332,6 +332,7 @@
         }).then(response => {
           if(response.data.data.type === 0) {
             originThis.identify = "作者";
+            originThis.papers = response.data.data.papers;
             console.log("go to type === 0");
           }
           else {
@@ -339,7 +340,6 @@
           }
           console.log("response.data.data");
           console.log(response.data.data);
-          originThis.papers = response.data.data.papers;
         }).catch(error => {
           console.log(1);
         });
@@ -420,23 +420,33 @@
         }
 
         //participant is a person in papers.authors
-        let inAuthor = false;
-        for(let i = 0; i < this.papers.length; i++) {
-          for(let j = 0; j< this.papers[i].authors.length; j++) {
-            if(name === this.papers[i].authors[j].name) {
-              inAuthor = true;
-              break;
-            }
+        if(this.identify === "聆听者") {
+          if(name !== this.user_info.name) {
+            M.toast({
+              html: "<span style='font-weight: bold;'>您只能本人参会</span>",
+              classes: 'yellow darken-2 rounded'
+            });
+            return;
           }
         }
-        if(!inAuthor) {
-          M.toast({
-            html: "<span style='font-weight: bold;'>参会人员必须是作者之一</span>",
-            classes: 'yellow darken-2 rounded'
-          });
-          return;
+        else if(this.identify === "作者"){
+          let inAuthor = false;
+          for (let i = 0; i < this.papers.length; i++) {
+            for (let j = 0; j < this.papers[i].authors.length; j++) {
+              if (name === this.papers[i].authors[j].name) {
+                inAuthor = true;
+                break;
+              }
+            }
+          }
+          if (!inAuthor) {
+            M.toast({
+              html: "<span style='font-weight: bold;'>参会人员必须是作者之一</span>",
+              classes: 'yellow darken-2 rounded'
+            });
+            return;
+          }
         }
-
         //update or insert
         let tempParticipant = {
           name: name,
@@ -459,11 +469,11 @@
 
         //remove shadow
         $('#'+index).removeClass("z-depth-5");
-        console.log("temp participant:");
+        /*console.log("temp participant:");
         console.log(tempParticipant);
         console.log("participants:");
         console.log(this.participants);
-        //clear
+        *///clear
         this.participant_field.name = "";
         this.participant_field.contract = "";
         this.participant_field.job = "";
@@ -543,25 +553,25 @@
           }
         }
         //set parameters to transmit
-        let participant_str = JSON.stringify(this.participants);
-        let file_url = files[0].response;
+        console.log("submit participants");
+        console.log(this.participants);
+        let upload_resp = JSON.parse(files[0].response);
+        let file_url = "/" + upload_resp.link;
         console.log("file url:");
         console.log(file_url);
-        console.log("paper number str:");
-        console.log(paper_number_str);
-        //let file_url = files[0].response;
         let params = {
           token: sessionStorage.getItem("session"),
           conference_id: this.conference_id,
           payment: file_url,
           type: type,
           paper_number: paper_number_str,
-          participants: participant_str
+          participants: this.participants
         };
         console.log("set parameters to transmit");
+        console.log(params);
         //transmit message
-        this.$test.post("/api/user/register",params).then(rsp => {
-          let data = rsp.data;
+        this.$axios.post("/api/user/register",params).then(response => {
+          let data = response.data;
           if(data.status === "succ") {
             console.log("transmit message:");
             console.log(data.status);
@@ -572,6 +582,7 @@
             this.$router.push("/conference/"+this.conference_id);
           }
           else {
+            console.log("response fail");
             M.toast({
               html: "<span style='font-weight: bold;'>会议注册失败</span>",
               classes: 'red rounded'

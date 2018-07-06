@@ -1,12 +1,12 @@
 <template>
   <div class="overlay-trigger">
     <div class="fixed-action-btn" >
-      <router-link @click="send">
-        <a class="btn-floating btn-large grey darken-3"
+
+        <a class="btn-floating btn-large grey darken-3" @click="send"
            data-position="left">
           <i class="large material-icons">send</i>
         </a>
-      </router-link>
+
       <ul>
         <li>
           <span class="mobile-fab-tip">个人主页</span>
