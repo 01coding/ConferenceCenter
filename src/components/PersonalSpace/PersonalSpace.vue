@@ -22,7 +22,7 @@
         <li>
           <div class="user-view" style="padding-top: 16%">
             <div class="background"
-                 style="background-image: url(https://materializecss.com/images/office.jpg); background-size: cover; ">
+                 style="background-image: url(/static/office.jpg); background-size: cover; ">
               <!--<img src="https://materializecss.com/images/office.jpg">-->
             </div>
 
