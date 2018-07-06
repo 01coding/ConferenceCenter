@@ -140,7 +140,7 @@
               </button>
             </div>
           </div>
-          <div class="row" style="height: 2rem;">
+          <div class="row" style="height: 0.5rem;">
           </div>
           <div class="row center-align">
             <div class="btn-large blue darken-1" @click="submit">
@@ -148,8 +148,8 @@
               提交
             </div>
           </div>
-          <div class="row" style="height: 2rem;">
-          </div>
+          <!--<div class="row" style="height: 0.5rem;">
+          </div>-->
         </div>
       </div>
     </div>
