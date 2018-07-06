@@ -548,7 +548,28 @@
             this.registerToLink = 0;
         }
         else {
-            this.registerToLink = 1;
+          this.$axios.post('/api/conference/isregister/' + this.conference_id).then(response => {
+            let resp = response.data;
+            if(resp.status === "succ") {
+              if(resp.data === 1) {
+                this.registerToLink = 0;
+              }
+              else if(resp.data === 0) {
+                this.registerToLink = 1;
+              }
+              else if(resp.data === -1) {
+                M.toast({
+                  html: "<span style='font-weight: bold;'>请求错误</span>",
+                  classes: 'yellow darken-2 rounded'
+                });
+              }
+            }
+          }).catch(error => {
+            M.toast({
+              html: error.info,
+              classes: 'red darken-2 rounded'
+            });
+          });
         }
       },
       isAbleContribute: function () {
@@ -643,6 +664,14 @@
 </script>
 
 <style scoped>
+  @font-face {
+      font-family: '方正清刻本悦宋简体';
+      src: url('/static/方正清刻本悦宋简体.TTF') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+
+  }
+
   pre {
     white-space: pre-wrap !important;
     white-space: -moz-pre-wrap;
@@ -686,7 +715,7 @@
     border-width: 2px!important;
   }
   .my-not-inline{
-    display:block!important;
+    display:inline-block!important;
   }
   .my-margin-5{
     margin: 5px;
@@ -705,13 +734,13 @@
   }
 
   #wrapper {
-    font-family: '华文宋体', Helvetica, Arial, sans-serif;
+    font-family: '方正清刻本悦宋简体', Helvetica, Arial, sans-serif;
     /*background-color: #D9CD90;*/
     /*font-weight: bold;*/
   }
 
   #wrapper pre {
-    font-family: '华文宋体', Helvetica, Arial, sans-serif;
+    font-family: '方正清刻本悦宋简体', Helvetica, Arial, sans-serif;
     white-space: pre-wrap;
     white-space: -moz-pre-wrap;
     white-space: -o-pre-wrap;

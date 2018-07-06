@@ -273,12 +273,15 @@
       },
       page: function (page) {
         this.search_by_field = false;
-        const field = this.search_field;
+        const field = this.search_keyword;
+        this.current=page;
         let that = this;
-        axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/SearchCoferences', {
+        this.$axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/SearchConferences', {
           "keyword": field,
           "index": page,
-          "size": 10
+          "size": 10,
+          "date_type":this.date_type,
+          "date":this.date_detail
         }).then(function (response) {
             let resp = response.data;
             if (resp.status === "succ") {
@@ -353,10 +356,6 @@
       },
       setDateSearchState :function () {
         this.date_search_state=!(this.date_search_state);
-        console.log("xingzh");
-        console.log(this.date_type);
-        console.log(this.date_detail);
-        console.log(this.is_keyword)
       },
       date_search:function () {
         let keyword_info="none";
@@ -365,7 +364,11 @@
             console.warn("zhuhui");
         }
         let date_type_info=this.date_type;
-        let date_info=(this.date_detail).replace(/\s+/g,"");
+        let date_info;
+        if(this.date_detail=="")
+            date_info="Jul082018";
+        else
+            date_info=(this.date_detail).replace(/\s+/g,"");
 
         this.$router.push('/search/'+keyword_info+'/'+date_info+'/'+date_type_info);
         location.reload();

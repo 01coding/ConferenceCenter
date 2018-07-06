@@ -1,34 +1,34 @@
 <template>
-  <div class="overlay-trigger">
+  <div class="overlay-trigger ">
     <div class="fixed-action-btn" v-if="state==='notLogin'">
       <router-link  to="/login">
-        <span class="mobile-fab-tip">登录</span>
+
         <a class="btn-floating btn-large teal"
-           data-position="left">
-          <i class="large material-icons">person</i>
+ >
+          <i class="large material-icons ">person</i>
         </a>
       </router-link>
     </div>
     <div class="fixed-action-btn" v-else>
       <router-link v-if="state==='scholar'" to="/personalspace">
-        <span class="mobile-fab-tip">空间</span>
+
         <a class="btn-floating btn-large teal"
-           data-position="left">
-          <i class="large material-icons">explore</i>
+           >
+          <i class="large material-icons ">explore</i>
         </a>
       </router-link>
       <router-link v-if="state==='institution'" to="/orgspace">
-        <span class="mobile-fab-tip">管理空间</span>
+
         <a class="btn-floating btn-large teal"
-           data-position="left">
-          <i class="large material-icons">explore</i>
+           >
+          <i class="large material-icons ">explore</i>
         </a>
       </router-link>
       <router-link v-if="state==='manager'" to="/review/application">
-        <span class="mobile-fab-tip">管理员空间</span>
+
         <a class="btn-floating btn-large teal"
-           data-position="left">
-          <i class="large material-icons">explore</i>
+          >
+          <i class="large material-icons ">explore</i>
         </a>
       </router-link>
       <ul>
@@ -36,6 +36,12 @@
           <span class="mobile-fab-tip">注销</span>
           <a class="btn-floating red darken-2"  data-position="left" @click="logout()">
             <i class="material-icons">exit_to_app</i>
+          </a>
+        </li>
+        <li>
+          <span class="mobile-fab-tip">搜索</span>
+          <a class="btn-floating red darken-2"  data-position="left" @click="nextSearch()">
+            <i class="material-icons">search</i>
           </a>
         </li>
       </ul>
@@ -52,6 +58,7 @@
           }
         },
         mounted:function () {
+
           if(!sessionStorage.getItem("session")){
             this.state="notLogin"
           }else{
@@ -62,9 +69,17 @@
         logout: function () {
           sessionStorage.removeItem('session');
           this.$router.push('/login');
+        },
+        nextSearch:function () {
+          this.$router.push("/search/会议/0/none")
+          this.$bus.emit("toOther")
         }
       },
       created: function () {
+        $(document).ready(function(){
+          $('.tooltipped').tooltip();
+        });
+
         let width = 0;
         $('.overlay-trigger').click(this.overlay);
         $('.overlay').click(this.hideOverlay);

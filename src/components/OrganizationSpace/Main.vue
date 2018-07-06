@@ -21,15 +21,14 @@
       <ul id="nav-mobile" class="sidenav sidenav-fixed">
         <li>
           <div class="user-view">
-            <div class="background"
-                 style="background-image: url(/static/office.jpg); background-size: cover;">
+            <div class="background" style="background-size: cover;"
+                 v-bind:style="'background-image:url('+$image(back_img)+')'">
               <!--<img src="https://materializecss.com/images/office.jpg">-->
             </div>
-            <a href="#user"><img class="circle" src="https://materializecss.com/images/yuna.jpg"></a>
-            <!--<a href="#name"><span class="white-text name">John Doe</span></a>-->
-            <!--<a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>-->
-            <!--<a href="#name">John Doe</a>-->
-            <!--<a href="#email">jdandturk@gmail.com</a>-->
+            <span><img class="circle" v-bind:src="$image(user_avatar)"></span>
+            <h6><span class="white-text">{{ user_name }}</span></h6>
+            <h6><span class="white-text">{{ user_email }}</span></h6>
+            <h6><span class="white-text">{{ institution }}</span></h6>
           </div>
         </li>
         <li class="bold" v-bind:class="{ active: menu_active === 0 }">
@@ -49,7 +48,7 @@
         </li>
         <li class="bold">
           <!--<router-link to="/" class="waves-effect" @click="sessionStorage.removeItem('session')">退出管理中心并注销</router-link>-->
-          <a class="waves-effect" @click="logout()" style="cursor: pointer">退出管理中心并注销</a>
+          <a class="waves-effect" @click="logout()" style="cursor: pointer">注销</a>
         </li>
         <li class="bold">
           <router-link to="/" class="waves-effect">回到主页</router-link>
@@ -60,7 +59,7 @@
       <div class="row">
         <div class="col s12" style="padding: 0;">
           <!--<transition name="slide">-->
-            <router-view></router-view>
+          <router-view></router-view>
           <!--</transition>-->
         </div>
       </div>
@@ -78,7 +77,12 @@
       return {
         nav_title: '',
         menu_active: 0,
-        is_superuser: false
+        is_superuser: false,
+        user_avatar: '',
+        user_name: '',
+        user_email: '',
+        institution: '',
+        back_img: ''
       };
     },
     created: function () {
@@ -106,7 +110,7 @@
       });
     },
     mounted: function () {
-      this.$bus.emit("toOS")
+      this.$bus.emit("toOS");
 
       if (!sessionStorage.getItem('session')) {
         this.$router.push('/login');
@@ -116,6 +120,11 @@
           if (rsp.data.data.principal.power === 'all') {
             this.is_superuser = true;
           }
+          this.user_avatar = rsp.data.data.principal.avator;
+          this.user_name = rsp.data.data.principal.name;
+          this.user_email = rsp.data.data.principal.email;
+          this.institution = rsp.data.data.institution.name;
+          this.back_img = rsp.data.data.institution.backimg;
         }
       }).catch(err => {
         M.toast({
@@ -136,7 +145,7 @@
       this.$bus.off('manage-change-title');
     },
     methods: {
-      toOS:function () {
+      toOS: function () {
         this.$bus.emit("toOS")
       }
       ,

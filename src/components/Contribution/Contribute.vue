@@ -18,7 +18,7 @@
           <a class="btn-floating btn-large halfway-fab waves-effect waves-light blue"
              style="right:25%;"
              @click="submit">
-            <i class="material-icons">send</i>
+            <i class="material-icons tooltipped" data-position="top" data-tooltip="提交">send</i>
           </a>
         </div>
       </div>
@@ -140,15 +140,13 @@
               </button>
             </div>
           </div>
-          <div class="row" style="height: 2rem;">
+          <div class="row" style="height: 0.5rem;">
           </div>
           <div class="row center-align">
             <div class="btn-large blue darken-1" @click="submit">
               <i class="material-icons left">send</i>
               提交
             </div>
-          </div>
-          <div class="row" style="height: 2rem;">
           </div>
         </div>
       </div>
@@ -194,6 +192,10 @@ export default {
     }
   },
   created: function() {
+    $(document).ready(function(){
+      $('.tooltipped').tooltip();
+    });
+
     if (this.$route.params.id) {
       this.conference_id = this.$route.params.id;
     } else {
