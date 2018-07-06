@@ -3,45 +3,42 @@
     <div class="row" style="height: 1rem;"></div>
     <div class="row">
       <div class="col s2"></div>
-      <form class="col s8 offset-s1">
+      <form class="col s6 center-align">
         <div class="row">
-          <div class="input-field col s6">
+          <div class="input-field col s12">
             <i class="material-icons prefix">email</i>
             <input disabled id="account_email" type="email" class="validate" v-model="email">
-            <!--<label for="account_email">Email</label>-->
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s6">
-            <div class="input-field col s12">
-              <i class="material-icons prefix">vpn_key</i>
-              <input id="origin_pass" type=password v-model="origin_pass">
-              <label for="origin_pass">旧的密码</label>
-            </div>
+          <div class="input-field col s12">
+            <i class="material-icons prefix">vpn_key</i>
+            <input id="password_old" type="password" class="validate" v-model="origin_pass">
+            <label for="password_old">旧密码</label>
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s6">
+          <div class="input-field col s12">
             <i class="material-icons prefix">vpn_key</i>
             <input id="password_first" type="password" class="validate" v-model="first_pass">
             <label for="password_first">新密码</label>
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s6">
+          <div class="input-field col s12">
             <i class="material-icons prefix">vpn_key</i>
             <input id="password_second" type="password" class="validate" v-model="second_pass">
             <label for="password_second">再次输入新密码</label>
           </div>
         </div>
-        <div class="row center-align">
+        <div class="row">
           <div class="btn-large blue darken-1" @click="submit">
             <i class="material-icons left">send</i>
             提交
           </div>
         </div>
       </form>
-      <div class="col s2"></div>
+      <div class="col s4"></div>
     </div>
   </div>
 </template>
