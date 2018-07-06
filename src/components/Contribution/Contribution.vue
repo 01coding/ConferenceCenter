@@ -4,7 +4,7 @@
   <div class="card" style="margin-top: 0; border-top: none; box-shadow: 0 3px 3px #e4e4e4;">
     <div class="card-action container" style="border-top: none;">
         <span>
-          投稿至 <span class="chip" style="margin: 0;" v-show="contrib.conf">{{contrib.conf.title}}</span>
+          投稿至 <span class="chip" style="margin: 0;">{{contrib.conf ? contrib.conf.title : "加载中..."}}</span>
         </span>
       <span class="right" style="line-height: 2.5rem;">
           <strong>创建于 {{contrib.total_submit }}</strong>&nbsp&nbsp&nbsp
