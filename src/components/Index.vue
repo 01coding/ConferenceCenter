@@ -3,19 +3,20 @@
     <NavBar></NavBar>
     <!--<NEXT></NEXT>-->
     <div class="carousel carousel-slider center" style="height: 30rem;">
-      <div class="carousel-fixed-item center">
-        <a class="btn btn-large waves-effect white grey-text text-darken-2"
-           style="bottom: 3rem; font-weight: bold;" @click="learn_more">
-          了解更多
-        </a>
-      </div>
+
       <div class="carousel-item white-text index_page_slide" href="#one!"
            v-for="slide in slides.slides"
            :style="{'background': slides.bg_overlay+'url('+slide.bg+')'}">
         <div style="height: 5rem"></div>
-        <h3 style="font-size:2.5rem; font-weight: bold">{{slide.name}}</h3>
-        <h5>{{slide.time}},&nbsp{{slide.venue}}</h5>
-        <h5>{{slide.state}}</h5>
+        <h3 style="font-size:2.5rem; font-weight: bold">{{slide.title}}</h3>
+        <h5>{{slide.time}},&nbsp{{slide.convening_place}}</h5>
+        <h5>{{slide.event}}</h5>
+        <div class="carousel-fixed-item center">
+          <a class="btn btn-large waves-effect white grey-text text-darken-2"
+             style="bottom: 3rem; font-weight: bold;" @click="$router.push('/conference/'+slide.conference_id)">
+          了解更多
+        </a>
+      </div>
       </div>
     </div>
 
@@ -215,6 +216,45 @@ export default{
       this.$router.push("/conference/1");
     },
     init:function () {
+      this.$axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/home/newest', {}).then(rsp => {
+        if (rsp.data.status === 'succ') {
+          this.slides.slides=[];
+          for(let i=0;i<rsp.data.data.length;i++){
+            let conference_ret=(rsp.data.data)[i];
+            let date_ret=conference_ret.start_date;
+            let date_str=date_ret.slice(0,4)+"年"+date_ret.slice(5,7)+"月"+date_ret.slice(8,10)+"日";
+            $(conference_ret).attr('time',date_str);
+            delete conference_ret.start_date;
+
+            let state=conference_ret.state;
+            let event;
+            if (state & 0b1000) {
+              event = '已结束';
+            }
+            else if (state & 0b0100) {
+              event = '正在进行中';
+            }
+            else if (state & 0b0001) {
+              event = '征稿中';
+            }
+            else if (state & 0b0010) {
+              event = '会议注册中';
+            }
+            $(conference_ret).attr('event',event);
+            delete conference_ret.state;
+            $(conference_ret).attr('bg','/static/bg'+(i+1).toString()+'.jpg');
+
+            this.slides.slides.push(conference_ret);
+          }
+          console.log( rsp.data.data);
+        }
+      }).catch(err => {
+        M.toast({
+          html: "<span style='font-weight: bold'>" + err.toString() + "</span>",
+          classes: "rounded red"
+        });
+      })
+
       this.$axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/home/activeScholars', {}).then(rsp => {
         if (rsp.data.status === 'succ') {
           this.active_scholars=rsp.data.data;
