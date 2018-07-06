@@ -11,7 +11,7 @@
           <div class="row" style="padding-right: 1.2%;padding-left: 1.2%">
             <div class="card">
               <div class="card-content">
-                <h4 style="padding-top: 0;margin-top: 0">{{item.send_time}}</h4>
+                <h4 style="padding-top: 0;margin-top: 0;padding-bottom: 1%">{{readable_time(item.sent_time)}}</h4>
                 <p>{{item.content}}.</p>
               </div>
               <div class="card-action right-align">
@@ -29,7 +29,7 @@
           <div class="row" style="padding-right: 1.2%;padding-left: 1.2%">
             <div class="card">
               <div class="card-content">
-                <h4 style="padding-top: 0;margin-top: 0">{{item.send_time}}</h4>
+                <h4 style="padding-top: 0;margin-top: 0">{{readable_time(item.sent_time)}}</h4>
                 <p>{{item.content}}.</p>
               </div>
             </div>
@@ -43,6 +43,7 @@
 
 <script>
     import Pagination from "../../include/Pagination";
+    import {humanize_time} from "../../js/utils";
     export default {
         name: "PersonalMessage",
       components: {Pagination},
@@ -57,6 +58,9 @@
           }
         },
         methods:{
+          readable_time:function(str){
+            return humanize_time(str)
+          },
           not_read_page: function (num) {
             this.notread_index = num;
           },

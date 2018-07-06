@@ -8,11 +8,18 @@
           <i class="large material-icons">home</i>
         </a>
       </router-link>
+
       <ul>
         <li>
           <span class="mobile-fab-tip">搜索会议</span>
           <a class="btn-floating red darken-2"  data-position="left" @click="searchCf()">
             <i class="material-icons">search</i>
+          </a>
+        </li>
+        <li>
+          <span class="mobile-fab-tip">注销</span>
+          <a class="btn-floating red darken-2"  data-position="left" @click="logout()">
+            <i class="material-icons">exit_to_app</i>
           </a>
         </li>
       </ul>
@@ -29,15 +36,20 @@
         }
       },
       created: function () {
-        let width = 0;
-        $('.overlay-trigger').click(this.overlay);
-        $('.overlay').click(this.hideOverlay);
-        $(window).on("scroll", this.hideOverlay);
+        // let width = 0;
+        // $('.overlay-trigger').click(this.overlay);
+        // $('.overlay').click(this.hideOverlay);
+        // $(window).on("scroll", this.hideOverlay);
       },
       methods:{
           searchCf:function () {
             this.$router.push("/search/会议")
-          }
+          },
+        logout:function () {
+          sessionStorage.removeItem('session');
+          this.$bus.emit("toIndex")
+          this.$router.push('/');
+        }
       }
     }
 </script>
