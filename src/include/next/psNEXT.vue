@@ -2,10 +2,10 @@
   <div class="overlay-trigger">
     <div class="fixed-action-btn" >
       <router-link  to="/">
-        <span class="mobile-fab-tip">主页</span>
+
         <a class="btn-floating btn-large teal"
-           data-position="left">
-          <i class="large material-icons">home</i>
+           >
+          <i class="large material-icons ">home</i>
         </a>
       </router-link>
 
@@ -36,6 +36,10 @@
         }
       },
       created: function () {
+        $(document).ready(function(){
+          $('.tooltipped').tooltip();
+        });
+
         // let width = 0;
         // $('.overlay-trigger').click(this.overlay);
         // $('.overlay').click(this.hideOverlay);

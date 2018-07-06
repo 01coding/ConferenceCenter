@@ -2,7 +2,6 @@
   <div class="overlay-trigger">
     <div class="fixed-action-btn" >
       <router-link  to="/orgspace/new/conference">
-        <span class="mobile-fab-tip">添加会议</span>
         <a class="btn-floating btn-large green darken-3"
            data-position="left">
           <i class="large material-icons">add</i>
@@ -10,7 +9,6 @@
       </router-link>
       <ul>
         <li>
-          <span class="mobile-fab-tip">首页</span>
           <a class="btn-floating red darken-2"  data-position="left" @click="toIndex()">
             <i class="material-icons">home</i>
           </a>

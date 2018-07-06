@@ -2,7 +2,6 @@
   <div class="overlay-trigger">
     <div class="fixed-action-btn" >
       <router-link  to="/">
-        <span class="mobile-fab-tip">首页</span>
         <a class="btn-floating btn-large teal"
            data-position="left">
           <i class="large material-icons">home</i>
