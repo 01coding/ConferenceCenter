@@ -1,7 +1,7 @@
 <template>
 <div>
-  <Loader v-if="this.is_loading"></Loader>
   <NavBar></NavBar>
+  <Loader v-if="this.is_loading"></Loader>
   <div class="card" style="margin-top: 0; border-top: none; box-shadow: 0 3px 3px #e4e4e4;">
     <div class="card-action container" style="border-top: none; padding-bottom: 0">
       <div>
@@ -48,20 +48,20 @@
   </div>
   <div class="container">
     <div class="row" style="margin-top: 2rem;">
-      <div class="col s4 offset-s2 center-align">
+      <div class="col s4 offset-s4 center-align">
         <div class="chip" :class="{'my_active': active_tab===0}"
              @click="switch_tab(0)"
              style="font-size: 1.2rem; padding: 0 1.5rem; cursor: pointer; border-radius: 5px;">
           审稿过程
         </div>
       </div>
-      <div class="col s4 center-align">
-        <div class="chip" :class="{'my_active': active_tab===1}"
-             @click="switch_tab(1)"
-             style="font-size: 1.2rem; padding: 0 1.5rem; cursor: pointer; border-radius: 5px;">
-          基本信息
-        </div>
-      </div>
+      <!--<div class="col s4 center-align">-->
+        <!--<div class="chip" :class="{'my_active': active_tab===1}"-->
+             <!--@click="switch_tab(1)"-->
+             <!--style="font-size: 1.2rem; padding: 0 1.5rem; cursor: pointer; border-radius: 5px;">-->
+          <!--基本信息-->
+        <!--</div>-->
+      <!--</div>-->
     </div>
     <div class="row" v-if="active_tab===0">
       <div class="card" v-for="(subm, idx) in contrib.review" style="margin-bottom: 2rem;">
@@ -101,9 +101,68 @@
           <span class="card-title" style="font-weight: bold">提交新版本</span>
           <div class="row" style="margin-bottom: 0;">
             <div class="input-field col s12">
+              <i class="material-icons prefix">title</i>
+              <input id="info_title" type="text" v-model="info.title">
+              <label for="info_title">标题</label>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 0;">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">subject</i>
+              <textarea id="info_abstract" class="materialize-textarea" v-model="info.abstract"></textarea>
+              <label for="info_abstract">摘要</label>
+            </div>
+          </div>
+          <div class="row">
+            <h5>作者</h5>
+          </div>
+          <div class="row" style="margin-bottom: 0;">
+            <div class="row center-align">
+              <h5 style="font-size: 1.5rem; margin: 0; padding-top: 1rem; padding-bottom: 1rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;" v-if="info.authors.length===0">
+                在这里添加作者
+              </h5>
+              <div class="col s4" v-for="(author, idx) in info.authors" style="margin-bottom: 1rem;">
+                <div class="card-panel"
+                     style="padding-top: 0.5rem;">
+                  <div style="height: 24px;">
+                    <i class="material-icons right"
+                       @click="authors.splice(idx, 1)"
+                       style="cursor: pointer">
+                      clear
+                    </i>
+                  </div>
+                  <div><h5 style="font-weight: bold; margin-top: 0;">{{author.name}}</h5></div>
+                  <div>{{author.institution}}</div>
+                  <div style="font-family: Courier; font-size: 13px; overflow-wrap: break-word">{{author.email}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="row valign-wrapper" style="margin-bottom: 0;">
+              <div class="input-field col s4">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="info_first_name" type="text" v-model="info.authors_field.name">
+                <label for="info_first_name">姓名</label>
+              </div>
+              <div class="input-field col s4">
+                <i class="material-icons prefix">account_balance</i>
+                <input id="info_institution" type="text" v-model="info.authors_field.institution">
+                <label for="info_institution">机构</label>
+              </div>
+              <div class="input-field col s4">
+                <i class="material-icons prefix">email</i>
+                <input id="info_email" type="email" v-model="info.authors_field.email">
+                <label for="info_email">邮箱</label>
+              </div>
+              <div class="waves-effect waves-light btn green col s1" @click="add_author">添加
+                <i class="material-icons right">add</i>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 0;">
+            <div class="input-field col s12">
               <i class="material-icons prefix">subject</i>
               <textarea id="description" class="materialize-textarea" v-model="new_sub.description"></textarea>
-              <label for="description">说明</label>
+              <label for="description">回应审稿人</label>
             </div>
           </div>
           <div class="row" style="margin-bottom: 0;">
@@ -375,8 +434,8 @@ export default {
 
         contribution_id: this.contrib_id,
         title: this.contrib.title,
-        author: this.contrib.author,
-        abstract_: this.abstract_,
+        author: JSON.stringify(this.contrib.author),
+        abstract_: this.contrib.abstract_,
 
         description: this.new_sub.description,
         attachment: this.get_upload_link(),
@@ -444,6 +503,9 @@ export default {
           let contrib = resp.data;
           contrib.total_submit = humanize_time(contrib.total_submit);
           contrib.state_text = this.state_text(contrib.total_result);
+          this.info.title = contrib.title;
+          this.info.abstract = contrib.abstract_;
+          this.info.authors = contrib.author;
           for (let i = 0; i < contrib.review.length; i++) {
             contrib.review[i].state_text = this.state_text(contrib.review[i].result);
             contrib.review[i].submit_time = humanize_time(contrib.review[i].submit_time);
