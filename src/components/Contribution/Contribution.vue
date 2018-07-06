@@ -79,6 +79,13 @@
         <div class="card-content">
           <span class="card-title" style="font-weight: bold">提交新版本</span>
           <div class="row" style="margin-bottom: 0;">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">subject</i>
+              <textarea id="abstract" class="materialize-textarea" v-model="abstract"></textarea>
+              <label for="abstract">说明</label>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 0;">
             <div class="center row" v-if="upload.files.length===0">
               <h5 style="font-size: 1.5rem; margin: 0; padding-top: 2rem; padding-bottom: 2rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;">
                 在这里上传文件
