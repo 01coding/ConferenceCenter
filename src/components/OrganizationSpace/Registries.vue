@@ -72,6 +72,10 @@
       };
     },
     mounted: function () {
+
+        this.$bus.emit("toOS")
+
+
       this.$bus.emit('manage-change-title', { text: '注册列表' });
       this.conf_id = this.$route.params.id;
       this.refresh();

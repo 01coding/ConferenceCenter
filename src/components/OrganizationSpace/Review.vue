@@ -111,6 +111,10 @@
       }
     },
     mounted: function () {
+
+        this.$bus.emit("toOS")
+
+
       this.contrib_id = parseInt(this.$route.params.id);
       this.$bus.emit('manage-change-title', { text: '审核稿件' });
       this.get_detail();
