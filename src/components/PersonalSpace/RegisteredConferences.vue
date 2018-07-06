@@ -108,10 +108,11 @@
 
 
 <script>
-  import  EmptyView from '@/include/EmptyView'
+  import EmptyView from '@/include/EmptyView'
+
   export default {
     name: 'RegisteredConferences',
-    components:{EmptyView},
+    components: {EmptyView},
     created: function () {
       $(document).ready(function () {
         $('.tabs').tabs();
