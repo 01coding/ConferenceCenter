@@ -119,6 +119,8 @@
         let list = [];
         for (let item in this.registries) {
           item = this.registries[ item ];
+          if (item.participant.length === 0)
+            continue;
           list.push({
             user_name: item.user_name,
             user_id: item.user_id,
