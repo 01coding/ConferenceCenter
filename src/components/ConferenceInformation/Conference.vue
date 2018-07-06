@@ -548,7 +548,28 @@
             this.registerToLink = 0;
         }
         else {
-            this.registerToLink = 1;
+          this.$axios.post('/api/conference/isregister/' + this.conference_id).then(response => {
+            let resp = response.data;
+            if(resp.status === "succ") {
+              if(resp.data === 1) {
+                this.registerToLink = 0;
+              }
+              else if(resp.data === 0) {
+                this.registerToLink = 1;
+              }
+              else if(resp.data === -1) {
+                M.toast({
+                  html: "<span style='font-weight: bold;'>请求错误</span>",
+                  classes: 'yellow darken-2 rounded'
+                });
+              }
+            }
+          }).catch(error => {
+            M.toast({
+              html: error.info,
+              classes: 'red darken-2 rounded'
+            });
+          });
         }
       },
       isAbleContribute: function () {
