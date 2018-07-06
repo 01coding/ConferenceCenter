@@ -27,8 +27,7 @@
       </div>
     </div>
     <div class="card-action center-align container" style="border-top: none; padding-bottom: 2rem;">
-      <div class="btn-large green">提交新版本</div>
-      <div class="btn-large black" style="margin: 0;">撤稿</div>
+      <div class="btn-large green" @click="to_sub_new">提交新版本</div>
     </div>
   </div>
   <div class="container">
@@ -75,8 +74,12 @@
              style="height: 0.2rem;"></div>
       </div>
 
-      <div class="card">
+      <div class="card" id="newver">
         <div class="card-content">
+          <span class="btn blue darken-1 right" @click="submit">
+            <i class="material-icons left">send</i>
+            提交
+          </span>
           <span class="card-title" style="font-weight: bold">提交新版本</span>
           <div class="row" style="margin-bottom: 0;">
             <div class="input-field col s12">
@@ -138,6 +141,7 @@
     </div>
     <div class="row" v-if="active_tab===1">
     </div>
+    <div style="height: 5rem;"></div>
   </div>
 </div>
 </template>
@@ -204,6 +208,11 @@ export default {
   methods: {
     switch_tab(i) {
       this.active_tab = i;
+    },
+    to_sub_new() {
+      $('html, body').animate({
+        scrollTop: $("#newver").offset().top
+      }, 1000);
     }
   }
 }
