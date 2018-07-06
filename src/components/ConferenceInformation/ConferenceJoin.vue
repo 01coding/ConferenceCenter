@@ -59,26 +59,31 @@
           </div>
           <div class="row" style="margin-bottom: 0;">
             <div class="center row">
-              <h5 style="font-size: 1.5rem; margin: 0; padding-top: 1rem; padding-bottom: 1rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;" v-if="participants.length===0">
+              <h5 style="font-size: 1.5rem; margin: 0; padding-top: 1rem; padding-bottom: 1rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;" v-if="participants.length === 0">
                 在这里添加参会人
               </h5>
-              <div class="col s4" v-for="(participant, idx) in participants" style="margin-bottom: 1rem;">
-                <div class="card-panel" style="padding-top: 0.5rem;" v-bind:id=idx @click="update_participant(idx)">
-                  <div style="height: 24px;">
-                    <i class="material-icons right"
-                       @click="participants.splice(idx, 1)"
-                       style="cursor: pointer">
-                      clear
-                    </i>
+              <!--<div v-if="plength!==0">-->
+                <div class="col s4" v-for="(participant, idx) in participants" style="margin-bottom: 1rem;">
+                  <div class="card-panel" style="padding-top: 0.5rem;" v-bind:id=idx>
+                    <div style="height: 24px;">
+                      <i class="material-icons right" style="cursor: pointer"
+                         @click="participants.splice(idx, 1)">
+                        clear
+                      </i>
+                    </div>
+                    <div @click="update_participant(idx)">
+                    <div>
+                      <h5 style="font-weight: bold; margin-top: 0;" v-if="participant.name">{{participant.name}}</h5>
+                    </div>
+                    <i class="material-icons prefix"
+                    :class="{ green: participant.sex === '男', red: participant.sex === '女'}">
+                      person</i>
+                    <i class="material-icons prefix" v-show="participant.is_book">home</i>
+                    <div>{{participant.contract}}</div>
+                    <div>{{participant.job}}</div>
                   </div>
-                  <div><h5 style="font-weight: bold; margin-top: 0;">{{participant.name}}</h5></div>
-                  <i class="material-icons prefix"
-                  :class="{ green: participant.sex === '男', red: participant.sex === '女'}">
-                    person</i>
-                  <i class="material-icons prefix" v-show="participant.is_book">home</i>
-                  <div>{{participant.contract}}</div>
-                  <div>{{participant.job}}</div>
-                </div>
+                  </div>
+                <!--</div>-->
               </div>
             </div>
               <div class="row valign-wrapper" style="margin-bottom: 0;">
@@ -96,7 +101,7 @@
               <div class="row valign-wrapper" style="margin-bottom: 0;padding-top: 3px;padding-bottom: 3px;">
                   <div class="col s2 valign-wrapper">
                     <i class="material-icons prefix">person</i>
-                    性别
+                    <span style="margin-left: 1rem;">性别</span>
                   </div>
                   <label class="col s2">
                     <input type="radio" value="男" v-model="participant_field.sex" />
@@ -108,7 +113,7 @@
                   </label>
                   <div class="col s3 valign-wrapper">
                     <i class="material-icons prefix">home</i>
-                    预定住宿
+                    <span style="margin-left: 1rem;">预定住宿</span>
                   </div>
                   <div class="switch col s3">
                     <label>
@@ -150,11 +155,15 @@
             </div>
             <div class="center row" v-if="upload.files.length>0">
               <div class="col s12" style="font-size: 1.5rem; margin: 0; padding-top: 2rem; padding-bottom: 2rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;">
-                <button class="btn blue-grey"
+                <button class="btn"
                         style="cursor: pointer"
-                        :class="{ green: file.success, teal: file.active, red: file.error}"
+                        :class="{ green: file.success, teal: file.active, red: file.error, 'blue-grey': !file.success && !file.active && !file.error}"
                         v-for="(file, index) in upload.files" :key="file.id">
-                  {{file.name}}
+                  {{file.name}}&nbsp
+                  <span v-if="file.error">{{file.error}}</span>
+                  <span v-else-if="file.success">成功</span>
+                  <span class="detail" v-else-if="file.active">{{file.progress}}%</span>
+                  <span class="detail" v-else></span>
                   <i class="material-icons right"
                      style="cursor: pointer"
                      @click.prevent="$refs.upload.remove(file)">
@@ -176,7 +185,7 @@
               </file-upload>
               <button type="button" class="btn green"
                       v-if="!$refs.upload || !$refs.upload.active"
-                      @click.prevent="demo_oriented_upload">
+                      @click.prevent="$refs.upload.active = true">
                 <i class="material-icons right" aria-hidden="true">file_upload</i>
                 开始上传
               </button>
@@ -226,6 +235,7 @@
         participants: [],
         papers: [],
         upload: {
+          name: "",
           files: [],
           web_io: "http://118.89.229.204:8080",
           url: 'http://118.89.229.204:8080/ERM-WebIO-1.0/file/upload.do',
@@ -254,6 +264,15 @@
       }
       if (!sessionStorage.getItem("session"))  {
         this.$router.push("/login");
+      }
+      //
+      this.participant_field = {
+        name: "",
+          contract: "",
+          sex:"",
+          is_book: false,
+          job: "",
+          note: ""
       }
 
       this.load_user_info();
@@ -307,7 +326,7 @@
       load_papers_info: function() {
         let originThis=this;
         /*let thats = this;*/
-        this.$test.post('/api/user/getRegister',{
+        this.$axios.post('/api/user/getRegister',{
           token: sessionStorage.getItem("session"),
           conference_id: this.conference_id
         }).then(response => {
@@ -354,6 +373,8 @@
         $('#'+idx).addClass("z-depth-5");
         //auto fill name
         this.participant_field = this.participants[idx];
+        console.log("participant field:");
+        console.log(this.participant_field);
       },
       add_participant() {
         console.log("participants:");
@@ -453,6 +474,12 @@
 
       submit() {
         let files = this.upload.files;
+        let paper_numbers = [];
+        for(let i = 0; i < this.papers.length; i++) {
+          paper_numbers.push(this.papers[i].paper_number);
+        }
+        let paper_number_str = paper_numbers.toString();
+
         let type = 0;
         //update participant type
         if(this.identify === "聆听者") {
@@ -466,12 +493,39 @@
             break;
           }
         }
-        if(ok === false) {
+        if(type === 1 && ok === false) {
           M.toast({
-            html: "<span style='font-weight: bold;'>参会人中必须有本人</span>",
+            html: "<span style='font-weight: bold;'>您只能本人参会</span>",
             classes: 'yellow darken-2 rounded'
           });
+          return;
         }
+        if(type === 1) {
+          for(let i = 0; i < this.papers.length; i++) {
+            this.papers[i].hasParticipants = 0;
+            for(let j = 0; j< this.papers[i].authors.length; j++) {
+              for(let k = 0; k < this.participants.length; k++) {
+                if (this.papers[i].authors[j].name === this.participants[k].name) {
+                  this.papers[i].hasParticipants = 1;
+                  break;
+                }
+              }
+              if(this.papers[i].hasParticipants === 1) {
+                break;
+              }
+            }
+          }
+          for(let i = 0; i < this.papers.length; i++) {
+            if(this.papers[i].hasParticipants !== 1) {
+              M.toast({
+                html: "<span style='font-weight: bold;'>每篇论文至少有一位参会者</span>",
+                classes: 'yellow darken-2 rounded'
+              });
+              return;
+            }
+          }
+        }
+        console.log("check participants information");
         //check have pdf or picture
         if (files.length === 0) {
           M.toast({
@@ -488,45 +542,34 @@
             return;
           }
         }
-        //check participants information
-        let participant_str = JSON.stringify(this.participants);
-        if(type === 1) {
-          if(this.participants.length != 1) {
-            M.toast({
-              html: "<span style='font-weight: bold;'>您只能本人参会</span>",
-              classes: 'yellow darken-2 rounded'
-            });
-            return;
-          }
-        }
-        else {
-          if(this.participants.length < 1) {
-            M.toast({
-              html: "<span style='font-weight: bold;'>您需要填写至少一位参会者信息</span>",
-              classes: 'yellow darken-2 rounded'
-            });
-            return;
-          }
-        }
         //set parameters to transmit
-        let file_url = this.web_io + this.files[0].response;
+        let participant_str = JSON.stringify(this.participants);
+        let file_url = files[0].response;
+        console.log("file url:");
+        console.log(file_url);
+        console.log("paper number str:");
+        console.log(paper_number_str);
         //let file_url = files[0].response;
         let params = {
           token: sessionStorage.getItem("session"),
           conference_id: this.conference_id,
           payment: file_url,
           type: type,
+          paper_number: paper_number_str,
           participants: participant_str
         };
+        console.log("set parameters to transmit");
         //transmit message
         this.$test.post("/api/user/register",params).then(rsp => {
           let data = rsp.data;
           if(data.status === "succ") {
+            console.log("transmit message:");
+            console.log(data.status);
             M.toast({
               html: "<span style='font-weight: bold;'>会议注册成功</span>",
               classes: 'green rounded'
             });
-            this.$router.push("/personalspace/registeredconferences");
+            this.$router.push("/conference/"+this.conference_id);
           }
           else {
             M.toast({
