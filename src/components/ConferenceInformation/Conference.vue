@@ -359,6 +359,12 @@
 </script>
 
 <style scoped>
+  pre {
+    white-space: pre-wrap !important;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word !important;
+  }
   .customize {
     background-size: 100% !important;
     background-repeat: no-repeat !important;
