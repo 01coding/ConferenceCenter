@@ -181,6 +181,8 @@
         computed:{
         },
         created(){
+          this.$bus.emit("toOther")
+
         },
         mounted(){
           this.$bus.emit("toOther")
