@@ -38,6 +38,12 @@
             <i class="material-icons">exit_to_app</i>
           </a>
         </li>
+        <li>
+          <span class="mobile-fab-tip">搜索</span>
+          <a class="btn-floating red darken-2"  data-position="left" @click="nextSearch()">
+            <i class="material-icons">search</i>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
@@ -63,6 +69,10 @@
         logout: function () {
           sessionStorage.removeItem('session');
           this.$router.push('/login');
+        },
+        nextSearch:function () {
+          this.$router.push("/search/会议/0/none")
+          this.$bus.emit("toOther")
         }
       },
       created: function () {
