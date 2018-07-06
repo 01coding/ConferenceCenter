@@ -420,23 +420,33 @@
         }
 
         //participant is a person in papers.authors
-        let inAuthor = false;
-        for(let i = 0; i < this.papers.length; i++) {
-          for(let j = 0; j< this.papers[i].authors.length; j++) {
-            if(name === this.papers[i].authors[j].name) {
-              inAuthor = true;
-              break;
-            }
+        if(this.identify === "聆听者") {
+          if(name !== this.user_info.name) {
+            M.toast({
+              html: "<span style='font-weight: bold;'>您只能本人参会</span>",
+              classes: 'yellow darken-2 rounded'
+            });
+            return;
           }
         }
-        if(!inAuthor) {
-          M.toast({
-            html: "<span style='font-weight: bold;'>参会人员必须是作者之一</span>",
-            classes: 'yellow darken-2 rounded'
-          });
-          return;
+        else if(this.identify === "作者"){
+          let inAuthor = false;
+          for (let i = 0; i < this.papers.length; i++) {
+            for (let j = 0; j < this.papers[i].authors.length; j++) {
+              if (name === this.papers[i].authors[j].name) {
+                inAuthor = true;
+                break;
+              }
+            }
+          }
+          if (!inAuthor) {
+            M.toast({
+              html: "<span style='font-weight: bold;'>参会人员必须是作者之一</span>",
+              classes: 'yellow darken-2 rounded'
+            });
+            return;
+          }
         }
-
         //update or insert
         let tempParticipant = {
           name: name,
