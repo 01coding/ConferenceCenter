@@ -41,9 +41,9 @@
         <li class="bold" v-if="is_superuser" v-bind:class="{ active: menu_active === 2 }">
           <router-link to="/orgspace/principals" class="waves-effect">工作人员管理</router-link>
         </li>
-        <li class="bold" v-if="is_superuser" v-bind:class="{ active: menu_active === 3 }">
+        <!--<li class="bold" v-if="is_superuser" v-bind:class="{ active: menu_active === 3 }">
           <router-link to="/orgspace/info" class="waves-effect">机构信息设置</router-link>
-        </li>
+        </li>-->
         <li class="bold" v-bind:class="{ active: menu_active === 4 }">
           <router-link to="/orgspace/account" class="waves-effect">账户设置</router-link>
         </li>
@@ -93,8 +93,8 @@
           this.menu_active = 1;
         else if (data.text === '工作人员管理')
           this.menu_active = 2;
-        else if (data.text === '机构信息设置')
-          this.menu_active = 3;
+        /*else if (data.text === '机构信息设置')
+          this.menu_active = 3;*/
         else if (data.text === '账户设置')
           this.menu_active = 4;
         // else {
