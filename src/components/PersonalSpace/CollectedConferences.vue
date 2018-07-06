@@ -16,16 +16,18 @@
         </div>
 
         <div class="card" v-for="item in this.conferencesBefore">
+          <router-link v-bind:to="'/conference/'+item.id">
           <div class="card-image waves-effect waves-block waves-light"
                style="height: 10rem; background:black;">
             <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg"></img>
             <!--TODO: 这里放会议的背景图-->
-            <router-link v-bind:to="'/conference/'+item.id">
+
             <span class="card-title" style="font-weight: bold">
               {{item.title}}
             </span>
-            </router-link>
+
           </div>
+          </router-link>
           <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
             <!--<i class="material-icons right">language</i>-->
@@ -50,16 +52,18 @@
         </div>
 
         <div class="card" v-for="item in this.conferencesOn">
+          <router-link v-bind:to="'/conference/'+item.id">
           <div class="card-image waves-effect waves-block waves-light"
                style="height: 10rem; background:black;">
             <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg"></img>
             <!--TODO: 这里放会议的背景图-->
-            <router-link v-bind:to="'/conference/'+item.id">
+
             <span class="card-title" style="font-weight: bold">
               {{item.title}}
             </span>
-            </router-link>
+
           </div>
+          </router-link>
           <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
             <!--<i class="material-icons right">language</i>-->
@@ -87,16 +91,18 @@
 
 
         <div class="card" v-for="item in conferencesAfter">
+          <router-link v-bind:to="'/conference/'+item.id">
           <div class="card-image waves-effect waves-block waves-light"
                style="height: 10rem; background:black;">
             <img class="activator" style="opacity: 0.5;" src="/static/bg2.jpg"></img>
             <!--TODO: 这里放会议的背景图-->
-            <router-link v-bind:to="'/conference/'+item.id">
+
             <span class="card-title" style="font-weight: bold">
               标题
             </span>
-            </router-link>
+
           </div>
+          </router-link>
           <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
             <!--<i class="material-icons right">language</i>-->
