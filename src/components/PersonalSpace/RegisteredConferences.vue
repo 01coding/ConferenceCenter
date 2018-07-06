@@ -8,7 +8,7 @@
 
     <div id="test1" class="col s12" style="padding-top: 1%">
       <div class="container">
-        <div class="center-align row" v-if="conferencesBefore.length===0" style="padding-top: 5%">
+        <div class="center-align row" v-if="conferencesBefore.length===0" style="margin-top: 12rem;">
           <i class="large material-icons">inbox</i>
           <h5 style="font-weight: bold;">暂无数据</h5>
         </div>
@@ -40,7 +40,7 @@
       <div class="container">
 
 
-        <div class="center-align row" v-if="conferencesOn.length===0" style="padding-top: 5%">
+        <div class="center-align row" v-if="conferencesOn.length===0" style="margin-top: 12rem;">
           <i class="large material-icons">inbox</i>
           <h5 style="font-weight: bold;">暂无数据</h5>
         </div>
@@ -72,7 +72,7 @@
 
     <div id="test3" class="col s12" style="padding-top: 1%">
       <div class="container">
-        <div class="center-align row" v-if="conferencesAfter.length===0" style="padding-top: 5%">
+        <div class="center-align row" v-if="conferencesAfter.length===0" style="margin-top: 12rem;">
           <i class="large material-icons">inbox</i>
           <h5 style="font-weight: bold;">暂无数据</h5>
         </div>
@@ -175,3 +175,9 @@
 
   }
 </script>
+
+<style>
+  .col .row {
+    margin: 0;
+  }
+</style>

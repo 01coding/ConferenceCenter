@@ -314,43 +314,38 @@
       </div>
     </div>
     <div v-if="conference_template===3">
+      <div id="wrapper">
       <Loader v-show="is_loading"></Loader>
       <NavBar></NavBar>
       <div class="row" style="margin-bottom: 0;">
         <div class="col s1"></div>
-        <div class="card customize"
+        <div class="card customize z-depth-0"
              style="width: 100%; padding-top: 2rem;
-                  padding-bottom: 2rem; margin: 0;"
-             :style="{'background': bg_overlay+'url('+conferenceImg3+')'}">
-          <div class="white-text row container">
+                  padding-bottom: 1rem; margin: 0;">
+          <div class="black-text row container">
             <div class="col s12">
               <h4 class="center" style="font-weight: bold">{{resp.data.title}}</h4>
               <h5 class="center">{{resp.data.start_date}}，{{resp.data.convening_place}}</h5>
               <h5 style="font-weight: bold" class="center">{{conferenceState}}</h5>
               <h5>&nbsp</h5>
               <div class="row center-align">
-                <!--<div class="btn btn-large teal" @click="toCollect">
-                  <div class="white-text">-->
-                <div class="btn btn-large teal"
-                     :class="{ disabled: hasCollect === 1 }"
+                <div class="btn btn-large transparent"
                      @click="toCollect">
-                  <div :class="{'white-text': hasCollect === 0, 'grey-text': hasCollect !== 0}">
+                  <div :class="{'black-text': hasCollect === 0, 'grey-text': hasCollect !== 0}">
                     <i class="material-icons left">star_border</i>
-                    <span v-show="hasCollect">已</span>收藏
+                    <span v-show="hasCollect === 1">已</span>收藏
                   </div>
                 </div>
-                <div class="btn btn-large green"
-                     :class="{ disabled: contributeToLink === 0 }"
+                <div class="btn btn-large transparent"
                      @click="toContribute">
-                  <div :class="{'white-text': contributeToLink !== 0, 'grey-text': contributeToLink === 0}">
+                  <div :class="{'black-text': contributeToLink !== 0, 'grey-text': contributeToLink === 0}">
                     <i class="material-icons left">send</i>
                     投稿
                   </div>
                 </div>
-                <div id="register" class="btn btn-large blue lighten-1"
-                     @click="toRegisterConference"
-                     :class="{ disabled: registerToLink === 0 }">
-                  <div :class="{'white-text': contributeToLink !== 0, 'grey-text': registerToLink === 0}">
+                <div id="register" class="btn btn-large transparent"
+                     @click="toRegisterConference">
+                  <div :class="{'black-text': contributeToLink !== 0, 'grey-text': registerToLink === 0}">
                     <i class="material-icons left">group_add</i>
                     注册参会
                   </div>
@@ -359,105 +354,82 @@
             </div>
           </div>
         </div>
-        <div class="white section" style="min-height: 35rem;">
+        <div class="section" style="min-height: 35rem;">
           <div class="container">
             <div class="row" style="margin-bottom: 0;">
-              <div class="col s3">
-                <div style="height:6rem;"></div>
-                <div class="card-panel center-align" style="width: 100%; max-width: 15rem;">
-                  <ul class="section table-of-contents"
-                      style="padding-top: 0; padding-bottom: 0; padding-right: 1rem;">
-                    <li><a style="cursor: pointer" :class="{'active':active_tab===0}" @click="switch_tab(0)">会议介绍</a></li>
-                    <li><a style="cursor: pointer" :class="{'active':active_tab===1}" @click="switch_tab(1)">投稿须知</a></li>
-                    <li><a style="cursor: pointer" :class="{'active':active_tab===2}" @click="switch_tab(2)">日程安排</a></li>
-                    <li><a style="cursor: pointer" :class="{'active':active_tab===3}" @click="switch_tab(3)">住宿交通</a></li>
-                    <li><a style="cursor: pointer" :class="{'active':active_tab===4}" @click="switch_tab(4)">联系我们</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col s9">
-                <div id="introduction" class="card-container" v-if="active_tab===0">
+              <div class="col s8">
+                <div id="introduction" class="card-container">
                   <ul class="collection with-header">
                     <li class="collection-header"><h4 style="">会议介绍</h4></li>
-                    <li class="collection-item avatar">
-                      <i class="material-icons circle red lighten-1">schedule</i>
-                      <p class="coference-date"><strong>开始日期</strong>：<span style="font-size:1.1rem;">{{resp.data.start_date}}</span></p>
-                      <p style="height:0.5rem;"></p>
-                      <p class="coference-date"><strong>结束日期</strong>：<span style="font-size:1.1rem;">{{resp.data.end_date}}</span></p>
+                    <li class="collection-item">
+                      <p class="coference-date"><strong>开始日期</strong>：<span style="font-size:1.1rem;">{{resp.data.start_date}}</span>
+                      </p>
+                      <p class="coference-date"><strong>结束日期</strong>：<span style="font-size:1.1rem;">{{resp.data.end_date}}</span>
+                      </p>
                     </li>
-                    <li class="collection-item avatar">
-                      <i class="material-icons circle light-blue darken-1">description</i>
+                    <li class="collection-item">
                       <p class="coference-title"><strong>会议简介</strong></p>
-                      <p style="height: 0.5rem;"></p>
-                      <p>{{resp.data.introduction}}</p>
+                      <pre style="overflow: auto">{{resp.data.introduction}}</pre>
                     </li>
-                    <li class="collection-item avatar">
-                      <i class="material-icons circle grey darken-1">assignment</i>
+                    <li class="collection-item">
                       <p class="coference-title"><strong>注册须知</strong></p>
                       <pre>{{resp.data.register_information}}</pre>
                     </li>
                   </ul>
                 </div>
-                <div id="register_notion" class="card-container" v-if="active_tab===1">
+                <div id="register_notion" class="card-container">
                   <ul class="collection with-header">
                     <li class="collection-header"><h4 style="">投稿须知</h4></li>
-                    <li class="collection-item avatar">
-                      <i class="material-icons circle red lighten-1">schedule</i>
-                      <p class="coference-date"><strong>征稿开始：</strong><span style="font-size:1.1rem;">{{resp.data.start_date}}</span></p>
-                      <p class="coference-date"><strong>征稿截止：</strong><span style="font-size:1.1rem;">{{resp.data.paper_ddl}}</span></p>
-                      <p style="height:0.5rem;"></p>
-                      <p class="coference-date"><strong>查看审核结果日期：</strong><span style="font-size:1.1rem;">{{resp.data.employ_date}}</span></p>
+                    <li class="collection-item">
+                      <p class="coference-date"><strong>征稿开始：</strong><span style="font-size:1.1rem;">{{resp.data.start_date}}</span>
+                      </p>
+                      <p class="coference-date"><strong>征稿截止：</strong><span style="font-size:1.1rem;">{{resp.data.paper_ddl}}</span>
+                      </p>
+                      <p class="coference-date"><strong>查看审核结果日期：</strong><span style="font-size:1.1rem;">{{resp.data.employ_date}}</span>
+                      </p>
                     </li>
-                    <li class="collection-item avatar">
-                      <i class="material-icons circle light-blue darken-1">description</i>
+                    <li class="collection-item">
                       <p class="coference-title"><strong>征文要求</strong></p>
-                      <p style="height: 0.5rem;"></p>
                       <pre>{{resp.data.essay_instructions}}</pre>
                     </li>
-                    <li class="collection-item avatar">
-                      <i class="material-icons circle grey darken-1">assignment</i>
+                    <li class="collection-item">
                       <p class="coference-title"><strong>投稿信息</strong></p>
-                      <p style="height: 0.5rem;"></p>
                       <pre>{{resp.data.essay_information}}</pre>
                     </li>
-                    <li class="collection-item avatar">
-                      <i class="material-icons circle deep-orange lighten-1">picture_as_pdf</i>
+                    <li class="collection-item">
                       <p class="coference-title">
                         <strong>论文模板</strong>:&nbsp &nbsp &nbsp &nbsp
-                        <a class="btn blue-grey" v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a>
+                        <a v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a>
                       </p>
                     </li>
                   </ul>
                 </div>
-                <div id="schedule" class="card-container" v-if="active_tab===2">
+              </div>
+              <div class="col s4">
+                <div id="schedule" class="card-container">
                   <ul class="collection with-header">
                     <li class="collection-header"><h4 style="">日程安排</h4></li>
-                    <li class="collection-item avatar">
-                      <i class="material-icons circle red lighten-1">schedule</i>
+                    <li class="collection-item">
                       <p class="coference-title"><strong>会议议程</strong></p>
-                      <p style="height: 0.5rem;"></p>
                       <pre>{{resp.data.schedule}}</pre>
                     </li>
                   </ul>
                 </div>
-                <div id="traffic" class="card-container" v-if="active_tab===3">
+                <div id="traffic" class="card-container">
                   <ul class="collection with-header">
                     <li class="collection-header"><h4 style="">住宿交通</h4></li>
-                    <li class="collection-item avatar">
-                      <i class="material-icons circle light-blue darken-1">flight</i>
+                    <li class="collection-item">
                       <p class="coference-title"><strong>安排方式</strong></p>
-                      <p style="height: 0.5rem;"></p>
                       <pre>{{resp.data.ATinformation}}</pre>
                     </li>
                   </ul>
                 </div>
-                <div id="relation" class="card-container" v-if="active_tab===4">
+                <div id="relation" class="card-container">
                   <ul class="collection with-header">
                     <li class="collection-header"><h4 style="">联系我们</h4></li>
-                    <li class="collection-item avatar">
-                      <i class="material-icons circle deep-orange lighten-1">dialer_sip</i>
+                    <li class="collection-item">
+                      <!--<i class="material-icons circle deep-orange lighten-1">dialer_sip</i>-->
                       <p class="coference-title"><strong>联系方式</strong></p>
-                      <p style="height: 0.5rem;"></p>
                       <pre>{{resp.data.contact}}</pre>
                     </li>
                   </ul>
@@ -467,6 +439,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </template>
@@ -718,4 +691,26 @@
   .my-tech-blue-dark{
     color: #00cccc!important;
   }
+  #wrapper .btn {
+    box-shadow: none;
+  }
+
+  #wrapper {
+    font-family: '华文宋体', Helvetica, Arial, sans-serif;
+    /*background-color: #D9CD90;*/
+    /*font-weight: bold;*/
+  }
+
+  #wrapper pre {
+    font-family: '华文宋体', Helvetica, Arial, sans-serif;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+  }
+
+  #wrapper strong {
+    font-weight: bolder;
+  }
+
 </style>

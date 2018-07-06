@@ -41,25 +41,34 @@
     </nav>
     <div v-if="false" class="overlay-trigger">
       <div class="fixed-action-btn" v-if="has_logged_in === 1">
-        <router-link v-if="user_type=='scholar'" to="/personalspace">
-          <a class="btn-floating btn-large grey darken-3"
-             data-position="left">
-            <i class="large material-icons">assignment_ind</i>
-          </a>
-        </router-link>
-        <router-link v-if="user_type=='institution'" to="/orgspace">
-          <a class="btn-floating btn-large grey darken-3"
-             data-position="left">
-            <i class="large material-icons">assignment_ind</i>
-          </a>
-        </router-link>
-        <router-link v-if="user_type=='manager'" to="/review/application">
-          <a class="btn-floating btn-large grey darken-3"
-             data-position="left">
-            <i class="large material-icons">assignment_ind</i>
-          </a>
-        </router-link>
         <ul>
+          <li v-if="user_type==='scholar'">
+            <span class="mobile-fab-tip">个人空间</span>
+            <a class="btn-floating btn-large grey darken-3"
+               data-position="left"
+               style="cursor: pointer"
+               @click="jump_to('/personalspace')">
+              <i class="large material-icons">assignment_ind</i>
+            </a>
+          </li>
+          <li v-if="user_type==='institution'">
+            <span class="mobile-fab-tip">管理空间</span>
+            <a class="btn-floating btn-large grey darken-3"
+               data-position="left"
+               style="cursor: pointer"
+               @click="jump_to('/orgspace')">
+              <i class="large material-icons">assignment_ind</i>
+            </a>
+          </li>
+          <li v-if="user_type==='manager'">
+            <span class="mobile-fab-tip">管理空间</span>
+            <a class="btn-floating btn-large grey darken-3"
+               data-position="left"
+               style="cursor: pointer"
+               @click="jump_to('/review/application')">
+              <i class="large material-icons">assignment_ind</i>
+            </a>
+          </li>
           <li>
             <span class="mobile-fab-tip">注销</span>
             <a class="btn-floating red darken-2"  data-position="left" @click="choose_logout()">
@@ -96,6 +105,10 @@ export default {
   },
 
   methods: {
+    jump_to(link) {
+      this.$router.push(link);
+    },
+
     choose_login: function () {
       if(sessionStorage.getItem("session")) {
         this.has_logged_in = 1;
@@ -172,7 +185,6 @@ export default {
     if(sessionStorage.getItem("type")){
       this.user_type=sessionStorage.getItem('type');
     }
-
     $(document).ready(function(){
       $('.fixed-action-btn').floatingActionButton();
       $(".dropdown-trigger").dropdown();
@@ -195,7 +207,6 @@ nav ul li a:hover {
   width:100%;
 }
 
-@media only screen {
   .overlay {
     display: none;
     background-color: #E1E1E1;
@@ -260,6 +271,5 @@ nav ul li a:hover {
     0% { opacity: 0; }
     100% { opacity: 1; }
   }
-}
 
 </style>

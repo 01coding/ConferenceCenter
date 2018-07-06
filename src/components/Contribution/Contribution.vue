@@ -73,7 +73,7 @@
           </span>
           <div style="line-height: 3rem; font-weight: bold; margin-bottom: 1rem;">
             文件：
-            <span class="btn-small grey lighten-2 grey-text text-darken-3"
+            <span class="btn-small grey lighten-4 grey-text text-darken-3"
                   style="margin: 0;" @click="download(subm.download_link)">
               {{subm.file_name}}
               <i class="material-icons right">file_download</i>
@@ -391,6 +391,8 @@ export default {
       this.load_user_info().then(ret => {
         this.load_contrib().then(ret => {
           this.load_conf_name().then(ret => {
+            M.updateTextFields();
+            M.textareaAutoResize($('#info_abstract'));
             this.is_loading=false;
           });
         });
@@ -421,6 +423,36 @@ export default {
     },
 
     submit_new_ver() {
+      let title = this.info.title;
+      let abstract = this.info.abstract;
+      let authors = this.info.authors;
+      if (title.length === 0) {
+        M.toast({html: "<span style='font-weight: bold;'>请填写标题</span>", classes: 'yellow darken-2 rounded'});
+        return;
+      }
+      if (abstract.length === 0) {
+        M.toast({html: "<span style='font-weight: bold;'>请填写摘要</span>", classes: 'yellow darken-2 rounded'});
+        return;
+      }
+      if (authors.length === 0) {
+        M.toast({html: "<span style='font-weight: bold;'>请填写作者</span>", classes: 'yellow darken-2 rounded'});
+        return;
+      } else {
+        let ok = false;
+        for (let i = 0; i < authors.length; i++) {
+          if (authors[i].name === this.user_info.name) {
+            ok = true;
+            break;
+          }
+        }
+        if (!ok) {
+          M.toast({
+            html: "<span style='font-weight: bold;'>你必须是作者之一才能投递这篇论文</span>",
+            classes: 'yellow darken-2 rounded'
+          });
+          return;
+        }
+      }
       let description = this.new_sub.description;
       if (description.trim().length === 0) {
         M.toast({
@@ -433,9 +465,9 @@ export default {
         token: this.session_token,
 
         contribution_id: this.contrib_id,
-        title: this.contrib.title,
-        author: JSON.stringify(this.contrib.author),
-        abstract_: this.contrib.abstract_,
+        title: title,
+        author: JSON.stringify(authors),
+        abstract_: abstract,
 
         description: this.new_sub.description,
         attachment: this.get_upload_link(),

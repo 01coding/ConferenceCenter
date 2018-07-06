@@ -7,31 +7,31 @@
           <div class="input-field col s6">
             <i class="material-icons prefix">account_circle</i>
             <input id="icon_prefix" type="text" class="validate" v-model="individual_information.name">
-            <label for="icon_prefix">Name</label>
+            <label for="icon_prefix">姓名</label>
           </div>
           <div class="input-field col s6">
             <i class="material-icons prefix">account_balance</i>
             <input id="icon_telephone" type="text" class="validate" v-model="individual_information.institution">
-            <label for="icon_telephone">Institution</label>
+            <label for="icon_telephone">单位</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
             <i class="material-icons prefix">phone</i>
             <input id="icon_prefix" type="tel" class="validate" v-model="individual_information.telephone">
-            <label for="icon_prefix">Telephone</label>
+            <label for="icon_prefix">联系方式</label>
           </div>
           <div class="input-field col s6">
             <i class="material-icons prefix">email</i>
             <input disabled id="icon_telephone" type="email" class="validate" v-model="individual_information.email">
-            <label for="disabled">Email</label>
+            <label for="disabled">电子邮件</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
             <i class="material-icons prefix">description</i>
             <textarea id="textarea1" class="materialize-textarea" v-model="individual_information.profile"></textarea>
-            <label for="textarea1">Introduction</label>
+            <label for="textarea1">介绍</label>
           </div>
         </div>
         <div class="row center-align">
@@ -42,7 +42,7 @@
         </div>
       </form>
       <div class="col s2" style="margin-left: 3rem;">
-        <div class="card hoverable">
+        <div class="card" style="box-shadow: none; background-color: #f5f5f7">
           <div class="card-image">
             <img v-bind:src="this.file_server+this.individual_information.avator"></img>
           </div>
@@ -56,7 +56,7 @@
             :headers="avatar.headers"
             :credentials="avatar.credentials"
             >
-            <button type="button" class="btn   red lighten-1">
+            <button type="button" class="btn green" style="cursor: pointer">
               <i class="material-icons right" aria-hidden="true">file_upload</i>
               更新头像
             </button>
@@ -155,6 +155,7 @@ export default{
         this.individual_information.profile=individual_info.profile;
         this.individual_information.institution=individual_info.agency;
         this.individual_information.telephone=individual_info.phone;
+        M.textareaAutoResize();
       }
     }).catch(err => {
       M.toast({

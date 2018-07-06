@@ -161,8 +161,11 @@
           </div>
           <choseTemplate></choseTemplate>
           <div class="row">
-            <a class=" btn-floating btn-large waves-effect waves-light red" @click="choseTP()"><i
-              class="material-icons">add</i></a>
+            <a class=" btn-floating btn-large waves-effect waves-light blue" @click="choseTP()"><i
+              class="material-icons">color_lens</i></a>
+            <div class="col l2 my-mt-5">
+              <h7>{{TPName}}</h7>
+            </div>
 
             <!--<a  class="waves-effect waves-light btn" ><i class="material-icons left">cloud</i>选择模板</a>-->
           </div>
@@ -206,6 +209,7 @@
     // components: { NavBar },
     data: function () {
       return {
+        TPName:"尚未选择风格",
         conf_topic: '',
         conf_field: '',
         conf_desc: '',
@@ -252,6 +256,15 @@
     mounted: function () {
       this.$bus.on("TPChoseOver", (num) => {
         this.conf_conference_template = num;
+        let tpName=""
+        if(num===1){
+          tpName="质感风格"
+        }else if(num===2){
+          tpName="科技风格"
+        }else{
+          tpName="极简风格"
+        }
+        this.TPName=tpName
       });
       this.$bus.emit('manage-change-title', { text: '发布新会议' });
       let start_date = new Date();
@@ -482,5 +495,9 @@
   /*}*/
   .col .row {
     margin-right: 0;
+  }
+  .my-mt-5{
+
+    margin-top: 15px;
   }
 </style>
