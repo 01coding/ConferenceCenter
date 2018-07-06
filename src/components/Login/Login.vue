@@ -1,10 +1,11 @@
 <template>
   <div>
-    <TestRobot></TestRobot>
-    <div class="row customize" style="background: #272733; margin-bottom: 0"
-         :style="{'min-height': (page_height)+'px'}">
+    <test-robot v-on:child-say="fill_form"></test-robot>
+    <navbar></navbar>
+    <div class="row customize" style="background: url(/static/bg1.jpg);background-size: cover; margin-bottom: 0"
+         :style="{'min-height': (page_height-60)+'px'}">
       <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 5%;width:35%">
-        <div class="card-panel" style="padding-bottom: 5%;padding-top: 4.7%;opacity: 1;">
+        <div class="card-panel" style="padding-bottom: 5%;padding-top: 4.7%;opacity: 0.95;">
           <div class="row center-align" style="margin-top:0; margin-bottom: 1.5rem;">
             <h3>登录</h3>
           </div>
