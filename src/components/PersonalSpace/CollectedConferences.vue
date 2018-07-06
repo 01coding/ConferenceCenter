@@ -1,9 +1,9 @@
 <template>
   <div>
     <ul class="tabs">
-      <li class="tab col s4"><a href="#test1" class="active">未开幕{{total_num[0]}}</a></li>
-      <li class="tab col s4"><a href="#test2">已开幕{{total_num[1]}}</a></li>
-      <li class="tab col s4"><a href="#test3">已结束{{total_num[2]}}</a></li>
+      <li class="tab col s4"><a href="#test1" class="active">未开幕&nbsp{{total_num[0]}}</a></li>
+      <li class="tab col s4"><a href="#test2">已开幕&nbsp{{total_num[1]}}</a></li>
+      <li class="tab col s4"><a href="#test3">已结束&nbsp{{total_num[2]}}</a></li>
     </ul>
 
     <div id="test1" class="col s12" style="padding-top: 1%">

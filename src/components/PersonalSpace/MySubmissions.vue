@@ -1,10 +1,10 @@
 <template>
   <div>
     <ul class="tabs">
-      <li class="tab col s3"><a class="active" href="#test1">未审核{{this.total_num[0]}}</a></li>
-      <li class="tab col s3"><a href="#test4">需修改{{this.total_num[2]}}</a></li>
-      <li class="tab col s3"><a href="#test2">已录用{{this.total_num[1]}}</a></li>
-      <li class="tab col s3"><a href="#test3">被拒稿{{this.total_num[3]}}</a></li>
+      <li class="tab col s3"><a class="active" href="#test1">未审核&nbsp{{this.total_num[0]}}</a></li>
+      <li class="tab col s3"><a href="#test4">需修改&nbsp{{this.total_num[2]}}</a></li>
+      <li class="tab col s3"><a href="#test2">已录用&nbsp{{this.total_num[1]}}</a></li>
+      <li class="tab col s3"><a href="#test3">被拒稿&nbsp{{this.total_num[3]}}</a></li>
 
     </ul>
 
