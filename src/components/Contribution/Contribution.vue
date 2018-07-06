@@ -4,7 +4,7 @@
   <div class="card" style="margin-top: 0; border-top: none; box-shadow: 0 3px 3px #e4e4e4;">
     <div class="card-action container" style="border-top: none;">
         <span>
-          投稿至 <span class="chip" style="margin: 0;">{{contrib.conf ? contrib.conf.title : "加载中..."}}</span>
+          投稿至 <span class="chip" style="margin: 0;">{{contrib.conf.title}}</span>
         </span>
       <span class="right" style="line-height: 2.5rem;">
           <strong>创建于 {{contrib.total_submit }}</strong>&nbsp&nbsp&nbsp
@@ -237,6 +237,7 @@ export default {
       contrib: {
         title: "Deep Hashing: A Joint Approach for Image Signature Learning",
         conference: "International Conference on Computer Vision 2019",
+        conf: { title: "" },
         state: "已录用",
         datetime: humanize_time("2018-06-21 18:04:56"),
         authors: [
@@ -365,6 +366,7 @@ export default {
             let ind = contrib.review[i].attachment.lastIndexOf("/");
             contrib.review[i].file_name = contrib.review[i].attachment.substring(ind);
           }
+          contrib.conf = { title: "" };
           this.contrib = contrib;
         } else {
           M.toast({
