@@ -175,3 +175,9 @@
 
   }
 </script>
+
+<style>
+  .col .row {
+    margin: 0;
+  }
+</style>

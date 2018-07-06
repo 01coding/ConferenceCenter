@@ -10,7 +10,7 @@
 
 
     <div id="test1" class="col s12" style="padding-top: 1%" >
-      <div class="container">
+      <div>
 
         <div class="center-align row" v-if="submissionsPending.length===0" style="padding-top: 5%">
           <i class="large material-icons">inbox</i>
@@ -24,7 +24,7 @@
           </span>
             <span class="right" style="line-height: 2.5rem;">
             <strong>创建于 {{ readable_time(item.total_submit) }} </strong>&nbsp&nbsp&nbsp
-            <strong class="teal-text">未审核</strong>
+            <strong class="grey-text text-darken-1">未审核</strong>
           </span>
           </div>
           <div class="card-content">
@@ -42,10 +42,6 @@
                 <p style="font-size: 1rem; font-family: 'Courier';">{{author.email}}</p>
               </div>
             </div>
-          </div>
-          <div class="card-action right-align">
-            <a class="blue-text"><strong>查看详情</strong></a>
-            <!--<a class="red-text modal-trigger" style="margin: 0;" href="#modal1" v-on:click="this.selectedId=item.id"><strong>撤销投稿</strong></a>-->
           </div>
         </div>
 
@@ -82,7 +78,7 @@
 
 
     <div id="test2" class="col s12" style="padding-top: 1%">
-      <div class="container">
+      <div>
 
         <div class="center-align row" v-if="submissionsPassed.length===0" style="padding-top: 5%">
           <i class="large material-icons">inbox</i>
@@ -115,10 +111,6 @@
               </div>
             </div>
           </div>
-          <div class="card-action right-align">
-            <a class="blue-text"><strong>查看详情</strong></a>
-            <!--<a class="red-text modal-trigger" style="margin: 0;" href="#modal1" v-on:click="this.selectedId=item.id"><strong>撤销投稿</strong></a>-->
-          </div>
         </div>
       </div>
     </div>
@@ -126,7 +118,7 @@
 
 
     <div id="test3" class="col s12" style="padding-top: 1%">
-      <div class="container">
+      <div>
 
         <div class="center-align row" v-if="submissionsRejected.length===0" style="padding-top: 5%">
           <i class="large material-icons">inbox</i>
@@ -162,10 +154,6 @@
               </div>
             </div>
           </div>
-          <div class="card-action right-align">
-            <a class="blue-text"><strong>查看详情</strong></a>
-            <!--<a class="red-text modal-trigger" style="margin: 0;" href="#modal1" v-on:click="this.selectedId=item.id"><strong>撤销投稿</strong></a>-->
-          </div>
         </div>
       </div>
     </div>
@@ -173,7 +161,7 @@
 
 
     <div id="test4" class="col s12" style="padding-top: 1%" >
-      <div class="container">
+      <div>
 
         <div class="center-align row" v-if="submissionsFixing.length===0" style="padding-top: 5%">
           <i class="large material-icons">inbox</i>
@@ -187,7 +175,7 @@
           </span>
             <span class="right" style="line-height: 2.5rem;">
             <strong>创建于 {{ readable_time(item.total_submit) }} </strong>&nbsp&nbsp&nbsp
-            <strong class="teal-text">修改后录用</strong>
+            <strong class="blue-text">修改后录用</strong>
           </span>
           </div>
           <div class="card-content">
@@ -205,10 +193,6 @@
                 <p style="font-size: 1rem; font-family: 'Courier';">{{author.email}}</p>
               </div>
             </div>
-          </div>
-          <div class="card-action right-align">
-            <a class="blue-text"><strong>查看详情</strong></a>
-            <!--<a class="red-text modal-trigger" style="margin: 0;" href="#modal1" v-on:click="this.selectedId=item.id"><strong>撤销投稿</strong></a>-->
           </div>
         </div>
 

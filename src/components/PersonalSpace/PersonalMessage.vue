@@ -1,16 +1,16 @@
 <template>
-  <div class="container" style="padding-top: 3%">
-      <div class="col s12">
-        <ul class="tabs">
-          <li class="tab col s6"><a class="active" href="#tab1">未读</a></li>
-          <li class="tab col s6"><a href="#tab2">已读</a></li>
-        </ul>
-      </div>
-      <div id="tab1" class="col s12">
+  <div>
+    <ul class="tabs">
+      <li class="tab col s6"><a class="active" href="#tab1">未读</a></li>
+      <li class="tab col s6"><a href="#tab2">已读</a></li>
+    </ul>
+    <div style="height: 1rem;"></div>
+    <div id="tab1" class="row">
+      <div class="container">
         <div v-for="item in notReadYet">
           <div class="row" style="padding-right: 1.2%;padding-left: 1.2%">
-            <div class="card blue-grey darken-1">
-              <div class="card-content white-text">
+            <div class="card">
+              <div class="card-content">
                 <h4 style="padding-top: 0;margin-top: 0">{{item.send_time}}</h4>
                 <p>{{item.content}}.</p>
               </div>
@@ -19,14 +19,15 @@
               </div>
             </div>
           </div>
-          <div class="divider"></div>
         </div>
       </div>
-      <div id="tab2" class="col s12">
+    </div>
+    <div id="tab2" class="row container">
+      <div class="container">
         <div v-for="item in alreadyRead">
           <div class="row" style="padding-right: 1.2%;padding-left: 1.2%">
-            <div class="card blue-grey darken-1">
-              <div class="card-content white-text">
+            <div class="card">
+              <div class="card-content">
                 <h4 style="padding-top: 0;margin-top: 0">{{item.send_time}}</h4>
                 <p>{{item.content}}.</p>
               </div>
@@ -34,6 +35,7 @@
           </div>
         </div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -110,5 +112,7 @@
 </script>
 
 <style scoped>
-
+  .col .row {
+    margin: 0;
+  }
 </style>
