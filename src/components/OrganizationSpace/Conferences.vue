@@ -4,11 +4,12 @@
       <div class="row" style="margin-top: 20px">
         <div class="col s12 m12 l6 xl6" v-for="conf in conference_list">
           <div class="card hoverable">
-            <div class="card-image" v-bind:style="{'background':bg_overlay+'url('+$image(conf.backimg)+')'}">
+            <div class="card-image waves-effect" @click="jump('/orgspace/conference/'+conf.id+'/modify')" style="background: black">
               <!--<img src="https://materializecss.com/images/sample-1.jpg">-->
               <!--<img v-bind:src="$image(conf.backimg)"/>-->
+              <img v-bind:src="$image(conf.backimg)" style="opacity: 0.5; object-fit: cover; object-position: center center;">
               <div class="card-title">
-                <h5><router-link v-bind:to="'/orgspace/conference/'+conf.id+'/modify'" style="color: white; font-weight: bold">{{ conf.title }}</router-link></h5>
+                <h5 style="color: white; font-weight: bold">{{ conf.title }}</h5>
                 <!--<br/>-->
                 <!--<h3>{{ conf.title }}</h3>-->
                 <!--<h5>2018/06/18 - 06/23</h5>-->
@@ -74,6 +75,9 @@
         }).catch(err => {
           M.toast({ html: err.toString() });
         });
+      },
+      jump: function(url) {
+        this.$router.push(url);
       }
     }
   }

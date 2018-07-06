@@ -48,7 +48,7 @@
               <!--<span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>-->
               <span class="grey-text">{{ item.uploader }}</span>
             </div>
-            <div class="row card-row">
+            <div class="row card-row" @click="goto_review('/orgspace/review/'+item.id)">
               <div class="col center-align" v-bind:class="'s'+(12/item.author.length)" v-for="author in item.author">
                 <h5>{{ author.name }}</h5>
                 <h6>{{ author.institution }}</h6>
@@ -70,7 +70,7 @@
               <!--<span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>-->
               <span class="grey-text">{{ item.uploader }}</span>
             </div>
-            <div class="row card-row">
+            <div class="row card-row" @click="goto_review('/orgspace/review/'+item.id)">
               <div class="col center-align" v-bind:class="'s'+(12/item.author.length)" v-for="author in item.author">
                 <h5>{{ author.name }}</h5>
                 <h6>{{ author.institution }}</h6>
@@ -92,7 +92,7 @@
               <!--<span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>-->
               <span class="grey-text">{{ item.uploader }}</span>
             </div>
-            <div class="row card-row">
+            <div class="row card-row" @click="goto_review('/orgspace/review/'+item.id)">
               <div class="col center-align" v-bind:class="'s'+(12/item.author.length)" v-for="author in item.author">
                 <h5>{{ author.name }}</h5>
                 <h6>{{ author.institution }}</h6>
@@ -114,7 +114,7 @@
               <!--<span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>-->
               <span class="grey-text">{{ item.uploader }}</span>
             </div>
-            <div class="row card-row">
+            <div class="row card-row" @click="goto_review('/orgspace/review/'+item.id)">
               <div class="col center-align" v-bind:class="'s'+(12/item.author.length)" v-for="author in item.author">
                 <h5>{{ author.name }}</h5>
                 <h6>{{ author.institution }}</h6>
