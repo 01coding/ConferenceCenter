@@ -3,7 +3,7 @@
     <div class="fixed-action-btn" >
       <router-link  to="/">
         <span class="mobile-fab-tip">主页</span>
-        <a class="btn-floating btn-large green darken-3"
+        <a class="btn-floating btn-large teal"
            data-position="left">
           <i class="large material-icons">home</i>
         </a>

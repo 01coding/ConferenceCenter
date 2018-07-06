@@ -1,10 +1,10 @@
 <template>
   <div>
     <ul class="tabs">
-      <li class="tab col s3"><a class="active" href="#test1">未审核</a></li>
-      <li class="tab col s3"><a href="#test4">需修改</a></li>
-      <li class="tab col s3"><a href="#test2">已录用</a></li>
-      <li class="tab col s3"><a href="#test3">被拒稿</a></li>
+      <li class="tab col s3"><a class="active" href="#test1">未审核{{this.total_num[0]}}</a></li>
+      <li class="tab col s3"><a href="#test4">需修改{{this.total_num[2]}}</a></li>
+      <li class="tab col s3"><a href="#test2">已录用{{this.total_num[1]}}</a></li>
+      <li class="tab col s3"><a href="#test3">被拒稿{{this.total_num[3]}}</a></li>
 
     </ul>
 
@@ -255,7 +255,8 @@
         submissionsPassed: {},
         submissionsRejected: {},
         submissionsFixing: {},
-        selectedId: 0
+        selectedId: 0,
+        total_num:[]
       }
     },
     methods: {
@@ -292,9 +293,8 @@
       let that = this;
       this.$axios.post('/api/user/getContribution', {type: 'pending'})
         .then(response => {
-          //console.log('ok');
           that.submissionsPending = response.data.data.contributions;
-          //console.log(JSON.stringify(that.submissionsPending));
+          that.total_num=response.data.data.total;
         }).catch(error => {
         M.toast({
           html: error,

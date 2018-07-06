@@ -3,7 +3,7 @@
       <div class="fixed-action-btn" v-if="state==='notLogin'">
         <router-link  to="/login">
           <span class="mobile-fab-tip">登录</span>
-          <a class="btn-floating btn-large green darken-3"
+          <a class="btn-floating btn-large teal"
              data-position="left">
             <i class="large material-icons">person</i>
           </a>
@@ -17,7 +17,7 @@
           </a>
         <router-link v-else to="/">
           <span class="mobile-fab-tip">主页</span>
-          <a class="btn-floating btn-large green darken-3"
+          <a class="btn-floating btn-large teal"
              data-position="left">
             <i class="large material-icons">home</i>
           </a>

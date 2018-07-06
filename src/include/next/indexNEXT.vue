@@ -3,7 +3,7 @@
     <div class="fixed-action-btn" v-if="state==='notLogin'">
       <router-link  to="/login">
         <span class="mobile-fab-tip">登录</span>
-        <a class="btn-floating btn-large green darken-3"
+        <a class="btn-floating btn-large teal"
            data-position="left">
           <i class="large material-icons">person</i>
         </a>
@@ -12,21 +12,21 @@
     <div class="fixed-action-btn" v-else>
       <router-link v-if="state==='scholar'" to="/personalspace">
         <span class="mobile-fab-tip">空间</span>
-        <a class="btn-floating btn-large green darken-3"
+        <a class="btn-floating btn-large teal"
            data-position="left">
           <i class="large material-icons">explore</i>
         </a>
       </router-link>
       <router-link v-if="state==='institution'" to="/orgspace">
         <span class="mobile-fab-tip">管理空间</span>
-        <a class="btn-floating btn-large green darken-3"
+        <a class="btn-floating btn-large teal"
            data-position="left">
           <i class="large material-icons">explore</i>
         </a>
       </router-link>
       <router-link v-if="state==='manager'" to="/review/application">
         <span class="mobile-fab-tip">管理员空间</span>
-        <a class="btn-floating btn-large green darken-3"
+        <a class="btn-floating btn-large teal"
            data-position="left">
           <i class="large material-icons">explore</i>
         </a>
