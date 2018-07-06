@@ -1,9 +1,10 @@
 <template>
   <div>
+    <navbar></navbar>
     <div class="row customize" style="background: #272733; margin-bottom: 0"
          :style="{'min-height': (page_height)+'px'}">
-      <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 6.5rem;width:35%">
-        <div class="card-panel" style="padding-bottom: 6%;padding-top: 4.7%;opacity: 1;">
+      <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 5%;width:35%">
+        <div class="card-panel" style="padding-bottom: 5%;padding-top: 4.7%;opacity: 1;">
           <div class="row center-align" style="margin-top:0; margin-bottom: 1.5rem;">
             <h3>登录</h3>
           </div>
@@ -40,7 +41,7 @@
                     </label>
                   </p>
               </div>
-              <div class="row center-align">
+              <div class="row center-align" style="padding-top: 3%">
                 <button class="col s6 offset-s3 btn waves-effect waves-light" style="margin-top: 7px;" type="submit" id="submit" v-on:click="loginfuc()">
                   登录
                 </button>
