@@ -1,5 +1,6 @@
 <template>
 <div>
+  <!--<NEXT></NEXT>-->
     <header>
       <nav class="top-nav">
         <div id="top-title" class="container" style="background: url(/static/bg8.jpg) no-repeat; background-size: cover; opacity: 0.9">
@@ -8,7 +9,7 @@
               <div class="col s12 m10 offset-m1">
                 <h2 class="header white-text">{{ nav_title }}</h2>
               </div>
-            </div>
+            </div``>
           </div>
         </div>
       </nav>
@@ -19,12 +20,15 @@
       </div>
       <ul id="nav-mobile" class="sidenav sidenav-fixed">
         <li>
-          <div class="user-view">
+          <div class="user-view" style="padding-top: 16%">
             <div class="background"
-                 style="background-image: url(/static/bg9.jpg); background-size: cover;">
+                 style="background-image: url(/static/bg9.jpg); background-size: cover; ">
               <!--<img src="https://materializecss.com/images/office.jpg">-->
             </div>
-            <a href="#user"><img class="circle" src="https://materializecss.com/images/yuna.jpg"></a>
+
+            <span v-on:click="goPersonalInfo"><img class="circle" v-bind:src='"http://118.89.229.204:8080/"+personalInfo.avator' ></span>
+            <span class="white-text name">{{personalInfo.name}}</span>
+            <span class="white-text email">{{personalInfo.email}}</span>
 
           </div>
         </li>
@@ -44,6 +48,9 @@
         </li>
         <li class="bold">
           <router-link to="/personalspace/accountset" class="waves-effect">账户设置</router-link>
+        </li>
+        <li class="bold">
+          <router-link to="/personalspace/personalmessage" class="waves-effect">我的消息</router-link>
         </li>
         <div class="divider"></div>
         <li class="bold">
@@ -68,17 +75,24 @@
 
 <script>
   import navbar from '@/include/NavBar';
+  import NEXT from "../../include/NEXT";
 
   export default {
     name: "PersonalSpace",
-    components: { navbar },
+    components: {NEXT, navbar },
     data: function () {
       return {
         nav_title: '',
         routes: {
           '/personalspace': '参加的会议',
-        }
+        },
+        personalInfo:{}
       };
+    },
+    methods:{
+      goPersonalInfo:function () {
+        this.$router.push({path:'/personalspace/personalinformation'})
+      }
     },
     created: function () {
       $(document).ready(function () {
@@ -87,8 +101,25 @@
       this.$bus.on('manage-change-title', data => {
         this.nav_title = data.text;
       });
+
+
+
+      let that = this;
+      this.$axios.post('api/user/info', {})
+        .then(response => {
+            that.personalInfo = response.data.data;
+          }
+        ).catch(
+        error => {
+          M.toast({
+            html: error,
+            classes: "rounded red darken-2"
+          });
+        }
+      );
     },
     mounted: function () {
+      this.$bus.emit("toPS")
       if (!sessionStorage.getItem('session')) {
         this.$router.push('/login');
       }

@@ -186,6 +186,19 @@
         display_id: 1
       }
     },
+    created:function () {
+
+    }
+  ,
+    mounted:function () {
+      this.$bus.emit("toCF")
+
+      this.$bus.on("nextCollect",this.toCollect)
+    },
+    beforeDestroy:function () {
+      this.$bus.off("nextCollect")
+    }
+    ,
     methods: {
       toContribute: function () {
         this.contributeLink = "/contribute/" + this.conference_id;
@@ -253,17 +266,21 @@
         //this.conferenceImg = "http://140.143.19.133:8001/uploads/" + this.resp.data.backimg;
       },
       getConferenceState: function () {
-        let state = this.resp.data.state & 0x0F;
+        let state = this.resp.data.state;
         console.log("state:");
-        console.log(state);
-        if (state === 4)
+        console.log(this.resp.data.state +'...' +state);
+        if (this.resp.data.state & 0b1000) {
           this.conferenceState = '已结束';
-        else if (state === 12)
+        }
+        else if (this.resp.data.state & 0b0100) {
           this.conferenceState = '正在进行中';
-        else if (state === 3 || state === 11)
+        }
+        else if (this.resp.data.state & 0b0001) {
           this.conferenceState = '征稿中';
-        else if (state === 2 || state === 10)
+        }
+        else if (this.resp.data.state & 0b0010) {
           this.conferenceState = '会议注册中';
+        }
       },
       switch_tab(i) {
         this.active_tab = i;

@@ -1,5 +1,6 @@
 <template>
   <div class="row">
+    <loader v-show="is_loading"></loader>
     <div class="col s10 offset-s1">
       <div id="contrib_detail" class="card">
         <div class="card-content">
@@ -45,6 +46,7 @@
               <h5>提交描述</h5>
               <span class="grey-text">提交于 {{ readable_time(review.submit_time) }}</span>
               <a v-bind:href="review.attachment" target="_blank">下载</a>
+              <br/>
               <span>{{ review.description }}</span>
               <h5>评审意见</h5>
               <div v-if="review.result === '0'">
@@ -71,57 +73,12 @@
                   <a class="waves-effect waves-light btn" @click="submit_review(review.id)">提交</a>
                 </div>
               </div>
+              <div v-else>
+                <span>{{ review.suggestion }}</span>
+              </div>
             </div>
           </li>
         </ul>
-        <!--<div class="card" v-if="contrib.review && contrib.review[contrib.review.length - 1].result === '0'">-->
-          <!--<div class="card-content">-->
-            <!--&lt;!&ndash;<div class="col s12">&ndash;&gt;-->
-            <!--<div>-->
-              <!--<h5>{{ review_names[contrib.review.length - 1]}}</h5>-->
-              <!--<div class="input-field">-->
-                <!--<textarea id="suggestion" class="materialize-textarea" v-model="suggestion"></textarea>-->
-                <!--<label for="suggestion">评审意见</label>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--&lt;!&ndash;<div class="col s12 center-align">&ndash;&gt;-->
-            <!--<div class="center-align">-->
-              <!--<label>-->
-                <!--<input id="approve" name="review" type="radio" checked/>-->
-                <!--<span id="span-approve">通过</span>-->
-              <!--</label>-->
-              <!--<label>-->
-                <!--<input id="fixing" name="review" type="radio"/>-->
-                <!--<span id="span-fixing">修改</span>-->
-              <!--</label>-->
-              <!--<label>-->
-                <!--<input id="reject" name="review" type="radio"/>-->
-                <!--<span id="span-reject">拒绝</span>-->
-              <!--</label>-->
-              <!--<br/>-->
-              <!--<br/>-->
-              <!--<a class="waves-effect waves-light btn grey">取消</a>-->
-              <!--<a class="waves-effect waves-light btn" @click="submit_conference()">提交</a>-->
-              <!--&lt;!&ndash;<label class="teal-text">&ndash;&gt;-->
-              <!--&lt;!&ndash;<input id="approve" name="review" type="radio" checked/>&ndash;&gt;-->
-              <!--&lt;!&ndash;<span id="span-approve">通过</span>&ndash;&gt;-->
-              <!--&lt;!&ndash;</label>&ndash;&gt;-->
-              <!--&lt;!&ndash;<label class="orange-text">&ndash;&gt;-->
-              <!--&lt;!&ndash;<input id="fixing" name="review" type="radio"/>&ndash;&gt;-->
-              <!--&lt;!&ndash;<span id="span-fixing">修改</span>&ndash;&gt;-->
-              <!--&lt;!&ndash;</label>&ndash;&gt;-->
-              <!--&lt;!&ndash;<label class="red-text">&ndash;&gt;-->
-              <!--&lt;!&ndash;<input id="reject" name="review" type="radio"/>&ndash;&gt;-->
-              <!--&lt;!&ndash;<span id="span-reject">拒绝</span>&ndash;&gt;-->
-              <!--&lt;!&ndash;</label>&ndash;&gt;-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="row" v-else>-->
-          <!--<div class="col s12">-->
-            <!--<h5>已完成评审</h5>-->
-          <!--</div>-->
-        <!--</div>-->
       </div>
     </div>
   </div>
@@ -129,9 +86,11 @@
 
 <script>
   import { humanize_time } from '@/js/utils';
+  import loader from '@/include/Loader';
 
   export default {
     name: "Review",
+    components: { loader },
     data: function () {
       return {
         contrib_id: 1,
@@ -147,10 +106,15 @@
           '修改中',
           '已拒绝'
         ],
-        suggestion: ''
+        suggestion: '',
+        is_loading: true
       }
     },
     mounted: function () {
+
+        this.$bus.emit("toOS")
+
+
       this.contrib_id = parseInt(this.$route.params.id);
       this.$bus.emit('manage-change-title', { text: '审核稿件' });
       this.get_detail();
@@ -158,6 +122,7 @@
     },
     methods: {
       get_detail: function () {
+        this.is_loading = true;
         this.$axios.post('/api/manage/contribution', {
           id: this.contrib_id
         }).then(rsp => {
@@ -169,20 +134,23 @@
               classes: "rounded red"
             });
           }
+          this.is_loading = false;
         }).catch(err => {
           M.toast({
             html: "<span style='font-weight: bold'>" + err.toString() + "</span>",
             classes: "rounded red"
-          })
-        })
+          });
+          this.is_loading = false;
+        });
       },
       readable_time: function (str) {
         return humanize_time(str);
       },
       submit_review: function(review_id) {
-        let action = parInt($('input[name="review"]:checked').val());
-        this.$axios.pos('/api/manage/review', {
+        let action = parseInt($('input[name="review"]:checked').val());
+        this.$axios.post('/api/manage/review', {
           id: review_id,
+          user_id: this.contrib.user_id,
           action: action,
           suggestion: this.suggestion
         }).then(rsp => {

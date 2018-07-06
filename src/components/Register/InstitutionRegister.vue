@@ -49,13 +49,13 @@
         <h5>上传照片</h5>
       </div>
       <div class="row">
-        <div class="file-field input-field input-field">
-          <div class="file-path-wrapper col s10">
-            <input class="file-path validate" type="text">
-          </div>
+        <div class="file-field input-field">
           <div class="btn col s2 blue-grey white-text" @change="getImg($event)">
-            <span>上传照片</span>
+            <span>上传机构头像</span>
             <input type="file">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text"/>
           </div>
         </div>
       </div>
@@ -63,13 +63,13 @@
         <h5>上传证明材料</h5>
       </div>
       <div class="row">
-        <div class="file-field input-field input-field">
-          <div class="file-path-wrapper col s10">
-            <input class="file-path validate" type="text">
-          </div>
+        <div class="file-field input-field">
           <div class="btn col s2 blue-grey white-text" @change="getFile($event)">
             <span>上传证明材料</span>
             <input type="file">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text"/>
           </div>
         </div>
       </div>
@@ -250,8 +250,8 @@
           }
           let FileData = new FormData();
           FileData.append('file',this.file);
-          return this.$file.post('/', FileData, config).then(response=>{
-            this.filePath=response.data;
+          return this.$file.post('', FileData, config).then(response=>{
+            this.filePath=response.data.link;
           });
 
         },
@@ -270,8 +270,8 @@
           }
           let ImgData = new FormData();
           ImgData.append('file',this.img);
-          return this.$file.post('/', ImgData, config).then(response => {
-            this.imgPath=response.data;
+          return this.$file.post('', ImgData, config).then(response => {
+            this.imgPath=response.data.link;
           });
 
         }

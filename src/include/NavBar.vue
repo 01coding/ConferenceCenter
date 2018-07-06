@@ -39,7 +39,7 @@
         </div>
       </div>
     </nav>
-    <div class="overlay-trigger">
+    <div v-if="false" class="overlay-trigger">
       <div class="fixed-action-btn" v-if="has_logged_in === 1">
         <router-link v-if="user_type=='scholar'" to="/personalspace">
           <a class="btn-floating btn-large grey darken-3"

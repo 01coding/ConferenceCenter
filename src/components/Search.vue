@@ -131,10 +131,14 @@
             keywords_param='';
         this.date_type=this.$route.params.type;
 
-        this.date_detail=this.$route.params.date;
-        this.date_detail=this.str_insert(this.date_detail,3,' ');
-        this.date_detail=this.str_insert(this.date_detail,6,' ');
-        this.date_detail=this.str_insert(this.date_detail,this.date_detail.length,' 00:00:00');
+        if(this.$route.params.date=='0')
+          this.date_detail='';
+        else{
+          this.date_detail=this.$route.params.date;
+          this.date_detail=this.str_insert(this.date_detail,3,' ');
+          this.date_detail=this.str_insert(this.date_detail,6,' ');
+          this.date_detail=this.str_insert(this.date_detail,this.date_detail.length,' 00:00:00');
+        }
 
         console.warn("yu");
         console.warn(this.date_detail);

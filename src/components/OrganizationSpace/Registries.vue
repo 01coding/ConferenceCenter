@@ -1,5 +1,11 @@
 <template>
   <div>
+    <div class="row" style="padding-top: .5em">
+      <div class="col s12">
+        <a class="waves-effect waves-light btn" @click="refresh()"><i class="material-icons left">refresh</i>刷新</a>
+        <a class="waves-effect waves-light btn" @click="download()"><i class="material-icons left">cloud_download</i>导出</a>
+      </div>
+    </div>
     <div class="row">
       <div class="col s12">
         <table class="striped centered responsive-table">
@@ -24,8 +30,13 @@
           <tr v-for="regist in registry_list">
             <td>{{ regist.user_name }}</td>
             <td v-if="regist.paper_number">{{ regist.paper_number }}</td>
-            <td v-else>无</td>
-            <td>缴费</td>
+            <td v-else></td>
+            <td v-if="regist.payment">
+              <a v-bind:href="$image(regist.payment)" target="_blank" class="black-text">
+                <i class="material-icons">attachment</i>
+              </a>
+            </td>
+            <td v-else></td>
             <td>{{ regist.name }}</td>
             <td>{{ regist.sex }}</td>
             <td>{{ regist.job }}</td>
@@ -56,12 +67,33 @@
         registries: [],
         page_num: 1,
         current: 1,
-        per_page: 10
+        per_page: 10,
+        download_link: ''
       };
     },
     mounted: function () {
+
+        this.$bus.emit("toOS")
+
+
+      this.$bus.emit('manage-change-title', { text: '注册列表' });
       this.conf_id = this.$route.params.id;
       this.refresh();
+      this.$axios.post('/api/conference/' + this.conf_id + '/registers/export', {}).then(rsp => {
+        if (rsp.data.status) {
+          this.download_link = rsp.data.data;
+        } else {
+          M.toast({
+            html: "<span style='font-weight: bold'>" + rsp.data.info + "</span>",
+            classes: "rounded red"
+          });
+        }
+      }).catch(err => {
+        M.toast({
+          html: "<span style='font-weight: bold'>" + err.toString() + "</span>",
+          classes: "rounded red"
+        });
+      })
     },
     methods: {
       refresh: function () {
@@ -71,7 +103,7 @@
           size: this.per_page
         }).then(rsp => {
           if (rsp.data.status === 'succ') {
-            this.registries = rsp.data.data.registries;
+            this.registries = rsp.data.data.registers;
             this.page_num = rsp.data.data.page_num;
           }
         }).catch(err => {
@@ -81,17 +113,22 @@
       page: function (num) {
         this.current = num;
         this.refresh();
+      },
+      download: function () {
+        window.open(this.download_link, '_blank');
       }
     },
     computed: {
       registry_list: function () {
         let list = [];
-        // if (this.registries.length !== 0) {
         for (let item in this.registries) {
+          item = this.registries[ item ];
+          if (item.participant.length === 0)
+            continue;
           list.push({
             user_name: item.user_name,
             user_id: item.user_id,
-            paper_number: item.type === 0 ? item.paper_number : false,
+            paper_number: item.type === 0 ? item.paper_number : '无',
             payment: item.payment,
             name: item.participant[ 0 ].name,
             sex: item.participant[ 0 ].sex,
@@ -114,7 +151,6 @@
               note: item.participant[ i ].note
             });
           }
-          // }
         }
         return list;
       }

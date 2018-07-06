@@ -218,6 +218,9 @@
       };
     },
     mounted: function () {
+
+        this.$bus.emit("toOS")
+
       if (!this.$route.params.id)
         this.$router.push('/404');
       this.conf_id = parseInt(this.$route.params.id);

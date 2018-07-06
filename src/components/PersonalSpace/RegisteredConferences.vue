@@ -8,6 +8,11 @@
 
     <div id="test1" class="col s12" style="padding-top: 1%">
       <div class="container">
+        <div class="center-align row" v-if="conferencesBefore.length===0" style="padding-top: 5%">
+          <i class="large material-icons">inbox</i>
+          <h5 style="font-weight: bold;">暂无数据</h5>
+        </div>
+
         <div class="card" v-for="item in this.conferencesBefore">
           <div class="card-image waves-effect waves-block waves-light"
                style="height: 10rem; background:black;">
@@ -23,7 +28,7 @@
           <span class="card-title activator grey-text text-darken-4">
             <i class="material-icons right">language</i>
           </span>
-            <p>{{item.start_date}}, {{item.convening_place}}</p>
+            <p>{{item.start_date.substr(0, 10)}}, {{item.convening_place}}</p>
             <p style="height:1rem;"></p>
             <p>{{item.introduction}}</p>
           </div>
@@ -33,6 +38,13 @@
     </div>
     <div id="test2" class="col s12" style="padding-top: 1%">
       <div class="container">
+
+
+        <div class="center-align row" v-if="conferencesOn.length===0" style="padding-top: 5%">
+          <i class="large material-icons">inbox</i>
+          <h5 style="font-weight: bold;">暂无数据</h5>
+        </div>
+
         <div class="card" v-for="item in this.conferencesOn">
           <div class="card-image waves-effect waves-block waves-light"
                style="height: 10rem; background:black;">
@@ -48,7 +60,7 @@
           <span class="card-title activator grey-text text-darken-4">
             <i class="material-icons right">language</i>
           </span>
-            <p>{{item.start_date}}, {{item.convening_place}}</p>
+            <p>{{item.start_date.substr(0, 10)}}, {{item.convening_place}}</p>
             <p style="height:1rem;"></p>
             <p>{{item.introduction}}</p>
           </div>
@@ -60,6 +72,12 @@
 
     <div id="test3" class="col s12" style="padding-top: 1%">
       <div class="container">
+        <div class="center-align row" v-if="conferencesAfter.length===0" style="padding-top: 5%">
+          <i class="large material-icons">inbox</i>
+          <h5 style="font-weight: bold;">暂无数据</h5>
+        </div>
+
+
         <div class="card" v-for="item in conferencesAfter">
           <div class="card-image waves-effect waves-block waves-light"
                style="height: 10rem; background:black;">
@@ -75,7 +93,7 @@
           <span class="card-title activator grey-text text-darken-4">
             <i class="material-icons right">language</i>
           </span>
-            <p>{{item.start_date}}, {{item.convening_place}}</p>
+            <p>{{item.start_date.substr(0, 10)}}, {{item.convening_place}}</p>
             <p style="height:1rem;"></p>
             <p class="conference-introduction">{{item.introduction}}</p>
           </div>
@@ -90,8 +108,10 @@
 
 
 <script>
+  import  EmptyView from '@/include/EmptyView'
   export default {
     name: 'RegisteredConferences',
+    components:{EmptyView},
     created: function () {
       $(document).ready(function () {
         $('.tabs').tabs();
