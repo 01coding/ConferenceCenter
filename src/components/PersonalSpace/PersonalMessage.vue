@@ -15,12 +15,12 @@
                 <p>{{item.content}}.</p>
               </div>
               <div class="card-action right-align">
-                <button class="btn green">标记为已读</button>
+                <button class="btn green" @click="readMessage(item)">标记为已读</button>
               </div>
             </div>
           </div>
-          <div class="divider"></div>
         </div>
+        <pagination @page="i_want_to_page" v-bind:number="notread_total_num" v-bind:current="notread_index"></pagination>
       </div>
       <div id="tab2" class="col s12">
         <div v-for="item in alreadyRead">
@@ -33,52 +33,91 @@
             </div>
           </div>
         </div>
+        <pagination @page="i_want_to_page" v-bind:number="read_total_num" v-bind:current="read_index"></pagination>
       </div>
   </div>
 </template>
 
 <script>
+    import Pagination from "../../include/Pagination";
     export default {
         name: "PersonalMessage",
-        data:function(){
+      components: {Pagination},
+      data:function(){
           return{
             notReadYet:{},
-            alreadyRead:{}
+            alreadyRead:{},
+            notread_index:1,
+            notread_total_num: 10,
+            read_index:1,
+            read_total_num: 10,
           }
+        },
+        methods:{
+          page: function (num) {
+          },
+          i_want_to_page: function(page) {
+
+          },
+          readMessage:function(item){
+            let that = this;
+            this.$axios.post('/api/user/message/'+item.id, {})
+              .then(response => {
+                  var i=-1;
+                  for(i=0;i<that.notReadYet.length;++i){
+                    if(that.notReadYet[i]==item)break;
+                  }
+                  if(i!=-1){
+                    that.notReadYet.splice(i,1);
+                  }
+                    that.alreadyRead.push(item);
+                }
+              ).catch(
+              error => {
+                M.toast({
+                  html: error,
+                  classes: "rounded red darken-2"
+                });
+              }
+            );
+          }
+        },
+        computed:{
         },
         mounted(){
           this.$bus.emit('manage-change-title', {text: '我的消息'});
+          let that = this;
+          this.$axios.post('/api/user/messages', {index:that.notread_index,size:3,state:0})
+            .then(response => {
+                that.notReadYet=response.data.data.messages;
+                that.notread_total_num=response.data.data.page_num;
+              }
+            ).catch(
+            error => {
+              M.toast({
+                html: error,
+                classes: "rounded red darken-2"
+              });
+            }
+          );
+          this.$axios.post('/api/user/messages', {index:that.read_index,size:5,state:1})
+            .then(response => {
+                that.alreadyRead=response.data.data.messages;
+                that.read_total_num=response.data.data.page_num;
+              }
+            ).catch(
+            error => {
+              M.toast({
+                html: error,
+                classes: "rounded red darken-2"
+              });
+            }
+          );
         },
         created(){
           $(document).ready(function(){
             $('.tabs').tabs();
           });
-
-          let that = this;
-          this.$axios.post('/api/user/messages', {index:1,size:3,state:0})
-            .then(response => {
-                that.notReadYet=response.data.data.messages;
-              }
-            ).catch(
-            error => {
-              M.toast({
-                html: error,
-                classes: "rounded red darken-2"
-              });
-            }
-          );
-          this.$axios.post('/api/user/messages', {index:1,size:5,state:1})
-            .then(response => {
-                that.alreadyRead=response.data.data.messages;
-              }
-            ).catch(
-            error => {
-              M.toast({
-                html: error,
-                classes: "rounded red darken-2"
-              });
-            }
-          );
         }
     }
 </script>

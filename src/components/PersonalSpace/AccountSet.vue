@@ -2,42 +2,33 @@
   <div>
     <div class="row" style="height: 1rem;"></div>
     <div class="row">
-      <form class="col s10 offset-s1">
+      <div class="col s2"></div>
+      <form class="col s6 center-align">
         <div class="row">
-          <div class="input-field col s8">
+          <div class="input-field col s12">
             <i class="material-icons prefix">email</i>
-            <input disabled id="icon_telephone" type="email" class="validate" v-model="individual_information.email">
-            <label for="disabled">Email</label>
+            <input disabled id="account_email" type="email" class="validate" v-model="email">
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s8">
-            <i class="material-icons prefix">vpn_key</i>
-            <input id="password_origin" type="password" class="validate" v-model="origin_pass">
-            <label for="password">Password</label>
-          </div>
-          <div class="col s4" style="margin-top: 2.4rem;">
-            请输入原来的旧密码
-          </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix">vpn_key</i>
+              <input id="origin_pass" type=password v-model="origin_pass">
+              <label for="origin_pass">旧的密码</label>
+            </div>
         </div>
         <div class="row">
-          <div class="input-field col s8">
+          <div class="input-field col s12">
             <i class="material-icons prefix">vpn_key</i>
             <input id="password_first" type="password" class="validate" v-model="first_pass">
-            <label for="password">Password</label>
-          </div>
-          <div class="col s4" style="margin-top: 2.4rem;">
-            请输入新的密码
+            <label for="password_first">新密码</label>
           </div>
         </div>
         <div class="row">
-          <div class="input-field col s8">
+          <div class="input-field col s12">
             <i class="material-icons prefix">vpn_key</i>
             <input id="password_second" type="password" class="validate" v-model="second_pass">
-            <label for="password">Password</label>
-          </div>
-          <div class="col s4" style="margin-top: 2.4rem;">
-            请再次确认密码
+            <label for="password_second">再次输入新密码</label>
           </div>
         </div>
         <div class="row center-align">
@@ -47,85 +38,87 @@
           </div>
         </div>
       </form>
+      <div class="col s4"></div>
     </div>
   </div>
 </template>
 
 <script>
-export default{
-  name:"AccountSet",
-  components:{},
-  data:function () {
+  export default{
+    name:"AccountSet",
+    components:{},
+    data:function () {
       return{
-        individual_information:{
-            email:"23"
-        },
-        origin_pass:"123",
-        first_pass:"123",
-        second_pass:"123"
+        email: "",
+        origin_pass:"",
+        first_pass:"",
+        second_pass:""
       }
-  },
-  methods:{
+    },
+    methods:{
       submit:function () {
         if(this.first_pass!=this.second_pass){
           M.toast({
-            html: "<span style='font-weight: bold'>" + "二次密码输入不一致" + "</span>",
+            html: "<span style='font-weight: bold'>两次密码输入不一致</span>",
             classes: "rounded red"
           });
         }
         else{
-          let pass_info={
+          let updatePassword={
             origin_pass:this.origin_pass,
             new_pass:this.first_pass
           };
-          this.$axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/user/password', pass_info).then(rsp => {
-            if (rsp.data.status === 'succ') {
+          this.$axios.post('/api/user/password', updatePassword).then(response => {
+            if (response.data.status === 'succ') {
               M.toast({
-                html: "<span style='font-weight: bold'>" + "修改成功" + "</span>",
+                html: "<span style='font-weight: bold'>修改成功</span>",
                 classes: "rounded green"
               });
             }
             else{
               M.toast({
-                html: "<span style='font-weight: bold'>" + rsp.data.info + "</span>",
-                classes: "rounded green"
+                html: "<span style='font-weight: bold'>" + response.data.info + "</span>",
+                classes: "rounded yellow"
               });
             }
-          }).catch(err => {
+          }).catch(error => {
             M.toast({
-              html: "<span style='font-weight: bold'>" + err.toString() + "</span>",
+              html: "<span style='font-weight: bold'>error occurred</span>",
               classes: "rounded red"
             });
           })
         }
       },
 
-  },
-  created(){
+    },
+    created(){
 
-  },
-  mounted(){
-    $(document).ready(function() {
-      M.updateTextFields();
-    });
-
-    this.$axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/user/info', {}).then(rsp => {
-      if (rsp.data.status === 'succ') {
-        this.individual_information=rsp.data.data;
-      }
-    }).catch(err => {
-      M.toast({
-        html: "<span style='font-weight: bold'>" + err.toString() + "</span>",
-        classes: "rounded red"
+    },
+    mounted(){
+      this.$bus.emit('manage-change-title', {text: '账户设置'});
+      $(document).ready(function() {
+        M.updateTextFields();
       });
-    })
-    this.$bus.emit('manage-change-title', {text: '账户密码设置'});
-
-    this.origin_pass="";
-    this.first_pass="";
-    this.second_pass="";
-
-    this.$bus.emit('manage-change-title', {text: '账户设置'});
-  },
-};
+      this.$axios.post('/api/user/info', {
+        token: sessionStorage.getItem("session")
+      }).then(response => {
+        if(response.data.status === "succ") {
+          console.log("get email");
+          console.log(response.data.data);
+          this.email = response.data.data.email;
+        }
+        else {
+          M.toast({
+            html: "<span style='font-weight: bold;'>信息获取失败</span>",
+            classes: 'red darken-2 rounded'
+          });
+        }
+      }).catch(error => {
+        M.toast({
+          html: "<span style='font-weight: bold;'>error occurred</span>",
+          classes: 'red darken-2 rounded'
+        });
+      });
+    },
+  };
 </script>
