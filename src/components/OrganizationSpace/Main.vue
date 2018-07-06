@@ -1,17 +1,17 @@
 <template>
   <div>
     <header>
-      <!--<nav class="top-nav">-->
-        <!--<div id="top-title" class="container" style="background: url(/static/bg5.jpg) no-repeat; background-size: cover; opacity: 0.9">-->
-          <!--<div class="nav-wrapper">-->
-            <!--<div class="row">-->
-              <!--<div class="col s12 m10 offset-m1">-->
-                <!--<h2 class="header white-text">{{ nav_title }}</h2>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-      <!--</nav>-->
+      <nav class="top-nav" style="height: 6rem; background-color: white">
+        <div id="top-title" class="container">
+          <div class="nav-wrapper">
+            <div class="row">
+              <div class="col s12 m10 offset-m1">
+                <h4 class="header red-text text-accent-2">{{ nav_title }}</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
       <!--<div class="container">-->
       <div>
         <a href="#" data-target="nav-mobile" class="top-nav sidenav-trigger full hide-on-large-only">

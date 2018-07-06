@@ -1,7 +1,7 @@
 <template>
 <div>
-  <Loader v-if="this.is_loading"></Loader>
   <NavBar></NavBar>
+  <Loader v-if="this.is_loading"></Loader>
   <div class="card" style="margin-top: 0; border-top: none; box-shadow: 0 3px 3px #e4e4e4;">
     <div class="card-action container" style="border-top: none; padding-bottom: 0">
       <div>
@@ -48,20 +48,20 @@
   </div>
   <div class="container">
     <div class="row" style="margin-top: 2rem;">
-      <div class="col s4 offset-s2 center-align">
+      <div class="col s4 offset-s4 center-align">
         <div class="chip" :class="{'my_active': active_tab===0}"
              @click="switch_tab(0)"
              style="font-size: 1.2rem; padding: 0 1.5rem; cursor: pointer; border-radius: 5px;">
           审稿过程
         </div>
       </div>
-      <div class="col s4 center-align">
-        <div class="chip" :class="{'my_active': active_tab===1}"
-             @click="switch_tab(1)"
-             style="font-size: 1.2rem; padding: 0 1.5rem; cursor: pointer; border-radius: 5px;">
-          基本信息
-        </div>
-      </div>
+      <!--<div class="col s4 center-align">-->
+        <!--<div class="chip" :class="{'my_active': active_tab===1}"-->
+             <!--@click="switch_tab(1)"-->
+             <!--style="font-size: 1.2rem; padding: 0 1.5rem; cursor: pointer; border-radius: 5px;">-->
+          <!--基本信息-->
+        <!--</div>-->
+      <!--</div>-->
     </div>
     <div class="row" v-if="active_tab===0">
       <div class="card" v-for="(subm, idx) in contrib.review" style="margin-bottom: 2rem;">
