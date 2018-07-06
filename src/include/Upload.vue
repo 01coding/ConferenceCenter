@@ -72,23 +72,28 @@ export default {
     }
   },
   methods: {
-    get_upload_link: function() {
+    check_upload: function() {
       let files = this.upload.files;
       if (files.length === 0) {
         M.toast({
           html: "<span style='font-weight: bold;'>请上传文件</span>",
           classes: 'yellow darken-2 rounded'
         });
-        return;
+        return false;
       } else {
         if (!files[0].success) {
           M.toast({
             html: "<span style='font-weight: bold;'>请先点“开始上传”</span>",
             classes: 'yellow darken-2 rounded'
           });
-          return;
+          return false;
         }
       }
+      return true;
+    },
+
+    get_upload_link: function() {
+      let files = this.upload.files;
       let upload_resp = JSON.parse(files[0].response);
       let file_url = this.upload.web_io + "/" + upload_resp.link;
       return file_url;

@@ -1,18 +1,29 @@
 <template>
 <div>
+  <Loader v-if="this.is_loading"></Loader>
   <NavBar></NavBar>
   <div class="card" style="margin-top: 0; border-top: none; box-shadow: 0 3px 3px #e4e4e4;">
-    <div class="card-action container" style="border-top: none;">
+    <div class="card-action container" style="border-top: none; padding-bottom: 0">
+      <div>
         <span>
-          投稿至 <span class="chip" style="margin: 0;">{{contrib.conf.title}}</span>
+          投稿至
+          <span class="chip"
+                @click="to_conf"
+                style="margin: 0; cursor: pointer">
+            {{contrib.conf.title}}
+          </span>
         </span>
-      <span class="right" style="line-height: 2.5rem;">
-          <strong>创建于 {{contrib.total_submit }}</strong>&nbsp&nbsp&nbsp
+        <span class="right" style="line-height: 2.5rem;">
+          <strong>更新于 {{contrib.total_submit }}</strong>&nbsp&nbsp&nbsp
           <span style="font-weight: bold"
-                :class="{'blue-grey-text':contrib.state===0, 'green-text':contrib.state===1, 'blue-text':contrib.state===2, 'red-text':contrib.state===3}">
+                :class="{'blue-grey-text':contrib.total_result==='0', 'green-text':contrib.total_result==='1', 'blue-text':contrib.total_result==='2', 'red-text':contrib.total_result==='3'}">
             {{contrib.state_text}}
           </span>
         </span>
+      </div>
+      <div class="grey-text" style="font-size: 0.8rem;">
+        Paper #{{contrib.paper_number}}
+      </div>
     </div>
     <div class="card-content container">
       <div class="row">
@@ -30,7 +41,7 @@
       </div>
     </div>
     <div class="card-action center-align container"
-         v-if="contrib.state===2"
+         v-if="contrib.total_result==='2'"
          style="border-top: none; padding-bottom: 2rem;">
       <div class="btn-large green" @click="to_sub_new">提交新版本</div>
     </div>
@@ -62,13 +73,15 @@
           </span>
           <div style="line-height: 3rem; font-weight: bold; margin-bottom: 1rem;">
             文件：
-            <span class="btn-small blue-grey" style="margin: 0;" @click="download(subm.download_link)">
-              {{subm.file_name}}<i class="material-icons right">file_download</i>
+            <span class="btn-small grey lighten-2 grey-text text-darken-3"
+                  style="margin: 0;" @click="download(subm.download_link)">
+              {{subm.file_name}}
+              <i class="material-icons right">file_download</i>
             </span>
           </div>
-          <p v-if="subm.state==='0'">
+          <p v-if="subm.result==='2'">
             <span class="grey-text text-darken-2" style="font-weight: bold;">审稿意见：</span>
-            {{subm.comments}}
+            {{subm.suggestion}}
           </p>
         </div>
         <div class="card-action grey lighten-5" style="padding-top: 0.5rem; padding-bottom: 0.5rem;">
@@ -79,9 +92,9 @@
              style="height: 0.2rem;"></div>
       </div>
 
-      <div class="card" id="newver" v-if="contrib.state===2">
+      <div class="card" id="newver" v-if="contrib.total_result==='2'">
         <div class="card-content">
-          <span class="btn blue darken-1 right" @click="submit">
+          <span class="btn blue darken-1 right" @click="submit_new_ver">
             <i class="material-icons left">send</i>
             提交
           </span>
@@ -148,7 +161,7 @@
     <div class="row" v-if="active_tab===1">
       <div class="card">
         <div class="card-content">
-          <span class="btn blue darken-1 right" @click="submit">
+          <span class="btn blue darken-1 right" @click="submit_info">
             <i class="material-icons left">send</i>
             提交
           </span>
@@ -223,15 +236,17 @@
 
 <script>
 import NavBar from "@/include/NavBar";
+import Loader from "@/include/Loader"
 import {humanize_time} from "@/js/utils";
 import FileUpload from "vue-upload-component";
 
 export default {
   name: "Contribution",
-  components: {NavBar, FileUpload},
 
+  components: {NavBar, FileUpload, Loader},
   data: function() {
     return {
+      is_loading: true,
       active_tab: 0,
       contrib_id: null,
       session_token: null,
@@ -253,7 +268,7 @@ export default {
             email: "zliu@researh.att.com"
           }
         ],
-        subms: [
+        review: [
           {
             datetime: humanize_time('2018-06-21 18:04:56'),
             decision: '修改后录用',
@@ -300,7 +315,7 @@ export default {
 
   created: function() {
     if (this.$route.params.id) {
-      this.contrib_id = this.$route.params.id;
+      this.contrib_id = parseInt(this.$route.params.id);
     } else {
       M.toast({
         html: "<span style='font-weight: bold;'>需要路由参数</span>",
@@ -315,12 +330,15 @@ export default {
       this.$router.push("/login");
     } else {
       this.load_user_info().then(ret => {
-        this.load_contrib().then(ret=>{
-          this.load_conf_name();
+        this.load_contrib().then(ret => {
+          this.load_conf_name().then(ret => {
+            this.is_loading=false;
+          });
         });
-      })
+      });
     }
   },
+
   mounted:function(){
     this.$bus.emit("toContribute")
   },
@@ -335,7 +353,54 @@ export default {
       }, 1000);
     },
 
-    submit() {
+    to_conf() {
+      M.toast({
+        html: "<span style='font-weight: bold;'>请先登录</span>",
+        classes: 'yellow darken-2 rounded'
+      });
+      this.$router.push("/conference/" + this.contrib.conference_id);
+    },
+
+    submit_new_ver() {
+      let description = this.new_sub.description;
+      if (description.trim().length === 0) {
+        M.toast({
+          html: "<span style='font-weight: bold;'>请填写说明</span>",
+          classes: 'yellow darken-2 rounded'
+        });
+      }
+      if (!this.check_upload()) return;
+      let params = {
+        token: this.session_token,
+
+        contribution_id: this.contrib_id,
+        title: this.contrib.title,
+        author: this.contrib.author,
+        abstract_: this.abstract_,
+
+        description: this.new_sub.description,
+        attachment: this.get_upload_link(),
+      };
+      return this.$axios.post("/api/user/updateContribution", params).then(response => {
+        let resp = response.data;
+        if (resp.status === "succ") {
+          this.$router.go(0);
+        } else {
+          M.toast({
+            html: "<span style='font-weight: bold;'>投稿新版本时出错："+resp.info+"</span>",
+            classes: 'red rounded'
+          });
+        }
+      }).catch(error => {
+        console.log(error);
+        M.toast({
+          html: "<span style='font-weight: bold;'>投稿新版本时出错</span>",
+          classes: 'red rounded'
+        });
+      });
+    },
+
+    submit_info() {
 
     },
 
@@ -343,10 +408,27 @@ export default {
       return this.$axios.post("/api/user/token", {token: this.session_token}).then(response => {
         let resp = response.data;
         if (resp.status === "succ") {
+          if (resp.data.type !== "user") {
+            M.toast({
+              html: "<span style='font-weight: bold;'>你不能访问该页面</span>",
+              classes: 'yellow darken-2 rounded'
+            });
+            this.$router.push("/404");
+          }
           this.user_info = resp.data;
         } else {
+          M.toast({
+            html: "<span style='font-weight: bold;'>请先登录</span>",
+            classes: 'yellow darken-2 rounded'
+          });
           this.$router.push("/login");
         }
+      }).catch(error => {
+        console.log(error);
+        M.toast({
+          html: "<span style='font-weight: bold;'>读取用户信息出错</span>",
+          classes: 'red rounded'
+        });
       });
     },
 
@@ -357,11 +439,11 @@ export default {
       };
       return this.$axios.post('/api/manage/contribution', params).then(response => {
         let resp = response.data;
+        console.log(resp);
         if (resp.status === "succ") {
-          console.log(resp.data);
           let contrib = resp.data;
           contrib.total_submit = humanize_time(contrib.total_submit);
-          contrib.state_text = this.state_text(contrib.state);
+          contrib.state_text = this.state_text(contrib.total_result);
           for (let i = 0; i < contrib.review.length; i++) {
             contrib.review[i].state_text = this.state_text(contrib.review[i].result);
             contrib.review[i].submit_time = humanize_time(contrib.review[i].submit_time);
@@ -432,6 +514,33 @@ export default {
       this.info.authors_field.name = "";
       this.info.authors_field.institution = "";
       this.info.authors_field.email = "";
+    },
+
+    check_upload: function() {
+      let files = this.upload.files;
+      if (files.length === 0) {
+        M.toast({
+          html: "<span style='font-weight: bold;'>请上传文件</span>",
+          classes: 'yellow darken-2 rounded'
+        });
+        return false;
+      } else {
+        if (!files[0].success) {
+          M.toast({
+            html: "<span style='font-weight: bold;'>请先点“开始上传”</span>",
+            classes: 'yellow darken-2 rounded'
+          });
+          return false;
+        }
+      }
+      return true;
+    },
+
+    get_upload_link: function() {
+      let files = this.upload.files;
+      let upload_resp = JSON.parse(files[0].response);
+      let file_url = this.upload.web_io + "/" + upload_resp.link;
+      return file_url;
     },
 
     state_text(state) {
