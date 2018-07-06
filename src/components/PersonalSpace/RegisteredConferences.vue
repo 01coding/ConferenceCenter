@@ -1,9 +1,9 @@
 <template>
   <div>
     <ul class="tabs">
-      <li class="tab col s4"><a class="active" href="#test1">未开幕</a></li>
-      <li class="tab col s4"><a href="#test2">已开幕</a></li>
-      <li class="tab col s4"><a href="#test3">已结束</a></li>
+      <li class="tab col s4"><a class="active" href="#test1">未开幕{{total_num[0]}}</a></li>
+      <li class="tab col s4"><a href="#test2">已开幕{{total_num[1]}}</a></li>
+      <li class="tab col s4"><a href="#test3">已结束{{total_num[2]}}</a></li>
     </ul>
 
     <div id="test1" class="col s12" style="padding-top: 1%">
@@ -123,6 +123,7 @@
       this.$axios.post('/api/user/getRegisterConference', {"type": 'notOpen'})
         .then(response => {
             that.conferencesBefore = response.data.data.result;
+            that.total_num=response.data.data.total_num;
           }
         ).catch(
         error => {
@@ -166,7 +167,8 @@
       return {
         conferencesBefore: {},
         conferencesOn: {},
-        conferencesAfter: {}
+        conferencesAfter: {},
+        total_num:[]
       }
     },
     methods: {},
