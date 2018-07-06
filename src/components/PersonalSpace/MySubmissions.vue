@@ -18,7 +18,7 @@
         <div class="card" v-for="item in submissionsPending">
           <div class="card-action">
         <span>
-            投稿至 <span class="chip" style="margin: 0;">{{item.conference_title}}</span>
+            投稿至 <span class="chip" style="margin: 0; cursor: pointer" v-on:click="goConference(item.conference_id)">{{item.conference_title}}</span>
           </span>
             <span class="right" style="line-height: 2.5rem;">
             <strong>创建于 {{ readable_time(item.total_submit) }} </strong>&nbsp&nbsp&nbsp
@@ -29,7 +29,7 @@
             <div class="row">
               <div class="col s12 center-align">
                 <!--<span class="flow-text">Card Title</span>-->
-                <h4 style="font-weight: bold; margin: 0;">{{item.title}}</h4>
+                <h4 style="font-weight: bold; margin: 0;cursor: pointer" v-on:click="goContribution(item.id)">{{item.title}}</h4>
               </div>
             </div>
             <div class="row center-align" style="margin-bottom: 0;">
@@ -90,7 +90,7 @@
         <div class="card" v-for="item in submissionsPassed">
           <div class="card-action">
         <span>
-            投稿至 <span class="chip" style="margin: 0;">{{item.conference_title}}</span>
+            投稿至 <span class="chip" style="margin: 0;cursor: pointer" v-on:click="goConference(item.conference_id)">{{item.conference_title}}</span>
           </span>
             <span class="right" style="line-height: 2.5rem;">
             <strong>创建于 {{ readable_time(item.total_submit) }} </strong>&nbsp&nbsp&nbsp
@@ -101,7 +101,7 @@
             <div class="row">
               <div class="col s12 center-align">
                 <!--<span class="flow-text">Card Title</span>-->
-                <h4 style="font-weight: bold; margin: 0;">{{item.title}}</h4>
+                <h4 style="font-weight: bold; margin: 0;cursor: pointer" v-on:click="goContribution(item.id)">{{item.title}}</h4>
               </div>
             </div>
             <div class="row center-align" style="margin-bottom: 0;">
@@ -134,7 +134,7 @@
         <div class="card" v-for="item in submissionsRejected">
           <div class="card-action">
         <span>
-            投稿至 <span class="chip" style="margin: 0;">{{item.conference_title}}</span>
+            投稿至 <span class="chip" style="margin: 0;cursor: pointer" v-on:click="goConference(item.conference_id)">{{item.conference_title}}</span>
           </span>
             <span class="right" style="line-height: 2.5rem;">
             <strong>创建于 {{ readable_time(item.total_submit) }} </strong>&nbsp&nbsp&nbsp
@@ -143,10 +143,13 @@
           </div>
           <div class="card-content">
             <div class="row">
+
               <div class="col s12 center-align">
                 <!--<span class="flow-text">Card Title</span>-->
-                <h4 style="font-weight: bold; margin: 0;">{{item.title}}</h4>
+                <h4 style="font-weight: bold; margin: 0;cursor: pointer" v-on:click="goContribution(item.id)">{{item.title}}</h4>
+
               </div>
+
             </div>
             <div class="row center-align" style="margin-bottom: 0;">
               <div v-bind:class="'col s'+12/(item.author.length < 4 ? item.author.length: 4)"
@@ -201,6 +204,16 @@
       },
       cancelContribution:function (id) {
 
+      },
+      goContribution:function (id) {
+        this.$router.push({
+          path:'/contribution/'+id
+        })
+      },
+      goConference:function (id) {
+        this.$router.push({
+          path:'/conference/'+id
+        })
       }
     },
     created:function () {

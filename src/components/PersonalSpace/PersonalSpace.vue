@@ -26,7 +26,7 @@
               <!--<img src="https://materializecss.com/images/office.jpg">-->
             </div>
 
-            <span v-on:click="goPersonalInfo"><img class="circle" v-bind:src='"http://118.89.229.204:8080/"+personalInfo.avator' ></span>
+            <span v-on:click="goPersonalInfo" style="cursor: pointer"><img class="circle" v-bind:src='"http://118.89.229.204:8080/"+personalInfo.avator' ></span>
             <span class="white-text name">{{personalInfo.name}}</span>
             <span class="white-text email">{{personalInfo.email}}</span>
 

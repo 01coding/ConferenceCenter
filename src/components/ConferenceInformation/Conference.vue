@@ -19,11 +19,11 @@
               <!--<div class="btn btn-large teal" @click="toCollect">
                 <div class="white-text">-->
               <div class="btn btn-large teal"
-                  :class="{ disabled: hasCollect === 1 }"
+                  :class="{ disabled: hasCollect !== 0 }"
                    @click="toCollect">
                 <div :class="{'white-text': hasCollect === 0, 'grey-text': hasCollect !== 0}">
                   <i class="material-icons left">star_border</i>
-                  <span v-show="hasCollect">已</span>收藏
+                  <span v-show="hasCollect === 1">已</span>收藏
                 </div>
               </div>
               <div class="btn btn-large green"
@@ -245,6 +245,20 @@
         })
       },
 
+      isUser: function() {
+        this.$test.post('/api/user/token').then(response => {
+          if(response.data.type !== "user") {
+            this.registerToLink = 0;
+            this.contributeToLink = 0;
+            this.hasCollect = 2;
+          }
+        }).catch(error => {
+          M.toast({
+            html: error,
+            classes: "rounded red darken-2"
+          });
+        });
+      },
       isAbleRegister: function () {
         if (this.conferenceState !== "征稿中" && this.conferenceState !== "会议注册中") {
             this.registerToLink = 0;
@@ -315,6 +329,7 @@
             this.is_loading = false;
             console.log("contribute to link:" + this.contributeToLink);
             console.log("conference state:" + this.conferenceState);
+            this.isUser();
           }
           else {
             M.toast({
