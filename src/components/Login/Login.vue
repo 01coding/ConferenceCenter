@@ -1,51 +1,51 @@
 <template>
   <div>
     <TestRobot></TestRobot>
-    <div class="row customize" style="background: #272733; margin-bottom: 0"
+    <div class="row customize valign-wrapper" style="background: #272733; margin-bottom: 0"
          :style="{'min-height': (page_height)+'px'}">
-      <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 5%;width:35%">
+      <div class="col s12 m4 offset-m4 l4 offset-l4" style="width:35%">
         <div class="card-panel" style="padding-bottom: 5%;padding-top: 4.7%;opacity: 1;">
           <div class="row center-align" style="margin-top:0; margin-bottom: 1.5rem;">
             <h3>登录</h3>
           </div>
           <div class="row">
-              <div class="row" style="margin-bottom: 0;">
-                <div class="input-field col s11" style="margin-bottom: 0; margin-left: 18px" >
-                  <i class="medium material-icons prefix">email</i>
-                  <input id="email" type="email" class="validate"  v-model="email"/>
-                  <label for="email" v-show="email===''">邮箱</label>
-                </div>
-                <span class="red-text" style="margin-left: 72px">{{emailMessage}}</span>
+            <div class="row" style="margin-bottom: 0;">
+              <div class="input-field col s11" style="margin-bottom: 0; margin-left: 18px" >
+                <i class="medium material-icons prefix">email</i>
+                <input id="email" type="email" class="validate"  v-model="email"/>
+                <label for="email" v-show="email===''">邮箱</label>
               </div>
-              <div class="row">
-                <div class="input-field col s11" style="margin-bottom: 0; margin-left: 18px">
-                  <i class="medium material-icons prefix">vpn_key</i>
-                  <input id="password" type="password" class="validate" v-model="password" />
-                  <label for="password" v-show="password===''">密码</label>
-                </div>
-                <span class="red-text" style="margin-left: 72px">{{passwordMessage}}</span>
+              <span class="red-text" style="margin-left: 72px">{{emailMessage}}</span>
+            </div>
+            <div class="row">
+              <div class="input-field col s11" style="margin-bottom: 0; margin-left: 18px">
+                <i class="medium material-icons prefix">vpn_key</i>
+                <input id="password" type="password" class="validate" v-model="password" />
+                <label for="password" v-show="password===''">密码</label>
               </div>
-              <div class="row center-align">
-                  <p>
-                    <label class="col s3 offset-s1">
-                      <input type="radio" name="scholar" value="scholar" v-model="isScholar" checked />
-                      <span>学者</span>
-                    </label>
-                    <label class="col s4">
-                      <input type="radio" name="institution" value="institution" v-model="isScholar" />
-                      <span>主办方</span>
-                    </label>
-                    <label class="col s3">
-                      <input type="radio" name="manager" value="manager" v-model="isScholar" />
-                      <span>管理员</span>
-                    </label>
-                  </p>
-              </div>
-              <div class="row center-align">
-                <button class="col s6 offset-s3 btn waves-effect waves-light" style="margin-top: 7px;" type="submit" id="submit" v-on:click="loginfuc()">
-                  登录
-                </button>
-              </div>
+              <span class="red-text" style="margin-left: 72px">{{passwordMessage}}</span>
+            </div>
+            <div class="row center-align">
+              <p>
+                <label class="col s3 offset-s1">
+                  <input type="radio" name="scholar" value="scholar" v-model="isScholar" checked />
+                  <span>学者</span>
+                </label>
+                <label class="col s4">
+                  <input type="radio" name="institution" value="institution" v-model="isScholar" />
+                  <span>主办方</span>
+                </label>
+                <label class="col s3">
+                  <input type="radio" name="manager" value="manager" v-model="isScholar" />
+                  <span>管理员</span>
+                </label>
+              </p>
+            </div>
+            <div class="row center-align">
+              <button class="col s6 offset-s3 btn waves-effect waves-light" style="margin-top: 7px;" type="submit" id="submit" v-on:click="loginfuc()">
+                登录
+              </button>
+            </div>
           </div>
         </div>
       </div>
