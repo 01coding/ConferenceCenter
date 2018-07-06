@@ -15,7 +15,7 @@
                 <p>{{item.content}}.</p>
               </div>
               <div class="card-action right-align">
-                <button class="btn green">标记为已读</button>
+                <button class="btn green" @click="readMessage(item)">标记为已读</button>
               </div>
             </div>
           </div>
@@ -43,19 +43,40 @@
         data:function(){
           return{
             notReadYet:{},
-            alreadyRead:{}
+            alreadyRead:{},
+            index:1
           }
+        },
+        methods:{
+          readMessage:function(item){
+            let that = this;
+            this.$axios.post('/api/user/message/'+item.id, {})
+              .then(response => {
+                  var i=-1;
+                  for(i=0;i<that.notReadYet.length;++i){
+                    if(that.notReadYet[i]==item)break;
+                  }
+                  if(i!=-1){
+                    that.notReadYet.splice(i,1);
+                  }
+                    that.alreadyRead.push(item);
+                }
+              ).catch(
+              error => {
+                M.toast({
+                  html: error,
+                  classes: "rounded red darken-2"
+                });
+              }
+            );
+          }
+        },
+        computed:{
         },
         mounted(){
           this.$bus.emit('manage-change-title', {text: '我的消息'});
-        },
-        created(){
-          $(document).ready(function(){
-            $('.tabs').tabs();
-          });
-
           let that = this;
-          this.$axios.post('/api/user/messages', {index:1,size:3,state:0})
+          this.$axios.post('/api/user/messages', {index:that.index,size:3,state:0})
             .then(response => {
                 that.notReadYet=response.data.data.messages;
               }
@@ -67,7 +88,7 @@
               });
             }
           );
-          this.$axios.post('/api/user/messages', {index:1,size:5,state:1})
+          this.$axios.post('/api/user/messages', {index:that.index,size:5,state:1})
             .then(response => {
                 that.alreadyRead=response.data.data.messages;
               }
@@ -79,6 +100,11 @@
               });
             }
           );
+        },
+        created(){
+          $(document).ready(function(){
+            $('.tabs').tabs();
+          });
         }
     }
 </script>
