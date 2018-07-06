@@ -664,6 +664,14 @@
 </script>
 
 <style scoped>
+  @font-face {
+      font-family: '方正清刻本悦宋简体';
+      src: url('/static/方正清刻本悦宋简体.TTF') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+
+  }
+
   pre {
     white-space: pre-wrap !important;
     white-space: -moz-pre-wrap;
@@ -726,13 +734,13 @@
   }
 
   #wrapper {
-    font-family: '华文宋体', Helvetica, Arial, sans-serif;
+    font-family: '方正清刻本悦宋简体', Helvetica, Arial, sans-serif;
     /*background-color: #D9CD90;*/
     /*font-weight: bold;*/
   }
 
   #wrapper pre {
-    font-family: '华文宋体', Helvetica, Arial, sans-serif;
+    font-family: '方正清刻本悦宋简体', Helvetica, Arial, sans-serif;
     white-space: pre-wrap;
     white-space: -moz-pre-wrap;
     white-space: -o-pre-wrap;

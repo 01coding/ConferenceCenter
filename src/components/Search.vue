@@ -187,17 +187,31 @@
           this.$router.push("/search/" + this.search_keyword+"/0/none");
       },
       page: function (page) {
-        const field = this.search_field;
+        const field = this.search_keyword;
+        this.current=page;
+
         let that = this;
-        axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/SearchCoferences', {
+        this.$axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/SearchConferences', {
           "keyword": field,
           "index": page,
-          "size": 10
+          "size": 10,
+          "date_type":this.date_type,
+          "date":this.date_detail
         }).then(function (response) {
             let resp = response.data;
             if (resp.status === "succ") {
+              console.warn(response.data.data);
+              console.warn(response.data.data.result)
+              console.warn("yushijie");
               that.conferences = response.data.data;
-              that.number = response.data.page_num;
+              that.number = response.data.data.page_num;
+
+              let results = that.conferences.result;
+              for (let i = 0; i < results.length; i++) {
+                let res = results[i];
+                let img_num = that.getRandomInt(2, 6);
+                res.conf_bg_img = "/static/bg" + img_num + ".jpg";
+              }
             } else {
               M.toast({
                 html:"<span style='font-weight: bold'> 请求错误:"+ resp.info +"</span>",
@@ -219,10 +233,6 @@
       },
       setDateSearchState :function () {
         this.date_search_state=!(this.date_search_state);
-        console.log("xingzh");
-        console.log(this.date_type);
-        console.log(this.date_detail);
-        console.log(this.is_keyword)
       },
       date_search:function () {
         let keyword_info="none";
@@ -231,7 +241,11 @@
             console.warn("zhuhui");
         }
         let date_type_info=this.date_type;
-        let date_info=(this.date_detail).replace(/\s+/g,"");
+        let date_info;
+        if(this.date_detail=="")
+            date_info="Jul082018";
+        else
+            date_info=(this.date_detail).replace(/\s+/g,"");
 
         this.$router.push('/search/'+keyword_info+'/'+date_info+'/'+date_type_info);
         location.reload();
