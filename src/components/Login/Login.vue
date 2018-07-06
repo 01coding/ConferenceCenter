@@ -4,9 +4,9 @@
     <test-robot v-on:child-say="fill_form"></test-robot>
     <div class="row customize"
          :style="{'height': (page_height-60)+'px'}"
-         style="background-image: url(/static/bg1.jpg); margin-bottom: 0;">
+         style="background: url(/static/bg7.jpg) no-repeat; background-size: cover;margin-bottom: 0;">
       <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 80px;width:35%">
-        <div class="card-panel" style="padding-bottom: 5px;padding-top: 12px;opacity: 1; min-width: 30rem;">
+        <div class="card-panel" style="padding-bottom: 5px;padding-top: 12px;opacity: 0.95; min-width: 30rem;">
           <div class="row center-align" style="margin-top:0; margin-bottom: 1.5rem;">
             <h3>登录</h3>
           </div>
@@ -63,7 +63,7 @@
         components: {TestRobot, navbar},
         data() {
           return {
-            page_height: $(window).height(),
+            page_height:$(window).height(),
             email : '',
             password : '',
             isScholar: 'scholar',
@@ -181,9 +181,16 @@
             });
           }
         },
+        computed:{
+        },
         created(){
         },
         mounted(){
+          this.page_height=$(window).height();
+          const that = this;
+          window.onresize = function temp() {
+            that.page_height=$(window).height();
+          };
         }
     }
 

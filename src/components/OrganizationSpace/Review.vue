@@ -1,5 +1,6 @@
 <template>
   <div class="row">
+    <loader v-show="is_loading"></loader>
     <div class="col s10 offset-s1">
       <div id="contrib_detail" class="card">
         <div class="card-content">
@@ -129,9 +130,11 @@
 
 <script>
   import { humanize_time } from '@/js/utils';
+  import loader from '@/include/Loader';
 
   export default {
     name: "Review",
+    components: { loader },
     data: function () {
       return {
         contrib_id: 1,
@@ -147,7 +150,8 @@
           '修改中',
           '已拒绝'
         ],
-        suggestion: ''
+        suggestion: '',
+        is_loading: true
       }
     },
     mounted: function () {
@@ -158,6 +162,7 @@
     },
     methods: {
       get_detail: function () {
+        this.is_loading = true;
         this.$axios.post('/api/manage/contribution', {
           id: this.contrib_id
         }).then(rsp => {
@@ -169,12 +174,14 @@
               classes: "rounded red"
             });
           }
+          this.is_loading = false;
         }).catch(err => {
           M.toast({
             html: "<span style='font-weight: bold'>" + err.toString() + "</span>",
             classes: "rounded red"
-          })
-        })
+          });
+          this.is_loading = false;
+        });
       },
       readable_time: function (str) {
         return humanize_time(str);
@@ -183,6 +190,7 @@
         let action = parseInt($('input[name="review"]:checked').val());
         this.$axios.post('/api/manage/review', {
           id: review_id,
+          user_id: this.contrib.user_id,
           action: action,
           suggestion: this.suggestion
         }).then(rsp => {
