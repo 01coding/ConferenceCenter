@@ -329,14 +329,12 @@
               <h5 style="font-weight: bold" class="center">{{conferenceState}}</h5>
               <h5>&nbsp</h5>
               <div class="row center-align">
-                <div class="col s4 right-align">
-                  <a class="black-text" v-if="hasCollect === 0" style="cursor: pointer" @click="toCollect">
-                    <i class="material-icons">star_border</i>
-                    收藏
-                  </a>
-                  <div class="grey-text" v-else>
-                    <i class="material-icons">star_border</i>
-                    已收藏
+                <div class="btn btn-large teal"
+                     :class="{ disabled: hasCollect !== 0 }"
+                     @click="toCollect">
+                  <div :class="{'white-text': hasCollect === 0, 'grey-text': hasCollect !== 0}">
+                    <i class="material-icons left">star_border</i>
+                    <span v-show="hasCollect === 1">已</span>收藏
                   </div>
                 </div>
                 <div class="col s4 center-align">
@@ -484,8 +482,65 @@
         display_id: 1
       }
     },
-    created:function () {
+    created() {
+      this.conference_id = parseInt(this.$route.params.id);
+      this.$axios.post('/api/conference/' + this.conference_id).then(response => {
+        if(response.status === 200) {
+          if (response.data.status === "succ") {
+            this.resp = response.data;
+            this.conference_template=this.resp.data.conference_template;
+            console.log(this.resp.data);
+            this.getConferenceState();
+            this.isAbleRegister();
+            this.isAbleContribute();
+            this.isCollect();
+            let that = this;
+            axios.all([ this.isAbleRegister(), this.isAbleContribute(), this.isCollect() ]).then(
+              axios.spread(function (ut, ui) {
+                that.$axios.post('/api/user/token').then(res => {
+                  /*console.log("user type:" + res.data.data.type);*/
+                  if(res.data.data.type !== "user") {
+                    console.log("no user!");
+                    that.registerToLink = 0;
+                    that.contributeToLink = 0;
+                    that.hasCollect = 2;
+                  }
+                }).catch(err => {
+                  M.toast({
+                    html: err,
+                    classes: "rounded red darken-2"
+                  });
+                });
+              })
+            );
+            this.getConferenceImg();
+            this.is_loading = false;
+            console.log("contribute to link:" + this.contributeToLink);
+            console.log("conference state:" + this.conferenceState);
 
+            console.log(this.hasCollect + "  " + this.contributeToLink + "  " + this.registerToLink);
+          }
+          else {
+            M.toast({
+              html: response.data.info,
+              classes: "rounded red darken-2"
+            });
+            this.$router.push('/404');
+          }
+        }
+        else {
+          M.toast({
+            html: response.statusText,
+            classes: "rounded red darken-2"
+          });
+        }
+      }).catch(error => {
+        M.toast({
+          html: error,
+          classes: "rounded red darken-2"
+        });
+        console.log(1);
+      });
     }
   ,
     mounted:function () {
@@ -543,6 +598,41 @@
         })
       },
 
+      isCollect: function() {
+        this.$axios.post('/api/conference/iscollect/' + this.conference_id).then(response => {
+          console.log("user is collect: "+ response.data.data);
+          if(response.data.data === 1) {
+            this.hasCollect = 1;
+          }
+          else if(response.data.data === 0) {
+            this.hasCollect = 0;
+          }
+          console.log("hasCollect==" +this.hasCollect);
+        }).catch(error => {
+          M.toast({
+            html: error,
+            classes: "rounded red darken-2"
+          });
+          console.log(1);
+        });
+      },
+      isUser: function() {
+        this.$axios.post('/api/user/token').then(response => {
+          console.log("user type:" + response.data.data.type);
+          if(response.data.data.type !== "user") {
+            console.log("no user!");
+            this.registerToLink = 0;
+            this.contributeToLink = 0;
+            this.hasCollect = 2;
+          }
+          console.log("check is user,hasCollect" + this.hasCollect);
+        }).catch(error => {
+          M.toast({
+            html: error,
+            classes: "rounded red darken-2"
+          });
+        });
+      },
       isAbleRegister: function () {
         if (this.conferenceState !== "征稿中" && this.conferenceState !== "会议注册中") {
             this.registerToLink = 0;
@@ -604,61 +694,6 @@
       switch_tab(i) {
         this.active_tab = i;
       }
-    },
-
-    created() {
-      this.conference_id = parseInt(this.$route.params.id);
-      this.$axios.post('/api/conference/iscollect/' + this.conference_id).then(response => {
-        if(response.data.data === 1) {
-          this.hasCollect = 1;
-        }
-        else {
-          this.hasCollect = 0;
-        }
-      }).catch(error => {
-        M.toast({
-          html: error,
-          classes: "rounded red darken-2"
-        });
-        console.log(1);
-      });
-      this.$axios.post('/api/conference/' + this.conference_id).then(response => {
-        if(response.status === 200) {
-          if (response.data.status === "succ") {
-            this.resp = response.data;
-            this.conference_template=this.resp.data.conference_template
-            console.log(this.resp.data);
-            this.getConferenceState();
-            this.isAbleRegister();
-            this.isAbleContribute();
-            this.getConferenceImg();
-            this.is_loading = false;
-            console.log("contribute to link:" + this.contributeToLink);
-            console.log("conference state:" + this.conferenceState);
-            // this.isUser();
-            console.log(this.hasCollect + "  " + this.contributeToLink + "  " + this.registerToLink);
-          }
-          else {
-            M.toast({
-              html: response.data.info,
-              classes: "rounded red darken-2"
-            });
-            this.$router.push('/404');
-          }
-        }
-        else {
-          M.toast({
-            html: response.statusText,
-            classes: "rounded red darken-2"
-          });
-        }
-      }).catch(error => {
-        M.toast({
-          html: error,
-          classes: "rounded red darken-2"
-        });
-        console.log(1);
-      });
     }
   }
 </script>
