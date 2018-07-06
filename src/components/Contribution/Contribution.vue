@@ -84,8 +84,8 @@
           <div class="row" style="margin-bottom: 0;">
             <div class="input-field col s12">
               <i class="material-icons prefix">subject</i>
-              <textarea id="abstract" class="materialize-textarea" v-model="abstract"></textarea>
-              <label for="abstract">说明</label>
+              <textarea id="description" class="materialize-textarea" v-model="new_sub.description"></textarea>
+              <label for="description">说明</label>
             </div>
           </div>
           <div class="row" style="margin-bottom: 0;">
@@ -139,8 +139,78 @@
         </div>
       </div>
     </div>
+
     <div class="row" v-if="active_tab===1">
+      <div class="card">
+        <div class="card-content">
+          <span class="btn blue darken-1 right" @click="submit">
+            <i class="material-icons left">send</i>
+            提交
+          </span>
+          <span class="card-title" style="font-weight: bold;">论文信息</span>
+          <div class="row" style="margin-bottom: 0;">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">title</i>
+              <input id="title" type="text" v-model="info.title">
+              <label for="title">标题</label>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 0;">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">subject</i>
+              <textarea id="abstract" class="materialize-textarea" v-model="info.abstract"></textarea>
+              <label for="abstract">摘要</label>
+            </div>
+          </div>
+          <div class="row">
+            <h5>作者</h5>
+          </div>
+          <div class="row" style="margin-bottom: 0;">
+            <div class="center row">
+              <h5 style="font-size: 1.5rem; margin: 0; padding-top: 1rem; padding-bottom: 1rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;" v-if="info.authors.length===0">
+                在这里添加作者
+              </h5>
+              <div class="col s4" v-for="(author, idx) in info.authors" style="margin-bottom: 1rem;">
+                <div class="card-panel"
+                     style="padding-top: 0.5rem;">
+                  <div style="height: 24px;">
+                    <i class="material-icons right"
+                       @click="authors.splice(idx, 1)"
+                       style="cursor: pointer">
+                      clear
+                    </i>
+                  </div>
+                  <div><h5 style="font-weight: bold; margin-top: 0;">{{author.name}}</h5></div>
+                  <div>{{author.institution}}</div>
+                  <div>{{author.email}}</div>
+                </div>
+              </div>
+            </div>
+            <div class="row valign-wrapper" style="margin-bottom: 0;">
+              <div class="input-field col s4">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="first_name" type="text" v-model="info.authors_field.name">
+                <label for="first_name">姓名</label>
+              </div>
+              <div class="input-field col s4">
+                <i class="material-icons prefix">account_balance</i>
+                <input id="institution" type="text" v-model="info.authors_field.institution">
+                <label for="institution">机构</label>
+              </div>
+              <div class="input-field col s4">
+                <i class="material-icons prefix">email</i>
+                <input id="email" type="email" v-model="info.authors_field.email">
+                <label for="email">邮箱</label>
+              </div>
+              <div class="waves-effect waves-light btn green col s1" @click="add_author">添加
+                <i class="material-icons right">add</i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
     <div style="height: 5rem;"></div>
   </div>
 </div>
@@ -203,6 +273,19 @@ export default {
         size: 100 * 1024 * 1024,
         maximum: 1
       },
+      new_sub: {
+        description: null,
+      },
+      info: {
+        title: "",
+        abstract: "",
+        authors: [],
+        authors_field: {
+          name: "",
+          institution: "",
+          email: "",
+        },
+      }
     }
   },
   methods: {
@@ -213,7 +296,36 @@ export default {
       $('html, body').animate({
         scrollTop: $("#newver").offset().top
       }, 1000);
-    }
+    },
+    submit() {
+
+    },
+    add_author() {
+      let name = this.info.authors_field.name.trim();
+      let institution = this.info.authors_field.institution.trim();
+      let email = this.info.authors_field.email.trim();
+      if (name.length === 0) {
+        M.toast({html: "<span style='font-weight: bold;'>请填写作者姓名</span>", classes: 'yellow darken-2 rounded'});
+        return;
+      }
+      if (institution.length === 0) {
+        M.toast({html: "<span style='font-weight: bold;'>请填写作者单位</span>", classes: 'yellow darken-2 rounded'});
+        return;
+      }
+      if (email.length === 0) {
+        M.toast({html: "<span style='font-weight: bold;'>请填写邮箱</span>", classes: 'yellow darken-2 rounded'});
+        return;
+      }
+      let author = {
+        name: name,
+        institution: institution,
+        email: email
+      };
+      this.info.authors.push(author);
+      this.info.authors_field.name = "";
+      this.info.authors_field.institution = "";
+      this.info.authors_field.email = "";
+    },
   }
 }
 </script>
