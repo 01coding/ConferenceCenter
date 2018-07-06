@@ -11,7 +11,7 @@
         <li>
           <span class="mobile-fab-tip">首页</span>
           <a class="btn-floating red darken-2"  data-position="left" @click="toIndex()">
-            <i class="material-icons">desktop_mac</i>
+            <i class="material-icons">home</i>
           </a>
         </li>
       </ul>

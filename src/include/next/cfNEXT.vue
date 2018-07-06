@@ -17,7 +17,7 @@
         <router-link v-else to="/">
           <a class="btn-floating btn-large grey darken-3"
              data-position="left">
-            <i class="large material-icons">desktop_mac</i>
+            <i class="large material-icons">home</i>
           </a>
         </router-link>
         <ul>
