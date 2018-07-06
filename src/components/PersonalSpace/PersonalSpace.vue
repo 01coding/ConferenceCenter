@@ -1,5 +1,6 @@
 <template>
 <div>
+  <!--<NEXT></NEXT>-->
     <header>
       <nav class="top-nav">
         <div id="top-title" class="container" style="background: url(/static/bg8.jpg) no-repeat; background-size: cover; opacity: 0.9">
@@ -8,7 +9,7 @@
               <div class="col s12 m10 offset-m1">
                 <h2 class="header white-text">{{ nav_title }}</h2>
               </div>
-            </div>
+            </div``>
           </div>
         </div>
       </nav>
@@ -48,6 +49,9 @@
         <li class="bold">
           <router-link to="/personalspace/accountset" class="waves-effect">账户设置</router-link>
         </li>
+        <li class="bold">
+          <router-link to="/personalspace/personalmessage" class="waves-effect">我的消息</router-link>
+        </li>
         <div class="divider"></div>
         <li class="bold">
           <router-link to="/" class="waves-effect">回到主页</router-link>
@@ -71,10 +75,11 @@
 
 <script>
   import navbar from '@/include/NavBar';
+  import NEXT from "../../include/NEXT";
 
   export default {
     name: "PersonalSpace",
-    components: { navbar },
+    components: {NEXT, navbar },
     data: function () {
       return {
         nav_title: '',
@@ -114,6 +119,7 @@
       );
     },
     mounted: function () {
+      this.$bus.emit("toPS")
       if (!sessionStorage.getItem('session')) {
         this.$router.push('/login');
       }

@@ -72,6 +72,10 @@
       };
     },
     mounted: function () {
+
+        this.$bus.emit("toOS")
+
+
       this.$bus.emit('manage-change-title', { text: '注册列表' });
       this.conf_id = this.$route.params.id;
       this.refresh();
@@ -119,6 +123,8 @@
         let list = [];
         for (let item in this.registries) {
           item = this.registries[ item ];
+          if (item.participant.length === 0)
+            continue;
           list.push({
             user_name: item.user_name,
             user_id: item.user_id,

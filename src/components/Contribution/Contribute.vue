@@ -48,7 +48,7 @@
             <h5>作者</h5>
           </div>
           <div class="row" style="margin-bottom: 0;">
-            <div class="center row">
+            <div class="row center-align">
               <h5 style="font-size: 1.5rem; margin: 0; padding-top: 1rem; padding-bottom: 1rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;" v-if="authors.length===0">
                 在这里添加作者
               </h5>
@@ -64,7 +64,7 @@
                   </div>
                   <div><h5 style="font-weight: bold; margin-top: 0;">{{author.name}}</h5></div>
                   <div>{{author.institution}}</div>
-                  <div>{{author.email}}</div>
+                  <div style="font-family: Courier; font-size: 13px; overflow-wrap: break-word">{{author.email}}</div>
                 </div>
               </div>
             </div>
@@ -201,7 +201,6 @@ export default {
         html: "<span style='font-weight: bold;'>需要路由参数</span>",
         classes: 'red rounded'
       });
-      console.log(404);
       this.$router.push("/404");
     }
 
@@ -211,8 +210,9 @@ export default {
       this.$router.push("/login");
     }
 
-    this.load_user_info();
-    this.load_conference();
+    this.load_user_info().then(ret => {
+      this.load_conference();
+    })
   },
   mounted: function () {
   },
@@ -227,14 +227,14 @@ export default {
     },
     load_user_info() {
       let that = this;
-      this.$axios.post("/api/user/token", {token: this.session_token}).then(response => {
+      return this.$axios.post("/api/user/token", {token: this.session_token}).then(response => {
         let resp = response.data;
         if (resp.status === "succ") {
           that.user_info = resp.data;
         } else {
           that.$router.push("/login");
         }
-      })
+      });
     },
     load_conference() {
       this.$axios.post('api/conference/' + this.conference_id).then(response => {
@@ -243,7 +243,10 @@ export default {
         this.isAbleContribute();
         this.getConferenceImg();
       }).catch(error => {
-        console.log(1);
+        M.toast({
+          html: "<span style='font-weight: bold;'>加载会议信息时出错</span>",
+          classes: 'red rounded'
+        });
       });
     },
     isAbleContribute: function () {
@@ -342,7 +345,8 @@ export default {
         }
       }
       let authors_str = JSON.stringify(authors);
-      let file_url = this.web_io + files[0].response;
+      let upload_resp = JSON.parse(files[0].response);
+      let file_url = this.upload.web_io + "/" + upload_resp.link;
       let params = {
         conference_id: this.conference_id,
         title: title,
@@ -356,12 +360,11 @@ export default {
           let data = rsp.data;
           if (data.status==="succ") {
             let contribution_id = data.data.contribution_id;
-            //this.$router.push("/contribution/"+contribution_id);
+            this.$router.push("/contribution/"+contribution_id);
             M.toast({
               html: "<span style='font-weight: bold;'>投稿成功</span>",
               classes: 'green rounded'
             });
-            that.$router.push("/conference/"+this.conference_id);
           } else {
             M.toast({
               html: "<span style='font-weight: bold;'>投稿失败</span>",
