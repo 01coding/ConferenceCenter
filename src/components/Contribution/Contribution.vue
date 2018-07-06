@@ -375,8 +375,8 @@ export default {
 
         contribution_id: this.contrib_id,
         title: this.contrib.title,
-        author: this.contrib.author,
-        abstract_: this.abstract_,
+        author: JSON.stringify(this.contrib.author),
+        abstract_: this.contrib.abstract_,
 
         description: this.new_sub.description,
         attachment: this.get_upload_link(),
