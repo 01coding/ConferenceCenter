@@ -2,7 +2,8 @@
   <div>
     <background></background>
     <navbar></navbar>
-    <div class="valign-wrapper white" style="width: 100%; height: 10rem;">
+    <div class="white" style="width: 100%;">
+      <div class="row" style="height: 1rem;"></div>
       <div class="row container">
         <div class="container">
           <div class="nav-wrapper searchBar">
@@ -17,6 +18,44 @@
           </div>
         </div>
       </div>
+      <!--<div class="row" style="height: 0.2rem;"></div>-->
+      <div class="row" style="margin-left: 23rem;">
+        <a class="waves-effect waves-light btn-small  light-blue darken-1" style="margin:0rem 0rem;padding:0rem 0.5rem;" @click="setDateSearchState()"><i class="material-icons left" style="">date_range</i>使用日期检索</a>
+      </div>
+      <div class="row" v-if="date_search_state" style="margin-left: 23rem;">
+        <form>
+          <div class="row">
+            <div class="input-field col s4">
+              <i class="prefix material-icons">title</i>
+              <select id="date-type-select" v-model="date_type">
+                <option value="" disabled selected>选择日期类型</option>
+                <option value="start">开始日期</option>
+                <option value="end">结束日期</option>
+                <option value="paper">投稿截止日期</option>
+                <option value="register">注册截止日期</option>
+              </select>
+              <label>选择日期类型</label>
+            </div>
+            <div class="input-field col s4">
+              <i class="medium material-icons prefix">event</i>
+              <input id="date-select" type="text" class="datepicker" v-model="date_detail"/>
+              <label for="date-select">选择日期</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s4">
+              <label>
+                <input type="checkbox" v-model="is_keyword"/>
+                <span>在结果中检索</span>
+              </label>
+            </div>
+            <div class="input-field col s4 right-align">
+              <a class="waves-effect waves-light btn-small grey darken-1" style="margin:0rem 0rem;padding:0rem 0.5rem;" @click="date_search()"><i class="material-icons left" style="margin-right: 0.5rem">search</i>检索</a>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="row" style="height: 0.3rem;"></div>
     </div>
     <div style="height:20px;"></div>
 
@@ -79,17 +118,35 @@
           result: [],
           total_num: 10,
         },
+        date_search_state: false,
+        date_type:'none',
+        date_detail:'',
+        is_keyword:false,
       }
     },
     methods: {
       init: function () {
         let keywords_param = this.$route.params.keyword;
+        if(keywords_param=='none')
+            keywords_param='';
+        this.date_type=this.$route.params.type;
+
+        this.date_detail=this.$route.params.date;
+        this.date_detail=this.str_insert(this.date_detail,3,' ');
+        this.date_detail=this.str_insert(this.date_detail,6,' ');
+        this.date_detail=this.str_insert(this.date_detail,this.date_detail.length,' 00:00:00');
+
+        console.warn("yu");
+        console.warn(this.date_detail);
+
         let that = this;
         // axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/SearchCoferences', {
         this.$axios.post('/api/SearchConferences', {
           "keyword": keywords_param,
           "index": 1,
-          "size": 10
+          "size": 10,
+          "date_type":this.date_type,
+          "date":this.date_detail
         }).then(function (response) {
           let resp = response.data;
           if (resp.status === "succ") {
@@ -116,9 +173,12 @@
           });
         });
       },
+      str_insert:function (str,pos,stmp) {
+        return str.slice(0,pos)+stmp+str.slice(pos,str.length);
+      },
       enter_search: function (event) {
         if (event.keyCode === 13 && this.search_keyword.length > 0)
-          this.$router.push("/search/" + this.search_keyword);
+          this.$router.push("/search/" + this.search_keyword+"/0/none");
       },
       page: function (page) {
         const field = this.search_field;
@@ -150,13 +210,47 @@
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+      },
+      setDateSearchState :function () {
+        this.date_search_state=!(this.date_search_state);
+        console.log("xingzh");
+        console.log(this.date_type);
+        console.log(this.date_detail);
+        console.log(this.is_keyword)
+      },
+      date_search:function () {
+        let keyword_info="none";
+        if(this.is_keyword){
+            keyword_info=this.$route.params.keyword;
+            console.warn("zhuhui");
+        }
+        let date_type_info=this.date_type;
+        let date_info=(this.date_detail).replace(/\s+/g,"");
+
+        this.$router.push('/search/'+keyword_info+'/'+date_info+'/'+date_type_info);
       }
     },
     created() {
     },
     mounted() {
+      $(document).ready(function(){
+      });
+
       this.init();
-    }
+    },
+    updated: function () {
+      $('select').formSelect();
+      let options = {
+        onSelect: date => {
+          date = date.toDateString().slice(4, 15);
+          this.date_detail = date;
+          console.log("tom");
+        }
+      };
+      let elem = document.querySelector('#date-select');
+      let instance = M.Datepicker.init(elem, options);
+//      $('.datepicker').datepicker();
+    },
   };
 </script>
 

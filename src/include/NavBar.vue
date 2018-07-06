@@ -135,7 +135,7 @@ export default {
     },
     enter_search: function (event) {
       if (event.keyCode === 13 && this.search_keyword.length > 0)
-        this.$router.push("/search/" + this.search_keyword);
+        this.$router.push("/search/" + this.search_keyword+"/0/none");
     },
     back_top: function(){
       $("html, body").animate({ scrollTop: 0 }, "slow");

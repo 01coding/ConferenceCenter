@@ -42,7 +42,7 @@
         </div>
       </form>
       <div class="col s2" style="margin-left: 3rem;">
-        <div class="card">
+        <div class="card hoverable">
           <div class="card-image">
             <img v-bind:src="this.file_server+this.individual_information.avator"></img>
           </div>
@@ -80,7 +80,7 @@ export default{
         individual_information:{
           name: "李某某",
           email: "li@qq.com",
-          avator: "../../../static/Image/C1.png",
+          avator: "",
           profile: "简介",
           telephone:"18811526200",
           institution:"斯坦福大学"
@@ -161,6 +161,7 @@ export default{
         classes: "rounded red"
       });
     })
+    this.$bus.emit('manage-change-title', {text: '个人信息'});
   },
 };
 </script>

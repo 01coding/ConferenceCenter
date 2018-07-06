@@ -107,6 +107,7 @@ export default{
     $(document).ready(function() {
       M.updateTextFields();
     });
+
     this.$axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/user/info', {}).then(rsp => {
       if (rsp.data.status === 'succ') {
         this.individual_information=rsp.data.data;
@@ -117,6 +118,7 @@ export default{
         classes: "rounded red"
       });
     })
+    this.$bus.emit('manage-change-title', {text: '账户密码设置'});
 
     this.origin_pass="";
     this.first_pass="";
