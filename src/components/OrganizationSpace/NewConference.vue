@@ -227,7 +227,7 @@
         conf_register_info: '',
         conf_commute_info: '',
         conf_contact: '',
-        conf_conference_template: -1,
+        conf_conference_template: 1,
         conf_bg_img: '',
         field_list: [],
         paper_template: '',
