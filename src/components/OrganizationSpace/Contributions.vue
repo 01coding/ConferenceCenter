@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="row" id="contribution-manage">
-      <div class="col s12">
-        <ul class="tabs transparent center">
+      <div class="col s12" style="padding: 0">
+        <ul class="tabs white center">
           <!--<li class="col s1"></li>-->
           <li class="tab col s2"><a class="active" href="#all" @click="filter = 'all'; refresh();">全部 {{ all_num }}</a></li>
           <li class="tab col s2"><a href="#passed" @click="filter = 'passed'; refresh();">已通过 {{ passed_num }}</a></li>

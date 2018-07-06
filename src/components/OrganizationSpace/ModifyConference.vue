@@ -165,10 +165,14 @@
             </div>
           </div>
         </form>
-        <div>
-          <div class="center-align">
-            <a class="waves-effect waves-light btn grey">取消</a>
-            <a class="waves-effect waves-light btn" @click="submit_conference()">提交</a>
+      </div>
+    </div>
+    <div class="row white section">
+      <div style="margin-top: 1em;">
+        <div class="center-align">
+          <div class="waves-effect waves-light btn btn-large" @click="submit_conference()">
+            <i class="material-icons left">send</i>
+            提交
           </div>
         </div>
       </div>
@@ -219,7 +223,7 @@
     },
     mounted: function () {
 
-        this.$bus.emit("toOS")
+      this.$bus.emit("toOS")
 
       if (!this.$route.params.id)
         this.$router.push('/404');
@@ -404,7 +408,7 @@
                   html: "<span style='font-weight: bold'>更新会议成功</span>",
                   classes: "rounded green"
                 });
-                this.$router.push('/orgspace');
+                that.$router.push('/orgspace');
               }
               else {
                 M.toast({
