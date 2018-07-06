@@ -180,8 +180,8 @@
         return humanize_time(str);
       },
       submit_review: function(review_id) {
-        let action = parInt($('input[name="review"]:checked').val());
-        this.$axios.pos('/api/manage/review', {
+        let action = parseInt($('input[name="review"]:checked').val());
+        this.$axios.post('/api/manage/review', {
           id: review_id,
           action: action,
           suggestion: this.suggestion
