@@ -154,12 +154,6 @@
               <h5>页面外观</h5>
             </div>
           </div>
-          <!--<div class="row">-->
-          <!--<div class="input-field col s6">-->
-          <!--<input id="conf-conference-template"/>-->
-          <!--<label for="conf"-->
-          <!--</div>-->
-          <!--</div>-->
           <div class="row">
             <div class="col s6">
               <h6>选择模板</h6>
@@ -186,10 +180,6 @@
                 <input class="file-path validate" type="text" placeholder="背景图片"/>
               </div>
             </div>
-            <!--<div class="input-field col s12">-->
-            <!--<input id="conf-bg-img" type="text" v-model="conf_bg_img"/>-->
-            <!--<label for="conf-bg-img">背景图片</label>-->
-            <!--</div>-->
           </div>
         </form>
         <div>
@@ -248,13 +238,15 @@
     created: function () {
       $(document).ready(function () {
         $('#conf-topic').characterCounter();
-        // $('#conf-start-date').datepicker();
-        // $('#conf-end-date').datepicker();
-        // $('.datepicker').datepicker();
         $('.dropdown-trigger').dropdown();
       });
     },
+    beforeDestroy:function () {
+      this.$bus.off("TPChoseOver")
+    }
+    ,
     mounted: function () {
+      this.$bus.on("TPChoseOver",(num)=>{console.log("选择模板:"+num)})
       this.$bus.emit('manage-change-title', { text: '发布新会议' });
       // document.addEventListener('DOMContentLoaded', () => {
       let options = {
@@ -421,7 +413,7 @@
         };
         let FileData = new FormData();
         FileData.append('file', this.paper_template);
-        return this.$file.post('/', FileData, config).then(response => {
+        return this.$file.post('', FileData, config).then(response => {
           this.template_path = response.data;
         });
       },
@@ -433,7 +425,7 @@
         };
         let FileData = new FormData();
         FileData.append('file', this.back_img);
-        return this.$file.post('/', FileData, config).then(response => {
+        return this.$file.post('', FileData, config).then(response => {
           this.image_path = response.data;
         });
       }

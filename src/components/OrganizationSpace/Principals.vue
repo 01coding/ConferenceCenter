@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <loader v-show="is_loading"></loader>
+    <!--<loader v-show="is_loading"></loader>-->
     <div class="col s10 offset-s1">
       <div class="row" style="margin-top: 20px">
         <div class="col s6 m4" v-for="(one, index) in principals" v-bind:key="index">
