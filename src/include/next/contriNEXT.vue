@@ -1,7 +1,6 @@
 <template>
   <div class="overlay-trigger">
     <div class="fixed-action-btn" >
-      <span class="mobile-fab-tip">发送</span>
         <a class="btn-floating btn-large teal" @click="send"
            data-position="left">
           <i class="large material-icons">send</i>
@@ -9,7 +8,6 @@
 
       <ul>
         <li>
-          <span class="mobile-fab-tip">个人主页</span>
           <span class="mobile-fab-tip">个人空间</span>
           <a class="btn-floating red darken-2"  data-position="left" @click="toPS()">
             <i class="material-icons">explore</i>

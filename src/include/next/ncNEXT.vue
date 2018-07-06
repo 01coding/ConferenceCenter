@@ -1,14 +1,12 @@
 <template>
   <div class="overlay-trigger">
     <div class="fixed-action-btn" >
-      <span class="mobile-fab-tip">发送</span>
         <a class="btn-floating btn-large teal"  @click="send"
            data-position="left">
           <i class="large material-icons">file_upload</i>
         </a>
       <ul>
         <li>
-          <span class="mobile-fab-tip">首页</span>
           <a class="btn-floating red darken-2"  data-position="left" @click="toINDEX()">
             <i class="material-icons">explore</i>
           </a>

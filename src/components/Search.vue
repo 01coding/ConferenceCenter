@@ -70,9 +70,8 @@
             </span>
         </div>
         <div class="card-content">
-          <i class="material-icons right">arrow_forward</i>
           <div style="font-size: 1.35rem;">
-            <span v-if="res.convening_date"><strong>{{res.convening_date.substr(0, 10)}},</strong> </span>
+            <span><strong>{{res.start_date.substring(0, 10)}}，</strong> </span>
             <span><strong>{{res.convening_place}}</strong></span>
           </div>
           <p style="height:1rem;"></p>
@@ -98,6 +97,7 @@
   import axios from 'axios';
   import Pagination from "@/include/Pagination";
   import EmptyView from "@/include/EmptyView";
+  import humanize_time from "@/js/utils"
 
   export default {
     name: 'Search',
@@ -160,19 +160,21 @@
             let results = that.conferences.result;
             for (let i = 0; i < results.length; i++) {
               let res = results[i];
-              let img_num = that.getRandomInt(2, 6);
+              let start = 1;
+              let img_num = (start + i) % 3 + 1;
               res.conf_bg_img = "/static/bg" + img_num + ".jpg";
+              console.log(res.conf_bg_img);
             }
             //TODO: 实装会议的背景图
           } else {
             M.toast({
-              html:"<span style='font-weight: bold'> 请求错误:"+ resp.info +"</span>",
+              html:"<span style='font-weight: bold'>请求错误:"+ resp.info +"</span>",
               classes: "rounded red"
             });
           }
         }).catch(function (error) {
           M.toast({
-            html:"<span style='font-weight: bold'> 请求错误</span>",
+            html:"<span style='font-weight: bold'>处理请求时发生错误</span>",
             classes: "rounded red"
           });
         });
