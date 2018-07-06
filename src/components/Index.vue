@@ -27,32 +27,32 @@
 
             <ul class="collection with-header hoverable" style="height:100%;width:100%;margin:0;">
                 <li class="collection-header"><h4>活跃学者</h4></li>
-                <li class="collection-item avatar">
-                  <img src="../../static/Image/C1.png" alt="" class="circle"></img>
-                  <span class="title">Qiang Yang</span>
-                  <p class="famous-expert-institution">HongKong University</p>
+                <li class="collection-item avatar" v-for="(res,id) in active_scholars" :key="id">
+                  <img v-bind:src="file_server+res.avator" alt="" class="circle"></img>
+                  <span class="title">{{res.name}}</span>
+                  <p class="famous-expert-institution">{{res.agency}}</p>
                   <p style="height:10px;"></p>
-                  <p class="famous-expert-intro">Qiang Yang is Chair Professor and former Head of Department of Computer Science and Engineering at Hong Kong University of Science and Technology. He is president of the International Joint Conference on Artificial Intelligence.
+                  <p class="famous-expert-intro">{{res.introduction}}
                   </p>
                   <a class="secondary-content"><i class="material-icons">grade</i></a>
                 </li>
-                <li class="collection-item avatar">
-                  <img src="../../static/Image/C2.png" alt="" class="circle"></img>
-                  <span class="title">Dr. Michael S. Brown</span>
-                  <p class="famous-expert-institution">BSc PhD University of Kentucky</p>
-                  <p style="height:10px;"></p>
-                  <p class="famous-expert-intro">He is the Canada Research Chair in Computer Vision. His studys in several fields including omputer vision, image processing, and computer graphics.
-                    He is the Demo Chair of CVPR 2014.</p>
-                  <a class="secondary-content"><i class="material-icons">grade</i></a>
-                </li>
-                <li class="collection-item avatar">
-                  <img src="../../static/Image/C3.png" alt="" class="circle"></img>
-                  <span class="title">Walter J. Scheirer</span>
-                  <p class="famous-expert-institution">University of Notre Dame</p>
-                  <p style="height:10px;"></p>
-                  <p class="famous-expert-intro">His research is primarily focused around the problem of recognition, including the representations and algorithms supporting solutions to it. He is particularly interested in features and learning-based methods that apply to both vision and language.</p>
-                  <a class="secondary-content"><i class="material-icons">grade</i></a>
-                </li>
+                <!--<li class="collection-item avatar">-->
+                  <!--<img src="../../static/Image/C2.png" alt="" class="circle"></img>-->
+                  <!--<span class="title">Dr. Michael S. Brown</span>-->
+                  <!--<p class="famous-expert-institution">BSc PhD University of Kentucky</p>-->
+                  <!--<p style="height:10px;"></p>-->
+                  <!--<p class="famous-expert-intro">He is the Canada Research Chair in Computer Vision. His studys in several fields including omputer vision, image processing, and computer graphics.-->
+                    <!--He is the Demo Chair of CVPR 2014.</p>-->
+                  <!--<a class="secondary-content"><i class="material-icons">grade</i></a>-->
+                <!--</li>-->
+                <!--<li class="collection-item avatar">-->
+                  <!--<img src="../../static/Image/C3.png" alt="" class="circle"></img>-->
+                  <!--<span class="title">Walter J. Scheirer</span>-->
+                  <!--<p class="famous-expert-institution">University of Notre Dame</p>-->
+                  <!--<p style="height:10px;"></p>-->
+                  <!--<p class="famous-expert-intro">His research is primarily focused around the problem of recognition, including the representations and algorithms supporting solutions to it. He is particularly interested in features and learning-based methods that apply to both vision and language.</p>-->
+                  <!--<a class="secondary-content"><i class="material-icons">grade</i></a>-->
+                <!--</li>-->
               </ul>
           </div>
           <div class="col s5"
@@ -61,11 +61,11 @@
               <li class="collection-header"><h4>近期事项</h4></li>
               <li class="collection-item">
                 <div class="row valign-wrapper"
-                     v-for="schedule in scheds"
+                     v-for="schedule in recent_items"
                      style="margin-bottom: 0;">
                   <div class="col s2 center-align" style="padding-left: 0;">
                     <h5 style="margin: 0; font-weight: bold;">{{schedule.day}}</h5>
-                    <p style="margin: 0;">{{schedule.month}}</p>
+                    <p style="margin: 0;">{{schedule.mon}}</p>
                   </div>
                   <div class="col s10">
                     <div class="card-panel white-text"
@@ -74,10 +74,10 @@
                             padding-top: 0.5rem; padding-bottom: 0.5rem;
                             box-shadow: unset;">
                       <div class="row" style="margin: 0; font-weight: bold;">
-                        {{schedule.conference.title}}
+                        {{schedule.name}}
                       </div>
                       <div class="row" style="margin: 0;">
-                        {{schedule.event}}
+                        {{schedule.instructions}}
                       </div>
                     </div>
                   </div>
@@ -109,6 +109,9 @@ export default{
   components: {NEXT, NavBar, Background},
   data: function(){
     return{
+      active_scholars:[],
+      recent_items:[],
+      file_server: 'http://118.89.229.204:8080/',
       slides: {
         instance: null,
         bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),",
@@ -209,6 +212,56 @@ export default{
   methods: {
     learn_more() {
       this.$router.push("/conference/1");
+    },
+    init:function () {
+      this.$axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/home/activeScholars', {}).then(rsp => {
+        if (rsp.data.status === 'succ') {
+          this.active_scholars=rsp.data.data;
+          console.log(this.active_scholars);
+        }
+      }).catch(err => {
+        M.toast({
+          html: "<span style='font-weight: bold'>" + err.toString() + "</span>",
+          classes: "rounded red"
+        });
+      })
+
+      this.$axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/home/recentlyItem', {}).then(rsp => {
+        if (rsp.data.status === 'succ') {
+          let mon_json={
+              '01':'Jan',
+              '02':'Feb',
+              '03':'Mar',
+              '04':'Apr',
+              '05':'May',
+              '06':'Jun',
+              '07':'Jul',
+              '08':'Aug',
+              '09':'Sep',
+              '10':'Oct',
+              '11':'Nov',
+              '12':'Dec'
+          };
+
+          let color_arr=['grey darken3','purple lighten3','teal darken3','blue darken3','red darken3', 'purple lighten3'];
+          this.recent_items=[];
+          for(let i=0;i<rsp.data.data.length;i++){
+              let json_ret=(rsp.data.data)[i];
+              let date_ret=json_ret.date;
+              $(json_ret).attr('mon',mon_json[date_ret.slice(5,7)]);
+              $(json_ret).attr('day',date_ret.slice(8,10));
+              $(json_ret).attr('color',color_arr[i]);
+              delete json_ret.date;
+              this.recent_items.push(json_ret);
+          }
+
+        }
+      }).catch(err => {
+        M.toast({
+          html: "<span style='font-weight: bold'>" + err.toString() + "</span>",
+          classes: "rounded red"
+        });
+      })
     }
   },
   created(){
@@ -226,7 +279,8 @@ export default{
     }
   },
   mounted() {
-    this.$bus.emit("toIndex")
+    this.$bus.emit("toIndex");
+    this.init();
   },
   beforeDestroy: function() {
     clearTimeout();
