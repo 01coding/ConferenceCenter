@@ -20,7 +20,7 @@
             </div>
           </div>
         </div>
-        <pagination @page="i_want_to_page" v-bind:number="notread_total_num" v-bind:current="notread_index"></pagination>
+        <pagination class="center-align" @page="i_want_to_page" v-bind:number="notread_total_num" v-bind:current="notread_index"></pagination>
       </div>
     </div>
     <div id="tab2" class="row container">
@@ -35,7 +35,7 @@
             </div>
           </div>
         </div>
-        <pagination @page="i_want_to_page" v-bind:number="read_total_num" v-bind:current="read_index"></pagination>
+        <pagination class="center-align" @page="i_want_to_page" v-bind:number="read_total_num" v-bind:current="read_index"></pagination>
       </div>
     </div>
   </div>

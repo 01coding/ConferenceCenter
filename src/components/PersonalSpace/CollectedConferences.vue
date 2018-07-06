@@ -29,7 +29,7 @@
           <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
             <!--<i class="material-icons right">language</i>-->
-            <a class="secondary-content" @click="cancalCollect('notOpen',item.id)">
+            <a class="secondary-content tooltipped" data-position="right" data-tooltip="取消收藏" @click="cancalCollect('notOpen',item.id)">
               <i class="material-icons">grade</i>
             </a>
           </span>
@@ -62,7 +62,7 @@
           <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
             <!--<i class="material-icons right">language</i>-->
-            <a class="secondary-content" @click="cancalCollect('opened', item.id)">
+            <a class="secondary-content tooltipped" data-position="right" data-tooltip="取消收藏"  @click="cancalCollect('opened', item.id)">
               <i class="material-icons">grade</i>
             </a>
           </span>
@@ -98,7 +98,7 @@
           <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
             <!--<i class="material-icons right">language</i>-->
-            <a class="secondary-content" @click="cancalCollect('enden', item.id)">
+            <a class="secondary-content tooltipped" data-position="right" data-tooltip="取消收藏"  @click="cancalCollect('enden', item.id)">
               <i class="material-icons">grade</i>
             </a>
           </span>
@@ -122,6 +122,7 @@
     created: function () {
       $(document).ready(function () {
         $('.tabs').tabs();
+        $('.tooltipped').tooltip();
       });
 
       let that = this;
