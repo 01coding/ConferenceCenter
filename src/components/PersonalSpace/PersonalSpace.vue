@@ -9,7 +9,7 @@
               <div class="col s12 m10 offset-m1">
                 <h2 class="header white-text">{{ nav_title }}</h2>
               </div>
-            </div``>
+            </div>
           </div>
         </div>
       </nav>
@@ -26,7 +26,7 @@
               <!--<img src="https://materializecss.com/images/office.jpg">-->
             </div>
 
-            <span v-on:click="goPersonalInfo"><img class="circle" v-bind:src='"http://118.89.229.204:8080/"+personalInfo.avator' ></span>
+            <span v-on:click="goPersonalInfo" style="cursor: pointer"><img class="circle" v-bind:src='"http://118.89.229.204:8080/"+personalInfo.avator' ></span>
             <span class="white-text name">{{personalInfo.name}}</span>
             <span class="white-text email">{{personalInfo.email}}</span>
 
