@@ -201,7 +201,6 @@ export default {
         html: "<span style='font-weight: bold;'>需要路由参数</span>",
         classes: 'red rounded'
       });
-      console.log(404);
       this.$router.push("/404");
     }
 
@@ -211,8 +210,9 @@ export default {
       this.$router.push("/login");
     }
 
-    this.load_user_info();
-    this.load_conference();
+    this.load_user_info().then(ret => {
+      this.load_conference();
+    })
   },
   mounted: function () {
   },
@@ -227,14 +227,14 @@ export default {
     },
     load_user_info() {
       let that = this;
-      this.$axios.post("/api/user/token", {token: this.session_token}).then(response => {
+      return this.$axios.post("/api/user/token", {token: this.session_token}).then(response => {
         let resp = response.data;
         if (resp.status === "succ") {
           that.user_info = resp.data;
         } else {
           that.$router.push("/login");
         }
-      })
+      });
     },
     load_conference() {
       this.$axios.post('api/conference/' + this.conference_id).then(response => {
@@ -243,7 +243,10 @@ export default {
         this.isAbleContribute();
         this.getConferenceImg();
       }).catch(error => {
-        console.log(1);
+        M.toast({
+          html: "<span style='font-weight: bold;'>加载会议信息时出错</span>",
+          classes: 'red rounded'
+        });
       });
     },
     isAbleContribute: function () {
@@ -342,8 +345,7 @@ export default {
         }
       }
       let authors_str = JSON.stringify(authors);
-      let file_url = "";
-      //let file_url = files[0].response;
+      let file_url = this.upload.web_io + "/" + files[0].response.link;
       let params = {
         conference_id: this.conference_id,
         title: title,
@@ -357,12 +359,11 @@ export default {
           let data = rsp.data;
           if (data.status==="succ") {
             let contribution_id = data.data.contribution_id;
-            //this.$router.push("/contribution/"+contribution_id);
+            this.$router.push("/contribution/"+contribution_id);
             M.toast({
               html: "<span style='font-weight: bold;'>投稿成功</span>",
               classes: 'green rounded'
             });
-            that.$router.push("/conference/"+this.conference_id);
           } else {
             M.toast({
               html: "<span style='font-weight: bold;'>投稿失败</span>",
