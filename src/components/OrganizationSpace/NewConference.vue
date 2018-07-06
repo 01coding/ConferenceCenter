@@ -254,7 +254,12 @@
         $('.dropdown-trigger').dropdown();
       });
     },
+    beforeDestroy:function () {
+      this.$bus.off("TPChoseOver")
+    }
+    ,
     mounted: function () {
+      this.$bus.on("TPChoseOver",(num)=>{console.log("选择模板:"+num)})
       this.$bus.emit('manage-change-title', { text: '发布新会议' });
       // document.addEventListener('DOMContentLoaded', () => {
       let options = {
@@ -421,7 +426,7 @@
         };
         let FileData = new FormData();
         FileData.append('file', this.paper_template);
-        return this.$file.post('/', FileData, config).then(response => {
+        return this.$file.post('', FileData, config).then(response => {
           this.template_path = response.data;
         });
       },
@@ -433,7 +438,7 @@
         };
         let FileData = new FormData();
         FileData.append('file', this.back_img);
-        return this.$file.post('/', FileData, config).then(response => {
+        return this.$file.post('', FileData, config).then(response => {
           this.image_path = response.data;
         });
       }
