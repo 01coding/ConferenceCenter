@@ -332,6 +332,7 @@
         }).then(response => {
           if(response.data.data.type === 0) {
             originThis.identify = "作者";
+            originThis.papers = response.data.data.papers;
             console.log("go to type === 0");
           }
           else {
@@ -339,7 +340,6 @@
           }
           console.log("response.data.data");
           console.log(response.data.data);
-          originThis.papers = response.data.data.papers;
         }).catch(error => {
           console.log(1);
         });
