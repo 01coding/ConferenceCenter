@@ -4,35 +4,41 @@
     <div class="pp">
     <div class="row">
       <div class="col s12 m3 " @click="chose(1)">
-        <div class="card">
-          <div class="card-image hoverable">
-            <img src="http://118.89.229.204:8080/ERM-WebIO-1.0/uploads/9429689731530795759771325578045.jpg">
+        <div class="card hoverable">
+          <div class="card-image ">
+            <img src="http://118.89.229.204:8080/ERM-WebIO-1.0/uploads/17462761931530863157315460914568.gif">
             <span class="card-title">简约</span>
             <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
           </div>
-
+          <div class="card-action">
+            <a href="#">简约</a>
+          </div>
         </div>
       </div>
 
       <div class="col s12 m3 " @click="chose(2)">
-        <div class="card">
-          <div class="card-image hoverable">
-            <img src="http://118.89.229.204:8080/ERM-WebIO-1.0/uploads/3220737015307958410542120607142.jpg">
+        <div class="card hoverable">
+          <div class="card-image ">
+            <img src="http://118.89.229.204:8080/ERM-WebIO-1.0/uploads/17462761931530863157315460914568.gif">
             <span class="card-title">科技</span>
             <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
           </div>
-
+          <div class="card-action">
+            <a href="#">科技</a>
+          </div>
         </div>
       </div>
 
       <div class="col s12 m3 " @click="chose(3)">
-        <div class="card">
-          <div class="card-image hoverable">
-            <img src="http://118.89.229.204:8080/ERM-WebIO-1.0/uploads/14354229441530795892543288075811.png">
+        <div class="card hoverable">
+          <div class="card-image ">
+            <img src="http://118.89.229.204:8080/ERM-WebIO-1.0/uploads/17462761931530863157315460914568.gif">
             <span class="card-title">绚丽</span>
             <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
           </div>
-
+          <div class="card-action">
+            <a href="#">古典</a>
+          </div>
         </div>
       </div>
     </div>

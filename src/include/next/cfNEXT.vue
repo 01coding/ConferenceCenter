@@ -22,11 +22,18 @@
         </router-link>
         <ul>
           <li>
+            <span class="mobile-fab-tip">空间</span>
+            <a class="btn-floating red darken-2"  data-position="left" @click="toPS()">
+              <i class="material-icons">explore</i>
+            </a>
+          </li>
+          <li>
             <span class="mobile-fab-tip">首页</span>
             <a class="btn-floating red darken-2"  data-position="left" @click="toIndex()">
               <i class="material-icons">desktop_mac</i>
             </a>
           </li>
+
         </ul>
       </div>
     </div>
@@ -59,6 +66,9 @@
         },
         toIndex:function () {
           this.$router.push("/")
+        } ,
+        toPS:function () {
+          this.$router.push("/personalspace")
         }
       }
     }

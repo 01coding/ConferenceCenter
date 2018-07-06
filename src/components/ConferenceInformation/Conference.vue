@@ -1,159 +1,476 @@
 <template>
 
   <div>
-    <Loader v-show="is_loading"></Loader>
-    <NavBar></NavBar>
-    <div class="row" style="margin-bottom: 0;">
-      <div class="col s1"></div>
-      <div class="card customize"
-           style="width: 100%; padding-top: 2rem;
+    <div v-if="conference_template===1">
+
+      <Loader v-show="is_loading"></Loader>
+      <NavBar></NavBar>
+      <div class="row" style="margin-bottom: 0;">
+        <div class="col s1"></div>
+        <div class="card customize"
+             style="width: 100%; padding-top: 2rem;
                   padding-bottom: 2rem; margin: 0;"
-           :style="{'background': bg_overlay+'url('+conferenceImg+')'}">
-        <div class="white-text row container">
-          <div class="col s12">
-            <h4 class="center" style="font-weight: bold">{{resp.data.title}}</h4>
-            <h5 class="center">{{resp.data.start_date}}，{{resp.data.convening_place}}</h5>
-            <h5 style="font-weight: bold" class="center">{{conferenceState}}</h5>
-            <h5>&nbsp</h5>
-            <div class="row center-align">
-              <!--<div class="btn btn-large teal" @click="toCollect">
-                <div class="white-text">-->
-              <div class="btn btn-large teal"
-                  :class="{ disabled: hasCollect === 1 }"
-                   @click="toCollect">
-                <div :class="{'white-text': hasCollect === 0, 'grey-text': hasCollect !== 0}">
-                  <i class="material-icons left">star_border</i>
-                  <span v-show="hasCollect">已</span>收藏
+             :style="{'background': bg_overlay+'url('+conferenceImg+')'}">
+          <div class="white-text row container">
+            <div class="col s12">
+              <h4 class="center" style="font-weight: bold">{{resp.data.title}}</h4>
+              <h5 class="center">{{resp.data.start_date}}，{{resp.data.convening_place}}</h5>
+              <h5 style="font-weight: bold" class="center">{{conferenceState}}</h5>
+              <h5>&nbsp</h5>
+              <div class="row center-align">
+                <!--<div class="btn btn-large teal" @click="toCollect">
+                  <div class="white-text">-->
+                <div class="btn btn-large teal"
+                     :class="{ disabled: hasCollect === 1 }"
+                     @click="toCollect">
+                  <div :class="{'white-text': hasCollect === 0, 'grey-text': hasCollect !== 0}">
+                    <i class="material-icons left">star_border</i>
+                    <span v-show="hasCollect">已</span>收藏
+                  </div>
+                </div>
+                <div class="btn btn-large green"
+                     :class="{ disabled: contributeToLink === 0 }"
+                     @click="toContribute">
+                  <div :class="{'white-text': contributeToLink !== 0, 'grey-text': contributeToLink === 0}">
+                    <i class="material-icons left">send</i>
+                    投稿
+                  </div>
+                </div>
+                <div id="register" class="btn btn-large blue lighten-1"
+                     @click="toRegisterConference"
+                     :class="{ disabled: registerToLink === 0 }">
+                  <div :class="{'white-text': contributeToLink !== 0, 'grey-text': registerToLink === 0}">
+                    <i class="material-icons left">group_add</i>
+                    注册参会
+                  </div>
                 </div>
               </div>
-              <div class="btn btn-large green"
-                   :class="{ disabled: contributeToLink === 0 }"
-                   @click="toContribute">
-                <div :class="{'white-text': contributeToLink !== 0, 'grey-text': contributeToLink === 0}">
-                  <i class="material-icons left">send</i>
-                  投稿
+            </div>
+          </div>
+        </div>
+        <div class="white section" style="min-height: 35rem;">
+          <div class="container">
+            <div class="row" style="margin-bottom: 0;">
+              <div class="col s3">
+                <div style="height:6rem;"></div>
+                <div class="card-panel center-align" style="width: 100%; max-width: 15rem;">
+                  <ul class="section table-of-contents"
+                      style="padding-top: 0; padding-bottom: 0; padding-right: 1rem;">
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===0}" @click="switch_tab(0)">会议介绍</a></li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===1}" @click="switch_tab(1)">投稿须知</a></li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===2}" @click="switch_tab(2)">日程安排</a></li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===3}" @click="switch_tab(3)">住宿交通</a></li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===4}" @click="switch_tab(4)">联系我们</a></li>
+                  </ul>
                 </div>
               </div>
-              <div id="register" class="btn btn-large blue lighten-1"
-                   @click="toRegisterConference"
-                   :class="{ disabled: registerToLink === 0 }">
-                <div :class="{'white-text': contributeToLink !== 0, 'grey-text': registerToLink === 0}">
-                  <i class="material-icons left">group_add</i>
-                  注册参会
+              <div class="col s9">
+                <div id="introduction" class="card-container" v-if="active_tab===0">
+                  <ul class="collection with-header">
+                    <li class="collection-header"><h4 style="">会议介绍</h4></li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle red lighten-1">schedule</i>
+                      <p class="coference-date"><strong>开始日期</strong>：<span style="font-size:1.1rem;">{{resp.data.start_date}}</span></p>
+                      <p style="height:0.5rem;"></p>
+                      <p class="coference-date"><strong>结束日期</strong>：<span style="font-size:1.1rem;">{{resp.data.end_date}}</span></p>
+                    </li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle light-blue darken-1">description</i>
+                      <p class="coference-title"><strong>会议简介</strong></p>
+                      <p style="height: 0.5rem;"></p>
+                      <p>{{resp.data.introduction}}</p>
+                    </li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle grey darken-1">assignment</i>
+                      <p class="coference-title"><strong>注册须知</strong></p>
+                      <pre>{{resp.data.register_information}}</pre>
+                    </li>
+                  </ul>
+                </div>
+                <div id="register_notion" class="card-container" v-if="active_tab===1">
+                  <ul class="collection with-header">
+                    <li class="collection-header"><h4 style="">投稿须知</h4></li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle red lighten-1">schedule</i>
+                      <p class="coference-date"><strong>征稿开始：</strong><span style="font-size:1.1rem;">{{resp.data.start_date}}</span></p>
+                      <p class="coference-date"><strong>征稿截止：</strong><span style="font-size:1.1rem;">{{resp.data.paper_ddl}}</span></p>
+                      <p style="height:0.5rem;"></p>
+                      <p class="coference-date"><strong>查看审核结果日期：</strong><span style="font-size:1.1rem;">{{resp.data.employ_date}}</span></p>
+                    </li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle light-blue darken-1">description</i>
+                      <p class="coference-title"><strong>征文要求</strong></p>
+                      <p style="height: 0.5rem;"></p>
+                      <pre>{{resp.data.essay_instructions}}</pre>
+                    </li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle grey darken-1">assignment</i>
+                      <p class="coference-title"><strong>投稿信息</strong></p>
+                      <p style="height: 0.5rem;"></p>
+                      <pre>{{resp.data.essay_information}}</pre>
+                    </li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle deep-orange lighten-1">picture_as_pdf</i>
+                      <p class="coference-title">
+                        <strong>论文模板</strong>:&nbsp &nbsp &nbsp &nbsp
+                        <a class="btn blue-grey" v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a>
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+                <div id="schedule" class="card-container" v-if="active_tab===2">
+                  <ul class="collection with-header">
+                    <li class="collection-header"><h4 style="">日程安排</h4></li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle red lighten-1">schedule</i>
+                      <p class="coference-title"><strong>会议议程</strong></p>
+                      <p style="height: 0.5rem;"></p>
+                      <pre>{{resp.data.schedule}}</pre>
+                    </li>
+                  </ul>
+                </div>
+                <div id="traffic" class="card-container" v-if="active_tab===3">
+                  <ul class="collection with-header">
+                    <li class="collection-header"><h4 style="">住宿交通</h4></li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle light-blue darken-1">flight</i>
+                      <p class="coference-title"><strong>安排方式</strong></p>
+                      <p style="height: 0.5rem;"></p>
+                      <pre>{{resp.data.ATinformation}}</pre>
+                    </li>
+                  </ul>
+                </div>
+                <div id="relation" class="card-container" v-if="active_tab===4">
+                  <ul class="collection with-header">
+                    <li class="collection-header"><h4 style="">联系我们</h4></li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle deep-orange lighten-1">dialer_sip</i>
+                      <p class="coference-title"><strong>联系方式</strong></p>
+                      <p style="height: 0.5rem;"></p>
+                      <pre>{{resp.data.contact}}</pre>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="white section" style="min-height: 35rem;">
-        <div class="container">
-          <div class="row" style="margin-bottom: 0;">
-            <div class="col s3">
-              <div style="height:6rem;"></div>
-              <div class="card-panel center-align" style="width: 100%; max-width: 15rem;">
-                <ul class="section table-of-contents"
-                    style="padding-top: 0; padding-bottom: 0; padding-right: 1rem;">
-                  <li><a style="cursor: pointer" :class="{'active':active_tab===0}" @click="switch_tab(0)">会议介绍</a></li>
-                  <li><a style="cursor: pointer" :class="{'active':active_tab===1}" @click="switch_tab(1)">投稿须知</a></li>
-                  <li><a style="cursor: pointer" :class="{'active':active_tab===2}" @click="switch_tab(2)">日程安排</a></li>
-                  <li><a style="cursor: pointer" :class="{'active':active_tab===3}" @click="switch_tab(3)">住宿交通</a></li>
-                  <li><a style="cursor: pointer" :class="{'active':active_tab===4}" @click="switch_tab(4)">联系我们</a></li>
-                </ul>
+
+    </div>
+    <div v-if="conference_template===2">
+      <Loader v-show="is_loading"></Loader>
+      <NavBar></NavBar>
+      <div class="row" style="margin-bottom: 0;">
+        <div class="col s1"></div>
+        <div class="card customize"
+             style="width: 100%; padding-top: 2rem;
+                  padding-bottom: 2rem; margin: 0;"
+             :style="{'background': bg_overlay+'url('+conferenceImg2+')'}">
+          <div class="white-text row container">
+            <div class="col s12">
+              <h4 class="center" style="font-weight: bold">{{resp.data.title}}</h4>
+              <h5 class="center">{{resp.data.start_date}}，{{resp.data.convening_place}}</h5>
+              <h5 style="font-weight: bold" class="center">{{conferenceState}}</h5>
+              <h5>&nbsp</h5>
+              <div class="row center-align my-tech-blue">
+                <!--<div class="btn btn-large teal" @click="toCollect">
+                  <div class="white-text">-->
+                <div class="btn btn-large yellow teal my-trans my-not-inline hoverable my-margin-5"
+                     :class="{ disabled: hasCollect === 1 }"
+                     @click="toCollect">
+                  <div :class="{'white-text': hasCollect === 0, 'grey-text': hasCollect !== 0}">
+                    <i class="material-icons  left">star_border</i>
+                    <span v-show="hasCollect">已</span>收藏
+                  </div>
+                </div>
+                <div class="btn btn-large green my-trans my-not-inline hoverable my-margin-5"
+                     :class="{ disabled: contributeToLink === 0 }"
+                     @click="toContribute">
+                  <div :class="{'white-text': contributeToLink !== 0, 'grey-text': contributeToLink === 0}">
+                    <i class="material-icons left">send</i>
+                    投稿
+                  </div>
+                </div>
+                <div id="register" class="btn btn-large blue lighten-1 my-trans my-not-inline hoverable my-margin-5"
+                     @click="toRegisterConference"
+                     :class="{ disabled: registerToLink === 0 }">
+                  <div :class="{'white-text': contributeToLink !== 0, 'grey-text': registerToLink === 0}">
+                    <i class="material-icons left">group_add</i>
+                    注册参会
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="col s9">
-              <div id="introduction" class="card-container" v-if="active_tab===0">
-                <ul class="collection with-header">
-                  <li class="collection-header"><h4 style="">会议介绍</h4></li>
-                  <li class="collection-item avatar">
-                    <i class="material-icons circle red lighten-1">schedule</i>
-                    <p class="coference-date"><strong>开始日期</strong>：<span style="font-size:1.1rem;">{{resp.data.start_date}}</span></p>
-                    <p style="height:0.5rem;"></p>
-                    <p class="coference-date"><strong>结束日期</strong>：<span style="font-size:1.1rem;">{{resp.data.end_date}}</span></p>
-                  </li>
-                  <li class="collection-item avatar">
-                    <i class="material-icons circle light-blue darken-1">description</i>
-                    <p class="coference-title"><strong>会议简介</strong></p>
-                    <p style="height: 0.5rem;"></p>
-                    <p>{{resp.data.introduction}}</p>
-                  </li>
-                  <li class="collection-item avatar">
-                    <i class="material-icons circle grey darken-1">assignment</i>
-                    <p class="coference-title"><strong>注册须知</strong></p>
-                    <pre>{{resp.data.register_information}}</pre>
-                  </li>
-                </ul>
+          </div>
+        </div>
+        <div class="my-blue-dark section" style="min-height: 35rem;">
+          <div class="container">
+            <div class="row" style="margin-bottom: 0;">
+              <div class="col s3 ">
+                <div style="height:6rem;"></div>
+                <div class="card-panel center-align my-trans" style="width: 100%; max-width: 15rem;">
+                  <ul class="section table-of-contents  "
+                      style="padding-top: 0; padding-bottom: 0; padding-right: 1rem;">
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===0} " class="my-tech-blue" @click="switch_tab(0)">会议介绍</a></li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===1}"  class="my-tech-blue" @click="switch_tab(1)">投稿须知</a></li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===2}" class="my-tech-blue" @click="switch_tab(2)">日程安排</a></li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===3}" class="my-tech-blue" @click="switch_tab(3)">住宿交通</a></li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===4}" class="my-tech-blue" @click="switch_tab(4)">联系我们</a></li>
+                  </ul>
+                </div>
               </div>
-              <div id="register_notion" class="card-container" v-if="active_tab===1">
-                <ul class="collection with-header">
-                  <li class="collection-header"><h4 style="">投稿须知</h4></li>
-                  <li class="collection-item avatar">
-                    <i class="material-icons circle red lighten-1">schedule</i>
-                    <p class="coference-date"><strong>征稿开始：</strong><span style="font-size:1.1rem;">{{resp.data.start_date}}</span></p>
-                    <p class="coference-date"><strong>征稿截止：</strong><span style="font-size:1.1rem;">{{resp.data.paper_ddl}}</span></p>
-                    <p style="height:0.5rem;"></p>
-                    <p class="coference-date"><strong>查看审核结果日期：</strong><span style="font-size:1.1rem;">{{resp.data.employ_date}}</span></p>
-                  </li>
-                  <li class="collection-item avatar">
-                    <i class="material-icons circle light-blue darken-1">description</i>
-                    <p class="coference-title"><strong>征文要求</strong></p>
-                    <p style="height: 0.5rem;"></p>
-                    <pre>{{resp.data.essay_instructions}}</pre>
-                  </li>
-                  <li class="collection-item avatar">
-                    <i class="material-icons circle grey darken-1">assignment</i>
-                    <p class="coference-title"><strong>投稿信息</strong></p>
-                    <p style="height: 0.5rem;"></p>
-                    <pre>{{resp.data.essay_information}}</pre>
-                  </li>
-                  <li class="collection-item avatar">
-                    <i class="material-icons circle deep-orange lighten-1">picture_as_pdf</i>
-                    <p class="coference-title">
-                      <strong>论文模板</strong>:&nbsp &nbsp &nbsp &nbsp
-                      <a class="btn blue-grey" v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a>
-                    </p>
-                  </li>
-                </ul>
-              </div>
-              <div id="schedule" class="card-container" v-if="active_tab===2">
-                <ul class="collection with-header">
-                  <li class="collection-header"><h4 style="">日程安排</h4></li>
-                  <li class="collection-item avatar">
-                    <i class="material-icons circle red lighten-1">schedule</i>
-                    <p class="coference-title"><strong>会议议程</strong></p>
-                    <p style="height: 0.5rem;"></p>
-                    <pre>{{resp.data.schedule}}</pre>
-                  </li>
-                </ul>
-              </div>
-              <div id="traffic" class="card-container" v-if="active_tab===3">
-                <ul class="collection with-header">
-                  <li class="collection-header"><h4 style="">住宿交通</h4></li>
-                  <li class="collection-item avatar">
-                    <i class="material-icons circle light-blue darken-1">flight</i>
-                    <p class="coference-title"><strong>安排方式</strong></p>
-                    <p style="height: 0.5rem;"></p>
-                    <pre>{{resp.data.ATinformation}}</pre>
-                  </li>
-                </ul>
-              </div>
-              <div id="relation" class="card-container" v-if="active_tab===4">
-                <ul class="collection with-header">
-                  <li class="collection-header"><h4 style="">联系我们</h4></li>
-                  <li class="collection-item avatar">
-                    <i class="material-icons circle deep-orange lighten-1">dialer_sip</i>
-                    <p class="coference-title"><strong>联系方式</strong></p>
-                    <p style="height: 0.5rem;"></p>
-                    <pre>{{resp.data.contact}}</pre>
-                  </li>
-                </ul>
+              <div class="col s9 my-trans my-tech-blue">
+                <div id="introduction" class="card-container my-total-trans" v-if="active_tab===0">
+                  <ul class="collection with-header my-total-trans">
+                    <li class="collection-header my-total-trans"><h4 style="">会议介绍</h4></li>
+                    <li class="collection-item avatar my-total-trans">
+                      <i class="material-icons circle red lighten-1 my-trans hoverable">schedule</i>
+                      <p class="coference-date"><strong>开始日期</strong>：<span style="font-size:1.1rem;">{{resp.data.start_date}}</span></p>
+                      <p style="height:0.5rem;"></p>
+                      <p class="coference-date"><strong>结束日期</strong>：<span style="font-size:1.1rem;">{{resp.data.end_date}}</span></p>
+                    </li>
+                    <li class="collection-item avatar my-total-trans">
+                      <i class="material-icons circle  my-trans hoverable">description</i>
+                      <p class="coference-title"><strong>会议简介</strong></p>
+                      <p style="height: 0.5rem;"></p>
+                      <p>{{resp.data.introduction}}</p>
+                    </li>
+                    <li class="collection-item avatar my-total-trans">
+                      <i class="material-icons circle my-trans hoverable">assignment</i>
+                      <p class="coference-title"><strong>注册须知</strong></p>
+                      <pre>{{resp.data.register_information}}</pre>
+                    </li>
+                  </ul>
+                </div>
+                <div id="register_notion" class="card-container my-total-trans" v-if="active_tab===1">
+                  <ul class="collection with-header my-total-trans">
+                    <li class="collection-header my-total-trans"><h4 style="">投稿须知</h4></li>
+                    <li class="collection-item avatar my-total-trans">
+                      <i class="material-icons circle my-trans hoverable">schedule</i>
+                      <p class="coference-date"><strong>征稿开始：</strong><span style="font-size:1.1rem;">{{resp.data.start_date}}</span></p>
+                      <p class="coference-date"><strong>征稿截止：</strong><span style="font-size:1.1rem;">{{resp.data.paper_ddl}}</span></p>
+                      <p style="height:0.5rem;"></p>
+                      <p class="coference-date"><strong>查看审核结果日期：</strong><span style="font-size:1.1rem;">{{resp.data.employ_date}}</span></p>
+                    </li>
+                    <li class="collection-item avatar my-total-trans">
+                      <i class="material-icons circle my-trans hoverable">description</i>
+                      <p class="coference-title"><strong>征文要求</strong></p>
+                      <p style="height: 0.5rem;"></p>
+                      <pre>{{resp.data.essay_instructions}}</pre>
+                    </li>
+                    <li class="collection-item avatar my-total-trans">
+                      <i class="material-icons circle my-trans hoverable">assignment</i>
+                      <p class="coference-title"><strong>投稿信息</strong></p>
+                      <p style="height: 0.5rem;"></p>
+                      <pre>{{resp.data.essay_information}}</pre>
+                    </li>
+                    <li class="collection-item avatar my-total-trans">
+                      <i class="material-icons circle my-trans hoverable">picture_as_pdf</i>
+                      <p class="coference-title">
+                        <strong>论文模板</strong>:&nbsp &nbsp &nbsp &nbsp
+                        <a class="btn blue-grey" v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a>
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+                <div id="schedule" class="card-container my-total-trans" v-if="active_tab===2">
+                  <ul class="collection with-header my-total-trans">
+                    <li class="collection-header my-total-trans"><h4 style="">日程安排</h4></li>
+                    <li class="collection-item avatar my-total-trans">
+                      <i class="material-icons circle my-trans hoverable">schedule</i>
+                      <p class="coference-title"><strong>会议议程</strong></p>
+                      <p style="height: 0.5rem;"></p>
+                      <pre>{{resp.data.schedule}}</pre>
+                    </li>
+                  </ul>
+                </div>
+                <div id="traffic" class="card-container my-total-trans" v-if="active_tab===3">
+                  <ul class="collection with-header my-total-trans">
+                    <li class="collection-header my-total-trans"><h4 style="">住宿交通</h4></li>
+                    <li class="collection-item avatar my-total-trans">
+                      <i class="material-icons circle my-total-trans">flight</i>
+                      <p class="coference-title"><strong>安排方式</strong></p>
+                      <p style="height: 0.5rem;"></p>
+                      <pre>{{resp.data.ATinformation}}</pre>
+                    </li>
+                  </ul>
+                </div>
+                <div id="relation" class="card-container my-total-trans" v-if="active_tab===4">
+                  <ul class="collection with-header my-total-trans">
+                    <li class="collection-header my-total-trans"><h4 style="">联系我们</h4></li>
+                    <li class="collection-item avatar my-total-trans">
+                      <i class="material-icons circle my-trans hoverable">dialer_sip</i>
+                      <p class="coference-title"><strong>联系方式</strong></p>
+                      <p style="height: 0.5rem;"></p>
+                      <pre>{{resp.data.contact}}</pre>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <div v-if="conference_template===3">
+      <Loader v-show="is_loading"></Loader>
+      <NavBar></NavBar>
+      <div class="row" style="margin-bottom: 0;">
+        <div class="col s1"></div>
+        <div class="card customize"
+             style="width: 100%; padding-top: 2rem;
+                  padding-bottom: 2rem; margin: 0;"
+             :style="{'background': bg_overlay+'url('+conferenceImg3+')'}">
+          <div class="white-text row container">
+            <div class="col s12">
+              <h4 class="center" style="font-weight: bold">{{resp.data.title}}</h4>
+              <h5 class="center">{{resp.data.start_date}}，{{resp.data.convening_place}}</h5>
+              <h5 style="font-weight: bold" class="center">{{conferenceState}}</h5>
+              <h5>&nbsp</h5>
+              <div class="row center-align">
+                <!--<div class="btn btn-large teal" @click="toCollect">
+                  <div class="white-text">-->
+                <div class="btn btn-large teal"
+                     :class="{ disabled: hasCollect === 1 }"
+                     @click="toCollect">
+                  <div :class="{'white-text': hasCollect === 0, 'grey-text': hasCollect !== 0}">
+                    <i class="material-icons left">star_border</i>
+                    <span v-show="hasCollect">已</span>收藏
+                  </div>
+                </div>
+                <div class="btn btn-large green"
+                     :class="{ disabled: contributeToLink === 0 }"
+                     @click="toContribute">
+                  <div :class="{'white-text': contributeToLink !== 0, 'grey-text': contributeToLink === 0}">
+                    <i class="material-icons left">send</i>
+                    投稿
+                  </div>
+                </div>
+                <div id="register" class="btn btn-large blue lighten-1"
+                     @click="toRegisterConference"
+                     :class="{ disabled: registerToLink === 0 }">
+                  <div :class="{'white-text': contributeToLink !== 0, 'grey-text': registerToLink === 0}">
+                    <i class="material-icons left">group_add</i>
+                    注册参会
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="white section" style="min-height: 35rem;">
+          <div class="container">
+            <div class="row" style="margin-bottom: 0;">
+              <div class="col s3">
+                <div style="height:6rem;"></div>
+                <div class="card-panel center-align" style="width: 100%; max-width: 15rem;">
+                  <ul class="section table-of-contents"
+                      style="padding-top: 0; padding-bottom: 0; padding-right: 1rem;">
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===0}" @click="switch_tab(0)">会议介绍</a></li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===1}" @click="switch_tab(1)">投稿须知</a></li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===2}" @click="switch_tab(2)">日程安排</a></li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===3}" @click="switch_tab(3)">住宿交通</a></li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===4}" @click="switch_tab(4)">联系我们</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col s9">
+                <div id="introduction" class="card-container" v-if="active_tab===0">
+                  <ul class="collection with-header">
+                    <li class="collection-header"><h4 style="">会议介绍</h4></li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle red lighten-1">schedule</i>
+                      <p class="coference-date"><strong>开始日期</strong>：<span style="font-size:1.1rem;">{{resp.data.start_date}}</span></p>
+                      <p style="height:0.5rem;"></p>
+                      <p class="coference-date"><strong>结束日期</strong>：<span style="font-size:1.1rem;">{{resp.data.end_date}}</span></p>
+                    </li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle light-blue darken-1">description</i>
+                      <p class="coference-title"><strong>会议简介</strong></p>
+                      <p style="height: 0.5rem;"></p>
+                      <p>{{resp.data.introduction}}</p>
+                    </li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle grey darken-1">assignment</i>
+                      <p class="coference-title"><strong>注册须知</strong></p>
+                      <pre>{{resp.data.register_information}}</pre>
+                    </li>
+                  </ul>
+                </div>
+                <div id="register_notion" class="card-container" v-if="active_tab===1">
+                  <ul class="collection with-header">
+                    <li class="collection-header"><h4 style="">投稿须知</h4></li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle red lighten-1">schedule</i>
+                      <p class="coference-date"><strong>征稿开始：</strong><span style="font-size:1.1rem;">{{resp.data.start_date}}</span></p>
+                      <p class="coference-date"><strong>征稿截止：</strong><span style="font-size:1.1rem;">{{resp.data.paper_ddl}}</span></p>
+                      <p style="height:0.5rem;"></p>
+                      <p class="coference-date"><strong>查看审核结果日期：</strong><span style="font-size:1.1rem;">{{resp.data.employ_date}}</span></p>
+                    </li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle light-blue darken-1">description</i>
+                      <p class="coference-title"><strong>征文要求</strong></p>
+                      <p style="height: 0.5rem;"></p>
+                      <pre>{{resp.data.essay_instructions}}</pre>
+                    </li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle grey darken-1">assignment</i>
+                      <p class="coference-title"><strong>投稿信息</strong></p>
+                      <p style="height: 0.5rem;"></p>
+                      <pre>{{resp.data.essay_information}}</pre>
+                    </li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle deep-orange lighten-1">picture_as_pdf</i>
+                      <p class="coference-title">
+                        <strong>论文模板</strong>:&nbsp &nbsp &nbsp &nbsp
+                        <a class="btn blue-grey" v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a>
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+                <div id="schedule" class="card-container" v-if="active_tab===2">
+                  <ul class="collection with-header">
+                    <li class="collection-header"><h4 style="">日程安排</h4></li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle red lighten-1">schedule</i>
+                      <p class="coference-title"><strong>会议议程</strong></p>
+                      <p style="height: 0.5rem;"></p>
+                      <pre>{{resp.data.schedule}}</pre>
+                    </li>
+                  </ul>
+                </div>
+                <div id="traffic" class="card-container" v-if="active_tab===3">
+                  <ul class="collection with-header">
+                    <li class="collection-header"><h4 style="">住宿交通</h4></li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle light-blue darken-1">flight</i>
+                      <p class="coference-title"><strong>安排方式</strong></p>
+                      <p style="height: 0.5rem;"></p>
+                      <pre>{{resp.data.ATinformation}}</pre>
+                    </li>
+                  </ul>
+                </div>
+                <div id="relation" class="card-container" v-if="active_tab===4">
+                  <ul class="collection with-header">
+                    <li class="collection-header"><h4 style="">联系我们</h4></li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle deep-orange lighten-1">dialer_sip</i>
+                      <p class="coference-title"><strong>联系方式</strong></p>
+                      <p style="height: 0.5rem;"></p>
+                      <pre>{{resp.data.contact}}</pre>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
   </div>
 </template>
 
@@ -172,8 +489,13 @@
         active_tab: 0,
         bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),",
 
+        conference_template:1,
+
         conference_id: 1,
         conferenceImg: "/static/bg1.jpg",
+        conferenceImg2:"/static/bg2.jpg",
+        conferenceImg3:"/static/bg3.jpg",
+
         conferenceState: '默认',
         hasCollect: 0,
         contributeToLink: 0,
@@ -307,6 +629,7 @@
         if(response.status === 200) {
           if (response.data.status === "succ") {
             this.resp = response.data;
+            this.conference_template=this.resp.data.conference_template
             console.log(this.resp.data);
             this.getConferenceState();
             this.isAbleRegister();
@@ -367,5 +690,30 @@
     height: 2.4rem;
     line-height: 2.4rem;
   }
-
+  .my-trans{
+    background-color: rgba(0,0,0,0.1)!important;
+  }
+  .my-total-trans{
+    background-color: rgba(0,0,0,0)!important;;
+  }
+  .my-blue{
+    color: #00ffff!important;
+    border-color: #00ffff!important;
+    border-width: 2px!important;
+  }
+  .my-not-inline{
+    display:block!important;
+  }
+  .my-margin-5{
+    margin: 5px;
+  }
+  .my-blue-dark{
+    background-color: #183336!important;
+  }
+  .my-tech-blue{
+    color: #00ffff!important;
+  }
+  .my-tech-blue-dark{
+    color: #00cccc!important;
+  }
 </style>
