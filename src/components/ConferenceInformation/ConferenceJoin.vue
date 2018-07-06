@@ -346,7 +346,7 @@
       },
 
       isAbleRegister: function () {
-        if (this.conferenceState !== "征稿中") {
+        if (!(this.resp.data.state & 0b0011)) {
           this.$router.push("/404");
         }
       },
