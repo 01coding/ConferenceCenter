@@ -154,12 +154,6 @@
               <h5>页面外观</h5>
             </div>
           </div>
-          <!--<div class="row">-->
-          <!--<div class="input-field col s6">-->
-          <!--<input id="conf-conference-template"/>-->
-          <!--<label for="conf"-->
-          <!--</div>-->
-          <!--</div>-->
           <div class="row">
             <div class="col s6">
               <h6>选择模板</h6>
@@ -186,10 +180,6 @@
                 <input class="file-path validate" type="text" placeholder="背景图片"/>
               </div>
             </div>
-            <!--<div class="input-field col s12">-->
-            <!--<input id="conf-bg-img" type="text" v-model="conf_bg_img"/>-->
-            <!--<label for="conf-bg-img">背景图片</label>-->
-            <!--</div>-->
           </div>
         </form>
         <div>
@@ -248,9 +238,6 @@
     created: function () {
       $(document).ready(function () {
         $('#conf-topic').characterCounter();
-        // $('#conf-start-date').datepicker();
-        // $('#conf-end-date').datepicker();
-        // $('.datepicker').datepicker();
         $('.dropdown-trigger').dropdown();
       });
     },

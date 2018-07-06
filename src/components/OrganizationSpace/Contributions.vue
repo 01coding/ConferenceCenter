@@ -177,7 +177,7 @@
         all_num: 0,
         number: 1,
         current: 1,
-        per_page: 10,
+        per_page: 6,
         filter: 'all',
         download_link: '',
       }
@@ -249,6 +249,11 @@
       },
       download: function() {
         window.open(this.download_link, '_blank');
+      }
+    },
+    watch: {
+      filter: function(val) {
+        this.current = 1;
       }
     }
   }
