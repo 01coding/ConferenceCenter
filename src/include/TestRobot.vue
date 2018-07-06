@@ -79,6 +79,12 @@
           }
         },
         methods:{
+          init_fab_tip: function () {
+            let width = 0;
+            $('.overlay-trigger').click(this.overlay);
+            $('.overlay').click(this.hideOverlay);
+            $(window).on("scroll", this.hideOverlay);
+          },
           scholar_login:function(){
             this.login_data.email="1521@123.com";
             this.login_data.password="1521";

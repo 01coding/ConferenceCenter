@@ -25,9 +25,9 @@
               <!--<img src="https://materializecss.com/images/office.jpg">-->
             </div>
 
-            <span href="#user"><img class="circle" v-bind:src='"http://118.89.229.204:8080/"+personalInfo.avator'></span>
-            <span href="#name"><span class="white-text name">{{personalInfo.name}}</span></span>
-            <span href="#email"><span class="white-text email">{{personalInfo.email}}</span></span>
+            <span v-on:click="goPersonalInfo"><img class="circle" v-bind:src='"http://118.89.229.204:8080/"+personalInfo.avator' ></span>
+            <span class="white-text name">{{personalInfo.name}}</span>
+            <span class="white-text email">{{personalInfo.email}}</span>
 
           </div>
         </li>
@@ -83,6 +83,11 @@
         },
         personalInfo:{}
       };
+    },
+    methods:{
+      goPersonalInfo:function () {
+        this.$router.push({path:'/personalspace/personalinformation'})
+      }
     },
     created: function () {
       $(document).ready(function () {
