@@ -26,7 +26,7 @@
               <i class="material-icons">grade</i>
             </a>
           </span>
-            <p>{{item.start_date}}, {{item.convening_place}}</p>
+            <p>{{item.start_date.substr(0, 10)}}, {{item.convening_place}}</p>
             <p style="height:1rem;"></p>
             <p>{{item.introduction}}</p>
           </div>
@@ -54,7 +54,7 @@
               <i class="material-icons">grade</i>
             </a>
           </span>
-            <p>{{item.start_date}}, {{item.convening_place}}</p>
+            <p>{{item.start_date.substr(0, 10)}}, {{item.convening_place}}</p>
             <p style="height:1rem;"></p>
             <p>{{item.introduction}}</p>
           </div>
@@ -84,7 +84,7 @@
               <i class="material-icons">grade</i>
             </a>
           </span>
-            <p>{{item.start_date}}, {{item.convening_place}}</p>
+            <p>{{item.start_date.substr(0, 10)}}, {{item.convening_place}}</p>
             <p style="height:1rem;"></p>
             <p class="conference-introduction">{{item.introduction}}</p>
           </div>

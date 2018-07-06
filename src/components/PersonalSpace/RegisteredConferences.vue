@@ -23,7 +23,7 @@
           <span class="card-title activator grey-text text-darken-4">
             <i class="material-icons right">language</i>
           </span>
-            <p>{{item.start_date}}, {{item.convening_place}}</p>
+            <p>{{item.start_date.substr(0, 10)}}, {{item.convening_place}}</p>
             <p style="height:1rem;"></p>
             <p>{{item.introduction}}</p>
           </div>
@@ -48,7 +48,7 @@
           <span class="card-title activator grey-text text-darken-4">
             <i class="material-icons right">language</i>
           </span>
-            <p>{{item.start_date}}, {{item.convening_place}}</p>
+            <p>{{item.start_date.substr(0, 10)}}, {{item.convening_place}}</p>
             <p style="height:1rem;"></p>
             <p>{{item.introduction}}</p>
           </div>
@@ -75,7 +75,7 @@
           <span class="card-title activator grey-text text-darken-4">
             <i class="material-icons right">language</i>
           </span>
-            <p>{{item.start_date}}, {{item.convening_place}}</p>
+            <p>{{item.start_date.substr(0, 10)}}, {{item.convening_place}}</p>
             <p style="height:1rem;"></p>
             <p class="conference-introduction">{{item.introduction}}</p>
           </div>
