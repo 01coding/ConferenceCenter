@@ -11,20 +11,20 @@
           </div>
           <div class="input-field col s6">
             <i class="material-icons prefix">account_balance</i>
-            <input id="icon_telephone" type="text" class="validate" v-model="individual_information.institution">
-            <label for="icon_telephone">单位</label>
+            <input id="icon_telephone_1" type="text" class="validate" v-model="individual_information.institution">
+            <label for="icon_telephone_1">单位</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
             <i class="material-icons prefix">phone</i>
-            <input id="icon_prefix" type="tel" class="validate" v-model="individual_information.telephone">
-            <label for="icon_prefix">联系方式</label>
+            <input id="icon_prefix_1" type="tel" class="validate" v-model="individual_information.telephone">
+            <label for="icon_prefix_1">联系方式</label>
           </div>
           <div class="input-field col s6">
             <i class="material-icons prefix">email</i>
-            <input disabled id="icon_telephone" type="email" class="validate" v-model="individual_information.email">
-            <label for="disabled">电子邮件</label>
+            <input disabled id="icon_telephone_2" type="email" class="validate" v-model="individual_information.email">
+            <label for="icon_telephone_2">电子邮件</label>
           </div>
         </div>
         <div class="row">
