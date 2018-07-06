@@ -2,9 +2,11 @@
   <div>
     <navbar></navbar>
     <test-robot v-on:child-say="fill_form"></test-robot>
-    <div class="row" style="background: url(/static/bg7.jpg) no-repeat; background-size: cover;height:43rem;margin-bottom: 0;">
+    <div class="row"
+         :style="{'height': (page_height-60)+'px'}"
+         style="background: url(/static/bg1.jpg) no-repeat; background-size: cover;margin-bottom: 0;">
       <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 80px;width:35%">
-        <div class="card-panel" style="padding-bottom: 5px;padding-top: 12px;opacity: 0.9">
+        <div class="card-panel" style="padding-bottom: 5px;padding-top: 12px;opacity: 0.95; min-width: 30rem;">
           <div class="row center-align" style="margin-top:0; margin-bottom: 1.5rem;">
             <h3>登录</h3>
           </div>
@@ -27,7 +29,7 @@
               </div>
               <div class="row center-align">
                   <p>
-                    <label class="col s3 offset-l1">
+                    <label class="col s3 offset-s1">
                       <input type="radio" name="scholar" value="scholar" v-model="isScholar" checked />
                       <span>学者</span>
                     </label>
@@ -42,17 +44,12 @@
                   </p>
               </div>
               <div class="row center-align">
-                <button class="col s6 offset-l3 btn waves-effect waves-light" style="margin-top: 7px;" type="submit" id="submit" v-on:click="loginfuc()">
+                <button class="col s6 offset-s3 btn waves-effect waves-light" style="margin-top: 7px;" type="submit" id="submit" v-on:click="loginfuc()">
                   登录
                 </button>
               </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="grey lighten-1 footer-copyright">
-      <div class="container center" style="padding-top:5px;padding-bottom: 5px">
-        © 2018 Copyright Text
       </div>
     </div>
   </div>
@@ -66,6 +63,7 @@
         components: {TestRobot, navbar},
         data() {
           return {
+            page_height: $(window).height(),
             email : '',
             password : '',
             isScholar: 'scholar',

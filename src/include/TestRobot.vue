@@ -5,21 +5,6 @@
         <i class="large material-icons">face</i>
       </a>
       <ul>
-        <li v-if="url==='/login'">
-          <a class="btn-floating red darken-2 tooltipped" data-position="left" data-tooltip="学者登录" @click="scholar_login()">
-            学者
-          </a>
-        </li>
-        <li v-if="url==='/login'">
-          <a class="btn-floating yellow darken-2 tooltipped" data-position="left" data-tooltip="主办方登录" @click="institution_login()">
-            主办方
-          </a>
-        </li>
-        <li v-if="url==='/login'">
-          <a class="btn-floating green darken-2 tooltipped"  style="margin-bottom: 65px" data-position="left" data-tooltip="管理员登录" @click="manager_login()">
-            管理员
-          </a>
-        </li>
         <li v-if="url==='/user/register'">
           <a class="btn-floating green darken-2 tooltipped"  style="margin-bottom: 65px" data-position="left" data-tooltip="个人注册" @click="user_register()">
             注册
