@@ -186,8 +186,17 @@
         display_id: 1
       }
     },
+    created:function () {
+
+    }
+  ,
     mounted:function () {
       this.$bus.emit("toCF")
+
+      this.$bus.on("nextCollect",this.toCollect)
+    },
+    beforeDestroy:function () {
+      this.$bus.off("nextCollect")
     }
     ,
     methods: {

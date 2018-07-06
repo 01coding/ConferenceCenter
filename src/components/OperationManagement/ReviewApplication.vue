@@ -103,6 +103,7 @@ export default {
       this.load_apps();
   },
 
+
   methods: {
     verify_session() {
       let session_token = sessionStorage.getItem("session");
