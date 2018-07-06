@@ -1,8 +1,8 @@
 <template>
   <div>
     <ul class="tabs">
-      <li class="tab col s4"><a href="#test1">未开幕</a></li>
-      <li class="tab col s4"><a class="active" href="#test2">已开幕</a></li>
+      <li class="tab col s4"><a class="active" href="#test1">未开幕</a></li>
+      <li class="tab col s4"><a href="#test2">已开幕</a></li>
       <li class="tab col s4"><a href="#test3">已结束</a></li>
     </ul>
 

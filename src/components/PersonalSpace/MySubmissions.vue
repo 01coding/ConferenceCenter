@@ -1,9 +1,9 @@
 <template>
   <div>
     <ul class="tabs">
-      <li class="tab col s3"><a href="#test1" >未审核</a></li>
+      <li class="tab col s3"><a class="active" href="#test1" >未审核</a></li>
       <li class="tab col s3"><a href="#test4">需修改</a></li>
-      <li class="tab col s3"><a class="active" href="#test2">已录用</a></li>
+      <li class="tab col s3"><a  href="#test2">已录用</a></li>
       <li class="tab col s3"><a href="#test3">被拒稿</a></li>
 
     </ul>

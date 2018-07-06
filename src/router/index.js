@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import ConferenceInfo from '@/components/ConferenceInformation/Conference'
+import ConferenceInfo3 from '@/components/ConferenceInformation/Conference3';
 import ConferenceJoin from '@/components/ConferenceInformation/ConferenceJoin'
 import Contribute from '@/components/Contribution/Contribute';
 import Contribution from '@/components/Contribution/Contribution';
@@ -50,6 +51,10 @@ const router = new Router({
       path: '/conference/:id',
       name: 'ConferenceInfo',
       component: ConferenceInfo
+    },
+    {
+      path: '/conference3/:id',
+      component: ConferenceInfo3
     },
     {
       path: '/conference/:id/join',
