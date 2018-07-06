@@ -5,14 +5,14 @@
           <span class="mobile-fab-tip">登录</span>
           <a class="btn-floating btn-large green darken-3"
              data-position="left">
-            <i class="large material-icons">assignment_ind</i>
+            <i class="large material-icons">person</i>
           </a>
         </router-link>
       </div>
       <div class="fixed-action-btn" v-else>
         <span class="mobile-fab-tip">收藏</span>
-          <a class="btn-floating btn-large green darken-3"
-             data-position="left"  v-if="state=='scholar'"  @click="collect">
+          <a class="btn-floating btn-large teal"
+             data-position="left"  v-if="state==='scholar'"  @click="collect">
             <i class="large material-icons">star_border</i>
           </a>
         <router-link v-else to="/">

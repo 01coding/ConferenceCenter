@@ -1,38 +1,45 @@
 <template>
   <div>
     <div class="fixed-action-btn">
-      <a class="btn-floating btn-large grey darken-3 tooltipped" style="margin-bottom: 68px" data-position="left" data-tooltip="测试">
+      <a class="btn-floating btn-large"
+         :class="{'grey darken-3':  url!=='/user/register', 'teal': url==='/user/register'}"
+         style="margin-bottom: 68px"
+         data-position="left"
+         data-tooltip="测试">
         <i class="large material-icons">face</i>
       </a>
       <ul>
         <li v-if="url==='/login'">
-          <a class="btn-floating red darken-2 tooltipped"  data-position="left" data-tooltip="学者登录" @click="scholar_login()">
+          <a class="btn-floating red darken-2"  data-position="left" data-tooltip="学者登录" @click="scholar_login()">
             学者
           </a>
         </li>
         <li v-if="url==='/login'">
-          <a class="btn-floating yellow darken-2 tooltipped" data-position="left" data-tooltip="主办方登录" @click="institution_login()">
+          <a class="btn-floating yellow darken-2" data-position="left" data-tooltip="主办方登录" @click="institution_login()">
             主办
           </a>
         </li>
         <li v-if="url==='/login'">
-          <a class="btn-floating green darken-2 tooltipped" style="margin-bottom: 65px" data-position="left" data-tooltip="管理员登录" @click="manager_login()">
+          <a class="btn-floating green darken-2" style="margin-bottom: 65px" data-position="left" data-tooltip="管理员登录" @click="manager_login()">
             管理
           </a>
         </li>
         <li v-if="url==='/user/register'">
-          <a class="btn-floating green darken-2 tooltipped"  style="margin-bottom: 65px" data-position="left" data-tooltip="个人注册" @click="user_register()">
-            注册
+          <span class="mobile-fab-tip">自动填写</span>
+          <a class="btn-floating green darken-2"  style="margin-bottom: 65px" data-position="left" data-tooltip="个人注册" @click="user_register()">
+            <i class="material-icons">create</i>
           </a>
         </li>
         <li v-if="url==='/institution/register'">
-          <a class="btn-floating green darken-2 tooltipped"  style="margin-bottom: 65px" data-position="left" data-tooltip="机构注册" @click="institution_register()">
-            注册
+          <span class="mobile-fab-tip">自动填写</span>
+          <a class="btn-floating green darken-2"  style="margin-bottom: 65px" data-position="left" data-tooltip="机构注册" @click="institution_register()">
+            <i class="material-icons">create</i>
           </a>
         </li>
         <li v-if="url==='/orgspace/new/conference/disable'">
-          <a class="btn-floating green darken-2 tooltipped"  style="margin-bottom: 65px" data-position="left" data-tooltip="发布新会议" @click="new_conference()">
-            发布
+          <span class="mobile-fab-tip">发布</span>
+          <a class="btn-floating green darken-2"  style="margin-bottom: 65px" data-position="left" data-tooltip="发布新会议" @click="new_conference()">
+            <i class="material-icons">send</i>
           </a>
         </li>
       </ul>
@@ -171,5 +178,68 @@
 </script>
 
 <style scoped>
-
+  .overlay {
+    display: none;
+    background-color: #E1E1E1;
+    opacity: 0.80;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 900;
+  }
+  .fixed-action-btn ul {
+    display: none;
+  }
+  .fixed-action-btn:hover ul {
+    display: block;
+  }
+  .material-tooltip {
+    display: none !important;
+  }
+  .mobile-fab-tip {
+    position: fixed;
+    right: 85px;
+    padding: 4px 10px 4px 10px;
+    text-align: right;
+    background-color: rgba(240, 240, 240, 0.8);
+    border-radius: 2px;
+    font-size: 14px;
+    color: #424242;
+    opacity: 0;
+  }
+  .mobile-fab-tip {
+    -webkit-animation: fadein 1s;
+    -moz-animation: fadein 1s;
+    -o-animation: fadein 1s;
+    animation: fadein 1s;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-delay: 0.5s;
+    -moz-animation-delay: 0.5s;
+    -o-animation-delay: 0.5s;
+    animation-delay: 0.5s;
+  }
+  @keyframes fadein {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @-moz-keyframes fadein {
+    /* Firefox */
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @-webkit-keyframes fadein {
+    /* Safari and Chrome */
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @-o-keyframes fadein {
+    /* Opera */
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
 </style>
