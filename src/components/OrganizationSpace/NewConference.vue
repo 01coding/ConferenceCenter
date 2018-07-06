@@ -14,7 +14,7 @@
             <div class="input-field col s8">
               <i class="prefix material-icons">title</i>
               <input id="conf-topic" type="text" v-model="conf_topic" data-length="40"/>
-              <label for="conf-topic">会议名称</label>
+              <label for="conf-topic" :class="{active:conf_topic}">会议名称</label>
             </div>
             <div class="input-field col s4">
               <select id="conf-field-select" v-model="conf_field">
@@ -24,26 +24,26 @@
                 <!--<option value="1">机器视觉</option>-->
                 <!--<option value="2">运筹学</option>-->
               </select>
-              <label for="conf-field-select">会议领域</label>
+              <label for="conf-field-select" >会议领域</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
               <i class="medium material-icons prefix">subject</i>
               <textarea id="conf-desc" class="materialize-textarea" v-model="conf_desc"></textarea>
-              <label for="conf-desc">会议简介</label>
+              <label for="conf-desc" :class="{active:conf_desc}">会议简介</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s6 m5 l5 xl4">
               <i class="medium material-icons prefix">event</i>
               <input id="conf-start-date" type="text" class="datepicker" v-model="conf_start_date"/>
-              <label for="conf-start-date">会议开始日期</label>
+              <label for="conf-start-date" :class="{active:conf_start_date}">会议开始日期</label>
             </div>
             <div class="input-field col s6 m5 l5 xl4">
               <i class="medium material-icons prefix">event</i>
               <input id="conf-end-date" type="text" class="datepicker" v-model="conf_end_date"/>
-              <label for="conf-end-date">会议结束日期</label>
+              <label for="conf-end-date" :class="{active:conf_end_date}">会议结束日期</label>
               <span class="helper-text red-text" v-show="end_date_invalid">非法日期</span>
             </div>
           </div>
@@ -51,7 +51,7 @@
             <div class="input-field col s8">
               <i class="medium material-icons prefix">place</i>
               <input id="conf-location" type="text" v-model="conf_location"/>
-              <label for="conf-location">会议地点</label>
+              <label for="conf-location"  :class="{active:conf_location}">会议地点</label>
             </div>
           </div>
           <div class="row">
@@ -63,18 +63,18 @@
             <div class="input-field col s4">
               <i class="medium material-icons prefix">event</i>
               <input id="conf-essay-ddl" type="text" class="datepicker" v-model="conf_essay_ddl"/>
-              <label for="conf-essay-ddl">截稿日期</label>
+              <label for="conf-essay-ddl" :class="{active:conf_essay_ddl}">截稿日期</label>
               <span class="helper-text red-text" v-show="paper_date_invalid">非法日期</span>
             </div>
             <div class="input-field col s3">
               <i class="medium material-icons prefix">access_time</i>
               <input id="conf-essay-time" type="text" class="timepicker" v-model="conf_essay_time"/>
-              <label for="conf-essay-time">截稿时间</label>
+              <label for="conf-essay-time" :class="{active:conf_essay_time}">截稿时间</label>
             </div>
             <div class="input-field col s4">
               <i class="medium material-icons prefix">event</i>
               <input id="conf-release-ddl" type="text" class="datepicker" v-model="conf_release_ddl"/>
-              <label for="conf-release-ddl">录用通知日期</label>
+              <label for="conf-release-ddl" :class="{active:conf_release_ddl}">录用通知日期</label>
               <span class="helper-text red-text" v-show="release_date_invalid">非法日期</span>
             </div>
           </div>
@@ -82,14 +82,14 @@
             <div class="input-field col s12">
               <i class="medium material-icons prefix">library_books</i>
               <textarea id="conf-essay-info" class="materialize-textarea" v-model="conf_essay_info"></textarea>
-              <label for="conf-essay-info">征文信息</label>
+              <label for="conf-essay-info"  :class="{active:conf_essay_info}">征文信息</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
               <i class="medium material-icons prefix">event_note</i>
               <textarea id="conf-essay-inst" class="materialize-textarea" v-model="conf_essay_inst"></textarea>
-              <label for="conf-essay-inst">投稿须知</label>
+              <label for="conf-essay-inst" :class="{active:conf_essay_inst}">投稿须知</label>
             </div>
           </div>
           <div class="row">
@@ -112,41 +112,41 @@
             <div class="input-field col s12">
               <i class="medium material-icons prefix">event</i>
               <textarea id="conf-schedule" class="materialize-textarea" v-model="conf_schedule"></textarea>
-              <label for="conf-schedule">日程安排</label>
+              <label for="conf-schedule" :class="{active:conf_schedule}">日程安排</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s4">
               <i class="medium material-icons prefix">event</i>
               <input id="conf-register-ddl" type="text" class="datepicker" v-model="conf_register_ddl"/>
-              <label for="conf-register-ddl">注册截止日期</label>
+              <label for="conf-register-ddl" :class="{active:conf_release_ddl}">注册截止日期</label>
               <span class="helper-text red-text" v-show="register_date_invalid">非法日期</span>
             </div>
             <div class="input-field col s3 offset-l1">
               <i class="medium material-icons prefix">access_time</i>
               <input id="conf-register-time" type="text" class="timepicker" v-model="conf_register_time"/>
-              <label for="conf-register-time">时间</label>
+              <label for="conf-register-time" :class="{active:conf_register_time}">时间</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
               <i class="medium material-icons prefix">subject</i>
               <textarea id="conf-register-info" class="materialize-textarea" v-model="conf_register_info"></textarea>
-              <label for="conf-register-info">注册信息</label>
+              <label for="conf-register-info" :class="{active:conf_register_info}">注册信息</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
               <i class="medium material-icons prefix">airport_shuttle</i>
               <textarea id="conf-commute-info" class="materialize-textarea" v-model="conf_commute_info"></textarea>
-              <label for="conf-commute-info">住宿交通</label>
+              <label for="conf-commute-info" :class="{active:conf_commute_info}">住宿交通</label>
             </div>
           </div>
           <div class="row">
             <div class="input-field col s12">
               <i class="medium material-icons prefix">local_phone</i>
               <textarea id="conf-contact" class="materialize-textarea" v-model="conf_contact"></textarea>
-              <label for="conf-contact">联系方式</label>
+              <label for="conf-contact" :class="{active:conf_contact}">联系方式</label>
             </div>
           </div>
           <div class="row">
@@ -209,7 +209,7 @@
     // components: { NavBar },
     data: function () {
       return {
-        TPName:"尚未选择风格",
+        TPName: "尚未选择风格",
         conf_topic: '',
         conf_field: '',
         conf_desc: '',
@@ -256,15 +256,15 @@
     mounted: function () {
       this.$bus.on("TPChoseOver", (num) => {
         this.conf_conference_template = num;
-        let tpName=""
-        if(num===1){
-          tpName="质感风格"
-        }else if(num===2){
-          tpName="科技风格"
-        }else{
-          tpName="极简风格"
+        let tpName = ""
+        if (num === 1) {
+          tpName = "质感风格"
+        } else if (num === 2) {
+          tpName = "科技风格"
+        } else {
+          tpName = "极简风格"
         }
-        this.TPName=tpName
+        this.TPName = tpName
       });
       this.$bus.emit('manage-change-title', { text: '发布新会议' });
       let start_date = new Date();
@@ -415,6 +415,12 @@
       },
 
       submit_conference: function () {
+        if (!this.template_path) {
+          M.toast({
+            html: "<span style='font-weight: bold'>论文模板未上传</span>",
+            classes: "rounded red"
+          });
+        }
         let that = this;
         axios.all([ this.upload_template(), this.upload_image() ]).then(
           axios.spread(function (ut, ui) {
@@ -448,8 +454,8 @@
               }
               else {
                 M.toast({
-                  html: "<span style='font-weight: bold'>发布会议失败</span>",
-                  classes: "rounded green"
+                  html: "<span style='font-weight: bold'>" + rsp.data.info + "</span>",
+                  classes: "rounded red"
                 });
               }
             }).catch(err => {
@@ -502,7 +508,8 @@
   .col .row {
     margin-right: 0;
   }
-  .my-mt-5{
+
+  .my-mt-5 {
 
     margin-top: 15px;
   }

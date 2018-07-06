@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar></navbar>
+    <TestRobot></TestRobot>
     <div class="row customize" style="background: #272733; margin-bottom: 0"
          :style="{'min-height': (page_height)+'px'}">
       <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 5%;width:35%">
@@ -41,7 +41,7 @@
                     </label>
                   </p>
               </div>
-              <div class="row center-align" style="padding-top: 3%">
+              <div class="row center-align">
                 <button class="col s6 offset-s3 btn waves-effect waves-light" style="margin-top: 7px;" type="submit" id="submit" v-on:click="loginfuc()">
                   登录
                 </button>
