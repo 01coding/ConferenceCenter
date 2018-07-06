@@ -2,7 +2,7 @@
 <div>
     <header>
       <nav class="top-nav">
-        <div id="top-title" class="container" style="background: url(/static/bg5.jpg) no-repeat; background-size: cover; opacity: 0.9">
+        <div id="top-title" class="container" style="background: url(/static/bg8.jpg) no-repeat; background-size: cover; opacity: 0.9">
           <div class="nav-wrapper">
             <div class="row">
               <div class="col s12 m10 offset-m1">
@@ -19,12 +19,15 @@
       </div>
       <ul id="nav-mobile" class="sidenav sidenav-fixed">
         <li>
-          <div class="user-view">
+          <div class="user-view" style="padding-top: 16%">
             <div class="background"
-                 style="background-image: url(/static/bg6.jpg); background-size: cover;">
+                 style="background-image: url(/static/bg9.jpg); background-size: cover; ">
               <!--<img src="https://materializecss.com/images/office.jpg">-->
             </div>
-            <a href="#user"><img class="circle" src="https://materializecss.com/images/yuna.jpg"></a>
+
+            <span v-on:click="goPersonalInfo"><img class="circle" v-bind:src='"http://118.89.229.204:8080/"+personalInfo.avator' ></span>
+            <span class="white-text name">{{personalInfo.name}}</span>
+            <span class="white-text email">{{personalInfo.email}}</span>
 
           </div>
         </li>
@@ -77,8 +80,14 @@
         nav_title: '',
         routes: {
           '/personalspace': '参加的会议',
-        }
+        },
+        personalInfo:{}
       };
+    },
+    methods:{
+      goPersonalInfo:function () {
+        this.$router.push({path:'/personalspace/personalinformation'})
+      }
     },
     created: function () {
       $(document).ready(function () {
@@ -87,6 +96,22 @@
       this.$bus.on('manage-change-title', data => {
         this.nav_title = data.text;
       });
+
+
+
+      let that = this;
+      this.$axios.post('api/user/info', {})
+        .then(response => {
+            that.personalInfo = response.data.data;
+          }
+        ).catch(
+        error => {
+          M.toast({
+            html: error,
+            classes: "rounded red darken-2"
+          });
+        }
+      );
     },
     mounted: function () {
       if (!sessionStorage.getItem('session')) {
@@ -125,11 +150,11 @@
   /*height: 110px;*/
   /*}*/
   nav.top-nav {
-    height: 120px;
+    height: 140px;
   }
 
   .user-view {
-    height: 240px;
+    height: 220px;
   }
 
   a.sidenav-trigger.top-nav {

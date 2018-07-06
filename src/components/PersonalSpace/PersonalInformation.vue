@@ -136,7 +136,8 @@ export default{
       } else {
         console.log(ret);
       }
-    }
+    },
+
   },
   created(){
 
@@ -160,7 +161,8 @@ export default{
         html: "<span style='font-weight: bold'>" + err.toString() + "</span>",
         classes: "rounded red"
       });
-    })
+    });
+    this.$bus.emit('manage-change-title', {text: '个人信息'});
   },
 };
 </script>

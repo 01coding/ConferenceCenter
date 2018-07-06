@@ -98,7 +98,8 @@ export default{
             });
           })
         }
-      }
+      },
+
   },
   created(){
 
@@ -121,6 +122,8 @@ export default{
     this.origin_pass="";
     this.first_pass="";
     this.second_pass="";
+
+    this.$bus.emit('manage-change-title', {text: '账户设置'});
   },
 };
 </script>

@@ -49,7 +49,7 @@
         <h5>上传照片</h5>
       </div>
       <div class="row">
-        <div class="file-field input-field input-field">
+        <div class="file-field input-field">
           <div class="file-path-wrapper col s10">
             <input class="file-path validate" type="text">
           </div>
@@ -63,7 +63,7 @@
         <h5>上传证明材料</h5>
       </div>
       <div class="row">
-        <div class="file-field input-field input-field">
+        <div class="file-field input-field">
           <div class="file-path-wrapper col s10">
             <input class="file-path validate" type="text">
           </div>
