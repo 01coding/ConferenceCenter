@@ -179,17 +179,17 @@ export default {
       abstract: "",
       authors: [
       ],
+      authors_field: {
+        name: "",
+        institution: "",
+        email: "",
+      },
       upload: {
         files: [],
         web_io: "http://118.89.229.204:8080",
         url: 'http://118.89.229.204:8080/ERM-WebIO-1.0/file/upload.do',
         size: 100 * 1024 * 1024,
         maximum: 1
-      },
-      authors_field: {
-        name: "",
-        institution: "",
-        email: "",
       },
     }
   },

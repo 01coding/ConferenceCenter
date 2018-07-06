@@ -468,9 +468,6 @@
         </div>
       </div>
     </div>
-
-
-
   </div>
 </template>
 
@@ -489,13 +486,8 @@
         active_tab: 0,
         bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),",
 
-        conference_template:1,
-
         conference_id: 1,
         conferenceImg: "/static/bg1.jpg",
-        conferenceImg2:"/static/bg2.jpg",
-        conferenceImg3:"/static/bg3.jpg",
-
         conferenceState: '默认',
         hasCollect: 0,
         contributeToLink: 0,
@@ -638,6 +630,8 @@
             this.is_loading = false;
             console.log("contribute to link:" + this.contributeToLink);
             console.log("conference state:" + this.conferenceState);
+            this.isUser();
+            console.log(this.hasCollect + "  " + this.contributeToLink + "  " + this.registerToLink);
           }
           else {
             M.toast({
@@ -665,6 +659,12 @@
 </script>
 
 <style scoped>
+  pre {
+    white-space: pre-wrap !important;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word !important;
+  }
   .customize {
     background-size: 100% !important;
     background-repeat: no-repeat !important;

@@ -37,7 +37,7 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
-      path: '/search/:keyword',
+      path: '/search/:keyword/:date/:type',
       name: 'Search',
       component: Search
     },

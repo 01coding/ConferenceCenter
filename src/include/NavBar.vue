@@ -1,6 +1,6 @@
 <template>
   <div id="top">
-    <nav class="white" style="box-shadow: 0px 3px 3px #eaeaea; -webkit-box-shadow:none;">
+    <nav class="white" style="box-shadow: 0px 3px 3px #aeaeae; -webkit-box-shadow:none;">
       <ul id="dropdown1" class="dropdown-content">
         <li><router-link class="grey-text text-darken-3" to="/login">登录</router-link></li>
         <li><router-link class="grey-text text-darken-3" to="/user/register">个人注册</router-link></li>
@@ -135,7 +135,7 @@ export default {
     },
     enter_search: function (event) {
       if (event.keyCode === 13 && this.search_keyword.length > 0)
-        this.$router.push("/search/" + this.search_keyword);
+        this.$router.push("/search/" + this.search_keyword+"/0/none");
     },
     back_top: function(){
       $("html, body").animate({ scrollTop: 0 }, "slow");

@@ -1,12 +1,12 @@
 <template>
   <div>
     <header>
-      <nav class="top-nav">
-        <div id="top-title" class="container" style="background: url(/static/bg8.jpg) no-repeat; background-size: cover; opacity: 0.9">
+      <nav class="top-nav" style="height: 6rem; background-color: white">
+        <div id="top-title" class="container">
           <div class="nav-wrapper">
             <div class="row">
               <div class="col s12 m10 offset-m1">
-                <h2 class="header white-text">{{ nav_title }}</h2>
+                <h4 class="header red-text text-accent-2">{{ nav_title }}</h4>
               </div>
             </div>
           </div>
@@ -22,7 +22,7 @@
         <li>
           <div class="user-view">
             <div class="background"
-                 style="background-image: url(/static/bg9.jpg); background-size: cover;">
+                 style="background-image: url(/static/office.jpg); background-size: cover;">
               <!--<img src="https://materializecss.com/images/office.jpg">-->
             </div>
             <a href="#user"><img class="circle" src="https://materializecss.com/images/yuna.jpg"></a>
@@ -41,9 +41,9 @@
         <li class="bold" v-if="is_superuser" v-bind:class="{ active: menu_active === 2 }">
           <router-link to="/orgspace/principals" class="waves-effect">工作人员管理</router-link>
         </li>
-        <li class="bold" v-if="is_superuser" v-bind:class="{ active: menu_active === 3 }">
+        <!--<li class="bold" v-if="is_superuser" v-bind:class="{ active: menu_active === 3 }">
           <router-link to="/orgspace/info" class="waves-effect">机构信息设置</router-link>
-        </li>
+        </li>-->
         <li class="bold" v-bind:class="{ active: menu_active === 4 }">
           <router-link to="/orgspace/account" class="waves-effect">账户设置</router-link>
         </li>
@@ -93,8 +93,8 @@
           this.menu_active = 1;
         else if (data.text === '工作人员管理')
           this.menu_active = 2;
-        else if (data.text === '机构信息设置')
-          this.menu_active = 3;
+        /*else if (data.text === '机构信息设置')
+          this.menu_active = 3;*/
         else if (data.text === '账户设置')
           this.menu_active = 4;
         // else {
