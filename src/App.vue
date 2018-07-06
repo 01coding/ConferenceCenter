@@ -37,7 +37,7 @@
 
   ::-webkit-scrollbar {
     /*width: 2px;*/
-    width: 8px;
+    width: 1px;
     margin-left: -8px;
   }
 
@@ -48,20 +48,20 @@
     background: transparent;
     /*background: white;*/
     /*border-radius: 2px;*/
-    border-radius: 8px;
+    border-radius: 1px;
   }
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
     /*background: #009688;*/
-    background: #9e9e9e;
-    border-radius: 8px;
+    background: #00aaaa;
+    border-radius: 1px;
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     /*background: #009688;*/
-    background-color: #757575;
+    background-color: #ff003f;
   }
 
   .pagination li.active {

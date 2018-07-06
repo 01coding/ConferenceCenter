@@ -207,9 +207,9 @@
         <div class="my-blue-dark section" style="min-height: 35rem;">
           <div class="container">
             <div class="row" style="margin-bottom: 0;">
-              <div class="col s3 ">
+              <div class="col s3  ">
                 <div style="height:6rem;"></div>
-                <div class="card-panel center-align my-trans" style="width: 100%; max-width: 15rem;">
+                <div class="card-panel center-align my-trans hoverable" style="width: 100%; max-width: 15rem;">
                   <ul class="section table-of-contents  "
                       style="padding-top: 0; padding-bottom: 0; padding-right: 1rem;">
                     <li><a style="cursor: pointer" :class="{'active':active_tab===0} " class="my-tech-blue" @click="switch_tab(0)">会议介绍</a></li>
@@ -220,7 +220,7 @@
                   </ul>
                 </div>
               </div>
-              <div class="col s9 my-trans my-tech-blue">
+              <div class="col s9 hoverable my-trans my-tech-blue">
                 <div id="introduction" class="card-container my-total-trans" v-if="active_tab===0">
                   <ul class="collection with-header my-total-trans">
                     <li class="collection-header my-total-trans"><h4 style="">会议介绍</h4></li>
