@@ -1,11 +1,12 @@
 <template>
   <div>
+    <navbar></navbar>
     <test-robot v-on:child-say="fill_form"></test-robot>
     <div class="row"
          style="background: #272733; margin-bottom: 0;"
          :style="{'min-height': (page_height)+'px'}">
     <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 3rem;">
-      <div class="card-panel" style="padding-bottom: 5px;padding-top: 10px;opacity: 0.95">
+      <div class="card-panel" style="padding-bottom: 0.5%;padding-top: 4.7%;opacity: 1">
         <div class="row center-align" style="margin-top:0; margin-bottom: 8px">
           <h3>注册</h3>
         </div>

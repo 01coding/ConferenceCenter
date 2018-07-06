@@ -164,7 +164,7 @@
             <a class=" btn-floating btn-large waves-effect waves-light blue" @click="choseTP()"><i
               class="material-icons">color_lens</i></a>
             <div class="col l2 my-mt-5">
-              <h7>{{TPName}}</h7>
+              <h6>{{TPName}}</h6>
             </div>
 
             <!--<a  class="waves-effect waves-light btn" ><i class="material-icons left">cloud</i>选择模板</a>-->
@@ -376,7 +376,6 @@
         let data = rsp.data;
         if (data.status === 'succ') {
           this.field_list = data.data;
-          // console.log(data.data);
         }
       }).catch(err => {
         M.toast({
@@ -409,6 +408,7 @@
         this.conf_register_info = form_data.conf_register_info;
         this.conf_commute_info = form_data.conf_commute_info;
         this.conf_contact = form_data.conf_contact;
+
       },
       choseTP: function () {
         this.$bus.emit("showChose")
@@ -444,7 +444,13 @@
                   html: "<span style='font-weight: bold'>发布会议成功</span>",
                   classes: "rounded green"
                 });
-                this.$router.push('/orgspace');
+                that.$router.push('/orgspace');
+              }
+              else {
+                M.toast({
+                  html: "<span style='font-weight: bold'>发布会议失败</span>",
+                  classes: "rounded green"
+                });
               }
             }).catch(err => {
               M.toast({
@@ -470,7 +476,7 @@
         let FileData = new FormData();
         FileData.append('file', this.paper_template);
         return this.$file.post('', FileData, config).then(response => {
-          this.template_path = response.data;
+          this.template_path = response.data.link;
         });
       },
       upload_image: function () {
@@ -482,7 +488,7 @@
         let FileData = new FormData();
         FileData.append('file', this.back_img);
         return this.$file.post('', FileData, config).then(response => {
-          this.image_path = response.data;
+          this.image_path = response.data.link;
         });
       }
     }

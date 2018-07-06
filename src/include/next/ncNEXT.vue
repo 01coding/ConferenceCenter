@@ -1,8 +1,8 @@
 <template>
   <div class="overlay-trigger">
     <div class="fixed-action-btn" >
-
-        <a class="btn-floating btn-large grey darken-3"  @click="send"
+      <span class="mobile-fab-tip">发送</span>
+        <a class="btn-floating btn-large green darken-3"  @click="send"
            data-position="left">
           <i class="large material-icons">file_upload</i>
         </a>

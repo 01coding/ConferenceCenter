@@ -2,7 +2,8 @@
   <div class="overlay-trigger">
     <div class="fixed-action-btn" v-if="state==='notLogin'">
       <router-link  to="/login">
-        <a class="btn-floating btn-large grey darken-3"
+        <span class="mobile-fab-tip">登录</span>
+        <a class="btn-floating btn-large green darken-3"
            data-position="left">
           <i class="large material-icons">person</i>
         </a>
@@ -10,19 +11,22 @@
     </div>
     <div class="fixed-action-btn" v-else>
       <router-link v-if="state==='scholar'" to="/personalspace">
-        <a class="btn-floating btn-large grey darken-3"
+        <span class="mobile-fab-tip">空间</span>
+        <a class="btn-floating btn-large green darken-3"
            data-position="left">
           <i class="large material-icons">explore</i>
         </a>
       </router-link>
       <router-link v-if="state==='institution'" to="/orgspace">
-        <a class="btn-floating btn-large grey darken-3"
+        <span class="mobile-fab-tip">管理空间</span>
+        <a class="btn-floating btn-large green darken-3"
            data-position="left">
           <i class="large material-icons">explore</i>
         </a>
       </router-link>
       <router-link v-if="state==='manager'" to="/review/application">
-        <a class="btn-floating btn-large grey darken-3"
+        <span class="mobile-fab-tip">管理员空间</span>
+        <a class="btn-floating btn-large green darken-3"
            data-position="left">
           <i class="large material-icons">explore</i>
         </a>

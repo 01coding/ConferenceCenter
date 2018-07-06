@@ -36,7 +36,7 @@
             <i class="material-icons">create</i>
           </a>
         </li>
-        <li v-if="url==='/orgspace/new/conference'">
+        <li v-if="url==='/orgspace/new/conference/disable'">
           <span class="mobile-fab-tip">发布</span>
           <a class="btn-floating green darken-2"  style="margin-bottom: 65px" data-position="left" data-tooltip="发布新会议" @click="new_conference()">
             <i class="material-icons">send</i>
@@ -148,16 +148,16 @@
             this.new_conference_data.conf_topic="IEEE国际计算机视觉与模式识别会议";
             this.new_conference_data.conf_field=2;
             this.new_conference_data.conf_desc = "CVPR是世界顶级的计算机视觉会议";
-            this.new_conference_data.conf_start_date="Jul 01, 2018";
-            this.new_conference_data.conf_end_date="Jul 15, 2018";
+            this.new_conference_data.conf_start_date="Jul 01 2018";
+            this.new_conference_data.conf_end_date="Jul 15 2018";
             this.new_conference_data.conf_location="法国巴黎";
             this.new_conference_data.conf_essay_info="与计算机视觉相关";
             this.new_conference_data.conf_essay_inst="英文，不少于10页";
-            this.new_conference_data.conf_essay_ddl="Jan 18, 2018";
+            this.new_conference_data.conf_essay_ddl="Jan 18 2018";
             // conf_essay_time: "23:59",
             this.new_conference_data.conf_essay_time="00:00";
-            this.new_conference_data.conf_release_ddl="Jan 20, 2018";
-            this.new_conference_data.conf_register_ddl="Jan 22, 2018";
+            this.new_conference_data.conf_release_ddl="Jan 20 2018";
+            this.new_conference_data.conf_register_ddl="Jan 22 2018";
             // conf_register_time: "23:59",
             this.new_conference_data.conf_register_time="00:00";
             this.new_conference_data.conf_schedule="第一天：主会场；第二天：分会场";

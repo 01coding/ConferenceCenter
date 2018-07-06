@@ -1,8 +1,8 @@
 <template>
   <div>
     <ul class="tabs">
-      <li class="tab col s4"><a  href="#test1" class="active">未开幕</a></li>
-      <li class="tab col s4"><a href="#test2" >已开幕</a></li>
+      <li class="tab col s4"><a href="#test1" class="active">未开幕</a></li>
+      <li class="tab col s4"><a href="#test2">已开幕</a></li>
       <li class="tab col s4"><a href="#test3">已结束</a></li>
     </ul>
 
@@ -29,7 +29,8 @@
           <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
             <!--<i class="material-icons right">language</i>-->
-            <a class="secondary-content" @click="cancalCollect('notOpen',item.id)">
+            <a class="secondary-content tooltipped" data-position="right" data-tooltip="取消收藏"
+               @click="cancalCollect('notOpen',item.id)">
               <i class="material-icons">grade</i>
             </a>
           </span>
@@ -62,7 +63,8 @@
           <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
             <!--<i class="material-icons right">language</i>-->
-            <a class="secondary-content" @click="cancalCollect('opened', item.id)">
+            <a class="secondary-content tooltipped" data-position="right" data-tooltip="取消收藏"
+               @click="cancalCollect('opened', item.id)">
               <i class="material-icons">grade</i>
             </a>
           </span>
@@ -98,7 +100,8 @@
           <div class="card-content">
           <span class="card-title activator grey-text text-darken-4">
             <!--<i class="material-icons right">language</i>-->
-            <a class="secondary-content" @click="cancalCollect('enden', item.id)">
+            <a class="secondary-content tooltipped" data-position="right" data-tooltip="取消收藏"
+               @click="cancalCollect('enden', item.id)">
               <i class="material-icons">grade</i>
             </a>
           </span>
@@ -122,6 +125,7 @@
     created: function () {
       $(document).ready(function () {
         $('.tabs').tabs();
+        $('.tooltipped').tooltip();
       });
 
       let that = this;
@@ -178,24 +182,24 @@
       this.$bus.emit('manage-change-title', {text: '收藏的会议'});
     },
     methods: {
-      cancalCollect: function(type, id) {
-        this.$axios.post('/api/conference/cancel/collect/'+ id, {
+      cancalCollect: function (type, id) {
+        this.$axios.post('/api/conference/cancel/collect/' + id, {
           token: sessionStorage.getItem("session")
         }).then(response => {
           let resp = response.data;
-          if(resp.status === 'succ') {
+          if (resp.status === 'succ') {
             let that = this;
             this.$axios.post('/api/user/getCollectConference', {
               token: sessionStorage.getItem("session"),
               type: type
             }).then(response => {
-              if(type === "notOpen") {
+              if (type === "notOpen") {
                 that.conferencesBefore = response.data.data.result;
               }
-              else if(type === 'opened') {
+              else if (type === 'opened') {
                 that.conferencesOn = response.data.data.result;
               }
-              else if(type === 'enden') {
+              else if (type === 'enden') {
                 that.conferencesAfter = response.data.data.result;
               }
               M.toast({
@@ -203,10 +207,10 @@
                 classes: "rounded green darken-2"
               });
             }).catch(error => {
-                M.toast({
-                  html: error,
-                  classes: "rounded red darken-2"
-                });
+              M.toast({
+                html: error,
+                classes: "rounded red darken-2"
+              });
             });
           }
           else {
