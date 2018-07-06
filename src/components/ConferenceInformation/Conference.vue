@@ -21,11 +21,11 @@
                 <!--<div class="btn btn-large teal" @click="toCollect">
                   <div class="white-text">-->
                 <div class="btn btn-large teal"
-                     :class="{ disabled: hasCollect === 1 }"
+                     :class="{ disabled: hasCollect > 0 }"
                      @click="toCollect">
                   <div :class="{'white-text': hasCollect === 0, 'grey-text': hasCollect !== 0}">
                     <i class="material-icons left">star_border</i>
-                    <span v-show="hasCollect">已</span>收藏
+                    <span v-show="hasCollect === 1">已</span>收藏
                   </div>
                 </div>
                 <div class="btn btn-large green"
@@ -177,11 +177,11 @@
                 <!--<div class="btn btn-large teal" @click="toCollect">
                   <div class="white-text">-->
                 <div class="btn btn-large yellow teal my-trans my-not-inline hoverable my-margin-5"
-                     :class="{ disabled: hasCollect === 1 }"
+                     :class="{ disabled: hasCollect > 0 }"
                      @click="toCollect">
                   <div :class="{'white-text': hasCollect === 0, 'grey-text': hasCollect !== 0}">
                     <i class="material-icons  left">star_border</i>
-                    <span v-show="hasCollect">已</span>收藏
+                    <span v-show="hasCollect === 1">已</span>收藏
                   </div>
                 </div>
                 <div class="btn btn-large green my-trans my-not-inline hoverable my-margin-5"
@@ -329,11 +329,22 @@
               <h5 style="font-weight: bold" class="center">{{conferenceState}}</h5>
               <h5>&nbsp</h5>
               <div class="row center-align">
-                <div class="btn btn-large teal"
-                     :class="{ disabled: hasCollect !== 0 }"
+                <!--<div class="btn btn-large teal"
+                     :class="{ disabled: hasCollect > 0 }"
                      @click="toCollect">
                   <div :class="{'white-text': hasCollect === 0, 'grey-text': hasCollect !== 0}">
                     <i class="material-icons left">star_border</i>
+                    <span v-show="hasCollect === 1">已</span>收藏{{hasCollect}}
+                  </div>
+                </div>-->
+                <div class="col s4 right-align">
+                  <a class="black-text" v-if="hasCollect === 0" style="cursor: pointer"
+                  @click="toCollect">
+                    <i class="material-icons">star_border</i>
+                    收藏
+                  </a>
+                  <div class="grey-text" v-else>
+                    <i class="material-icons">star_border</i>
                     <span v-show="hasCollect === 1">已</span>收藏
                   </div>
                 </div>
