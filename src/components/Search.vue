@@ -232,6 +232,7 @@
         let date_info=(this.date_detail).replace(/\s+/g,"");
 
         this.$router.push('/search/'+keyword_info+'/'+date_info+'/'+date_type_info);
+        location.reload();
       }
     },
     created() {
