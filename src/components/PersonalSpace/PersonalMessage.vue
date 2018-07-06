@@ -23,7 +23,7 @@
         <pagination class="center-align" @page="go_not_read_page" v-bind:number="notread_total_num" v-bind:current="notread_index"></pagination>
       </div>
     </div>
-    <div id="tab2" class="row container">
+    <div id="tab2" class="row">
       <div class="container">
         <div v-for="item in alreadyRead">
           <div class="row" style="padding-right: 1.2%;padding-left: 1.2%">
