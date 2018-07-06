@@ -20,10 +20,10 @@
             </div>
           </div>
         </div>
-        <pagination class="center-align" @page="i_want_to_page" v-bind:number="notread_total_num" v-bind:current="notread_index"></pagination>
+        <pagination class="center-align" @page="go_not_read_page" v-bind:number="notread_total_num" v-bind:current="notread_index"></pagination>
       </div>
     </div>
-    <div id="tab2" class="row container">
+    <div id="tab2" class="row">
       <div class="container">
         <div v-for="item in alreadyRead">
           <div class="row" style="padding-right: 1.2%;padding-left: 1.2%">
@@ -35,7 +35,7 @@
             </div>
           </div>
         </div>
-        <pagination class="center-align" @page="i_want_to_page" v-bind:number="read_total_num" v-bind:current="read_index"></pagination>
+        <pagination class="center-align" @page="go_read_page" v-bind:number="read_total_num" v-bind:current="read_index"></pagination>
       </div>
     </div>
   </div>
@@ -57,23 +57,18 @@
           }
         },
         methods:{
-          page: function (num) {
+          not_read_page: function (num) {
+            this.notread_index = num;
           },
-          i_want_to_page: function(page) {
-
+          read_page: function (num) {
+            this.read_index = num;
           },
-          readMessage:function(item){
+          not_read_refresh:function(){
             let that = this;
-            this.$axios.post('/api/user/message/'+item.id, {})
+            this.$axios.post('/api/user/messages', {index:that.notread_index,size:3,state:0})
               .then(response => {
-                  var i=-1;
-                  for(i=0;i<that.notReadYet.length;++i){
-                    if(that.notReadYet[i]==item)break;
-                  }
-                  if(i!=-1){
-                    that.notReadYet.splice(i,1);
-                  }
-                    that.alreadyRead.push(item);
+                  that.notReadYet=response.data.data.messages;
+                  that.notread_total_num=response.data.data.page_num;
                 }
               ).catch(
               error => {
@@ -83,6 +78,47 @@
                 });
               }
             );
+          },
+          read_refresh:function(){
+            let that = this;
+            this.$axios.post('/api/user/messages', {index:that.read_index,size:5,state:1})
+              .then(response => {
+                  that.alreadyRead=response.data.data.messages;
+                  that.read_total_num=response.data.data.page_num;
+                }
+              ).catch(
+              error => {
+                M.toast({
+                  html: error,
+                  classes: "rounded red darken-2"
+                });
+              }
+            );
+          },
+          go_not_read_page: function(not_read_page) {
+            this.notread_index = not_read_page;
+            this.not_read_refresh();
+          },
+          go_read_page: function(read_page) {
+            this.read_index = read_page;
+            this.read_refresh();
+          },
+          readMessage:function(item){
+            let that = this;
+            this.$axios.post('/api/user/message/'+item.id, {})
+              .then(response => {
+                 ;
+                }
+              ).catch(
+              error => {
+                M.toast({
+                  html: error,
+                  classes: "rounded red darken-2"
+                });
+              }
+            );
+            this.read_refresh();
+            this.not_read_refresh();
           }
         },
         computed:{

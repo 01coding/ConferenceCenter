@@ -408,6 +408,7 @@
         this.conf_register_info = form_data.conf_register_info;
         this.conf_commute_info = form_data.conf_commute_info;
         this.conf_contact = form_data.conf_contact;
+
       },
       choseTP: function () {
         this.$bus.emit("showChose")
