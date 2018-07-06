@@ -2,9 +2,9 @@
   <div>
     <navbar></navbar>
     <test-robot v-on:child-say="fill_form"></test-robot>
-    <div class="row customize"
+    <div class="row customize" style="background: url(/static/bg10.jpg);background-size: cover"
          :style="{'height': (page_height-60)+'px'}">
-      <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 80px;width:35%">
+      <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 6.5rem;width:35%">
         <div class="card-panel" style="padding-bottom: 5px;padding-top: 12px;opacity: 0.95; min-width: 30rem;">
           <div class="row center-align" style="margin-top:0; margin-bottom: 1.5rem;">
             <h3>登录</h3>

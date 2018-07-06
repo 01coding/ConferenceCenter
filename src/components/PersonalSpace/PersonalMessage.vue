@@ -19,8 +19,8 @@
               </div>
             </div>
           </div>
-          <div class="divider"></div>
         </div>
+        <pagination @page="i_want_to_page" v-bind:number="notread_total_num" v-bind:current="notread_index"></pagination>
       </div>
       <div id="tab2" class="col s12">
         <div v-for="item in alreadyRead">
@@ -33,21 +33,32 @@
             </div>
           </div>
         </div>
+        <pagination @page="i_want_to_page" v-bind:number="read_total_num" v-bind:current="read_index"></pagination>
       </div>
   </div>
 </template>
 
 <script>
+    import Pagination from "../../include/Pagination";
     export default {
         name: "PersonalMessage",
-        data:function(){
+      components: {Pagination},
+      data:function(){
           return{
             notReadYet:{},
             alreadyRead:{},
-            index:1
+            notread_index:1,
+            notread_total_num: 10,
+            read_index:1,
+            read_total_num: 10,
           }
         },
         methods:{
+          page: function (num) {
+          },
+          i_want_to_page: function(page) {
+
+          },
           readMessage:function(item){
             let that = this;
             this.$axios.post('/api/user/message/'+item.id, {})
@@ -76,9 +87,10 @@
         mounted(){
           this.$bus.emit('manage-change-title', {text: '我的消息'});
           let that = this;
-          this.$axios.post('/api/user/messages', {index:that.index,size:3,state:0})
+          this.$axios.post('/api/user/messages', {index:that.notread_index,size:3,state:0})
             .then(response => {
                 that.notReadYet=response.data.data.messages;
+                that.notread_total_num=response.data.data.page_num;
               }
             ).catch(
             error => {
@@ -88,9 +100,10 @@
               });
             }
           );
-          this.$axios.post('/api/user/messages', {index:that.index,size:5,state:1})
+          this.$axios.post('/api/user/messages', {index:that.read_index,size:5,state:1})
             .then(response => {
                 that.alreadyRead=response.data.data.messages;
+                that.read_total_num=response.data.data.page_num;
               }
             ).catch(
             error => {
