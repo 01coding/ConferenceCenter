@@ -73,7 +73,7 @@
           </span>
           <div style="line-height: 3rem; font-weight: bold; margin-bottom: 1rem;">
             文件：
-            <span class="btn-small grey lighten-2 grey-text text-darken-3"
+            <span class="btn-small grey lighten-4 grey-text text-darken-3"
                   style="margin: 0;" @click="download(subm.download_link)">
               {{subm.file_name}}
               <i class="material-icons right">file_download</i>
