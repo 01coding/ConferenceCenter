@@ -15,13 +15,13 @@ function humanize_time(time) {
     if (days > 1) {
       if (days > 30) {
         return old_format.slice(0, -5);
-      } else return days + "天前";
+      } else return days + " 天前";
     } else if (hours > 1) {
-      return hours + "小时前";
+      return hours + " 小时前";
     } else if (minutes > 1) {
-      return minutes + "分钟前";
+      return minutes + " 分钟前";
     } else {
-      return "刚刚";
+      return " 刚刚";
     }
     return old_format;
   } else {
@@ -32,13 +32,13 @@ function humanize_time(time) {
     if (days > 1) {
       if (days > 30) {
         return old_format.slice(0, -5);
-      } else return days + "天后";
+      } else return days + " 天后";
     } else if (hours > 1) {
-      return hours + "小时后";
+      return hours + " 小时后";
     } else if (minutes > 1) {
-      return minutes + "分钟后";
+      return minutes + " 分钟后";
     } else {
-      return "一分钟内";
+      return " 一分钟内";
     }
     return old_format;
   }
