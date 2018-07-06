@@ -458,5 +458,7 @@
 </script>
 
 <style scoped>
-
+  .col .row {
+    margin: 0;
+  }
 </style>

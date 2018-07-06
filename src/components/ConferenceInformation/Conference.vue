@@ -207,9 +207,9 @@
         <div class="my-blue-dark section" style="min-height: 35rem;">
           <div class="container">
             <div class="row" style="margin-bottom: 0;">
-              <div class="col s3 ">
+              <div class="col s3  ">
                 <div style="height:6rem;"></div>
-                <div class="card-panel center-align my-trans" style="width: 100%; max-width: 15rem;">
+                <div class="card-panel center-align my-trans hoverable" style="width: 100%; max-width: 15rem;">
                   <ul class="section table-of-contents  "
                       style="padding-top: 0; padding-bottom: 0; padding-right: 1rem;">
                     <li><a style="cursor: pointer" :class="{'active':active_tab===0} " class="my-tech-blue" @click="switch_tab(0)">会议介绍</a></li>
@@ -220,7 +220,7 @@
                   </ul>
                 </div>
               </div>
-              <div class="col s9 my-trans my-tech-blue">
+              <div class="col s9 hoverable my-trans my-tech-blue">
                 <div id="introduction" class="card-container my-total-trans" v-if="active_tab===0">
                   <ul class="collection with-header my-total-trans">
                     <li class="collection-header my-total-trans"><h4 style="">会议介绍</h4></li>
@@ -329,24 +329,33 @@
               <h5 style="font-weight: bold" class="center">{{conferenceState}}</h5>
               <h5>&nbsp</h5>
               <div class="row center-align">
-                <div class="btn btn-large transparent"
-                     @click="toCollect">
-                  <div :class="{'black-text': hasCollect === 0, 'grey-text': hasCollect !== 0}">
-                    <i class="material-icons left">star_border</i>
-                    <span v-show="hasCollect === 1">已</span>收藏
+                <div class="col s4 right-align">
+                  <a class="black-text" v-if="hasCollect === 0" style="cursor: pointer" @click="toCollect">
+                    <i class="material-icons">star_border</i>
+                    收藏
+                  </a>
+                  <div class="grey-text" v-else>
+                    <i class="material-icons">star_border</i>
+                    已收藏
                   </div>
                 </div>
-                <div class="btn btn-large transparent"
-                     @click="toContribute">
-                  <div :class="{'black-text': contributeToLink !== 0, 'grey-text': contributeToLink === 0}">
-                    <i class="material-icons left">send</i>
+                <div class="col s4 center-align">
+                  <a class="black-text" v-if="contributeToLink !== 0" style="cursor: pointer" @click="toContribute">
+                    <i class="material-icons">send</i>
+                    投稿
+                  </a>
+                  <div class="grey-text" v-else>
+                    <i class="material-icons">send</i>
                     投稿
                   </div>
                 </div>
-                <div id="register" class="btn btn-large transparent"
-                     @click="toRegisterConference">
-                  <div :class="{'black-text': contributeToLink !== 0, 'grey-text': registerToLink === 0}">
-                    <i class="material-icons left">group_add</i>
+                <div class="col s4 left-align">
+                  <a class="black-text" v-if="registerToLink !== 0" style="cursor: pointer" @click="toRegisterConference">
+                    <i class="material-icons">group_add</i>
+                    注册参会
+                  </a>
+                  <div class="grey-text" v-else>
+                    <i class="material-icons">group_add</i>
                     注册参会
                   </div>
                 </div>

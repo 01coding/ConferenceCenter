@@ -111,6 +111,7 @@ export default{
   components: {NEXT, NavBar, Background},
   data: function(){
     return{
+      itId:0,
       active_scholars:[],
       recent_items:[],
       file_server: 'http://118.89.229.204:8080/',
@@ -303,6 +304,9 @@ export default{
           classes: "rounded red"
         });
       })
+    },
+    goNext:function () {
+      $('.carousel').carousel('next');
     }
   },
   created(){
@@ -313,19 +317,22 @@ export default{
       fullWidth: true,
       indicators: true
     });
-    setTimeout(autoplay, 5000);
-    function autoplay() {
-      $('.carousel').carousel('next');
-      setTimeout(autoplay, 5000);
-    }
+    // setTimeout(autoplay, 5000);
+    // function autoplay() {
+    //   $('.carousel').carousel('next');
+    //   setTimeout(autoplay, 5000);
+    // }
   },
   mounted() {
     this.$bus.emit("toIndex");
     this.init();
+
+    this.itId=setInterval(this.goNext,5000)
   },
   beforeDestroy: function() {
-    clearTimeout();
+    clearInterval(this.itId)
   }
+
 };
 </script>
 
