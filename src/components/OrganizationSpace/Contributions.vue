@@ -14,7 +14,10 @@
         </ul>
       </div>
       <div id="all" class="col s12 m10 offset-m1">
-        <div class="card hoverable" v-for="(item, index) in all_list" v-bind:key="index">
+        <div class="row center-align valign-wrapper" v-if="all_list.length === 0" style="height: 20rem">
+          <empty></empty>
+        </div>
+        <div class="card hoverable" v-else v-for="(item, index) in all_list" v-bind:key="index">
           <div class="card-content">
             <span class="card-title activator">{{ item.title }}<i class="material-icons right">more_vert</i></span>
             <div class="row card-row" @click="goto_review('/orgspace/review/'+item.id)">
@@ -41,7 +44,10 @@
         </div>
       </div>
       <div id="passed" class="col s12 m10 offset-m1">
-        <div class="card hoverable" v-for="(item, index) in passed_list" v-bind:key="index">
+        <div class="row center-align valign-wrapper" v-if="all_list.length === 0" style="height: 20rem">
+          <empty></empty>
+        </div>
+        <div class="card hoverable" v-else v-for="(item, index) in passed_list" v-bind:key="index">
           <div class="card-content">
             <span class="card-title activator">{{ item.title }}<i class="material-icons right">more_vert</i></span>
             <div class="row card-row">
@@ -64,7 +70,10 @@
         </div>
       </div>
       <div id="pending" class="col s12 m10 offset-m1">
-        <div class="card hoverable" v-for="(item, index) in pending_list" v-bind:key="index">
+        <div class="row center-align valign-wrapper" v-if="all_list.length === 0" style="height: 20rem">
+          <empty></empty>
+        </div>
+        <div class="card hoverable" v-else v-for="(item, index) in pending_list" v-bind:key="index">
           <div class="card-content">
             <span class="card-title activator">{{ item.title }}<i class="material-icons right">more_vert</i></span>
             <div class="row card-row">
@@ -87,7 +96,10 @@
         </div>
       </div>
       <div id="fixing" class="col s12 m10 offset-m1">
-        <div class="card hoverable" v-for="(item, index) in fixing_list" v-bind:key="index">
+        <div class="row center-align valign-wrapper" v-if="all_list.length === 0" style="height: 20rem">
+          <empty></empty>
+        </div>
+        <div class="card hoverable" v-else v-for="(item, index) in fixing_list" v-bind:key="index">
           <div class="card-content">
             <span class="card-title activator">{{ item.title }}<i class="material-icons right">more_vert</i></span>
             <div class="row card-row">
@@ -110,7 +122,10 @@
         </div>
       </div>
       <div id="rejected" class="col s12 m10 offset-m1">
-        <div class="card hoverable" v-for="(item, index) in rejected_list" v-bind:key="index">
+        <div class="row center-align valign-wrapper" v-if="all_list.length === 0" style="height: 20rem">
+          <empty></empty>
+        </div>
+        <div class="card hoverable" v-else v-for="(item, index) in rejected_list" v-bind:key="index">
           <div class="card-content">
             <span class="card-title activator">{{ item.title }}<i class="material-icons right">more_vert</i></span>
             <div class="row card-row">
@@ -141,11 +156,12 @@
 
 <script>
   import pagination from '@/include/Pagination';
+  import empty from '@/include/EmptyView'
   import { humanize_time } from '@/js/utils';
 
   export default {
     name: "Contributions",
-    components: { pagination },
+    components: { pagination, empty },
     data: function () {
       return {
         conference_id: 1,
