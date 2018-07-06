@@ -12,7 +12,7 @@
     <div id="test1" class="col s12" style="padding-top: 1%" >
       <div>
 
-        <div class="center-align row" v-if="submissionsPending.length===0" style="padding-top: 5%">
+        <div class="center-align row" v-if="submissionsPending.length===0" style="margin-top: 12rem;">
           <i class="large material-icons">inbox</i>
           <h5 style="font-weight: bold;">暂无数据</h5>
         </div>
@@ -31,13 +31,13 @@
             <div class="row">
               <div class="col s12 center-align">
                 <!--<span class="flow-text">Card Title</span>-->
-                <h4 style="font-weight: bold; margin: 0;cursor: pointer" v-on:click="goContribution(item.id)">{{item.title}}</h4>
+                <h5 style="font-weight: bold; margin: 0;cursor: pointer" v-on:click="goContribution(item.id)">{{item.title}}</h5>
               </div>
             </div>
             <div class="row center-align" style="margin-bottom: 0;">
               <div v-bind:class="'col s'+12/(item.author.length < 4 ? item.author.length: 4)"
                    v-for="author in item.author">
-                <h5>{{author.name}}</h5>
+                <h5 style="font-size: 1.25rem;">{{author.name}}</h5>
                 <p>{{author.institution}}</p>
                 <p style="font-size: 1rem; font-family: 'Courier';">{{author.email}}</p>
               </div>
@@ -80,7 +80,7 @@
     <div id="test2" class="col s12" style="padding-top: 1%">
       <div>
 
-        <div class="center-align row" v-if="submissionsPassed.length===0" style="padding-top: 5%">
+        <div class="center-align row" v-if="submissionsPassed.length===0" style="margin-top: 12rem;">
           <i class="large material-icons">inbox</i>
           <h5 style="font-weight: bold;">暂无数据</h5>
         </div>
@@ -99,13 +99,13 @@
             <div class="row">
               <div class="col s12 center-align">
                 <!--<span class="flow-text">Card Title</span>-->
-                <h4 style="font-weight: bold; margin: 0;cursor: pointer" v-on:click="goContribution(item.id)">{{item.title}}</h4>
+                <h5 style="font-weight: bold; margin: 0;cursor: pointer" v-on:click="goContribution(item.id)">{{item.title}}</h5>
               </div>
             </div>
             <div class="row center-align" style="margin-bottom: 0;">
               <div v-bind:class="'col s'+12/(item.author.length < 4 ? item.author.length: 4)"
                    v-for="author in item.author">
-                <h5>{{author.name}}</h5>
+                <h5 style="font-size: 1.25rem;">{{author.name}}</h5>
                 <p>{{author.institution}}</p>
                 <p style="font-size: 1rem; font-family: 'Courier';">{{author.email}}</p>
               </div>
@@ -120,7 +120,7 @@
     <div id="test3" class="col s12" style="padding-top: 1%">
       <div>
 
-        <div class="center-align row" v-if="submissionsRejected.length===0" style="padding-top: 5%">
+        <div class="center-align row" v-if="submissionsRejected.length===0" style="margin-top: 12rem;">
           <i class="large material-icons">inbox</i>
           <h5 style="font-weight: bold;">暂无数据</h5>
         </div>
@@ -140,7 +140,7 @@
 
               <div class="col s12 center-align">
                 <!--<span class="flow-text">Card Title</span>-->
-                <h4 style="font-weight: bold; margin: 0;cursor: pointer" v-on:click="goContribution(item.id)">{{item.title}}</h4>
+                <h5 style="font-weight: bold; margin: 0;cursor: pointer" v-on:click="goContribution(item.id)">{{item.title}}</h5>
 
               </div>
 
@@ -148,7 +148,7 @@
             <div class="row center-align" style="margin-bottom: 0;">
               <div v-bind:class="'col s'+12/(item.author.length < 4 ? item.author.length: 4)"
                    v-for="author in item.author">
-                <h5>{{author.name}}</h5>
+                <h5 style="font-size: 1.25rem;">{{author.name}}</h5>
                 <p>{{author.institution}}</p>
                 <p style="font-size: 1rem; font-family: 'Courier';">{{author.email}}</p>
               </div>
@@ -163,7 +163,7 @@
     <div id="test4" class="col s12" style="padding-top: 1%" >
       <div>
 
-        <div class="center-align row" v-if="submissionsFixing.length===0" style="padding-top: 5%">
+        <div class="center-align row" v-if="submissionsFixing.length===0" style="margin-top: 12rem;">
           <i class="large material-icons">inbox</i>
           <h5 style="font-weight: bold;">暂无数据</h5>
         </div>
@@ -182,13 +182,13 @@
             <div class="row">
               <div class="col s12 center-align">
                 <!--<span class="flow-text">Card Title</span>-->
-                <h4 style="font-weight: bold; margin: 0;cursor: pointer" v-on:click="goContribution(item.id)">{{item.title}}</h4>
+                <h5 style="font-weight: bold; margin: 0;cursor: pointer" v-on:click="goContribution(item.id)">{{item.title}}</h5>
               </div>
             </div>
             <div class="row center-align" style="margin-bottom: 0;">
               <div v-bind:class="'col s'+12/(item.author.length < 4 ? item.author.length: 4)"
                    v-for="author in item.author">
-                <h5>{{author.name}}</h5>
+                <h5 style="font-size: 1.25rem;">{{author.name}}</h5>
                 <p>{{author.institution}}</p>
                 <p style="font-size: 1rem; font-family: 'Courier';">{{author.email}}</p>
               </div>
@@ -231,7 +231,7 @@
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
       <div class="modal-content">
-        <h4>撤销投稿</h4>
+        <h5>撤销投稿</h5>
         <p>你确定要撤销投稿吗？</p>
       </div>
       <div class="modal-footer">

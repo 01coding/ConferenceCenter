@@ -155,6 +155,7 @@ export default{
         this.individual_information.profile=individual_info.profile;
         this.individual_information.institution=individual_info.agency;
         this.individual_information.telephone=individual_info.phone;
+        M.textareaAutoResize();
       }
     }).catch(err => {
       M.toast({

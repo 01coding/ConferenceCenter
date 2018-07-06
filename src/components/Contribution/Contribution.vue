@@ -392,6 +392,7 @@ export default {
         this.load_contrib().then(ret => {
           this.load_conf_name().then(ret => {
             M.updateTextFields();
+            M.textareaAutoResize($('#info_abstract'));
             this.is_loading=false;
           });
         });
