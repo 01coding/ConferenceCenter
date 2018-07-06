@@ -1,6 +1,6 @@
 <template>
   <div id="top">
-    <nav class="white" style="box-shadow: 0px 3px 3px #aeaeae; -webkit-box-shadow:none;">
+    <nav class="white" style="box-shadow: 0 3px 3px #aeaeae; -webkit-box-shadow:none;">
       <ul id="dropdown1" class="dropdown-content">
         <li><router-link class="grey-text text-darken-3" to="/login">登录</router-link></li>
         <li><router-link class="grey-text text-darken-3" to="/user/register">个人注册</router-link></li>
@@ -48,7 +48,7 @@
                data-position="left"
                style="cursor: pointer"
                @click="jump_to('/personalspace')">
-              <i class="large material-icons">assignment_ind</i>
+              <i class="large material-icons">person</i>
             </a>
           </li>
           <li v-if="user_type==='institution'">
@@ -57,7 +57,7 @@
                data-position="left"
                style="cursor: pointer"
                @click="jump_to('/orgspace')">
-              <i class="large material-icons">assignment_ind</i>
+              <i class="large material-icons">person</i>
             </a>
           </li>
           <li v-if="user_type==='manager'">
@@ -66,7 +66,7 @@
                data-position="left"
                style="cursor: pointer"
                @click="jump_to('/review/application')">
-              <i class="large material-icons">assignment_ind</i>
+              <i class="large material-icons">person</i>
             </a>
           </li>
           <li>

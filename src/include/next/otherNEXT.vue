@@ -2,7 +2,8 @@
   <div class="overlay-trigger">
     <div class="fixed-action-btn" >
       <router-link  to="/">
-        <a class="btn-floating btn-large grey darken-3"
+        <a class="btn-floating btn-large"
+           :class="{'grey darken-3': path!=='/login' && path!=='/user/register', 'white': path==='/login' && path==='/user/register'}"
            data-position="left">
           <i class="large material-icons">home</i>
         </a>
@@ -13,12 +14,18 @@
 
 <script>
     export default {
-        name: "otherNEXT",
+      name: "otherNEXT",
+      data: function() {
+        return {
+          path: this.$route.path,
+        }
+      },
       created: function () {
         let width = 0;
         $('.overlay-trigger').click(this.overlay);
         $('.overlay').click(this.hideOverlay);
         $(window).on("scroll", this.hideOverlay);
+        console.log(this.path);
       }
     }
 </script>

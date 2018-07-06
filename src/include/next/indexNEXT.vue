@@ -4,24 +4,24 @@
       <router-link  to="/login">
         <a class="btn-floating btn-large grey darken-3"
            data-position="left">
-          <i class="large material-icons">assignment_ind</i>
+          <i class="large material-icons">person</i>
         </a>
       </router-link>
     </div>
     <div class="fixed-action-btn" v-else>
-      <router-link v-if="state=='scholar'" to="/personalspace">
+      <router-link v-if="state==='scholar'" to="/personalspace">
         <a class="btn-floating btn-large grey darken-3"
            data-position="left">
           <i class="large material-icons">explore</i>
         </a>
       </router-link>
-      <router-link v-if="state=='institution'" to="/orgspace">
+      <router-link v-if="state==='institution'" to="/orgspace">
         <a class="btn-floating btn-large grey darken-3"
            data-position="left">
           <i class="large material-icons">explore</i>
         </a>
       </router-link>
-      <router-link v-if="state=='manager'" to="/review/application">
+      <router-link v-if="state==='manager'" to="/review/application">
         <a class="btn-floating btn-large grey darken-3"
            data-position="left">
           <i class="large material-icons">explore</i>
