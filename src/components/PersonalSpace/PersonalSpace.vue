@@ -19,12 +19,15 @@
       </div>
       <ul id="nav-mobile" class="sidenav sidenav-fixed">
         <li>
-          <div class="user-view">
+          <div class="user-view" style="padding-top: 16%">
             <div class="background"
-                 style="background-image: url(/static/bg9.jpg); background-size: cover;">
+                 style="background-image: url(/static/bg9.jpg); background-size: cover; ">
               <!--<img src="https://materializecss.com/images/office.jpg">-->
             </div>
-            <a href="#user"><img class="circle" src="https://materializecss.com/images/yuna.jpg"></a>
+
+            <span href="#user"><img class="circle" v-bind:src='"http://118.89.229.204:8080/"+personalInfo.avator'></span>
+            <span href="#name"><span class="white-text name">{{personalInfo.name}}</span></span>
+            <span href="#email"><span class="white-text email">{{personalInfo.email}}</span></span>
 
           </div>
         </li>
@@ -77,7 +80,8 @@
         nav_title: '',
         routes: {
           '/personalspace': '参加的会议',
-        }
+        },
+        personalInfo:{}
       };
     },
     created: function () {
@@ -87,6 +91,22 @@
       this.$bus.on('manage-change-title', data => {
         this.nav_title = data.text;
       });
+
+
+
+      let that = this;
+      this.$axios.post('api/user/info', {})
+        .then(response => {
+            that.personalInfo = response.data.data;
+          }
+        ).catch(
+        error => {
+          M.toast({
+            html: error,
+            classes: "rounded red darken-2"
+          });
+        }
+      );
     },
     mounted: function () {
       if (!sessionStorage.getItem('session')) {
