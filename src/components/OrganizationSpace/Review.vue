@@ -183,6 +183,7 @@
         let action = parseInt($('input[name="review"]:checked').val());
         this.$axios.post('/api/manage/review', {
           id: review_id,
+          user_id: this.contrib.user_id,
           action: action,
           suggestion: this.suggestion
         }).then(rsp => {
