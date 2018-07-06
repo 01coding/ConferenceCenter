@@ -399,14 +399,18 @@
               conference_template: that.conf_conference_template,
               backimg: that.image_path
             }).then(rsp => {
-              console.log(that.image_path);
-              console.log(that.template_path);
               if (rsp.data.status === 'succ') {
                 M.toast({
-                  html: "<span style='font-weight: bold'>发布会议成功</span>",
+                  html: "<span style='font-weight: bold'>更新会议成功</span>",
                   classes: "rounded green"
                 });
                 this.$router.push('/orgspace');
+              }
+              else {
+                M.toast({
+                  html: "<span style='font-weight: bold'>更新会议失败</span>",
+                  classes: "rounded red"
+                });
               }
             }).catch(err => {
               M.toast({

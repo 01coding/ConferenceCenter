@@ -7,11 +7,11 @@
         <div class="card hoverable">
           <div class="card-image ">
             <img src="http://118.89.229.204:8080/ERM-WebIO-1.0/uploads/17462761931530863157315460914568.gif">
-            <span class="card-title">简约</span>
+            <span class="card-title"></span>
             <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
           </div>
           <div class="card-action">
-            <a href="#">简约</a>
+            <a href="#">质感</a>
           </div>
         </div>
       </div>
@@ -19,8 +19,8 @@
       <div class="col s12 m3 " @click="chose(2)">
         <div class="card hoverable">
           <div class="card-image ">
-            <img src="http://118.89.229.204:8080/ERM-WebIO-1.0/uploads/17462761931530863157315460914568.gif">
-            <span class="card-title">科技</span>
+            <img src="http://118.89.229.204:8080/ERM-WebIO-1.0/uploads/93163166715308710389891880613012.gif">
+            <span class="card-title"></span>
             <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
           </div>
           <div class="card-action">
@@ -32,12 +32,12 @@
       <div class="col s12 m3 " @click="chose(3)">
         <div class="card hoverable">
           <div class="card-image ">
-            <img src="http://118.89.229.204:8080/ERM-WebIO-1.0/uploads/17462761931530863157315460914568.gif">
-            <span class="card-title">绚丽</span>
+            <img src="http://118.89.229.204:8080/ERM-WebIO-1.0/uploads/9272276211530870934229667077682.gif">
+            <span class="card-title"></span>
             <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
           </div>
           <div class="card-action">
-            <a href="#">古典</a>
+            <a href="#">简约</a>
           </div>
         </div>
       </div>
