@@ -2,17 +2,17 @@
 <div>
   <!--<NEXT></NEXT>-->
     <header>
-      <nav class="top-nav">
-        <div id="top-title" class="container" style="background: url(/static/bg8.jpg) no-repeat; background-size: cover; opacity: 0.9">
-          <div class="nav-wrapper">
-            <div class="row">
-              <div class="col s12 m10 offset-m1">
-                <h2 class="header white-text">{{ nav_title }}</h2>
-              </div>
-            </div``>
-          </div>
-        </div>
-      </nav>
+      <!--<nav class="top-nav" style="height: 6.4rem;">-->
+        <!--<div id="top-title" class="container" style="background: url(/static/bg3.jpg) no-repeat; background-size: cover; opacity: 0.9">-->
+          <!--<div class="nav-wrapper">-->
+            <!--<div class="row">-->
+              <!--<div class="col s12 m10 offset-m1">-->
+                <!--<h2 class="header white-text" style="font-size: 2rem;">{{ nav_title }}</h2>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</nav>-->
       <div>
         <a href="#" data-target="nav-mobile" class="top-nav sidenav-trigger full hide-on-large-only">
           <i class="material-icons">menu</i>
@@ -22,7 +22,7 @@
         <li>
           <div class="user-view" style="padding-top: 16%">
             <div class="background"
-                 style="background-image: url(/static/bg9.jpg); background-size: cover; ">
+                 style="background-image: url(https://materializecss.com/images/office.jpg); background-size: cover; ">
               <!--<img src="https://materializecss.com/images/office.jpg">-->
             </div>
 
