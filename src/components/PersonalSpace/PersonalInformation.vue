@@ -155,13 +155,14 @@ export default{
         this.individual_information.profile=individual_info.profile;
         this.individual_information.institution=individual_info.agency;
         this.individual_information.telephone=individual_info.phone;
-        M.textareaAutoResize();
       }
     }).catch(err => {
       M.toast({
         html: "<span style='font-weight: bold'>" + err.toString() + "</span>",
         classes: "rounded red"
       });
+    }).then(ret=>{
+      M.textareaAutoResize($('#textarea1'));
     });
     this.$bus.emit('manage-change-title', {text: '个人信息'});
   },
