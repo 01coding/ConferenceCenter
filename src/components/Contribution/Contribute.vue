@@ -48,7 +48,7 @@
             <h5>作者</h5>
           </div>
           <div class="row" style="margin-bottom: 0;">
-            <div class="center row">
+            <div class="row center-align">
               <h5 style="font-size: 1.5rem; margin: 0; padding-top: 1rem; padding-bottom: 1rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;" v-if="authors.length===0">
                 在这里添加作者
               </h5>
@@ -64,7 +64,7 @@
                   </div>
                   <div><h5 style="font-weight: bold; margin-top: 0;">{{author.name}}</h5></div>
                   <div>{{author.institution}}</div>
-                  <div>{{author.email}}</div>
+                  <div style="font-family: Courier; font-size: 13px; overflow-wrap: break-word">{{author.email}}</div>
                 </div>
               </div>
             </div>
@@ -345,7 +345,8 @@ export default {
         }
       }
       let authors_str = JSON.stringify(authors);
-      let file_url = this.upload.web_io + "/" + files[0].response.link;
+      let upload_resp = JSON.parse(files[0].response);
+      let file_url = this.upload.web_io + "/" + upload_resp.link;
       let params = {
         conference_id: this.conference_id,
         title: title,
