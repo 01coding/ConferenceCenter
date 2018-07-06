@@ -30,7 +30,7 @@
             注册
           </a>
         </li>
-        <li v-if="url==='/orgspace/new/conference'">
+        <li v-if="url==='/orgspace/new/conference/disable'">
           <a class="btn-floating green darken-2 tooltipped"  style="margin-bottom: 65px" data-position="left" data-tooltip="发布新会议" @click="new_conference()">
             发布
           </a>
