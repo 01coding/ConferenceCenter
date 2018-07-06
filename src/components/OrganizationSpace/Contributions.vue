@@ -46,7 +46,8 @@
             <span class="card-title activator">{{ item.title }}<i class="material-icons right">more_vert</i></span>
             <div class="row card-row">
               <!--<span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>-->
-              <span class="grey-text">{{ item.uploader }}</span>
+              <!--<span class="grey-text">{{ item.uploader }}</span>-->
+              <span class="grey-text">{{ item.uploader }} 最近上传于 {{ readable_time(item.total_submit) }} #{{ item.paper_number }}</span>
             </div>
             <div class="row card-row" @click="goto_review('/orgspace/review/'+item.id)">
               <div class="col center-align" v-bind:class="'s'+(12/item.author.length)" v-for="author in item.author">
@@ -68,7 +69,8 @@
             <span class="card-title activator">{{ item.title }}<i class="material-icons right">more_vert</i></span>
             <div class="row card-row">
               <!--<span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>-->
-              <span class="grey-text">{{ item.uploader }}</span>
+              <!--<span class="grey-text">{{ item.uploader }}</span>-->
+              <span class="grey-text">{{ item.uploader }} 最近上传于 {{ readable_time(item.total_submit) }} #{{ item.paper_number }}</span>
             </div>
             <div class="row card-row" @click="goto_review('/orgspace/review/'+item.id)">
               <div class="col center-align" v-bind:class="'s'+(12/item.author.length)" v-for="author in item.author">
@@ -90,7 +92,8 @@
             <span class="card-title activator">{{ item.title }}<i class="material-icons right">more_vert</i></span>
             <div class="row card-row">
               <!--<span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>-->
-              <span class="grey-text">{{ item.uploader }}</span>
+              <!--<span class="grey-text">{{ item.uploader }}</span>-->
+              <span class="grey-text">{{ item.uploader }} 最近上传于 {{ readable_time(item.total_submit) }} #{{ item.paper_number }}</span>
             </div>
             <div class="row card-row" @click="goto_review('/orgspace/review/'+item.id)">
               <div class="col center-align" v-bind:class="'s'+(12/item.author.length)" v-for="author in item.author">
@@ -112,7 +115,8 @@
             <span class="card-title activator">{{ item.title }}<i class="material-icons right">more_vert</i></span>
             <div class="row card-row">
               <!--<span class="grey-text">{{ item.uploader }} 于 {{ readable_time(item.submit_time) }}</span>-->
-              <span class="grey-text">{{ item.uploader }}</span>
+              <!--<span class="grey-text">{{ item.uploader }}</span>-->
+              <span class="grey-text">{{ item.uploader }} 最近上传于 {{ readable_time(item.total_submit) }} #{{ item.paper_number }}</span>
             </div>
             <div class="row card-row" @click="goto_review('/orgspace/review/'+item.id)">
               <div class="col center-align" v-bind:class="'s'+(12/item.author.length)" v-for="author in item.author">
