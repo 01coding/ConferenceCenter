@@ -246,8 +246,9 @@
       },
 
       isUser: function() {
-        this.$test.post('/api/user/token').then(response => {
-          if(response.data.type !== "user") {
+        this.$axios.post('/api/user/token').then(response => {
+          console.log("user type:" + response.data.data.type);
+          if(response.data.data.type !== "user") {
             this.registerToLink = 0;
             this.contributeToLink = 0;
             this.hasCollect = 2;
@@ -330,6 +331,7 @@
             console.log("contribute to link:" + this.contributeToLink);
             console.log("conference state:" + this.conferenceState);
             this.isUser();
+            console.log(this.hasCollect + "  " + this.contributeToLink + "  " + this.registerToLink);
           }
           else {
             M.toast({
