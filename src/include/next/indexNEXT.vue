@@ -5,26 +5,26 @@
         <span class="mobile-fab-tip">登录</span>
         <a class="btn-floating btn-large green darken-3"
            data-position="left">
-          <i class="large material-icons">assignment_ind</i>
+          <i class="large material-icons">person</i>
         </a>
       </router-link>
     </div>
     <div class="fixed-action-btn" v-else>
-      <router-link v-if="state=='scholar'" to="/personalspace">
+      <router-link v-if="state==='scholar'" to="/personalspace">
         <span class="mobile-fab-tip">空间</span>
         <a class="btn-floating btn-large green darken-3"
            data-position="left">
           <i class="large material-icons">explore</i>
         </a>
       </router-link>
-      <router-link v-if="state=='institution'" to="/orgspace">
+      <router-link v-if="state==='institution'" to="/orgspace">
         <span class="mobile-fab-tip">管理空间</span>
         <a class="btn-floating btn-large green darken-3"
            data-position="left">
           <i class="large material-icons">explore</i>
         </a>
       </router-link>
-      <router-link v-if="state=='manager'" to="/review/application">
+      <router-link v-if="state==='manager'" to="/review/application">
         <span class="mobile-fab-tip">管理员空间</span>
         <a class="btn-floating btn-large green darken-3"
            data-position="left">
