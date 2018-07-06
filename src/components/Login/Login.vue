@@ -1,5 +1,6 @@
 <template>
   <div>
+    <TestRobot></TestRobot>
     <div class="row customize" style="background: #272733; margin-bottom: 0"
          :style="{'min-height': (page_height)+'px'}">
       <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top: 6.5rem;width:35%">
