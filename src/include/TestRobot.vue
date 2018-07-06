@@ -36,7 +36,7 @@
             <i class="material-icons">create</i>
           </a>
         </li>
-        <li v-if="url==='/orgspace/new/conference/disable'">
+        <li v-if="url==='/orgspace/new/conference'">
           <span class="mobile-fab-tip">发布</span>
           <a class="btn-floating green darken-2"  style="margin-bottom: 65px" data-position="left" data-tooltip="发布新会议" @click="new_conference()">
             <i class="material-icons">send</i>
