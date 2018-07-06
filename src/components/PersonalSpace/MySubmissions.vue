@@ -10,6 +10,11 @@
     <div id="test1" class="col s12" style="padding-top: 1%" >
       <div class="container">
 
+        <div class="center-align row" v-if="submissionsPending.length===0" style="padding-top: 5%">
+          <i class="large material-icons">inbox</i>
+          <h5 style="font-weight: bold;">暂无数据</h5>
+        </div>
+
         <div class="card" v-for="item in submissionsPending">
           <div class="card-action">
         <span>
@@ -77,6 +82,11 @@
     <div id="test2" class="col s12" style="padding-top: 1%">
       <div class="container">
 
+        <div class="center-align row" v-if="submissionsPassed.length===0" style="padding-top: 5%">
+          <i class="large material-icons">inbox</i>
+          <h5 style="font-weight: bold;">暂无数据</h5>
+        </div>
+
         <div class="card" v-for="item in submissionsPassed">
           <div class="card-action">
         <span>
@@ -115,6 +125,11 @@
 
     <div id="test3" class="col s12" style="padding-top: 1%">
       <div class="container">
+
+        <div class="center-align row" v-if="submissionsRejected.length===0" style="padding-top: 5%">
+          <i class="large material-icons">inbox</i>
+          <h5 style="font-weight: bold;">暂无数据</h5>
+        </div>
 
         <div class="card" v-for="item in submissionsRejected">
           <div class="card-action">
