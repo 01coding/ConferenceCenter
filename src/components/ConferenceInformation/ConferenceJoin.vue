@@ -18,7 +18,8 @@
           <a class="btn-floating btn-large halfway-fab waves-effect waves-light blue"
              style="right:25%;"
              @click="submit">
-            <i class="material-icons">send</i>
+            <!--<span class="mobile-fab-tip">注销</span>-->
+            <i class="material-icons tooltipped" data-position="top" data-tooltip="提交">send</i>
           </a>
         </div>
       </div>
@@ -26,27 +27,28 @@
 
     <div class="section white">
       <div class="row container">
-        <div class="col s10 offset-s1 ">
+        <div class="col s10">
           <div class="row" style="margin-bottom: 0;">
             <h5>以{{identify}}身份注册会议</h5>
           </div>
           <div class="center row">
-            <h5 style="font-size: 1.5rem; margin: 0; padding-top: 1rem; padding-bottom: 1rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;" v-if="papers.length===0">
-              您没有参会论文
-            </h5>
-            <div class="col s12" v-for="(it, index) in papers"
-                 style="margin-bottom: 1rem;">
-              <div class="card-panel" style="padding-top: 0.5rem;">
-                <div class="row">
-                  <h5>{{it.title}}</h5>
-                  <h6 class="right">#{{it.paper_number}}</h6>
-                </div>
-                <div class="row">
-                  <div class="col s4" v-for="(item,id) in it.authors"
-                  style="margin-bottom: 1rem">
-                    <div class="card-panel" style="padding-top: 0.5rem">
-                      <div>{{item.name}}</div>
-                      <div>{{item.email}}</div>
+            <div class="container" style="width:100%;">
+              <h5 style="font-size: 1.5rem; margin: 0; padding-top: 1rem; padding-bottom: 1rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;" v-if="papers.length===0">
+                您没有参会论文
+              </h5>
+              <div class="card" v-for="item in papers">
+                <div class="card-action"></div>
+                <div class="card-content">
+                  <div class="row">
+                    <div class="col s12 center-align">
+                      <h4 style="font-weight: bold; margin: 0;cursor: pointer">{{item.title}}</h4>
+                    </div>
+                  </div>
+                  <div class="row center-align" style="margin-bottom: 0;">
+                    <div v-bind:class="'col s'+12/(item.authors.length < 4 ? item.authors.length: 4)"
+                         v-for="author in item.authors">
+                      <h5>{{author.name}}</h5>
+                      <p style="font-size: 1rem; font-family: 'Courier';">{{author.email}}</p>
                     </div>
                   </div>
                 </div>
@@ -195,7 +197,7 @@
               </button>
             </div>
           </div>
-          <div class="row" style="height: 2rem;">
+          <div class="row" style="height: 0.5rem;">
           </div>
           <div class="row center-align">
             <div class="btn-large blue darken-1" @click="submit">
@@ -203,8 +205,8 @@
               提交
             </div>
           </div>
-          <div class="row" style="height: 2rem;">
-          </div>
+          <!--<div class="row" style="height: 0.5rem;">
+          </div>-->
         </div>
       </div>
     </div>
@@ -253,6 +255,10 @@
       }
     },
     created: function() {
+      $(document).ready(function(){
+        $('.tooltipped').tooltip();
+      });
+
       if (this.$route.params.id) {
         this.conference_id = this.$route.params.id;
       } else {
@@ -348,6 +354,7 @@
       isAbleRegister: function () {
         if (!(this.resp.data.state & 0b0011)) {
           this.$router.push("/404");
+          return;
         }
       },
       getConferenceImg: function () {

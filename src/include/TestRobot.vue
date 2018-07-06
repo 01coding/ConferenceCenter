@@ -2,7 +2,7 @@
   <div>
     <div class="fixed-action-btn">
       <a class="btn-floating btn-large"
-         :class="{'grey darken-3':  url!=='/user/register', 'teal': url==='/user/register'}"
+         :class="{'grey darken-3':  url!=='/user/register' && url!=='/login', 'blue': url==='/user/register' || url==='/login'}"
          style="margin-bottom: 68px"
          data-position="left"
          data-tooltip="测试">
@@ -10,18 +10,21 @@
       </a>
       <ul>
         <li v-if="url==='/login'">
+          <span class="mobile-fab-tip">学者登录</span>
           <a class="btn-floating red darken-2"  data-position="left" data-tooltip="学者登录" @click="scholar_login()">
-            学者
+            <i class="material-icons">school</i>
           </a>
         </li>
         <li v-if="url==='/login'">
+          <span class="mobile-fab-tip">主办方登录</span>
           <a class="btn-floating yellow darken-2" data-position="left" data-tooltip="主办方登录" @click="institution_login()">
-            主办
+            <i class="material-icons">account_balance</i>
           </a>
         </li>
         <li v-if="url==='/login'">
+          <span class="mobile-fab-tip">管理员登录</span>
           <a class="btn-floating green darken-2" style="margin-bottom: 65px" data-position="left" data-tooltip="管理员登录" @click="manager_login()">
-            管理
+            <i class="material-icons">work</i>
           </a>
         </li>
         <li v-if="url==='/user/register'">
