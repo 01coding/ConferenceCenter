@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <loader v-show="is_loading"></loader>
+    <!--<loader v-show="is_loading"></loader>-->
     <div class="col s12 m10 offset-m1">
       <div class="row" style="margin-top: 20px">
         <div class="col s12 m12 l6 xl6" v-for="conf in conference_list">

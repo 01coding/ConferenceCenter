@@ -101,7 +101,7 @@
               <div class="row valign-wrapper" style="margin-bottom: 0;padding-top: 3px;padding-bottom: 3px;">
                   <div class="col s2 valign-wrapper">
                     <i class="material-icons prefix">person</i>
-                    性别
+                    <span style="margin-left: 1rem;">性别</span>
                   </div>
                   <label class="col s2">
                     <input type="radio" value="男" v-model="participant_field.sex" />
@@ -113,7 +113,7 @@
                   </label>
                   <div class="col s3 valign-wrapper">
                     <i class="material-icons prefix">home</i>
-                    预定住宿
+                    <span style="margin-left: 1rem;">预定住宿</span>
                   </div>
                   <div class="switch col s3">
                     <label>
@@ -459,11 +459,11 @@
 
         //remove shadow
         $('#'+index).removeClass("z-depth-5");
-        console.log("temp participant:");
+        /*console.log("temp participant:");
         console.log(tempParticipant);
         console.log("participants:");
         console.log(this.participants);
-        //clear
+        *///clear
         this.participant_field.name = "";
         this.participant_field.contract = "";
         this.participant_field.job = "";
@@ -542,45 +542,26 @@
             return;
           }
         }
-        //check participants information
-        /*if(type === 1) {
-          if(this.participants.length != 1) {
-            M.toast({
-              html: "<span style='font-weight: bold;'>您只能本人参会</span>",
-              classes: 'yellow darken-2 rounded'
-            });
-            return;
-          }
-        }
-        else {
-          if(this.participants.length < 1) {
-            M.toast({
-              html: "<span style='font-weight: bold;'>您需要填写至少一位参会者信息</span>",
-              classes: 'yellow darken-2 rounded'
-            });
-            return;
-          }
-        }*/
         //set parameters to transmit
-        let participant_str = JSON.stringify(this.participants);
-        let file_url = files[0].response;
+        console.log("submit participants");
+        console.log(this.participants);
+        let upload_resp = JSON.parse(files[0].response);
+        let file_url = "/" + upload_resp.link;
         console.log("file url:");
         console.log(file_url);
-        console.log("paper number str:");
-        console.log(paper_number_str);
-        //let file_url = files[0].response;
         let params = {
           token: sessionStorage.getItem("session"),
           conference_id: this.conference_id,
           payment: file_url,
           type: type,
           paper_number: paper_number_str,
-          participants: participant_str
+          participants: this.participants
         };
         console.log("set parameters to transmit");
+        console.log(params);
         //transmit message
-        this.$test.post("/api/user/register",params).then(rsp => {
-          let data = rsp.data;
+        this.$axios.post("/api/user/register",params).then(response => {
+          let data = response.data;
           if(data.status === "succ") {
             console.log("transmit message:");
             console.log(data.status);
@@ -591,6 +572,7 @@
             this.$router.push("/conference/"+this.conference_id);
           }
           else {
+            console.log("response fail");
             M.toast({
               html: "<span style='font-weight: bold;'>会议注册失败</span>",
               classes: 'red rounded'
