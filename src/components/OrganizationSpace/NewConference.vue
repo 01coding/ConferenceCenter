@@ -209,7 +209,7 @@
     // components: { NavBar },
     data: function () {
       return {
-        TPName:"尚未选择风格",
+        TPName: "尚未选择风格",
         conf_topic: '',
         conf_field: '',
         conf_desc: '',
@@ -256,15 +256,15 @@
     mounted: function () {
       this.$bus.on("TPChoseOver", (num) => {
         this.conf_conference_template = num;
-        let tpName=""
-        if(num===1){
-          tpName="质感风格"
-        }else if(num===2){
-          tpName="科技风格"
-        }else{
-          tpName="极简风格"
+        let tpName = ""
+        if (num === 1) {
+          tpName = "质感风格"
+        } else if (num === 2) {
+          tpName = "科技风格"
+        } else {
+          tpName = "极简风格"
         }
-        this.TPName=tpName
+        this.TPName = tpName
       });
       this.$bus.emit('manage-change-title', { text: '发布新会议' });
       let start_date = new Date();
@@ -414,6 +414,12 @@
       },
 
       submit_conference: function () {
+        if (!this.template_path) {
+          M.toast({
+            html: "<span style='font-weight: bold'>论文模板未上传</span>",
+            classes: "rounded red"
+          });
+        }
         let that = this;
         axios.all([ this.upload_template(), this.upload_image() ]).then(
           axios.spread(function (ut, ui) {
@@ -447,8 +453,8 @@
               }
               else {
                 M.toast({
-                  html: "<span style='font-weight: bold'>发布会议失败</span>",
-                  classes: "rounded green"
+                  html: "<span style='font-weight: bold'>" + rsp.data.info + "</span>",
+                  classes: "rounded red"
                 });
               }
             }).catch(err => {
@@ -501,7 +507,8 @@
   .col .row {
     margin-right: 0;
   }
-  .my-mt-5{
+
+  .my-mt-5 {
 
     margin-top: 15px;
   }
