@@ -63,24 +63,25 @@
                 <div class="row valign-wrapper"
                      v-for="schedule in recent_items"
                      style="margin-bottom: 0;">
-                  <div class="col s2 center-align" style="padding-left: 0;">
-                    <h5 style="margin: 0; font-weight: bold;">{{schedule.day}}</h5>
-                    <p style="margin: 0;">{{schedule.mon}}</p>
-                  </div>
-                  <div class="col s10">
-                    <div class="card-panel white-text"
-                         :class="schedule.color"
-                         style="margin-top: 0; margin-bottom: 1rem;
-                            padding-top: 0.5rem; padding-bottom: 0.5rem;
-                            box-shadow: unset;">
-                      <div class="row" style="margin: 0; font-weight: bold;">
-                        {{schedule.name}}
-                      </div>
-                      <div class="row" style="margin: 0;">
-                        {{schedule.instructions}}
+                    <div class="col s2 center-align" style="padding-left: 0;">
+                      <h5 style="margin: 0; font-weight: bold;">{{schedule.day}}</h5>
+                      <p style="margin: 0;">{{schedule.mon}}</p>
+                    </div>
+                    <div class="col s10">
+                      <div class="card-panel white-text"
+                           :class="schedule.color"
+                           style="margin-top: 0; margin-bottom: 1rem;
+                              padding-top: 0.5rem; padding-bottom: 0.5rem;
+                              box-shadow: unset;">
+                        <div class="row" style="margin: 0; font-weight: bold;">
+                          <router-link v-bind:to="'/conference/'+schedule.id"><span style="color: white;">{{schedule.name}}</span></router-link>
+
+                        </div>
+                        <div class="row" style="margin: 0;">
+                          {{schedule.instructions}}
+                        </div>
                       </div>
                     </div>
-                  </div>
                 </div>
               </li>
             </ul>
