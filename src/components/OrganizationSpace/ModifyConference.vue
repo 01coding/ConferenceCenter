@@ -61,6 +61,7 @@
               <i class="medium material-icons prefix">event</i>
               <input id="conf-essay-ddl" type="text" class="datepicker" v-model="conf_essay_ddl"/>
               <label for="conf-essay-ddl">截稿日期</label>
+              <span class="helper-text red-text" v-show="paper_date_invalid">非法日期</span>
             </div>
             <div class="input-field col s3">
               <i class="medium material-icons prefix">access_time</i>
@@ -71,6 +72,7 @@
               <i class="medium material-icons prefix">event</i>
               <input id="conf-release-ddl" type="text" class="datepicker" v-model="conf_release_ddl"/>
               <label for="conf-release-ddl">录用通知日期</label>
+              <span class="helper-text red-text" v-show="release_date_invalid">非法日期</span>
             </div>
           </div>
           <div class="row">
@@ -115,6 +117,7 @@
               <i class="medium material-icons prefix">event</i>
               <input id="conf-register-ddl" type="text" class="datepicker" v-model="conf_register_ddl"/>
               <label for="conf-register-ddl">注册截止日期</label>
+              <span class="helper-text red-text" v-show="register_date_invalid">非法日期</span>
             </div>
             <div class="input-field col s2">
               <i class="medium material-icons prefix">access_time</i>
@@ -148,12 +151,6 @@
               <h5>页面外观</h5>
             </div>
           </div>
-          <!--<div class="row">-->
-          <!--<div class="input-field col s6">-->
-          <!--<input id="conf-conference-template"/>-->
-          <!--<label for="conf"-->
-          <!--</div>-->
-          <!--</div>-->
           <div class="row">
             <div class="file-field input-field col s10">
               <div class="btn" @change="get_image($event)">
@@ -220,7 +217,10 @@
         image_path: '',
         new_template: false,
         new_image: false,
-        end_date_invalid: false
+        end_date_invalid: false,
+        paper_date_invalid: false,
+        release_date_invalid: false,
+        register_date_invalid: false
       };
     },
     mounted: function () {
@@ -228,7 +228,7 @@
       this.$bus.emit("toOS");
 
       if (!this.$route.params.id)
-        this.$router.push('/404');
+        this.$router.replace('/404');
       this.conf_id = parseInt(this.$route.params.id);
 
       this.$bus.emit('manage-change-title', { text: '更新会议' });
@@ -251,11 +251,11 @@
           date = date.toDateString().slice(4, 15);
           end_date = new Date(date);
           if (end_date < start_date) {
-            $('conf-end-date').addClass('invalid');
+            $('#conf-end-date').addClass('invalid');
             this.end_date_invalid = true;
           }
           else {
-            $('conf-end-date').removeClass('invalid');
+            $('#conf-end-date').removeClass('invalid');
             this.end_date_invalid = false;
           }
           this.conf_end_date = date;
@@ -263,28 +263,58 @@
       };
       let end_date_elem = document.querySelector('#conf-end-date');
       let end_date_instance = M.Datepicker.init(end_date_elem, options);
-      
+
+      let paper_date = new Date();
       options = {
         onSelect: date => {
           date = date.toDateString().slice(4, 15);
+          paper_date = new Date(date);
+          if (paper_date > start_date) {
+            $('#conf-essay-ddl').addClass('invalid');
+            this.paper_date_invalid = true;
+          }
+          else {
+            $('#conf-essay-ddl').removeClass('invalid');
+            this.paper_date_invalid = false;
+          }
           this.conf_essay_ddl = date;
         }
       };
       let essay_ddl_elem = document.querySelector('#conf-essay-ddl');
       let essay_ddl_instance = M.Datepicker.init(essay_ddl_elem, options);
 
+      let release_date = new Date();
       options = {
         onSelect: date => {
           date = date.toDateString().slice(4, 15);
+          release_date = new Date(date);
+          if (release_date > start_date || release_date < paper_date) {
+            $('#conf-release-ddl').addClass('invalid');
+            this.release_date_invalid = true;
+          }
+          else {
+            $('#conf-release-ddl').removeClass('invalid');
+            this.release_date_invalid = false;
+          }
           this.conf_release_ddl = date;
         }
       };
       let release_ddl_elem = document.querySelector('#conf-release-ddl');
       let release_ddl_instance = M.Datepicker.init(release_ddl_elem, options);
 
+      let register_date = new Date();
       options = {
         onSelect: date => {
           date = date.toDateString().slice(4, 15);
+          register_date = new Date(date);
+          if (register_date > start_date || register_date < release_date) {
+            $('#conf-register-ddl').addClass('invalid');
+            this.register_date_invalid = true;
+          }
+          else {
+            $('#conf-register-ddl').removeClass('invalid');
+            this.register_date_invalid = false;
+          }
           this.conf_register_ddl = date;
         }
       };
@@ -340,16 +370,16 @@
           let paper_ddl = new Date(data.paper_ddl);
           essay_ddl_instance.setDate(paper_ddl);
           let time = '';
-          time += paper_ddl.getHours() + ':';
-          time += paper_ddl.getMinutes();
+          time += (paper_ddl.getHours() < 10 ? '0' : '') + paper_ddl.getHours() + ':';
+          time += (paper_ddl.getMinutes() < 10 ? '0' : '') + paper_ddl.getMinutes();
           essay_time_instance.defaultTime = time;
           this.conf_essay_time = time;
 
           let register_ddl = new Date(data.register_ddl);
           register_ddl_instance.setDate(register_ddl);
           time = '';
-          time += register_ddl.getHours() + ':';
-          time += register_ddl.getMinutes();
+          time += (register_ddl.getHours() < 10 ? '0' : '') + paper_ddl.getHours() + ':';
+          time += (register_ddl.getMinutes() < 10 ? '0' : '') + paper_ddl.getMinutes();
           register_ddl.defaultTime = time;
           this.conf_register_time = time;
 
@@ -372,15 +402,16 @@
           })
         } else {
           M.toast({
-            html: "<span style='font-weight: bold'>" + rsp.data.info + "</span>",
+            html: "<span style='font-weight: bold'>获取会议失败</span>",
             classes: "rounded red"
           });
         }
       }).catch(err => {
         M.toast({
-          html: "<span style='font-weight: bold'>" + err.toString() + "</span>",
+          html: "<span style='font-weight: bold'>内部错误</span>",
           classes: "rounded red"
         });
+        console.log(err);
       })
     },
     updated: function () {
@@ -388,56 +419,75 @@
     },
     methods: {
       submit_conference: function () {
+        if (!this.conf_topic || !this.conf_start_date || !this.conf_desc || !this.conf_end_date ||
+          !this.conf_location || !this.conf_essay_info || !this.conf_essay_inst || !this.conf_essay_ddl ||
+          !this.conf_essay_time || !this.conf_release_ddl || !this.conf_register_ddl ||
+          !this.conf_register_time || !this.conf_schedule || !this.conf_register_info ||
+          !this.conf_commute_info || !this.conf_contact || this.conf_field === '') {
+          M.toast({
+            html: "<span style='font-weight: bold'>信息未填写完整</span>",
+            classes: "rounded yellow darken-2"
+          });
+          return;
+        }
         let that = this;
         let function_list = [];
         if (this.new_image)
           function_list.push(this.upload_image());
         if (this.new_template)
           function_list.push(this.upload_template());
-        axios.all(function_list).then(
-          axios.spread(function (ut, ui) {
-            that.$axios.post('/api/conference/modify/' + that.conf_id, {
-              conference_id: that.conf_id,
-              title: that.conf_topic,
-              field: parseInt(that.conf_field),
-              introduction: that.conf_desc,
-              start_date: that.conf_start_date + ' 00:00:00',
-              end_date: that.conf_end_date + ' 23:59:59',
-              convening_place: that.conf_location,
-              essay_information: that.conf_essay_info,
-              essay_instructions: that.conf_essay_inst,
-              paper_ddl: that.conf_essay_ddl + ' ' + that.conf_essay_time + ':59',
-              employ_date: that.conf_release_ddl + ' 00:00:00',
-              register_ddl: that.conf_register_ddl + ' ' + that.conf_register_time + ':59',
-              schedule: that.conf_schedule,
-              paper_template: that.template_path,
-              register_information: that.conf_register_info,
-              ATinformation: that.conf_commute_info,
-              contact: that.conf_contact,
-              conference_template: that.conf_conference_template,
-              backimg: that.image_path
-            }).then(rsp => {
-              if (rsp.data.status === 'succ') {
+        try {
+          axios.all(function_list).then(
+            axios.spread(function (...rsps) {
+              that.$axios.post('/api/conference/modify/' + that.conf_id, {
+                conference_id: that.conf_id,
+                title: that.conf_topic,
+                field: parseInt(that.conf_field),
+                introduction: that.conf_desc,
+                start_date: that.conf_start_date + ' 00:00:00',
+                end_date: that.conf_end_date + ' 23:59:59',
+                convening_place: that.conf_location,
+                essay_information: that.conf_essay_info,
+                essay_instructions: that.conf_essay_inst,
+                paper_ddl: that.conf_essay_ddl + ' ' + that.conf_essay_time + ':59',
+                employ_date: that.conf_release_ddl + ' 00:00:00',
+                register_ddl: that.conf_register_ddl + ' ' + that.conf_register_time + ':59',
+                schedule: that.conf_schedule,
+                paper_template: that.template_path,
+                register_information: that.conf_register_info,
+                ATinformation: that.conf_commute_info,
+                contact: that.conf_contact,
+                conference_template: that.conf_conference_template,
+                backimg: that.image_path
+              }).then(rsp => {
+                if (rsp.data.status === 'succ') {
+                  M.toast({
+                    html: "<span style='font-weight: bold'>更新会议成功</span>",
+                    classes: "rounded green"
+                  });
+                  that.$router.push('/orgspace');
+                }
+                else {
+                  M.toast({
+                    html: "<span style='font-weight: bold'>更新会议失败</span>",
+                    classes: "rounded red"
+                  });
+                }
+              }).catch(err => {
                 M.toast({
-                  html: "<span style='font-weight: bold'>更新会议成功</span>",
-                  classes: "rounded green"
-                });
-                that.$router.push('/orgspace');
-              }
-              else {
-                M.toast({
-                  html: "<span style='font-weight: bold'>更新会议失败</span>",
+                  html: "<span style='font-weight: bold'>内部错误</span>",
                   classes: "rounded red"
                 });
-              }
-            }).catch(err => {
-              M.toast({
-                html: "<span style='font-weight: bold'>" + err.toString() + "</span>",
-                classes: "rounded red"
               });
-            });
-          })
-        );
+            })
+          );
+        }
+        catch (err) {
+          M.toast({
+            html: "<span style='font-weight: bold'>" + err.toString() + "</span>",
+            classes: "rounded red"
+          });
+        }
       },
       get_template: function (event) {
         this.paper_template = event.target.files[ 0 ];
@@ -448,6 +498,9 @@
         this.new_image = true;
       },
       upload_template: function () {
+        if (!this.paper_template) {
+          throw '模板未上传';
+        }
         let config = {
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -460,6 +513,9 @@
         });
       },
       upload_image: function () {
+        if (!this.back_img) {
+          throw '背景未上传';
+        }
         let config = {
           headers: {
             'Content-Type': 'multipart/form-data'
