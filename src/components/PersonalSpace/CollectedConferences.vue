@@ -98,7 +98,7 @@
             <!--TODO: 这里放会议的背景图-->
 
             <span class="card-title" style="font-weight: bold">
-              标题
+              {{item.title}}
             </span>
 
           </div>
