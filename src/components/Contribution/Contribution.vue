@@ -380,7 +380,7 @@ export default {
         html: "<span style='font-weight: bold;'>需要路由参数</span>",
         classes: 'red rounded'
       });
-      this.$router.push("/404");
+      this.$router.replace("/404");
     }
 
     this.session_token = sessionStorage.getItem('session');
@@ -500,7 +500,7 @@ export default {
               html: "<span style='font-weight: bold;'>你不能访问该页面</span>",
               classes: 'yellow darken-2 rounded'
             });
-            this.$router.push("/404");
+            this.$router.go(-1);
           }
           this.user_info = resp.data;
         } else {
@@ -508,7 +508,7 @@ export default {
             html: "<span style='font-weight: bold;'>请先登录</span>",
             classes: 'yellow darken-2 rounded'
           });
-          this.$router.push("/login");
+          this.$router.replace("/login");
         }
       }).catch(error => {
         console.log(error);

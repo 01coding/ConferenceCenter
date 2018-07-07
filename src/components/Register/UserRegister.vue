@@ -144,5 +144,9 @@
 </script>
 
 <style scoped>
-
+  .customize {
+    background-size: 100% !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+  }
 </style>

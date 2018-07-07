@@ -238,7 +238,7 @@
               <div class="col s9 hoverable my-trans my-tech-blue">
                 <div id="introduction" class="card-container my-total-trans" v-if="active_tab===0">
                   <ul class="collection with-header my-total-trans">
-                    <li class="collection-header my-total-trans"><h4 style="">会议介绍</h4></li>
+                    <li class="collection-header my-total-trans"><h5 style="">会议介绍</h5></li>
                     <li class="collection-item avatar my-total-trans">
                       <i class="material-icons circle red lighten-1 my-trans hoverable">schedule</i>
                       <p class="coference-date"><strong>开始日期</strong>：<span style="font-size:1.1rem;">{{resp.data.start_date}}</span>
@@ -399,7 +399,7 @@
                 <div class="col s8">
                   <div id="introduction" class="card-container">
                     <ul class="collection with-header">
-                      <li class="collection-header"><h4 style="">会议介绍</h4></li>
+                      <li class="collection-header"><h5 style="">会议介绍</h5></li>
                       <li class="collection-item">
                         <p class="coference-date"><strong>开始日期</strong>：<span style="font-size:1.1rem;">{{resp.data.start_date}}</span>
                         </p>
@@ -528,7 +528,7 @@
             this.isCollect();
             let that = this;
             axios.all([ this.isAbleRegister(), this.isAbleContribute(), this.isCollect() ]).then(
-              axios.spread(function (ut, ui) {
+              axios.spread(function (ut, ui, uc) {
                 that.$axios.post('/api/user/token').then(res => {
                   /*console.log("user type:" + res.data.data.type);*/
                   // console.log(res);
@@ -559,7 +559,7 @@
               html: "<span style='font-weight: bold'>获取会议失败</span>",
               classes: "rounded red darken-2"
             });
-            this.$router.push('/404');
+            this.$router.replace('/404');
           }
         }
         else {
@@ -600,7 +600,7 @@
         if (!sessionStorage.getItem("session")) {
           M.toast({
             html: "<span style='font-weight: bold;'>请先登录</span>",
-            classes: 'yellow rounded'
+            classes: 'yellow darken-2 rounded'
           });
           this.$router.push('/login');
           return;
@@ -611,7 +611,7 @@
           conference_id: this.conference_id
         }).then(response => {
           let resp = response.data;
-          if (resp.status == 'succ') {
+          if (resp.status === 'succ') {
             this.hasCollect = 1;
             M.toast({
               html: "<span style='font-weight: bold;'>已收藏</span>",
@@ -771,7 +771,7 @@
   }
 
   .table-of-contents a {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     height: 2.4rem;
     line-height: 2.4rem;
   }

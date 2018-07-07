@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="row" style="height: 1rem;"></div>
+    <div class="row" style="height: 4rem;"></div>
     <div class="row">
-      <div class="col s2"></div>
+      <div class="col s3"></div>
       <form class="col s6 center-align">
         <div class="row">
           <div class="input-field col s12">
@@ -39,7 +39,7 @@
           </div>
         </div>
       </form>
-      <div class="col s4"></div>
+      <div class="col s3"></div>
     </div>
   </div>
 </template>
@@ -123,3 +123,10 @@
     },
   };
 </script>
+
+<style>
+  .col .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+</style>

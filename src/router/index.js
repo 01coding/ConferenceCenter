@@ -53,10 +53,6 @@ const router = new Router({
       component: ConferenceInfo
     },
     {
-      path: '/conference3/:id',
-      component: ConferenceInfo3
-    },
-    {
       path: '/conference/:id/join',
       name: 'ConferenceJoin',
       component: ConferenceJoin
