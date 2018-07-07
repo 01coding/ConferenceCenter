@@ -22,7 +22,9 @@
       <div class="row container" style="margin-bottom: 0; padding-bottom: 1rem;">
         <div class="container" style="margin-bottom: 0">
           <div class="row" style="margin-bottom: 0;">
-            <a class="waves-effect waves-light btn-small  light-blue darken-1" style="margin:0;padding:0 0.5rem;" @click="setDateSearchState()">
+            <a class="waves-effect waves-light btn-small  light-blue darken-1"
+               style="margin:0;padding:0 0.5rem;"
+               @click="setDateSearchState()">
               <i class="material-icons left" style="">date_range</i>使用日期检索
             </a>
             <a class="waves-effect waves-light btn-small blue-grey darken-1"
@@ -32,7 +34,7 @@
               使用领域检索
             </a>
           </div>
-          <div class="row" v-if="date_search_state" style="margin-bottom: 0;">
+          <div class="row" v-show="date_search_state" style="margin-bottom: 0;">
             <form>
               <div class="row" style="margin-top: 1rem; margin-bottom: 0;">
                 <div class="input-field col s6">
@@ -60,7 +62,10 @@
                   </label>
                 </div>
                 <div class="input-field col s6 right-align">
-                  <a class="waves-effect waves-light btn-small grey darken-1" style="margin:0rem 0rem;padding:0rem 0.5rem;" @click="date_search()"><i class="material-icons left" style="margin-right: 0.5rem">search</i>检索</a>
+                  <a class="waves-effect waves-light btn-small blue" style="margin:0rem 0rem;padding:0rem 0.5rem;" @click="date_search()">
+                    <i class="material-icons left" style="margin-right: 0.5rem">search</i>
+                    检索
+                  </a>
                 </div>
               </div>
             </form>
@@ -81,52 +86,58 @@
     <div style="height:20px;"></div>
 
     <div>
-      <div class="preloader-wrapper big active" v-show="is_loading">
-        <div class="spinner-layer spinner-blue-only">
-          <div class="circle-clipper left">
-            <div class="circle"></div>
-          </div><div class="gap-patch">
-          <div class="circle"></div>
-        </div><div class="circle-clipper right">
-          <div class="circle"></div>
-        </div>
-        </div>
-      </div>
       <div class="row container"
            v-show="!is_loading"
            style="max-width: 65rem;">
-        <div class="card hoverable" v-if="conferences.total_num > 0" v-for="(res,id) in conferences.result" :key="id">
+
+        <div class="card hoverable"
+             v-for="(res,id) in conferences.result"
+             :key="id">
           <div class="card-image waves-effect waves-block waves-light"
                style="height: 8rem; background:black;">
-            <img style="opacity: 0.5; object-fit: cover; object-position: center center;" :src="res.conf_bg_img" @click="$router.push('/conference/'+res.id)">
-            <!--TODO: 这里放会议的背景图-->
-            <span class="card-title" style="font-weight: bold; cursor: pointer;" @click="$router.push('/conference/'+res.id)">
+            <img style="opacity: 0.5; object-fit: cover; object-position: center -15rem;"
+                 :src="res.conf_bg_img"
+                 @click="$router.push('/conference/'+res.id)">
+            <span class="card-title"
+                  style="font-weight: bold; cursor: pointer;"
+                  @click="$router.push('/conference/'+res.id)">
               {{res.title}}
             </span>
           </div>
           <div class="card-content">
-            <div style="font-size: 1.35rem;">
+            <div style="font-size: 1rem;">
               <span><strong>{{res.start_date.substring(0, 10)}}，</strong> </span>
               <span><strong>{{res.convening_place}}</strong></span>
             </div>
             <p style="height:1rem;"></p>
-            <p >{{res.introduction}}</p>
+            <p class="limited">{{res.introduction}}</p>
           </div>
         </div>
         <EmptyView v-if="conferences.total_num <= 0" style="height: 25rem;"></EmptyView>
+        <div class="preloader-wrapper big active" v-show="is_loading">
+          <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+          </div>
+        </div>
       </div>
-      <div class="center-align" v-if="conferences.total_num > 0">
-        <Pagination @page="page"
-                    v-if="!search_by_field"
-                    :number="number"
-                    :current="current">
-        </Pagination>
-        <Pagination @page="search_field_page"
-                    v-if="search_by_field"
-                    :number="number"
-                    :current="current">
-        </Pagination>
-      </div>
+      <!--<div class="center-align" v-if="conferences.total_num > 0">-->
+        <!--<Pagination @page="page"-->
+                    <!--v-if="!search_by_field"-->
+                    <!--:number="number"-->
+                    <!--:current="current">-->
+        <!--</Pagination>-->
+        <!--<Pagination @page="search_field_page"-->
+                    <!--v-if="search_by_field"-->
+                    <!--:number="number"-->
+                    <!--:current="current">-->
+        <!--</Pagination>-->
+      <!--</div>-->
     </div>
     <div style="height: 3rem;"></div>
   </div>
@@ -230,6 +241,7 @@
       },
       toggle_fields() {
         this.show_fields = !this.show_fields;
+        this.date_search_state = false;
       },
       init: function () {
         let keywords_param = this.$route.params.keyword;
@@ -248,9 +260,6 @@
           this.date_detail=this.str_insert(this.date_detail,this.date_detail.length,' 00:00:00');
         }
 
-        console.warn("yu");
-        console.warn(this.date_detail);
-
         this.is_loading = true;
 
         let that = this;
@@ -258,7 +267,7 @@
         this.$axios.post('/api/SearchConferences', {
           "keyword": keywords_param,
           "index": 1,
-          "size": 10,
+          "size": 100,
           "date_type":this.date_type,
           "date":this.date_detail
         }).then(function (response) {
@@ -271,9 +280,8 @@
             for (let i = 0; i < results.length; i++) {
               let res = results[i];
               let start = 1;
-              let img_num = (start + i) % 3 + 1;
+              let img_num = (start + i) % 4 + 1;
               res.conf_bg_img = "/static/bg" + img_num + ".jpg";
-              console.log(res.conf_bg_img);
             }
           } else {
             M.toast({
@@ -306,7 +314,7 @@
         this.$axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/SearchConferences', {
           "keyword": field,
           "index": page,
-          "size": 10,
+          "size": 100,
           "date_type":this.date_type,
           "date":this.date_detail
         }).then(function (response) {
@@ -329,8 +337,7 @@
                 classes: "rounded red"
               });
             }
-          })
-          .catch(function (error) {
+          }).catch(function (error) {
             M.toast({
               html:"<span style='font-weight: bold'> 请求错误</span>",
               classes: "rounded red"
@@ -351,7 +358,7 @@
         axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/search/subject', {
           "id": this.search_field_id,
           "index": page,
-          "size": 10
+          "size": 100
         }).then(function (response) {
           let resp = response.data;
           if (resp.status === "succ") {
@@ -387,7 +394,9 @@
         return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
       },
       setDateSearchState :function () {
-        this.date_search_state=!(this.date_search_state);
+        this.date_search_state=!this.date_search_state;
+        this.search_by_field = false;
+        this.show_fields = false;
       },
       date_search:function () {
         let keyword_info="none";
@@ -456,5 +465,14 @@
     background-size: 100% !important;
     background-repeat: no-repeat !important;
     background-position: center center !important;
+  }
+
+  .limited {
+    display: block; /* or inline-block */
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 3.6rem;
+    line-height: 1.8rem;
   }
 </style>

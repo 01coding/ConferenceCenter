@@ -82,9 +82,9 @@
           </div>
         </div>
         <div class="modal-footer" style="padding-top: 0;padding-right: 30px">
-          <a style="cursor: pointer;" class="red lighten-2 modal-close waves-effect waves-teal btn-flat">取消</a>
-          <a style="cursor: pointer;" class="teal lighten-1 modal-close waves-effect waves-teal btn-flat"
+          <a style="cursor: pointer;" class="green white-text modal-close waves-effect waves-teal btn-flat"
              @click="add_princ()">添加</a>
+          <a style="cursor: pointer;" class="black white-text modal-close waves-effect waves-teal btn-flat">取消</a>
         </div>
       </div>
     </div>
