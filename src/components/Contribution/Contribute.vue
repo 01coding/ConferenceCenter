@@ -203,13 +203,13 @@ export default {
         html: "<span style='font-weight: bold;'>需要路由参数</span>",
         classes: 'red rounded'
       });
-      this.$router.push("/404");
+      this.$router.replace("/404");
     }
 
     this.session_token = sessionStorage.getItem('session');
 
     if (!this.session_token)  {
-      this.$router.push("/login");
+      this.$router.replace("/login");
     }
 
     this.load_user_info().then(ret => {
@@ -234,7 +234,7 @@ export default {
         if (resp.status === "succ") {
           that.user_info = resp.data;
         } else {
-          that.$router.push("/login");
+          that.$router.replace("/login");
         }
       });
     },
@@ -253,7 +253,7 @@ export default {
     },
     isAbleContribute: function () {
       if (this.conferenceState !== "征稿中") {
-        this.$router.push("/404");
+        this.$router.replace("/404");
       }
     },
     getConferenceImg: function () {
