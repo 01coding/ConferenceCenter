@@ -8,7 +8,7 @@
       </ul>
       <div class="nav-wrapper">
         <div class="brand-logo center"
-             style="font-weight: bold; color: #313131; cursor: pointer"
+             style="color: #313131; cursor: pointer; font-family: 'Avenir'; font-weight: 500;"
              @click="$router.push('/')"
              v-if="!in_search">
           <img src="/static/logo.png" style="height: 2rem;">
