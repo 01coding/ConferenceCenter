@@ -38,10 +38,10 @@
                 </div>
                 <div id="register" class="btn btn-large blue lighten-1"
                      @click="toRegisterConference"
-                     :class="{ disabled: registerToLink === 0 }">
-                  <div :class="{'white-text': registerToLink !== 0, 'grey-text': registerToLink === 0}">
+                     :class="{ disabled: registerToLink !== 1 }">
+                  <div :class="{'white-text': registerToLink === 1, 'grey-text': registerToLink !== 1}">
                     <i class="material-icons left">group_add</i>
-                    <span v-show="registerToLink === 0">已</span>注册<span v-show="registerToLink === 1">参会</span>
+                    <span v-show="registerToLink === 0">已</span>注册<span v-show="registerToLink !== 0">参会</span>
                   </div>
                 </div>
               </div>
@@ -204,10 +204,10 @@
                 </div>
                 <div id="register" class="btn btn-large blue lighten-1 my-trans my-not-inline hoverable my-margin-5"
                      @click="toRegisterConference"
-                     :class="{ disabled: registerToLink === 0 }">
-                  <div :class="{'white-text': registerToLink !== 0, 'grey-text': registerToLink === 0}">
+                     :class="{ disabled: registerToLink !== 1 }">
+                  <div :class="{'white-text': registerToLink === 1, 'grey-text': registerToLink !== 1}">
                     <i class="material-icons left">group_add</i>
-                    <span v-show="registerToLink === 0">已</span>注册<span v-show="registerToLink === 1">参会</span>
+                    <span v-show="registerToLink === 0">已</span>注册<span v-show="registerToLink !== 1">参会</span>
                   </div>
                 </div>
               </div>
@@ -349,14 +349,6 @@
                 <h5 style="font-weight: bold" class="center">{{conferenceState}}</h5>
                 <h5>&nbsp</h5>
                 <div class="row center-align">
-                  <!--<div class="btn btn-large teal"
-                       :class="{ disabled: hasCollect > 0 }"
-                       @click="toCollect">
-                    <div :class="{'white-text': hasCollect === 0, 'grey-text': hasCollect !== 0}">
-                      <i class="material-icons left">star_border</i>
-                      <span v-show="hasCollect === 1">已</span>收藏{{hasCollect}}
-                    </div>
-                  </div>-->
                   <div class="col s4 right-align">
                     <a class="black-text" v-if="hasCollect === 0" style="cursor: pointer"
                        @click="toCollect">
@@ -379,14 +371,14 @@
                     </div>
                   </div>
                   <div class="col s4 left-align">
-                    <a class="black-text" v-if="registerToLink !== 0" style="cursor: pointer"
+                    <a class="black-text" v-if="registerToLink === 1" style="cursor: pointer"
                        @click="toRegisterConference">
                       <i class="material-icons">group_add</i>
-                      <span v-show="registerToLink === 0">已</span>注册<span v-show="registerToLink === 1">参会</span>
+                      注册参会
                     </a>
                     <div class="grey-text" v-else>
                       <i class="material-icons">group_add</i>
-                      <span v-show="registerToLink === 0">已</span>注册<span v-show="registerToLink === 1">参会</span>
+                      <span v-show="registerToLink === 0">已</span>注册<span v-show="registerToLink === 2">参会</span>
                     </div>
                   </div>
                 </div>
@@ -535,7 +527,7 @@
                   if (res.data.status === 'succ') {
                     if (res.data.data.type !== "user") {
                       console.log("no user!");
-                      that.registerToLink = 0;
+                      that.registerToLink = 2;
                       that.contributeToLink = 0;
                       that.hasCollect = 2;
                     }
@@ -655,7 +647,7 @@
           console.log("user type:" + response.data.data.type);
           if (response.data.data.type !== "user") {
             console.log("no user!");
-            this.registerToLink = 0;
+            this.registerToLink = 2;
             this.contributeToLink = 0;
             this.hasCollect = 2;
           }

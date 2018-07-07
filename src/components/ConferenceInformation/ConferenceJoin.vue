@@ -330,18 +330,6 @@
             });
           }
         );
-        /*this.$axios.post("/api/user/info", {
-          token: sessionStorage.getItem("session")
-        }).then(response => {
-          let resp = response.data;
-          console.log("response:" + response);
-          if (resp.status === "succ") {
-            that.user_info = resp.data;
-          } else {
-            that.$router.push("/login");
-          }
-          console.log("user info:" +that.user_info);
-        });*/
       },
       load_conference() {
         this.$axios.post('api/conference/' + this.conference_id).then(response => {
@@ -368,7 +356,7 @@
             console.log("go to type === 0");
           }
           else {
-            originThis.identify = "旁听";
+            originThis.identify = "聆听者";
           }
           console.log("response.data.data");
           console.log(response.data.data);
