@@ -34,7 +34,7 @@
       <ul>
         <li>
           <span class="mobile-fab-tip">注销</span>
-          <a class="btn-floating red darken-2"  data-position="left" @click="logout()">
+          <a class="btn-floating red accent-2"  data-position="left" @click="logout()">
             <i class="material-icons">exit_to_app</i>
           </a>
         </li>

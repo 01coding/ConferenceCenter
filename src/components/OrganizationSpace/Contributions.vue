@@ -193,7 +193,7 @@
       this.$bus.emit('manage-change-title', { text: '稿件管理' });
       this.$axios.post('/api/conference/' + this.conference_id + '/contributions/export', {}).then(rsp => {
         if (rsp.data.status === 'succ') {
-          this.download_link = rsp.data.data;
+          this.download_link = "http://118.89.229.204:8080/"+rsp.data.data;
         } else {
           M.toast({
             html: "<span style='font-weight: bold'>" + rsp.data.info + "</span>",
