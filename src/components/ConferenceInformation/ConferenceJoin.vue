@@ -388,6 +388,9 @@
         else if (this.resp.data.state & 0b0010) {
           this.conferenceState = '会议注册中';
         }
+        else if(!(this.resp.data.state & 0b1111)) {
+          this.conferenceState = '即将开始';
+        }
       },
 
       update_participant: function(idx) {

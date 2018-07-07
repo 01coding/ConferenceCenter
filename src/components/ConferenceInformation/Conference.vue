@@ -701,9 +701,6 @@
         //this.conferenceImg = "http://140.143.19.133:8001/uploads/" + this.resp.data.backimg;
       },
       getConferenceState: function () {
-        let state = this.resp.data.state;
-        console.log("state:");
-        console.log(this.resp.data.state + '...' + state);
         if (this.resp.data.state & 0b1000) {
           this.conferenceState = '已结束';
         }
@@ -715,6 +712,9 @@
         }
         else if (this.resp.data.state & 0b0010) {
           this.conferenceState = '会议注册中';
+        }
+        else if(!(this.resp.data.state & 0b1111)) {
+          this.conferenceState = '即将开始';
         }
       },
       switch_tab(i) {
