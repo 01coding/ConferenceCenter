@@ -2,11 +2,11 @@
   <div>
     <NavBar></NavBar>
     <div class="divider"></div>
-    <div class="center red accent-2 section" v-show="apps.length>0">
+    <div class="center red accent-2 section" v-if="apps.length>0">
       <h5 style="margin-top: 0;margin-bottom: 0;">有 {{apps.length}} 个待处理的申请</h5>
     </div>
 
-    <div class="center green accent-2 section" v-show="apps.length===0">
+    <div class="center green accent-2 section" v-if="apps.length===0">
       <h5 style="margin-top: 0;margin-bottom: 0;">有 {{apps.length}} 个待处理的申请</h5>
     </div>
 
@@ -153,7 +153,7 @@ export default {
           html:"<span style='font-weight: bold'>请求发生错误</span>",
           classes: "rounded  red"
         });
-        console.log(error)
+        console.log(error);
         this.$router.push("/");
       });
     },
@@ -174,8 +174,8 @@ export default {
         });
 
         //get new list
-        that.load_apps()
-
+        that.load_apps();
+        that.$router.go(0);
       }).catch(error => {
         console.log(error);
       });
@@ -189,11 +189,12 @@ export default {
       this.$axios.post('/api/setInstitutionStatus/'+applyid+'/-1').then(response => {
         M.toast({
           html:"<span style='font-weight: bold'>已拒绝该请求</span>",
-          classes: "rounded green"
+          classes: "rounded red"
         });
 
         //get new list
-        that.load_apps()
+        that.load_apps();
+        that.$router.go(0);
 
       }).catch(error => {
         console.log(error)

@@ -193,6 +193,13 @@
             });
             return;
           }
+          else if(this.password!==this.confirmPassword){
+            M.toast({
+              html:"<span style='font-weight: bold'>两次密码不一致</span>",
+              classes: "rounded yellow darken-2"
+            });
+            return;
+          }
 
 
           let that = this;
