@@ -600,7 +600,7 @@
         if (!sessionStorage.getItem("session")) {
           M.toast({
             html: "<span style='font-weight: bold;'>请先登录</span>",
-            classes: 'yellow rounded'
+            classes: 'yellow darken-2 rounded'
           });
           this.$router.push('/login');
           return;
