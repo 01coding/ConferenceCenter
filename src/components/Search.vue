@@ -10,7 +10,7 @@
             <form>
               <div class="input-field">
                 <input id="search" type="search" class="grey-text text-lighten-1" v-model="search_keyword"
-                       @keypress="enter_search($event)">
+                       @keypress="enter_search($event)" @click="clear_keyword()">
                 <label class="label-icon" for="search"><i class="material-icons">search</i></label>
                 <i class="material-icons">close</i>
               </div>
@@ -225,13 +225,18 @@
       }
     },
     methods: {
+      clear_keyword:function () {
+        this.search_keyword="";
+      },
       toggle_fields() {
         this.show_fields = !this.show_fields;
       },
       init: function () {
         let keywords_param = this.$route.params.keyword;
-        if(keywords_param==='none')
-            keywords_param='';
+        if(keywords_param=='none'){
+          keywords_param='';
+          this.search_keyword="";
+        }
         this.date_type=this.$route.params.type;
 
         if(this.$route.params.date==='0')
