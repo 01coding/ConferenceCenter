@@ -22,9 +22,10 @@
         <li>
           <div class="user-view">
             <div class="background" style="background-size: cover;"
-                 v-bind:style="'background-image: url(' + $image(back_img) + ')'"><!-- 大哥别改了 -->
+                 v-bind:style="{'background-image': 'url(/static/bg12.jpg)'}">
             </div>
-            <span><img class="circle" v-bind:src="$image(user_avatar)"></span>
+            <span><img class="circle" v-bind:src="user_type==='institution' ? $image(back_img): $image(user_avatar)"></span>
+            <!-- 机构在注册时提示“上传机构头像”，且注册之后也没有地方修改，我的理解解释应该上传一个会徽，所以这个图应该显示在头像而不是背景 -->
             <h6><span class="white-text">{{ user_name }}</span></h6>
             <h6><span class="white-text">{{ user_email }}</span></h6>
             <h6><span class="white-text">{{ institution }}</span></h6>
@@ -77,6 +78,7 @@
         nav_title: '',
         menu_active: 0,
         is_superuser: false,
+        user_type: '',
         user_avatar: '',
         user_name: '',
         user_email: '',
@@ -114,6 +116,10 @@
       if (!sessionStorage.getItem('session')) {
         this.$router.push('/login');
       }
+      if(sessionStorage.getItem("type")){
+        this.user_type=sessionStorage.getItem('type');
+        console.log(this.user_type);
+      }
       this.$axios.post('/api/principal/info', {}).then(rsp => {
         if (rsp.data.status === 'succ') {
           if (rsp.data.data.principal.power === 'all') {
@@ -150,7 +156,7 @@
       ,
       logout: function () {
         sessionStorage.removeItem('session');
-        this.$bus.emit("toIndex")
+        this.$bus.emit("toIndex");
         this.$router.push('/');
       }
     }

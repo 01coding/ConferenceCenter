@@ -2,7 +2,7 @@
   <div class="overlay-trigger">
     <div class="fixed-action-btn" >
       <router-link  to="/orgspace/new/conference">
-        <a class="btn-floating btn-large green darken-3"
+        <a class="btn-floating btn-large teal"
            data-position="left">
           <i class="large material-icons">add</i>
         </a>
