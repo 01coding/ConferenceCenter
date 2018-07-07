@@ -43,10 +43,20 @@
             <td>{{ regist.contact }}</td>
             <td v-if="regist.is_book">是</td>
             <td v-else>否</td>
-            <td>备注</td>
+            <td><a class="modal-trigger" href="#modal-detail" @click="detail_name = regist.name; detail_text = regist.note"><i
+              class="material-icons">subject</i></a></td>
           </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+    <div id="modal-detail" class="modal">
+      <div class="modal-content">
+        <h4>{{ detail_name }} 备注</h4>
+        <pre>{{ detail_text }}</pre>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">关闭</a>
       </div>
     </div>
     <div class="row center">
@@ -68,14 +78,13 @@
         page_num: 1,
         current: 1,
         per_page: 10,
-        download_link: ''
+        download_link: '',
+        detail_text: ''
       };
     },
     mounted: function () {
-
-        this.$bus.emit("toOS");
-
-
+      $('.modal').modal();
+      this.$bus.emit("toOS");
       this.$bus.emit('manage-change-title', { text: '注册列表' });
       this.conf_id = this.$route.params.id;
       this.refresh();
@@ -161,5 +170,12 @@
 <style scoped>
   .row {
     margin: 0;
+  }
+
+  pre {
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
   }
 </style>
