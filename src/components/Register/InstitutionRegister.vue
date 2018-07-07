@@ -109,7 +109,7 @@
           提交
         </button>
       </div>
-      <div style="height: 6rem;"></div>
+      <div style="height: 4rem;"></div>
     </div>
   </div>
 </div>
@@ -189,6 +189,13 @@
           else if(this.email===''||!regEmail.test(this.email)){
             M.toast({
               html:"<span style='font-weight: bold'>邮箱不符合规范</span>",
+              classes: "rounded yellow darken-2"
+            });
+            return;
+          }
+          else if(this.password!==this.confirmPassword){
+            M.toast({
+              html:"<span style='font-weight: bold'>两次密码不一致</span>",
               classes: "rounded yellow darken-2"
             });
             return;

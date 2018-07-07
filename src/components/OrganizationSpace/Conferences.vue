@@ -3,19 +3,15 @@
     <!--<loader v-show="is_loading"></loader>-->
     <div class="col s12 m10 offset-m1">
       <div class="row" style="margin-top: 20px">
+        <empty v-if="conference_list.length === 0"></empty>
         <div class="col s12 m12 l6 xl6" v-for="conf in conference_list">
           <div class="card hoverable">
             <div class="card-image waves-effect" @click="jump('/orgspace/conference/'+conf.id+'/modify')"
                  style="background: black">
-              <!--<img src="https://materializecss.com/images/sample-1.jpg">-->
-              <!--<img v-bind:src="$image(conf.backimg)"/>-->
               <img v-bind:src="$image(conf.backimg)"
                    style="opacity: 0.5; object-fit: cover; object-position: center center;">
               <div class="card-title">
                 <h5 style="color: white; font-weight: bold">{{ conf.title }}</h5>
-                <!--<br/>-->
-                <!--<h3>{{ conf.title }}</h3>-->
-                <!--<h5>2018/06/18 - 06/23</h5>-->
               </div>
             </div>
             <div class="card-content">
@@ -51,10 +47,11 @@
 
 <script>
   import loader from '@/include/Loader';
+  import empty from '@/include/EmptyView';
 
   export default {
     name: "Conferences",
-    components: { loader },
+    components: { loader, empty },
     data: function () {
       return {
         conference_list: [],

@@ -41,6 +41,7 @@
               <i class="medium material-icons prefix">event</i>
               <input id="conf-end-date" type="text" class="datepicker" v-model="conf_end_date"/>
               <label for="conf-end-date">会议结束日期</label>
+              <span class="helper-text red-text" v-show="end_date_invalid">非法日期</span>
             </div>
           </div>
           <div class="row">
@@ -218,12 +219,13 @@
         template_path: '',
         image_path: '',
         new_template: false,
-        new_image: false
+        new_image: false,
+        end_date_invalid: false
       };
     },
     mounted: function () {
 
-      this.$bus.emit("toOS")
+      this.$bus.emit("toOS");
 
       if (!this.$route.params.id)
         this.$router.push('/404');
@@ -232,24 +234,36 @@
       this.$bus.emit('manage-change-title', { text: '更新会议' });
       $('#conf-topic').characterCounter();
       $('.dropdown-trigger').dropdown();
+      let start_date = new Date();
       let options = {
         onSelect: date => {
           date = date.toDateString().slice(4, 15);
+          start_date = new Date(date);
           this.conf_start_date = date;
         }
       };
       let start_date_elem = document.querySelector('#conf-start-date');
       let start_date_instance = M.Datepicker.init(start_date_elem, options);
 
+      let end_date = new Date();
       options = {
         onSelect: date => {
           date = date.toDateString().slice(4, 15);
+          end_date = new Date(date);
+          if (end_date < start_date) {
+            $('conf-end-date').addClass('invalid');
+            this.end_date_invalid = true;
+          }
+          else {
+            $('conf-end-date').removeClass('invalid');
+            this.end_date_invalid = false;
+          }
           this.conf_end_date = date;
         }
       };
       let end_date_elem = document.querySelector('#conf-end-date');
       let end_date_instance = M.Datepicker.init(end_date_elem, options);
-
+      
       options = {
         onSelect: date => {
           date = date.toDateString().slice(4, 15);
