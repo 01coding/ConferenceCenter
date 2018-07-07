@@ -429,11 +429,11 @@
             html: "<span style='font-weight: bold'>信息未填写完整</span>",
             classes: "rounded yellow darken-2"
           });
-          console.log(this.conf_topic, this.conf_start_date, this.conf_desc, this.conf_end_date,
-          this.conf_location, this.conf_essay_info, this.conf_essay_inst, this.conf_essay_ddl,
-          this.conf_essay_time, this.conf_release_ddl, this.conf_register_ddl,
-          this.conf_register_time, this.conf_schedule, this.conf_register_info,
-          this.conf_commute_info, this.conf_contact, this.conf_field);
+          // console.log(this.conf_topic, this.conf_start_date, this.conf_desc, this.conf_end_date,
+          // this.conf_location, this.conf_essay_info, this.conf_essay_inst, this.conf_essay_ddl,
+          // this.conf_essay_time, this.conf_release_ddl, this.conf_register_ddl,
+          // this.conf_register_time, this.conf_schedule, this.conf_register_info,
+          // this.conf_commute_info, this.conf_contact, this.conf_field);
           return;
         }
         let that = this;

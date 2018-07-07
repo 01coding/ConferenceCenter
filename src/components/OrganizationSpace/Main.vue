@@ -114,7 +114,7 @@
       this.$bus.emit("toOS");
 
       if (!sessionStorage.getItem('session')) {
-        this.$router.push('/login');
+        this.$router.replace('/login');
       }
       if(sessionStorage.getItem("type")){
         this.user_type=sessionStorage.getItem('type');
