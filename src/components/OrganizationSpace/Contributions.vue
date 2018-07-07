@@ -14,7 +14,7 @@
         </ul>
       </div>
       <div id="all" class="col s12 m10 offset-m1">
-        <div class="row center-align valign-wrapper" v-if="all_list.length === 0" style="height: 20rem">
+        <div class="row valign-wrapper" v-if="all_list.length === 0" style="height: 25rem">
           <empty></empty>
         </div>
         <div class="card hoverable" v-else v-for="(item, index) in all_list" v-bind:key="index">
@@ -44,7 +44,7 @@
         </div>
       </div>
       <div id="passed" class="col s12 m10 offset-m1">
-        <div class="row center-align valign-wrapper" v-if="all_list.length === 0" style="height: 20rem">
+        <div class="row valign-wrapper" v-if="all_list.length === 0" style="height: 25rem">
           <empty></empty>
         </div>
         <div class="card hoverable" v-else v-for="(item, index) in passed_list" v-bind:key="index">
@@ -70,7 +70,7 @@
         </div>
       </div>
       <div id="pending" class="col s12 m10 offset-m1">
-        <div class="row center-align valign-wrapper" v-if="all_list.length === 0" style="height: 20rem">
+        <div class="row valign-wrapper" v-if="all_list.length === 0" style="height: 25rem">
           <empty></empty>
         </div>
         <div class="card hoverable" v-else v-for="(item, index) in pending_list" v-bind:key="index">
@@ -96,7 +96,7 @@
         </div>
       </div>
       <div id="fixing" class="col s12 m10 offset-m1">
-        <div class="row center-align valign-wrapper" v-if="all_list.length === 0" style="height: 20rem">
+        <div class="row valign-wrapper" v-if="all_list.length === 0" style="height: 25rem">
           <empty></empty>
         </div>
         <div class="card hoverable" v-else v-for="(item, index) in fixing_list" v-bind:key="index">
@@ -122,7 +122,7 @@
         </div>
       </div>
       <div id="rejected" class="col s12 m10 offset-m1">
-        <div class="row center-align valign-wrapper" v-if="all_list.length === 0" style="height: 20rem">
+        <div class="row valign-wrapper" v-if="all_list.length === 0" style="height: 25rem">
           <empty></empty>
         </div>
         <div class="card hoverable" v-else v-for="(item, index) in rejected_list" v-bind:key="index">
