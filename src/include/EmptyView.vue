@@ -1,5 +1,5 @@
 <template>
-  <div class="center-align" style="width: 100%">
+  <div class="center-align valign-wrapper" style="width: 100%">
     <div class="center-align row">
       <i class="large material-icons">inbox</i>
       <h5 style="font-weight: bold;">暂无数据</h5>

@@ -21,11 +21,11 @@
                 <!--<div class="btn btn-large teal" @click="toCollect">
                   <div class="white-text">-->
                 <div class="btn btn-large teal"
-                     :class="{ disabled: hasCollect === 1 }"
+                     :class="{ disabled: hasCollect > 0 }"
                      @click="toCollect">
                   <div :class="{'white-text': hasCollect === 0, 'grey-text': hasCollect !== 0}">
                     <i class="material-icons left">star_border</i>
-                    <span v-show="hasCollect">已</span>收藏
+                    <span v-show="hasCollect === 1">已</span>收藏
                   </div>
                 </div>
                 <div class="btn btn-large green"
@@ -56,11 +56,16 @@
                 <div class="card-panel center-align" style="width: 100%; max-width: 15rem;">
                   <ul class="section table-of-contents"
                       style="padding-top: 0; padding-bottom: 0; padding-right: 1rem;">
-                    <li><a style="cursor: pointer" :class="{'active':active_tab===0}" @click="switch_tab(0)">会议介绍</a></li>
-                    <li><a style="cursor: pointer" :class="{'active':active_tab===1}" @click="switch_tab(1)">投稿须知</a></li>
-                    <li><a style="cursor: pointer" :class="{'active':active_tab===2}" @click="switch_tab(2)">日程安排</a></li>
-                    <li><a style="cursor: pointer" :class="{'active':active_tab===3}" @click="switch_tab(3)">住宿交通</a></li>
-                    <li><a style="cursor: pointer" :class="{'active':active_tab===4}" @click="switch_tab(4)">联系我们</a></li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===0}" @click="switch_tab(0)">会议介绍</a>
+                    </li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===1}" @click="switch_tab(1)">投稿须知</a>
+                    </li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===2}" @click="switch_tab(2)">日程安排</a>
+                    </li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===3}" @click="switch_tab(3)">住宿交通</a>
+                    </li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===4}" @click="switch_tab(4)">联系我们</a>
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -70,9 +75,11 @@
                     <li class="collection-header"><h4 style="">会议介绍</h4></li>
                     <li class="collection-item avatar">
                       <i class="material-icons circle red lighten-1">schedule</i>
-                      <p class="coference-date"><strong>开始日期</strong>：<span style="font-size:1.1rem;">{{resp.data.start_date}}</span></p>
+                      <p class="coference-date"><strong>开始日期</strong>：<span style="font-size:1.1rem;">{{resp.data.start_date}}</span>
+                      </p>
                       <p style="height:0.5rem;"></p>
-                      <p class="coference-date"><strong>结束日期</strong>：<span style="font-size:1.1rem;">{{resp.data.end_date}}</span></p>
+                      <p class="coference-date"><strong>结束日期</strong>：<span style="font-size:1.1rem;">{{resp.data.end_date}}</span>
+                      </p>
                     </li>
                     <li class="collection-item avatar">
                       <i class="material-icons circle light-blue darken-1">description</i>
@@ -92,10 +99,13 @@
                     <li class="collection-header"><h4 style="">投稿须知</h4></li>
                     <li class="collection-item avatar">
                       <i class="material-icons circle red lighten-1">schedule</i>
-                      <p class="coference-date"><strong>征稿开始：</strong><span style="font-size:1.1rem;">{{resp.data.start_date}}</span></p>
-                      <p class="coference-date"><strong>征稿截止：</strong><span style="font-size:1.1rem;">{{resp.data.paper_ddl}}</span></p>
+                      <p class="coference-date"><strong>征稿开始：</strong><span style="font-size:1.1rem;">{{resp.data.start_date}}</span>
+                      </p>
+                      <p class="coference-date"><strong>征稿截止：</strong><span style="font-size:1.1rem;">{{resp.data.paper_ddl}}</span>
+                      </p>
                       <p style="height:0.5rem;"></p>
-                      <p class="coference-date"><strong>查看审核结果日期：</strong><span style="font-size:1.1rem;">{{resp.data.employ_date}}</span></p>
+                      <p class="coference-date"><strong>查看审核结果日期：</strong><span style="font-size:1.1rem;">{{resp.data.employ_date}}</span>
+                      </p>
                     </li>
                     <li class="collection-item avatar">
                       <i class="material-icons circle light-blue darken-1">description</i>
@@ -113,7 +123,7 @@
                       <i class="material-icons circle deep-orange lighten-1">picture_as_pdf</i>
                       <p class="coference-title">
                         <strong>论文模板</strong>:&nbsp &nbsp &nbsp &nbsp
-                        <a class="btn blue-grey" v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a>
+                        <a class="btn blue-grey" v-bind:href="$image(resp.data.paper_template)">点我获取</a>
                       </p>
                     </li>
                   </ul>
@@ -177,11 +187,11 @@
                 <!--<div class="btn btn-large teal" @click="toCollect">
                   <div class="white-text">-->
                 <div class="btn btn-large yellow teal my-trans my-not-inline hoverable my-margin-5"
-                     :class="{ disabled: hasCollect === 1 }"
+                     :class="{ disabled: hasCollect > 0 }"
                      @click="toCollect">
                   <div :class="{'white-text': hasCollect === 0, 'grey-text': hasCollect !== 0}">
                     <i class="material-icons  left">star_border</i>
-                    <span v-show="hasCollect">已</span>收藏
+                    <span v-show="hasCollect === 1">已</span>收藏
                   </div>
                 </div>
                 <div class="btn btn-large green my-trans my-not-inline hoverable my-margin-5"
@@ -212,11 +222,16 @@
                 <div class="card-panel center-align my-trans hoverable" style="width: 100%; max-width: 15rem;">
                   <ul class="section table-of-contents  "
                       style="padding-top: 0; padding-bottom: 0; padding-right: 1rem;">
-                    <li><a style="cursor: pointer" :class="{'active':active_tab===0} " class="my-tech-blue" @click="switch_tab(0)">会议介绍</a></li>
-                    <li><a style="cursor: pointer" :class="{'active':active_tab===1}"  class="my-tech-blue" @click="switch_tab(1)">投稿须知</a></li>
-                    <li><a style="cursor: pointer" :class="{'active':active_tab===2}" class="my-tech-blue" @click="switch_tab(2)">日程安排</a></li>
-                    <li><a style="cursor: pointer" :class="{'active':active_tab===3}" class="my-tech-blue" @click="switch_tab(3)">住宿交通</a></li>
-                    <li><a style="cursor: pointer" :class="{'active':active_tab===4}" class="my-tech-blue" @click="switch_tab(4)">联系我们</a></li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===0} " class="my-tech-blue"
+                           @click="switch_tab(0)">会议介绍</a></li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===1}" class="my-tech-blue"
+                           @click="switch_tab(1)">投稿须知</a></li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===2}" class="my-tech-blue"
+                           @click="switch_tab(2)">日程安排</a></li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===3}" class="my-tech-blue"
+                           @click="switch_tab(3)">住宿交通</a></li>
+                    <li><a style="cursor: pointer" :class="{'active':active_tab===4}" class="my-tech-blue"
+                           @click="switch_tab(4)">联系我们</a></li>
                   </ul>
                 </div>
               </div>
@@ -226,9 +241,11 @@
                     <li class="collection-header my-total-trans"><h4 style="">会议介绍</h4></li>
                     <li class="collection-item avatar my-total-trans">
                       <i class="material-icons circle red lighten-1 my-trans hoverable">schedule</i>
-                      <p class="coference-date"><strong>开始日期</strong>：<span style="font-size:1.1rem;">{{resp.data.start_date}}</span></p>
+                      <p class="coference-date"><strong>开始日期</strong>：<span style="font-size:1.1rem;">{{resp.data.start_date}}</span>
+                      </p>
                       <p style="height:0.5rem;"></p>
-                      <p class="coference-date"><strong>结束日期</strong>：<span style="font-size:1.1rem;">{{resp.data.end_date}}</span></p>
+                      <p class="coference-date"><strong>结束日期</strong>：<span style="font-size:1.1rem;">{{resp.data.end_date}}</span>
+                      </p>
                     </li>
                     <li class="collection-item avatar my-total-trans">
                       <i class="material-icons circle  my-trans hoverable">description</i>
@@ -248,10 +265,13 @@
                     <li class="collection-header my-total-trans"><h4 style="">投稿须知</h4></li>
                     <li class="collection-item avatar my-total-trans">
                       <i class="material-icons circle my-trans hoverable">schedule</i>
-                      <p class="coference-date"><strong>征稿开始：</strong><span style="font-size:1.1rem;">{{resp.data.start_date}}</span></p>
-                      <p class="coference-date"><strong>征稿截止：</strong><span style="font-size:1.1rem;">{{resp.data.paper_ddl}}</span></p>
+                      <p class="coference-date"><strong>征稿开始：</strong><span style="font-size:1.1rem;">{{resp.data.start_date}}</span>
+                      </p>
+                      <p class="coference-date"><strong>征稿截止：</strong><span style="font-size:1.1rem;">{{resp.data.paper_ddl}}</span>
+                      </p>
                       <p style="height:0.5rem;"></p>
-                      <p class="coference-date"><strong>查看审核结果日期：</strong><span style="font-size:1.1rem;">{{resp.data.employ_date}}</span></p>
+                      <p class="coference-date"><strong>查看审核结果日期：</strong><span style="font-size:1.1rem;">{{resp.data.employ_date}}</span>
+                      </p>
                     </li>
                     <li class="collection-item avatar my-total-trans">
                       <i class="material-icons circle my-trans hoverable">description</i>
@@ -269,7 +289,7 @@
                       <i class="material-icons circle my-trans hoverable">picture_as_pdf</i>
                       <p class="coference-title">
                         <strong>论文模板</strong>:&nbsp &nbsp &nbsp &nbsp
-                        <a class="btn blue-grey" v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a>
+                        <a class="btn blue-grey" v-bind:href="$image(resp.data.paper_template)">点我获取</a>
                       </p>
                     </li>
                   </ul>
@@ -315,140 +335,150 @@
     </div>
     <div v-if="conference_template===3">
       <div id="wrapper">
-      <Loader v-show="is_loading"></Loader>
-      <NavBar></NavBar>
-      <div class="row" style="margin-bottom: 0;">
-        <div class="col s1"></div>
-        <div class="card customize z-depth-0"
-             style="width: 100%; padding-top: 2rem;
+        <Loader v-show="is_loading"></Loader>
+        <NavBar></NavBar>
+        <div class="row" style="margin-bottom: 0;">
+          <div class="col s1"></div>
+          <div class="card customize z-depth-0"
+               style="width: 100%; padding-top: 2rem;
                   padding-bottom: 1rem; margin: 0;">
-          <div class="black-text row container">
-            <div class="col s12">
-              <h4 class="center" style="font-weight: bold">{{resp.data.title}}</h4>
-              <h5 class="center">{{resp.data.start_date}}，{{resp.data.convening_place}}</h5>
-              <h5 style="font-weight: bold" class="center">{{conferenceState}}</h5>
-              <h5>&nbsp</h5>
-              <div class="row center-align">
-                <div class="col s4 right-align">
-                  <a class="black-text" v-if="hasCollect === 0" style="cursor: pointer" @click="toCollect">
-                    <i class="material-icons">star_border</i>
-                    收藏
-                  </a>
-                  <div class="grey-text" v-else>
-                    <i class="material-icons">star_border</i>
-                    已收藏
+            <div class="black-text row container">
+              <div class="col s12">
+                <h4 class="center" style="font-weight: bold">{{resp.data.title}}</h4>
+                <h5 class="center">{{resp.data.start_date}}，{{resp.data.convening_place}}</h5>
+                <h5 style="font-weight: bold" class="center">{{conferenceState}}</h5>
+                <h5>&nbsp</h5>
+                <div class="row center-align">
+                  <!--<div class="btn btn-large teal"
+                       :class="{ disabled: hasCollect > 0 }"
+                       @click="toCollect">
+                    <div :class="{'white-text': hasCollect === 0, 'grey-text': hasCollect !== 0}">
+                      <i class="material-icons left">star_border</i>
+                      <span v-show="hasCollect === 1">已</span>收藏{{hasCollect}}
+                    </div>
+                  </div>-->
+                  <div class="col s4 right-align">
+                    <a class="black-text" v-if="hasCollect === 0" style="cursor: pointer"
+                       @click="toCollect">
+                      <i class="material-icons">star_border</i>
+                      收藏
+                    </a>
+                    <div class="grey-text" v-else>
+                      <i class="material-icons">star_border</i>
+                      <span v-show="hasCollect === 1">已</span>收藏
+                    </div>
                   </div>
-                </div>
-                <div class="col s4 center-align">
-                  <a class="black-text" v-if="contributeToLink !== 0" style="cursor: pointer" @click="toContribute">
-                    <i class="material-icons">send</i>
-                    投稿
-                  </a>
-                  <div class="grey-text" v-else>
-                    <i class="material-icons">send</i>
-                    投稿
+                  <div class="col s4 center-align">
+                    <a class="black-text" v-if="contributeToLink !== 0" style="cursor: pointer" @click="toContribute">
+                      <i class="material-icons">send</i>
+                      投稿
+                    </a>
+                    <div class="grey-text" v-else>
+                      <i class="material-icons">send</i>
+                      投稿
+                    </div>
                   </div>
-                </div>
-                <div class="col s4 left-align">
-                  <a class="black-text" v-if="registerToLink !== 0" style="cursor: pointer" @click="toRegisterConference">
-                    <i class="material-icons">group_add</i>
-                    注册参会
-                  </a>
-                  <div class="grey-text" v-else>
-                    <i class="material-icons">group_add</i>
-                    注册参会
+                  <div class="col s4 left-align">
+                    <a class="black-text" v-if="registerToLink !== 0" style="cursor: pointer"
+                       @click="toRegisterConference">
+                      <i class="material-icons">group_add</i>
+                      注册参会
+                    </a>
+                    <div class="grey-text" v-else>
+                      <i class="material-icons">group_add</i>
+                      注册参会
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="section" style="min-height: 35rem;">
-          <div class="container">
-            <div class="row" style="margin-bottom: 0;">
-              <div class="col s8">
-                <div id="introduction" class="card-container">
-                  <ul class="collection with-header">
-                    <li class="collection-header"><h4 style="">会议介绍</h4></li>
-                    <li class="collection-item">
-                      <p class="coference-date"><strong>开始日期</strong>：<span style="font-size:1.1rem;">{{resp.data.start_date}}</span>
-                      </p>
-                      <p class="coference-date"><strong>结束日期</strong>：<span style="font-size:1.1rem;">{{resp.data.end_date}}</span>
-                      </p>
-                    </li>
-                    <li class="collection-item">
-                      <p class="coference-title"><strong>会议简介</strong></p>
-                      <pre style="overflow: auto">{{resp.data.introduction}}</pre>
-                    </li>
-                    <li class="collection-item">
-                      <p class="coference-title"><strong>注册须知</strong></p>
-                      <pre>{{resp.data.register_information}}</pre>
-                    </li>
-                  </ul>
+          <div class="section" style="min-height: 35rem;">
+            <div class="container">
+              <div class="row" style="margin-bottom: 0;">
+                <div class="col s8">
+                  <div id="introduction" class="card-container">
+                    <ul class="collection with-header">
+                      <li class="collection-header"><h4 style="">会议介绍</h4></li>
+                      <li class="collection-item">
+                        <p class="coference-date"><strong>开始日期</strong>：<span style="font-size:1.1rem;">{{resp.data.start_date}}</span>
+                        </p>
+                        <p class="coference-date"><strong>结束日期</strong>：<span style="font-size:1.1rem;">{{resp.data.end_date}}</span>
+                        </p>
+                      </li>
+                      <li class="collection-item">
+                        <p class="coference-title"><strong>会议简介</strong></p>
+                        <pre style="overflow: auto">{{resp.data.introduction}}</pre>
+                      </li>
+                      <li class="collection-item">
+                        <p class="coference-title"><strong>注册须知</strong></p>
+                        <pre>{{resp.data.register_information}}</pre>
+                      </li>
+                    </ul>
+                  </div>
+                  <div id="register_notion" class="card-container">
+                    <ul class="collection with-header">
+                      <li class="collection-header"><h4 style="">投稿须知</h4></li>
+                      <li class="collection-item">
+                        <p class="coference-date"><strong>征稿开始：</strong><span style="font-size:1.1rem;">{{resp.data.start_date}}</span>
+                        </p>
+                        <p class="coference-date"><strong>征稿截止：</strong><span style="font-size:1.1rem;">{{resp.data.paper_ddl}}</span>
+                        </p>
+                        <p class="coference-date"><strong>查看审核结果日期：</strong><span style="font-size:1.1rem;">{{resp.data.employ_date}}</span>
+                        </p>
+                      </li>
+                      <li class="collection-item">
+                        <p class="coference-title"><strong>征文要求</strong></p>
+                        <pre>{{resp.data.essay_instructions}}</pre>
+                      </li>
+                      <li class="collection-item">
+                        <p class="coference-title"><strong>投稿信息</strong></p>
+                        <pre>{{resp.data.essay_information}}</pre>
+                      </li>
+                      <li class="collection-item">
+                        <p class="coference-title">
+                          <strong>论文模板</strong>:&nbsp &nbsp &nbsp &nbsp
+                          <a v-bind:href="$image(resp.data.paper_template)">点我获取</a>
+                        </p>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <div id="register_notion" class="card-container">
-                  <ul class="collection with-header">
-                    <li class="collection-header"><h4 style="">投稿须知</h4></li>
-                    <li class="collection-item">
-                      <p class="coference-date"><strong>征稿开始：</strong><span style="font-size:1.1rem;">{{resp.data.start_date}}</span>
-                      </p>
-                      <p class="coference-date"><strong>征稿截止：</strong><span style="font-size:1.1rem;">{{resp.data.paper_ddl}}</span>
-                      </p>
-                      <p class="coference-date"><strong>查看审核结果日期：</strong><span style="font-size:1.1rem;">{{resp.data.employ_date}}</span>
-                      </p>
-                    </li>
-                    <li class="collection-item">
-                      <p class="coference-title"><strong>征文要求</strong></p>
-                      <pre>{{resp.data.essay_instructions}}</pre>
-                    </li>
-                    <li class="collection-item">
-                      <p class="coference-title"><strong>投稿信息</strong></p>
-                      <pre>{{resp.data.essay_information}}</pre>
-                    </li>
-                    <li class="collection-item">
-                      <p class="coference-title">
-                        <strong>论文模板</strong>:&nbsp &nbsp &nbsp &nbsp
-                        <a v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a>
-                      </p>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col s4">
-                <div id="schedule" class="card-container">
-                  <ul class="collection with-header">
-                    <li class="collection-header"><h4 style="">日程安排</h4></li>
-                    <li class="collection-item">
-                      <p class="coference-title"><strong>会议议程</strong></p>
-                      <pre>{{resp.data.schedule}}</pre>
-                    </li>
-                  </ul>
-                </div>
-                <div id="traffic" class="card-container">
-                  <ul class="collection with-header">
-                    <li class="collection-header"><h4 style="">住宿交通</h4></li>
-                    <li class="collection-item">
-                      <p class="coference-title"><strong>安排方式</strong></p>
-                      <pre>{{resp.data.ATinformation}}</pre>
-                    </li>
-                  </ul>
-                </div>
-                <div id="relation" class="card-container">
-                  <ul class="collection with-header">
-                    <li class="collection-header"><h4 style="">联系我们</h4></li>
-                    <li class="collection-item">
-                      <!--<i class="material-icons circle deep-orange lighten-1">dialer_sip</i>-->
-                      <p class="coference-title"><strong>联系方式</strong></p>
-                      <pre>{{resp.data.contact}}</pre>
-                    </li>
-                  </ul>
+                <div class="col s4">
+                  <div id="schedule" class="card-container">
+                    <ul class="collection with-header">
+                      <li class="collection-header"><h4 style="">日程安排</h4></li>
+                      <li class="collection-item">
+                        <p class="coference-title"><strong>会议议程</strong></p>
+                        <pre>{{resp.data.schedule}}</pre>
+                      </li>
+                    </ul>
+                  </div>
+                  <div id="traffic" class="card-container">
+                    <ul class="collection with-header">
+                      <li class="collection-header"><h4 style="">住宿交通</h4></li>
+                      <li class="collection-item">
+                        <p class="coference-title"><strong>安排方式</strong></p>
+                        <pre>{{resp.data.ATinformation}}</pre>
+                      </li>
+                    </ul>
+                  </div>
+                  <div id="relation" class="card-container">
+                    <ul class="collection with-header">
+                      <li class="collection-header"><h4 style="">联系我们</h4></li>
+                      <li class="collection-item">
+                        <!--<i class="material-icons circle deep-orange lighten-1">dialer_sip</i>-->
+                        <p class="coference-title"><strong>联系方式</strong></p>
+                        <pre>{{resp.data.contact}}</pre>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   </div>
 </template>
@@ -467,11 +497,11 @@
         is_loading: true,
         active_tab: 0,
         bg_overlay: "linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)),",
-        conference_template:1,
+        conference_template: 1,
         conference_id: 1,
         conferenceImg: "/static/bg1.jpg",
-        conferenceImg2:"/static/bg2.jpg",
-        conferenceImg3:"/static/bg3.jpg",
+        conferenceImg2: "/static/bg2.jpg",
+        conferenceImg3: "/static/bg3.jpg",
         conferenceState: '默认',
         hasCollect: 0,
         contributeToLink: 0,
@@ -484,16 +514,75 @@
         display_id: 1
       }
     },
-    created:function () {
-
+    created() {
+      this.conference_id = parseInt(this.$route.params.id);
+      this.$axios.post('/api/conference/' + this.conference_id).then(response => {
+        if (response.status === 200) {
+          if (response.data.status === "succ") {
+            this.resp = response.data;
+            this.conference_template = this.resp.data.conference_template;
+            console.log(this.resp.data);
+            this.getConferenceState();
+            this.isAbleRegister();
+            this.isAbleContribute();
+            this.isCollect();
+            let that = this;
+            axios.all([ this.isAbleRegister(), this.isAbleContribute(), this.isCollect() ]).then(
+              axios.spread(function (ut, ui) {
+                that.$axios.post('/api/user/token').then(res => {
+                  /*console.log("user type:" + res.data.data.type);*/
+                  // console.log(res);
+                  if (res.data.status === 'succ') {
+                    if (res.data.data.type !== "user") {
+                      console.log("no user!");
+                      that.registerToLink = 0;
+                      that.contributeToLink = 0;
+                      that.hasCollect = 2;
+                    }
+                  }
+                }).catch(err => {
+                  M.toast({
+                    html: "<span style='font-weight: bold'>获取用户失败</span>",
+                    classes: "rounded red"
+                  });
+                });
+              })
+            );
+            this.getConferenceImg();
+            this.is_loading = false;
+            // console.log("contribute to link:" + this.contributeToLink);
+            // console.log("conference state:" + this.conferenceState);
+            // console.log(this.hasCollect + "  " + this.contributeToLink + "  " + this.registerToLink);
+          }
+          else {
+            M.toast({
+              html: "<span style='font-weight: bold'>获取会议失败</span>",
+              classes: "rounded red darken-2"
+            });
+            this.$router.push('/404');
+          }
+        }
+        else {
+          M.toast({
+            html: "<span style='font-weight: bold'>网络错误</span>",
+            classes: "rounded red darken-2"
+          });
+        }
+      }).catch(error => {
+        M.toast({
+          html: "<span style='font-weight: bold'>内部错误</span>",
+          classes: "rounded red darken-2"
+        });
+        // console.log(1);
+      });
     }
-  ,
-    mounted:function () {
-      this.$bus.emit("toCF")
+    ,
+    mounted: function () {
+      this.$bus.emit("toCF");
 
-      this.$bus.on("nextCollect",this.toCollect)
+      this.$bus.on("nextCollect", this.toCollect)
     },
-    beforeDestroy:function () {
+    beforeDestroy: function () {
       this.$bus.off("nextCollect")
     }
     ,
@@ -507,8 +596,8 @@
         console.log(this.registerLink);
         this.$router.push(this.registerLink);
       },
-      toCollect: function() {
-        if(!sessionStorage.getItem("session")) {
+      toCollect: function () {
+        if (!sessionStorage.getItem("session")) {
           M.toast({
             html: "<span style='font-weight: bold;'>请先登录</span>",
             classes: 'yellow rounded'
@@ -517,12 +606,12 @@
           return;
         }
 
-        this.$axios.post('/api/user/collect',{
+        this.$axios.post('/api/user/collect', {
           token: sessionStorage.getItem("session"),
           conference_id: this.conference_id
         }).then(response => {
           let resp = response.data;
-          if(resp.status == 'succ') {
+          if (resp.status == 'succ') {
             this.hasCollect = 1;
             M.toast({
               html: "<span style='font-weight: bold;'>已收藏</span>",
@@ -543,21 +632,56 @@
         })
       },
 
+      isCollect: function () {
+        this.$axios.post('/api/conference/iscollect/' + this.conference_id).then(response => {
+          console.log("user is collect: " + response.data.data);
+          if (response.data.data === 1) {
+            this.hasCollect = 1;
+          }
+          else if (response.data.data === 0) {
+            this.hasCollect = 0;
+          }
+          console.log("hasCollect==" + this.hasCollect);
+        }).catch(error => {
+          M.toast({
+            html: error,
+            classes: "rounded red darken-2"
+          });
+          console.log(1);
+        });
+      },
+      isUser: function () {
+        this.$axios.post('/api/user/token').then(response => {
+          console.log("user type:" + response.data.data.type);
+          if (response.data.data.type !== "user") {
+            console.log("no user!");
+            this.registerToLink = 0;
+            this.contributeToLink = 0;
+            this.hasCollect = 2;
+          }
+          console.log("check is user,hasCollect" + this.hasCollect);
+        }).catch(error => {
+          M.toast({
+            html: error,
+            classes: "rounded red darken-2"
+          });
+        });
+      },
       isAbleRegister: function () {
         if (this.conferenceState !== "征稿中" && this.conferenceState !== "会议注册中") {
-            this.registerToLink = 0;
+          this.registerToLink = 0;
         }
         else {
           this.$axios.post('/api/conference/isregister/' + this.conference_id).then(response => {
             let resp = response.data;
-            if(resp.status === "succ") {
-              if(resp.data === 1) {
+            if (resp.status === "succ") {
+              if (resp.data === 1) {
                 this.registerToLink = 0;
               }
-              else if(resp.data === 0) {
+              else if (resp.data === 0) {
                 this.registerToLink = 1;
               }
-              else if(resp.data === -1) {
+              else if (resp.data === -1) {
                 M.toast({
                   html: "<span style='font-weight: bold;'>请求错误</span>",
                   classes: 'yellow darken-2 rounded'
@@ -574,7 +698,7 @@
       },
       isAbleContribute: function () {
         if (this.conferenceState === "征稿中") {
-            this.contributeToLink = 1;
+          this.contributeToLink = 1;
         }
         else {
           this.contributeToLink = 0;
@@ -587,7 +711,7 @@
       getConferenceState: function () {
         let state = this.resp.data.state;
         console.log("state:");
-        console.log(this.resp.data.state +'...' +state);
+        console.log(this.resp.data.state + '...' + state);
         if (this.resp.data.state & 0b1000) {
           this.conferenceState = '已结束';
         }
@@ -604,72 +728,26 @@
       switch_tab(i) {
         this.active_tab = i;
       }
-    },
-
-    created() {
-      this.conference_id = parseInt(this.$route.params.id);
-      this.$axios.post('/api/conference/iscollect/' + this.conference_id).then(response => {
-        if(response.data.data === 1) {
-          this.hasCollect = 1;
-        }
-        else {
-          this.hasCollect = 0;
-        }
-      }).catch(error => {
-        M.toast({
-          html: error,
-          classes: "rounded red darken-2"
-        });
-        console.log(1);
-      });
-      this.$axios.post('/api/conference/' + this.conference_id).then(response => {
-        if(response.status === 200) {
-          if (response.data.status === "succ") {
-            this.resp = response.data;
-            this.conference_template=this.resp.data.conference_template
-            console.log(this.resp.data);
-            this.getConferenceState();
-            this.isAbleRegister();
-            this.isAbleContribute();
-            this.getConferenceImg();
-            this.is_loading = false;
-            console.log("contribute to link:" + this.contributeToLink);
-            console.log("conference state:" + this.conferenceState);
-            // this.isUser();
-            console.log(this.hasCollect + "  " + this.contributeToLink + "  " + this.registerToLink);
-          }
-          else {
-            M.toast({
-              html: response.data.info,
-              classes: "rounded red darken-2"
-            });
-            this.$router.push('/404');
-          }
-        }
-        else {
-          M.toast({
-            html: response.statusText,
-            classes: "rounded red darken-2"
-          });
-        }
-      }).catch(error => {
-        M.toast({
-          html: error,
-          classes: "rounded red darken-2"
-        });
-        console.log(1);
-      });
     }
   }
 </script>
 
 <style scoped>
+  @font-face {
+    font-family: '方正清刻本悦宋简体';
+    src: url('/static/方正清刻本悦宋简体.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+  }
+
   pre {
     white-space: pre-wrap !important;
     white-space: -moz-pre-wrap;
     white-space: -o-pre-wrap;
     word-wrap: break-word !important;
   }
+
   .customize {
     background-size: 100% !important;
     background-repeat: no-repeat !important;
@@ -679,9 +757,11 @@
   .collection {
     border: none !important;
   }
+
   .collection-header {
     border: none !important;
   }
+
   .collection-item {
     border: none !important;
   }
@@ -695,44 +775,53 @@
     height: 2.4rem;
     line-height: 2.4rem;
   }
-  .my-trans{
-    background-color: rgba(0,0,0,0.1)!important;
+
+  .my-trans {
+    background-color: rgba(0, 0, 0, 0.1) !important;
   }
-  .my-total-trans{
-    background-color: rgba(0,0,0,0)!important;;
+
+  .my-total-trans {
+    background-color: rgba(0, 0, 0, 0) !important;;
   }
-  .my-blue{
-    color: #00ffff!important;
-    border-color: #00ffff!important;
-    border-width: 2px!important;
+
+  .my-blue {
+    color: #00ffff !important;
+    border-color: #00ffff !important;
+    border-width: 2px !important;
   }
-  .my-not-inline{
-    display:inline-block!important;
+
+  .my-not-inline {
+    display: inline-block !important;
   }
-  .my-margin-5{
+
+  .my-margin-5 {
     margin: 5px;
   }
-  .my-blue-dark{
-    background-color: #183336!important;
+
+  .my-blue-dark {
+    background-color: #183336 !important;
   }
-  .my-tech-blue{
-    color: #00ffff!important;
+
+  .my-tech-blue {
+    color: #00ffff !important;
   }
-  .my-tech-blue-dark{
-    color: #00cccc!important;
+
+  .my-tech-blue-dark {
+    color: #00cccc !important;
   }
+
   #wrapper .btn {
     box-shadow: none;
   }
 
   #wrapper {
-    font-family: '华文宋体', Helvetica, Arial, sans-serif;
+    font-family: '方正清刻本悦宋简体', Helvetica, Arial, sans-serif;
     /*background-color: #D9CD90;*/
     /*font-weight: bold;*/
   }
 
   #wrapper pre {
-    font-family: '华文宋体', Helvetica, Arial, sans-serif;
+    font-family: '方正清刻本悦宋简体', Helvetica, Arial, sans-serif;
     white-space: pre-wrap;
     white-space: -moz-pre-wrap;
     white-space: -o-pre-wrap;

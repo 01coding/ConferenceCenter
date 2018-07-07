@@ -22,8 +22,7 @@
         <li>
           <div class="user-view">
             <div class="background" style="background-size: cover;"
-                 v-bind:style="'background-image:url('+$image(back_img)+')'">
-              <!--<img src="https://materializecss.com/images/office.jpg">-->
+                 v-bind:style="'background-image: url(' + $image(back_img) + ')'"><!-- 大哥别改了 -->
             </div>
             <span><img class="circle" v-bind:src="$image(user_avatar)"></span>
             <h6><span class="white-text">{{ user_name }}</span></h6>
@@ -32,7 +31,7 @@
           </div>
         </li>
         <li class="bold" v-bind:class="{ active: menu_active === 0 }">
-          <router-link to="/orgspace" @click="toOS" class="waves-effect">会议审理</router-link>
+          <router-link to="/orgspace" @click="toOS" class="waves-effect">会议管理</router-link>
         </li>
         <li class="bold" v-bind:class="{ active: menu_active === 1 }">
           <router-link to="/orgspace/new/conference" class="waves-effect">发布新会议</router-link>

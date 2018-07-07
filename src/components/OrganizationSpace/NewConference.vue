@@ -21,10 +21,8 @@
                 <option value='' disabled selected>选择领域</option>
                 <option v-bind:value="field.tag_id" v-bind:key="id" v-for="(field, id) in field_list">{{ field.name }}
                 </option>
-                <!--<option value="1">机器视觉</option>-->
-                <!--<option value="2">运筹学</option>-->
               </select>
-              <label for="conf-field-select" >会议领域</label>
+              <label for="conf-field-select">会议领域</label>
             </div>
           </div>
           <div class="row">
@@ -51,7 +49,7 @@
             <div class="input-field col s8">
               <i class="medium material-icons prefix">place</i>
               <input id="conf-location" type="text" v-model="conf_location"/>
-              <label for="conf-location"  :class="{active:conf_location}">会议地点</label>
+              <label for="conf-location" :class="{active:conf_location}">会议地点</label>
             </div>
           </div>
           <div class="row">
@@ -82,7 +80,7 @@
             <div class="input-field col s12">
               <i class="medium material-icons prefix">library_books</i>
               <textarea id="conf-essay-info" class="materialize-textarea" v-model="conf_essay_info"></textarea>
-              <label for="conf-essay-info"  :class="{active:conf_essay_info}">征文信息</label>
+              <label for="conf-essay-info" :class="{active:conf_essay_info}">征文信息</label>
             </div>
           </div>
           <div class="row">
@@ -161,8 +159,11 @@
           </div>
           <choseTemplate></choseTemplate>
           <div class="row">
-            <a class=" btn-floating btn-large waves-effect waves-light blue" @click="choseTP()"><i
-              class="material-icons">color_lens</i></a>
+            <div class="col l1">
+              <a class=" btn-floating btn-large waves-effect waves-light blue" @click="choseTP()"><i
+                class="material-icons">color_lens</i></a>
+            </div>
+
             <div class="col l2 my-mt-5">
               <h6>{{TPName}}</h6>
             </div>
@@ -187,17 +188,17 @@
           </div>
         </form>
       </div>
-    </div>
-    <div class="row white section">
-      <div style="margin-top: 1em;">
-        <div class="center-align">
-          <div class="waves-effect waves-light btn btn-large" @click="submit_conference()">
-            <i class="material-icons left">send</i>
-            提交
+      <div class="col s12 white section">
+        <div style="margin-top: 1em;">
+          <div class="center-align">
+            <div class="waves-effect waves-light btn btn-large" @click="submit_conference()">
+              <i class="material-icons left">send</i>
+              提交
+            </div>
           </div>
         </div>
+        <div style="height: 3rem;"></div>
       </div>
-      <div style="height: 3rem;"></div>
     </div>
   </div>
 </template>
@@ -223,13 +224,13 @@
         conf_essay_info: '',
         conf_essay_inst: '',
         conf_essay_ddl: '',
-        // conf_essay_time: "23:59",
-        conf_essay_time: '',
+        conf_essay_time: "23:59",
+        // conf_essay_time: '',
         conf_release_ddl: '',
         conf_release_time: '',
         conf_register_ddl: '',
-        // conf_register_time: "23:59",
-        conf_register_time: '',
+        conf_register_time: "23:59",
+        // conf_register_time: '',
         conf_schedule: '',
         conf_paper_template: '',
         conf_register_info: '',
@@ -260,7 +261,7 @@
     mounted: function () {
       this.$bus.on("TPChoseOver", (num) => {
         this.conf_conference_template = num;
-        let tpName = ""
+        let tpName = "";
         if (num === 1) {
           tpName = "质感风格"
         } else if (num === 2) {
@@ -268,7 +269,7 @@
         } else {
           tpName = "极简风格"
         }
-        this.TPName = tpName
+        this.TPName = tpName;
       });
       this.$bus.emit('manage-change-title', { text: '发布新会议' });
       let start_date = new Date();
@@ -419,57 +420,83 @@
       },
 
       submit_conference: function () {
-        if (!this.template_path) {
+        if (!this.conf_topic || !this.conf_start_date || !this.conf_desc || !this.conf_end_date ||
+          !this.conf_location || !this.conf_essay_info || !this.conf_essay_inst || !this.conf_essay_ddl ||
+          !this.conf_essay_time || !this.conf_release_ddl || !this.conf_register_ddl ||
+          !this.conf_register_time || !this.conf_schedule || !this.conf_register_info ||
+          !this.conf_commute_info || !this.conf_contact || this.conf_field === '') {
           M.toast({
-            html: "<span style='font-weight: bold'>论文模板未上传</span>",
+            html: "<span style='font-weight: bold'>信息未填写完整</span>",
+            classes: "rounded yellow darken-2"
+          });
+          console.log(this.conf_topic, this.conf_start_date, this.conf_desc, this.conf_end_date,
+          this.conf_location, this.conf_essay_info, this.conf_essay_inst, this.conf_essay_ddl,
+          this.conf_essay_time, this.conf_release_ddl, this.conf_register_ddl,
+          this.conf_register_time, this.conf_schedule, this.conf_register_info,
+          this.conf_commute_info, this.conf_contact, this.conf_field);
+          return;
+        }
+        let that = this;
+        try {
+          axios.all([ this.upload_template(), this.upload_image() ]).then(
+            axios.spread(function (...rsps) {
+              // rsps.forEach()
+              that.$axios.post('/api/postConference', {
+                // institution_id: 1,
+                title: that.conf_topic,
+                field: parseInt(that.conf_field),
+                introduction: that.conf_desc,
+                start_date: that.conf_start_date + ' 00:00:00',
+                end_date: that.conf_end_date + ' 23:59:59',
+                convening_place: that.conf_location,
+                essay_information: that.conf_essay_info,
+                essay_instructions: that.conf_essay_inst,
+                paper_ddl: that.conf_essay_ddl + ' ' + that.conf_essay_time + ':59',
+                employ_date: that.conf_release_ddl + ' 00:00:00',
+                register_ddl: that.conf_register_ddl + ' ' + that.conf_register_time + ':59',
+                schedule: that.conf_schedule,
+                paper_template: that.template_path,
+                register_information: that.conf_register_info,
+                ATinformation: that.conf_commute_info,
+                contact: that.conf_contact,
+                conference_template: that.conf_conference_template,
+                backimg: that.image_path
+              }).then(rsp => {
+                if (rsp.data.status === 'succ') {
+                  M.toast({
+                    html: "<span style='font-weight: bold'>发布会议成功</span>",
+                    classes: "rounded green"
+                  });
+                  that.$router.push('/orgspace');
+                }
+                else {
+                  M.toast({
+                    html: "<span style='font-weight: bold'>发布会议失败</span>",
+                    classes: "rounded red"
+                  });
+                }
+              }).catch(err => {
+                M.toast({
+                  html: "<span style='font-weight: bold'>内部错误</span>",
+                  classes: "rounded red"
+                });
+                console.log(err.toString());
+              });
+            })
+          ).catch(err => {
+            M.toast({
+              html: "<span style='font-weight: bold'>内部错误</span>",
+              classes: "rounded red"
+            });
+          });
+        } catch (err) {
+          console.log(err);
+          M.toast({
+            // template and image required
+            html: "<span style='font-weight: bold'>" + err + "</span>",
             classes: "rounded red"
           });
         }
-        let that = this;
-        axios.all([ this.upload_template(), this.upload_image() ]).then(
-          axios.spread(function (ut, ui) {
-            that.$axios.post('/api/postConference', {
-              // institution_id: 1,
-              title: that.conf_topic,
-              field: parseInt(that.conf_field),
-              introduction: that.conf_desc,
-              start_date: that.conf_start_date + ' 00:00:00',
-              end_date: that.conf_end_date + ' 23:59:59',
-              convening_place: that.conf_location,
-              essay_information: that.conf_essay_info,
-              essay_instructions: that.conf_essay_inst,
-              paper_ddl: that.conf_essay_ddl + ' ' + that.conf_essay_time + ':59',
-              employ_date: that.conf_release_ddl + ' 00:00:00',
-              register_ddl: that.conf_register_ddl + ' ' + that.conf_register_time + ':59',
-              schedule: that.conf_schedule,
-              paper_template: that.template_path,
-              register_information: that.conf_register_info,
-              ATinformation: that.conf_commute_info,
-              contact: that.conf_contact,
-              conference_template: that.conf_conference_template,
-              backimg: that.image_path
-            }).then(rsp => {
-              if (rsp.data.status === 'succ') {
-                M.toast({
-                  html: "<span style='font-weight: bold'>发布会议成功</span>",
-                  classes: "rounded green"
-                });
-                that.$router.push('/orgspace');
-              }
-              else {
-                M.toast({
-                  html: "<span style='font-weight: bold'>" + rsp.data.info + "</span>",
-                  classes: "rounded red"
-                });
-              }
-            }).catch(err => {
-              M.toast({
-                html: "<span style='font-weight: bold'>" + err.toString() + "</span>",
-                classes: "rounded red"
-              });
-            });
-          })
-        );
       },
       get_template: function (event) {
         this.paper_template = event.target.files[ 0 ];
@@ -478,6 +505,9 @@
         this.back_img = event.target.files[ 0 ];
       },
       upload_template: function () {
+        if (!this.paper_template) {
+          throw '论文模板未上传';
+        }
         let config = {
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -490,6 +520,9 @@
         });
       },
       upload_image: function () {
+        if (!this.paper_template) {
+          throw '背景图片未上传';
+        }
         let config = {
           headers: {
             'Content-Type': 'multipart/form-data'

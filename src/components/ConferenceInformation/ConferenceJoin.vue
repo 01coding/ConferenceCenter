@@ -27,6 +27,7 @@
 
     <div class="section white">
       <div class="row container">
+        <div class="col s1"></div>
         <div class="col s10">
           <div class="row" style="margin-bottom: 0;">
             <h5>以{{identify}}身份注册会议</h5>
@@ -37,7 +38,11 @@
                 您没有参会论文
               </h5>
               <div class="card" v-for="item in papers">
-                <div class="card-action"></div>
+                <div class="card-action">
+                  <span>
+                    #<span class="chip" style="margin: 0; cursor: pointer">{{item.paper_number}}</span>
+                  </span>
+                </div>
                 <div class="card-content">
                   <div class="row">
                     <div class="col s12 center-align">
@@ -92,7 +97,7 @@
                 <div class="input-field col s6">
                   <i class="material-icons prefix">account_circle</i>
                   <input id="first_name" type="text" v-model="participant_field.name">
-                  <label for="first_name">姓名</label>
+                  <label for="first_name" :class="{active:participant_field.name}" >姓名</label>
                 </div>
                 <div class="input-field col s6">
                   <i class="material-icons prefix">call</i>
@@ -231,7 +236,7 @@
         resp: {
           data: {}
         },
-        user_info: {},
+        user_name: "",
         participants: [],
         papers: [],
         upload: {
@@ -304,16 +309,38 @@
       },
       load_user_info() {
         let that = this;
-        this.$axios.post("/api/user/token", {
+        this.$axios.post('api/user/info', {})
+          .then(response => {
+            console.log("response:"+JSON.stringify(response));
+              if(response.data.status === "succ") {
+                that.user_name = response.data.data.name;
+                that.participant_field.name = that.user_name;
+                console.log("user info user name:" + that.user_name);
+              }
+              else {
+                that.$router.push("/login");
+              }
+            }
+          ).catch(
+          error => {
+            M.toast({
+              html: error,
+              classes: "rounded red"
+            });
+          }
+        );
+        /*this.$axios.post("/api/user/info", {
           token: sessionStorage.getItem("session")
         }).then(response => {
           let resp = response.data;
+          console.log("response:" + response);
           if (resp.status === "succ") {
             that.user_info = resp.data;
           } else {
             that.$router.push("/login");
           }
-        });
+          console.log("user info:" +that.user_info);
+        });*/
       },
       load_conference() {
         this.$axios.post('api/conference/' + this.conference_id).then(response => {
@@ -426,7 +453,7 @@
 
         //participant is a person in papers.authors
         if(this.identify === "聆听者") {
-          if(name !== this.user_info.name) {
+          if(name !== this.user_name) {
             M.toast({
               html: "<span style='font-weight: bold;'>您只能本人参会</span>",
               classes: 'yellow darken-2 rounded'
@@ -503,7 +530,7 @@
         //check participants including the user himself
         let ok = false;
         for(let i = 0; i < this.participants.length; i++) {
-          if(this.participants[i].name == this.user_info.name) {
+          if(this.participants[i].name == this.user_name) {
             ok = true;
             break;
           }

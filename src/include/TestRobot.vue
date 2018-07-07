@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="fixed-action-btn">
+    <div class="fixed-action-btn" v-if="is_visibility===1">
       <a class="btn-floating btn-large"
          :class="{'grey darken-3':  url!=='/user/register' && url!=='/login', 'blue': url==='/user/register' || url==='/login'}"
          style="margin-bottom: 68px"
@@ -55,6 +55,7 @@
         name: "TestRobot",
         data() {
           return {
+            is_visibility:0,
             url:'',
             login_data:{
               email:'',
@@ -111,8 +112,8 @@
             $(window).on("scroll", this.hideOverlay);
           },
           scholar_login:function(){
-            this.login_data.email="1521@123.com";
-            this.login_data.password="1521";
+            this.login_data.email="575386879@qq.com";
+            this.login_data.password="123456";
             this.login_data.isScholar="scholar";
             this.$emit('child-say',this.login_data)
           },
@@ -151,18 +152,18 @@
             this.new_conference_data.conf_topic="IEEE国际计算机视觉与模式识别会议";
             this.new_conference_data.conf_field=2;
             this.new_conference_data.conf_desc = "CVPR是世界顶级的计算机视觉会议";
-            this.new_conference_data.conf_start_date="Jul 01 2018";
-            this.new_conference_data.conf_end_date="Jul 15 2018";
+            this.new_conference_data.conf_start_date="Aug 01, 2018";
+            this.new_conference_data.conf_end_date="Aug 15, 2018";
             this.new_conference_data.conf_location="法国巴黎";
             this.new_conference_data.conf_essay_info="与计算机视觉相关";
             this.new_conference_data.conf_essay_inst="英文，不少于10页";
-            this.new_conference_data.conf_essay_ddl="Jan 18 2018";
+            this.new_conference_data.conf_essay_ddl="Jul 18, 2018";
             // conf_essay_time: "23:59",
-            this.new_conference_data.conf_essay_time="00:00";
-            this.new_conference_data.conf_release_ddl="Jan 20 2018";
-            this.new_conference_data.conf_register_ddl="Jan 22 2018";
+            this.new_conference_data.conf_essay_time="23:59";
+            this.new_conference_data.conf_release_ddl="Jul 27, 2018";
+            this.new_conference_data.conf_register_ddl="Jan 22, 2018";
             // conf_register_time: "23:59",
-            this.new_conference_data.conf_register_time="00:00";
+            this.new_conference_data.conf_register_time="23:59";
             this.new_conference_data.conf_schedule="第一天：主会场；第二天：分会场";
             this.new_conference_data.conf_register_info="1.投稿人可带至多三人参会；2.普通与会人员：300/人次。";
             this.new_conference_data.conf_commute_info="北航招待 地铁十三号线知春路站";

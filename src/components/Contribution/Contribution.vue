@@ -633,7 +633,7 @@ export default {
     get_upload_link: function() {
       let files = this.upload.files;
       let upload_resp = JSON.parse(files[0].response);
-      let file_url = this.upload.web_io + "/" + upload_resp.link;
+      let file_url = upload_resp.link;
       return file_url;
     },
 
@@ -660,7 +660,7 @@ export default {
     },
 
     download(link) {
-      window.open(link, '_blank');
+      window.open(this.upload.web_io + "/" + link, '_blank');
     }
   }
 }
