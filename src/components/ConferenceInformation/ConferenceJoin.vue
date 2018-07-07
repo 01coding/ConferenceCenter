@@ -348,12 +348,10 @@
         this.$axios.post('api/conference/' + this.conference_id).then(response => {
           this.resp = response.data;
           this.getConferenceState();
-          console.log(this.resp);
           this.isAbleRegister();
           this.getConferenceImg();
           // this.load_papers_info();
         }).catch(error => {
-          console.log(1);
         });
       },
       load_papers_info: function() {

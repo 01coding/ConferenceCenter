@@ -45,7 +45,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="input-field col s8">
+            <div class="input-field col s12 m8">
               <i class="medium material-icons prefix">place</i>
               <input id="conf-location" type="text" v-model="conf_location"/>
               <label for="conf-location">会议地点</label>
@@ -57,7 +57,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="input-field col s3">
+            <div class="input-field col s4">
               <i class="medium material-icons prefix">event</i>
               <input id="conf-essay-ddl" type="text" class="datepicker" v-model="conf_essay_ddl"/>
               <label for="conf-essay-ddl">截稿日期</label>
@@ -68,7 +68,7 @@
               <input id="conf-essay-time" type="text" class="timepicker" v-model="conf_essay_time"/>
               <label for="conf-essay-time">截稿时间</label>
             </div>
-            <div class="input-field col s6">
+            <div class="input-field col s5">
               <i class="medium material-icons prefix">event</i>
               <input id="conf-release-ddl" type="text" class="datepicker" v-model="conf_release_ddl"/>
               <label for="conf-release-ddl">录用通知日期</label>
@@ -113,13 +113,13 @@
             </div>
           </div>
           <div class="row">
-            <div class="input-field col s4">
+            <div class="input-field col s6 m5 l4 xl4">
               <i class="medium material-icons prefix">event</i>
               <input id="conf-register-ddl" type="text" class="datepicker" v-model="conf_register_ddl"/>
               <label for="conf-register-ddl">注册截止日期</label>
               <span class="helper-text red-text" v-show="register_date_invalid">非法日期</span>
             </div>
-            <div class="input-field col s2">
+            <div class="input-field col s5 m4 l4 xl3">
               <i class="medium material-icons prefix">access_time</i>
               <input id="conf-register-time" type="text" class="timepicker" v-model="conf_register_time"/>
               <label for="conf-register-time">时间</label>
@@ -357,7 +357,6 @@
       this.$axios.post('/api/conference/' + this.conf_id, {}).then(rsp => {
         if (rsp.data.status === 'succ') {
           let data = rsp.data.data;
-          console.log(data);
           this.conf_topic = data.title;
           this.conf_field = data.field;
           this.conf_desc = data.introduction;
@@ -375,6 +374,8 @@
           essay_time_instance.defaultTime = time;
           this.conf_essay_time = time;
 
+          release_ddl_instance.setDate(new Date(data.employ_date));
+
           let register_ddl = new Date(data.register_ddl);
           register_ddl_instance.setDate(register_ddl);
           time = '';
@@ -383,7 +384,6 @@
           register_ddl.defaultTime = time;
           this.conf_register_time = time;
 
-          release_ddl_instance.setDate(new Date(data.employ_date));
           this.conf_commute_info = data.ATinformation;
           this.conf_schedule = data.schedule;
           this.template_path = data.paper_template;
@@ -426,6 +426,13 @@
           !this.conf_commute_info || !this.conf_contact || this.conf_field === '') {
           M.toast({
             html: "<span style='font-weight: bold'>信息未填写完整</span>",
+            classes: "rounded yellow darken-2"
+          });
+          return;
+        }
+        if (this.register_date_invalid || this.release_date_invalid || this.paper_date_invalid || this.end_date_invalid) {
+          M.toast({
+            html: "<span style='font-weight: bold'>日期填写错误</span>",
             classes: "rounded yellow darken-2"
           });
           return;

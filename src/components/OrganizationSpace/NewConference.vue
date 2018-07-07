@@ -46,7 +46,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="input-field col s8">
+            <div class="input-field col s12 m8">
               <i class="medium material-icons prefix">place</i>
               <input id="conf-location" type="text" v-model="conf_location"/>
               <label for="conf-location" :class="{active:conf_location}">会议地点</label>
@@ -64,7 +64,7 @@
               <label for="conf-essay-ddl" :class="{active:conf_essay_ddl}">截稿日期</label>
               <span class="helper-text red-text" v-show="paper_date_invalid">非法日期</span>
             </div>
-            <div class="input-field col s3">
+            <div class="input-field col s4">
               <i class="medium material-icons prefix">access_time</i>
               <input id="conf-essay-time" type="text" class="timepicker" v-model="conf_essay_time"/>
               <label for="conf-essay-time" :class="{active:conf_essay_time}">截稿时间</label>
@@ -429,11 +429,13 @@
             html: "<span style='font-weight: bold'>信息未填写完整</span>",
             classes: "rounded yellow darken-2"
           });
-          // console.log(this.conf_topic, this.conf_start_date, this.conf_desc, this.conf_end_date,
-          // this.conf_location, this.conf_essay_info, this.conf_essay_inst, this.conf_essay_ddl,
-          // this.conf_essay_time, this.conf_release_ddl, this.conf_register_ddl,
-          // this.conf_register_time, this.conf_schedule, this.conf_register_info,
-          // this.conf_commute_info, this.conf_contact, this.conf_field);
+          return;
+        }
+        if (this.register_date_invalid || this.release_date_invalid || this.paper_date_invalid || this.end_date_invalid) {
+          M.toast({
+            html: "<span style='font-weight: bold'>日期填写错误</span>",
+            classes: "rounded yellow darken-2"
+          });
           return;
         }
         let that = this;
@@ -490,7 +492,6 @@
             });
           });
         } catch (err) {
-          console.log(err);
           M.toast({
             // template and image required
             html: "<span style='font-weight: bold'>" + err + "</span>",
