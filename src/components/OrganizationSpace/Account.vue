@@ -8,7 +8,7 @@
           <div class="input-field col s12">
             <i class="material-icons prefix">email</i>
             <input disabled id="account_email" type="email" class="validate" v-model="email">
-            <label for="account_email"  :class="{active:email}">旧密码</label>
+            <label for="account_email"  :class="{active:email}">账户邮箱</label>
           </div>
         </div>
         <div class="row">
