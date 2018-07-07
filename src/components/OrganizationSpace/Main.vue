@@ -22,8 +22,7 @@
         <li>
           <div class="user-view">
             <div class="background" style="background-size: cover;"
-                 v-bind:style="'background-image:url('+$image(back_img)+')'">
-              <!--<img src="https://materializecss.com/images/office.jpg">-->
+                 v-bind:style="'background-image:url(/static/bg12.jpg)'">
             </div>
             <span><img class="circle" v-bind:src="$image(user_avatar)"></span>
             <h6><span class="white-text">{{ user_name }}</span></h6>

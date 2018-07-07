@@ -38,6 +38,7 @@
                 <div class="input-field col s6">
                   <i class="prefix material-icons">title</i>
                   <select id="date-type-select" v-model="date_type">
+                    <option value="" disabled selected>请选择</option>
                     <option value="start">开始日期</option>
                     <option value="end">结束日期</option>
                     <option value="paper">投稿截止日期</option>
@@ -79,38 +80,53 @@
     </div>
     <div style="height:20px;"></div>
 
-    <div class="row container" style="max-width: 65rem;">
-      <div class="card hoverable" v-if="conferences.total_num > 0" v-for="(res,id) in conferences.result" :key="id">
-        <div class="card-image waves-effect waves-block waves-light"
-             style="height: 8rem; background:black;">
-          <img style="opacity: 0.5; object-fit: cover; object-position: center center;" :src="res.conf_bg_img" @click="$router.push('/conference/'+res.id)">
-          <!--TODO: 这里放会议的背景图-->
+    <div>
+      <div class="preloader-wrapper big active" v-show="is_loading">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+        </div>
+      </div>
+      <div class="row container"
+           v-show="!is_loading"
+           style="max-width: 65rem;">
+        <div class="card hoverable" v-if="conferences.total_num > 0" v-for="(res,id) in conferences.result" :key="id">
+          <div class="card-image waves-effect waves-block waves-light"
+               style="height: 8rem; background:black;">
+            <img style="opacity: 0.5; object-fit: cover; object-position: center center;" :src="res.conf_bg_img" @click="$router.push('/conference/'+res.id)">
+            <!--TODO: 这里放会议的背景图-->
             <span class="card-title" style="font-weight: bold; cursor: pointer;" >
               {{res.title}}
             </span>
-        </div>
-        <div class="card-content">
-          <div style="font-size: 1.35rem;">
-            <span><strong>{{res.start_date.substring(0, 10)}}，</strong> </span>
-            <span><strong>{{res.convening_place}}</strong></span>
           </div>
-          <p style="height:1rem;"></p>
-          <p >{{res.introduction}}</p>
+          <div class="card-content">
+            <div style="font-size: 1.35rem;">
+              <span><strong>{{res.start_date.substring(0, 10)}}，</strong> </span>
+              <span><strong>{{res.convening_place}}</strong></span>
+            </div>
+            <p style="height:1rem;"></p>
+            <p >{{res.introduction}}</p>
+          </div>
         </div>
+        <EmptyView v-if="conferences.total_num <= 0" style="height: 25rem;"></EmptyView>
       </div>
-      <EmptyView v-if="conferences.total_num <= 0" style="height: 25rem;"></EmptyView>
-    </div>
-    <div class="center-align" v-if="conferences.total_num > 0">
-      <Pagination @page="page"
-                  v-if="!search_by_field"
-                  :number="number"
-                  :current="current">
-      </Pagination>
-      <Pagination @page="search_field_page"
-                  v-if="search_by_field"
-                  :number="number"
-                  :current="current">
-      </Pagination>
+      <div class="center-align" v-if="conferences.total_num > 0">
+        <Pagination @page="page"
+                    v-if="!search_by_field"
+                    :number="number"
+                    :current="current">
+        </Pagination>
+        <Pagination @page="search_field_page"
+                    v-if="search_by_field"
+                    :number="number"
+                    :current="current">
+        </Pagination>
+      </div>
     </div>
     <div style="height: 3rem;"></div>
   </div>
@@ -130,6 +146,7 @@
     components: { navbar, background, getURL, axios, Pagination, EmptyView },
     data: function () {
       return {
+        is_loading: false,
         number: 1,
         current: 1,
         search_field: 0,
@@ -172,10 +189,10 @@
             name: "机械设计",
             id: 5,
           },
-          {
-            name: "医学",
-            id: 6,
-          },
+          // {
+          //   name: "医学",
+          //   id: 6,
+          // },
           {
             name: "化学工程",
             id: 7,
@@ -229,6 +246,8 @@
         console.warn("yu");
         console.warn(this.date_detail);
 
+        this.is_loading = true;
+
         let that = this;
         // axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/SearchCoferences', {
         this.$axios.post('/api/SearchConferences', {
@@ -262,6 +281,8 @@
             html:"<span style='font-weight: bold'>处理请求时发生错误</span>",
             classes: "rounded red"
           });
+        }).then(ret=>{
+          this.is_loading = false;
         });
       },
       str_insert:function (str,pos,stmp) {
@@ -272,6 +293,7 @@
           this.$router.push("/search/" + this.search_keyword+"/0/none");
       },
       page: function (page) {
+        this.is_loading = true;
         this.search_by_field = false;
         const field = this.search_keyword;
         this.current=page;
@@ -308,15 +330,19 @@
               html:"<span style='font-weight: bold'> 请求错误</span>",
               classes: "rounded red"
             });
-          });
+          }).then(ret=>{
+            this.is_loading = false;
+        });
       },
       search_by_field_id: function (field_id) {
         this.search_field_id = field_id;
         this.search_by_field = true;
+        this.search_keyword = "";
         this.search_field_page(1);
       },
       search_field_page: function (page) {
         let that = this;
+        this.is_loading=true;
         axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/search/subject', {
           "id": this.search_field_id,
           "index": page,
@@ -341,13 +367,14 @@
               classes: "rounded red"
             });
           }
-        })
-          .catch(function (error) {
+        }).catch(function (error) {
             M.toast({
               html:"<span style='font-weight: bold'> 请求错误</span>",
               classes: "rounded red"
             });
-          });
+          }).then(ret=>{
+            this.is_loading = false;
+        });
       },
       getRandomInt(min, max) {
         min = Math.ceil(min);
@@ -365,7 +392,7 @@
         }
         let date_type_info=this.date_type;
         let date_info;
-        if(this.date_detail=="")
+        if(this.date_detail==="")
             date_info="Jul082018";
         else
             date_info=(this.date_detail).replace(/\s+/g,"");
