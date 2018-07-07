@@ -65,6 +65,6 @@
   }
 
   .pagination li.active {
-    background-color: teal !important;
+    background-color: #bebebe !important;
   }
 </style>

@@ -56,7 +56,7 @@
       </ul>
     </header>
     <main>
-      <div class="row">
+      <div class="row" style="margin-bottom: 0;">
         <div class="col s12" style="padding: 0;">
           <!--<transition name="slide">-->
           <router-view></router-view>

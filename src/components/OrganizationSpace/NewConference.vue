@@ -191,9 +191,9 @@
       <div class="col s12 white section">
         <div style="margin-top: 1em;">
           <div class="center-align">
-            <div class="waves-effect waves-light btn btn-large" @click="submit_conference()">
+            <div class="waves-effect waves-light btn btn-large blue" @click="submit_conference()">
               <i class="material-icons left">send</i>
-              提交
+              发布
             </div>
           </div>
         </div>
