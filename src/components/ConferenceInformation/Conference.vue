@@ -92,6 +92,11 @@
                       <p class="coference-title"><strong>注册须知</strong></p>
                       <pre>{{resp.data.register_information}}</pre>
                     </li>
+                    <li class="collection-item avatar">
+                      <i class="material-icons circle red lighten-1">schedule</i>
+                      <p class="coference-date"><strong>注册截止日期</strong>：<span style="font-size:1.1rem;">{{resp.data.register_ddl}}</span>
+                      </p>
+                    </li>
                   </ul>
                 </div>
                 <div id="register_notion" class="card-container" v-if="active_tab===1">
@@ -258,6 +263,11 @@
                       <p class="coference-title"><strong>注册须知</strong></p>
                       <pre>{{resp.data.register_information}}</pre>
                     </li>
+                    <li class="collection-item avatar my-total-trans">
+                      <i class="material-icons circle red lighten-1 my-trans hoverable">schedule</i>
+                      <p class="coference-date"><strong>注册截止日期</strong>：<span style="font-size:1.1rem;">{{resp.data.register_ddl}}</span>
+                      </p>
+                    </li>
                   </ul>
                 </div>
                 <div id="register_notion" class="card-container my-total-trans" v-if="active_tab===1">
@@ -405,6 +415,10 @@
                       <li class="collection-item">
                         <p class="coference-title"><strong>注册须知</strong></p>
                         <pre>{{resp.data.register_information}}</pre>
+                      </li>
+                      <li class="collection-item">
+                        <p class="coference-date"><strong>注册截止日期</strong>：<span style="font-size:1.1rem;">{{resp.data.register_ddl}}</span>
+                        </p>
                       </li>
                     </ul>
                   </div>
