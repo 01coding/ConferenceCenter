@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <loader v-show="is_loading"></loader>
+    <!--<loader v-show="is_loading"></loader>-->
     <div class="col s10 offset-s1">
       <div id="contrib_detail" class="card">
         <div class="card-content">
