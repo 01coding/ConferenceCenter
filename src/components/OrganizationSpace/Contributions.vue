@@ -6,7 +6,7 @@
           <!--<li class="col s1"></li>-->
           <li class="tab col s2"><a class="active" href="#all" @click="filter = 'all'; refresh();">全部 {{ all_num }}</a></li>
           <li class="tab col s2"><a href="#passed" @click="filter = 'passed'; refresh();">已通过 {{ passed_num }}</a></li>
-          <li class="tab col s2"><a href="#pending" @click="filter = 'pending'; refresh();">审核中 {{ pending_num }}</a></li>
+          <li class="tab col s2"><a href="#pending" @click="filter = 'pending'; refresh();">未审核 {{ pending_num }}</a></li>
           <li class="tab col s2"><a href="#fixing" @click="filter = 'fixing'; refresh();">修改中 {{ fixing_num }}</a></li>
           <li class="tab col s2"><a href="#rejected" @click="filter = 'rejected'; refresh();">已拒绝 {{ rejected_num }}</a></li>
           <!--<li class="tab col s2"><a v-bind:href="download_link" target="_blank">导出投稿列表</a></li>-->
