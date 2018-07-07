@@ -27,6 +27,7 @@
 
     <div class="section white">
       <div class="row container">
+        <div class="col s1"></div>
         <div class="col s10">
           <div class="row" style="margin-bottom: 0;">
             <h5>以{{identify}}身份注册会议</h5>
@@ -37,7 +38,11 @@
                 您没有参会论文
               </h5>
               <div class="card" v-for="item in papers">
-                <div class="card-action"></div>
+                <div class="card-action">
+                  <span>
+                    #<span class="chip" style="margin: 0; cursor: pointer">{{item.paper_number}}</span>
+                  </span>
+                </div>
                 <div class="card-content">
                   <div class="row">
                     <div class="col s12 center-align">
