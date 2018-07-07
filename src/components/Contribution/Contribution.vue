@@ -126,7 +126,7 @@
                      style="padding-top: 0.5rem;">
                   <div style="height: 24px;">
                     <i class="material-icons right"
-                       @click="authors.splice(idx, 1)"
+                       @click="info.authors.splice(idx, 1)"
                        style="cursor: pointer">
                       clear
                     </i>
