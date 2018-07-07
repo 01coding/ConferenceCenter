@@ -2,7 +2,7 @@
   <div>
     <test-robot v-on:child-say="fill_form"></test-robot>
     <navbar></navbar>
-    <div class="row"
+    <div class="row customize valign-wrapper"
          style="background: url(/static/bg1.jpg);background-size: cover;margin-bottom: 0;"
          :style="{'min-height': (page_height-60)+'px'}">
     <div class="col s12 m4 offset-m4 l4 offset-l4" style="padding-top:3%;">
@@ -144,5 +144,9 @@
 </script>
 
 <style scoped>
-
+  .customize {
+    background-size: 100% !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+  }
 </style>

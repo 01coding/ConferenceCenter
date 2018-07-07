@@ -55,7 +55,7 @@
         name: "TestRobot",
         data() {
           return {
-            is_visibility:0,
+            is_visibility:1,
             url:'',
             login_data:{
               email:'',
