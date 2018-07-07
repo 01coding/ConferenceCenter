@@ -97,7 +97,7 @@
                 <div class="input-field col s6">
                   <i class="material-icons prefix">account_circle</i>
                   <input id="first_name" type="text" v-model="participant_field.name">
-                  <label for="first_name">姓名</label>
+                  <label for="first_name" :class="{active:participant_field.name}" >姓名</label>
                 </div>
                 <div class="input-field col s6">
                   <i class="material-icons prefix">call</i>
