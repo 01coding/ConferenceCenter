@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="fixed-action-btn">
+    <div class="fixed-action-btn" v-if="is_visibility===1">
       <a class="btn-floating btn-large"
          :class="{'grey darken-3':  url!=='/user/register' && url!=='/login', 'blue': url==='/user/register' || url==='/login'}"
          style="margin-bottom: 68px"
@@ -55,6 +55,7 @@
         name: "TestRobot",
         data() {
           return {
+            is_visibility:0,
             url:'',
             login_data:{
               email:'',
@@ -111,8 +112,8 @@
             $(window).on("scroll", this.hideOverlay);
           },
           scholar_login:function(){
-            this.login_data.email="1521@123.com";
-            this.login_data.password="1521";
+            this.login_data.email="575386879@qq.com";
+            this.login_data.password="123456";
             this.login_data.isScholar="scholar";
             this.$emit('child-say',this.login_data)
           },
