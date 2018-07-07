@@ -39,9 +39,9 @@
                 <div id="register" class="btn btn-large blue lighten-1"
                      @click="toRegisterConference"
                      :class="{ disabled: registerToLink === 0 }">
-                  <div :class="{'white-text': contributeToLink !== 0, 'grey-text': registerToLink === 0}">
+                  <div :class="{'white-text': registerToLink !== 0, 'grey-text': registerToLink === 0}">
                     <i class="material-icons left">group_add</i>
-                    注册参会
+                    <span v-show="registerToLink === 0">已</span>注册<span v-show="registerToLink === 1">参会</span>
                   </div>
                 </div>
               </div>
@@ -205,9 +205,9 @@
                 <div id="register" class="btn btn-large blue lighten-1 my-trans my-not-inline hoverable my-margin-5"
                      @click="toRegisterConference"
                      :class="{ disabled: registerToLink === 0 }">
-                  <div :class="{'white-text': contributeToLink !== 0, 'grey-text': registerToLink === 0}">
+                  <div :class="{'white-text': registerToLink !== 0, 'grey-text': registerToLink === 0}">
                     <i class="material-icons left">group_add</i>
-                    注册参会
+                    <span v-show="registerToLink === 0">已</span>注册<span v-show="registerToLink === 1">参会</span>
                   </div>
                 </div>
               </div>
@@ -382,11 +382,11 @@
                     <a class="black-text" v-if="registerToLink !== 0" style="cursor: pointer"
                        @click="toRegisterConference">
                       <i class="material-icons">group_add</i>
-                      注册参会
+                      <span v-show="registerToLink === 0">已</span>注册<span v-show="registerToLink === 1">参会</span>
                     </a>
                     <div class="grey-text" v-else>
                       <i class="material-icons">group_add</i>
-                      注册参会
+                      <span v-show="registerToLink === 0">已</span>注册<span v-show="registerToLink === 1">参会</span>
                     </div>
                   </div>
                 </div>

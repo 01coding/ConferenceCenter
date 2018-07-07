@@ -348,7 +348,7 @@ export default {
       }
       let authors_str = JSON.stringify(authors);
       let upload_resp = JSON.parse(files[0].response);
-      let file_url = this.upload.web_io + "/" + upload_resp.link;
+      let file_url = upload_resp.link;
       let params = {
         conference_id: this.conference_id,
         title: title,

@@ -9,7 +9,7 @@
       <ul>
         <li>
           <span class="mobile-fab-tip">个人空间</span>
-          <a class="btn-floating red darken-2"  data-position="left" @click="toPS()">
+          <a class="btn-floating red accent-2"  data-position="left" @click="toPS()">
             <i class="material-icons">explore</i>
           </a>
         </li>

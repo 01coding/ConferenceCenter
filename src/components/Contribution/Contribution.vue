@@ -79,7 +79,7 @@
               <i class="material-icons right">file_download</i>
             </span>
           </div>
-          <p v-if="subm.result==='2'">
+          <p v-if="subm.result!=='0'">
             <span class="grey-text text-darken-2" style="font-weight: bold;">审稿意见：</span>
             {{subm.suggestion}}
           </p>
@@ -415,10 +415,6 @@ export default {
     },
 
     to_conf() {
-      M.toast({
-        html: "<span style='font-weight: bold;'>请先登录</span>",
-        classes: 'yellow darken-2 rounded'
-      });
       this.$router.push("/conference/" + this.contrib.conference_id);
     },
 

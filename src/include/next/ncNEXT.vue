@@ -7,7 +7,7 @@
         </a>
       <ul>
         <li>
-          <a class="btn-floating red darken-2"  data-position="left" @click="toINDEX()">
+          <a class="btn-floating red accent-2"  data-position="left" @click="toINDEX()">
             <i class="material-icons">explore</i>
           </a>
         </li>
