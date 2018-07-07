@@ -137,7 +137,7 @@ export default {
               html:"<span style='font-weight: bold'>你无权访问该页面</span>",
               classes: "rounded  red"
             });
-            this.$router.push("/404");
+            this.$router.go(-1);
           } else if (resp.info === "no institution") {
           } else {
             M.toast({
