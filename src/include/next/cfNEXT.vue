@@ -72,7 +72,12 @@
           this.$router.push("/")
         } ,
         toPS:function () {
-          this.$router.push("/personalspace")
+          if(this.state==='scholar'){
+            this.$router.push("/personalspace")
+          }else {
+            this.$router.push("/orgspace")
+          }
+
         },
       },
       created: function () {
