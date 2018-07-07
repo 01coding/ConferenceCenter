@@ -32,7 +32,7 @@
             <td v-if="regist.paper_number">{{ regist.paper_number }}</td>
             <td v-else></td>
             <td v-if="regist.payment">
-              <a v-bind:href="$image(regist.payment)" target="_blank" class="black-text">
+              <a v-bind:href="$image(regist.payment)" target="_blank">
                 <i class="material-icons">attachment</i>
               </a>
             </td>
