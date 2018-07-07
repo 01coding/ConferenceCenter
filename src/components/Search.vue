@@ -100,7 +100,7 @@
                style="height: 8rem; background:black;">
             <img style="opacity: 0.5; object-fit: cover; object-position: center center;" :src="res.conf_bg_img" @click="$router.push('/conference/'+res.id)">
             <!--TODO: 这里放会议的背景图-->
-            <span class="card-title" style="font-weight: bold; cursor: pointer;" >
+            <span class="card-title" style="font-weight: bold; cursor: pointer;" @click="$router.push('/conference/'+res.id)">
               {{res.title}}
             </span>
           </div>
