@@ -94,7 +94,7 @@
                     </li>
                     <li class="collection-item avatar">
                       <i class="material-icons circle red lighten-1">schedule</i>
-                      <p class="coference-date"><strong>注册截止日期</strong>：<span style="font-size:1.1rem;">{{resp.data.register_ddl}}</span>
+                      <p class="coference-date"><strong>注册截止日期</strong>：<span style="font-size:1.1rem;">{{register_endtime}}</span>
                       </p>
                     </li>
                   </ul>
@@ -265,7 +265,7 @@
                     </li>
                     <li class="collection-item avatar my-total-trans">
                       <i class="material-icons circle red lighten-1 my-trans hoverable">schedule</i>
-                      <p class="coference-date"><strong>注册截止日期</strong>：<span style="font-size:1.1rem;">{{resp.data.register_ddl}}</span>
+                      <p class="coference-date"><strong>注册截止日期</strong>：<span style="font-size:1.1rem;">{{register_endtime}}</span>
                       </p>
                     </li>
                   </ul>
@@ -417,7 +417,7 @@
                         <pre>{{resp.data.register_information}}</pre>
                       </li>
                       <li class="collection-item">
-                        <p class="coference-date"><strong>注册截止日期</strong>：<span style="font-size:1.1rem;">{{resp.data.register_ddl}}</span>
+                        <p class="coference-date"><strong>注册截止日期</strong>：<span style="font-size:1.1rem;">{{register_endtime}}</span>
                         </p>
                       </li>
                     </ul>
@@ -514,6 +514,7 @@
         registerToLink: 0,
         contributeLink: '',
         registerLink: '',
+        register_endtime: '',
         resp: {
           data: {}
         },
@@ -529,6 +530,7 @@
             this.conference_template = this.resp.data.conference_template;
             console.log(this.resp.data);
             this.getConferenceState();
+            this.getRegisterEndtime();
             this.isAbleRegister();
             this.isAbleContribute();
             this.isCollect();
@@ -593,6 +595,56 @@
     }
     ,
     methods: {
+      getRegisterEndtime: function() {
+        let month = this.resp.data.register_ddl.substring(5,7);
+        let day = this.resp.data.register_ddl.substring(8,10);
+        let year = this.resp.data.register_ddl.substring(0,4);
+        let hour = this.resp.data.register_ddl.substring(11,13);
+        let minite = this.resp.data.register_ddl.substring(14,16);
+        let newmonth = '';
+        console.log(year + ' ' + month + ' ' + day + ' ' + hour + ' ' + minite);
+
+        switch(month) {
+          case '01':
+            newmonth = 'Jan';
+            break;
+          case '02':
+            newmonth = 'Feb';
+            break;
+          case '03':
+            newmonth = 'March';
+            break;
+          case '04':
+            newmonth = 'April';
+            break;
+          case '05':
+            newmonth = 'May';
+            break;
+          case '06':
+            newmonth = 'June';
+            break;
+          case '07':
+            newmonth = 'July';
+            break;
+          case '08':
+            newmonth = 'Aug';
+            break;
+          case '09':
+            newmonth = 'Sept';
+            break;
+          case '10':
+            newmonth = 'Oct';
+            break;
+          case '11':
+            newmonth = 'Nov';
+            break;
+          case '12':
+            newmonth = 'Dec';
+            break;
+        }
+        this.register_endtime = newmonth + ' ' + day + ',' + year + ' ' + hour + ':' + minite;
+      },
+
       toContribute: function () {
         this.contributeLink = "/contribute/" + this.conference_id;
         this.$router.push(this.contributeLink);
