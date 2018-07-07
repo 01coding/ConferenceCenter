@@ -123,3 +123,10 @@
     },
   };
 </script>
+
+<style>
+  .col .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+</style>
