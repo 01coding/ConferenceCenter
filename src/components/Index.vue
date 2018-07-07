@@ -259,6 +259,8 @@ export default{
       this.$axios.post('http://118.89.229.204:8080/server-0.0.1-SNAPSHOT/api/home/activeScholars', {}).then(rsp => {
         if (rsp.data.status === 'succ') {
           this.active_scholars=rsp.data.data;
+          if(this.active_scholars.length>4)
+            this.active_scholars=this.active_scholars.slice(0,4);
           console.log(this.active_scholars);
         }
       }).catch(err => {
