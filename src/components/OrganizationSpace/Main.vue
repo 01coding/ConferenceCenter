@@ -32,7 +32,7 @@
           </div>
         </li>
         <li class="bold" v-bind:class="{ active: menu_active === 0 }">
-          <router-link to="/orgspace" @click="toOS" class="waves-effect">会议审理</router-link>
+          <router-link to="/orgspace" @click="toOS" class="waves-effect">会议管理</router-link>
         </li>
         <li class="bold" v-bind:class="{ active: menu_active === 1 }">
           <router-link to="/orgspace/new/conference" class="waves-effect">发布新会议</router-link>
