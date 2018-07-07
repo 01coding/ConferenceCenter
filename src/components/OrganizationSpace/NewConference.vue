@@ -159,8 +159,11 @@
           </div>
           <choseTemplate></choseTemplate>
           <div class="row">
-            <a class=" btn-floating btn-large waves-effect waves-light blue" @click="choseTP()"><i
-              class="material-icons">color_lens</i></a>
+            <div class="col l1">
+              <a class=" btn-floating btn-large waves-effect waves-light blue" @click="choseTP()"><i
+                class="material-icons">color_lens</i></a>
+            </div>
+
             <div class="col l2 my-mt-5">
               <h6>{{TPName}}</h6>
             </div>
