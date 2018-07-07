@@ -314,6 +314,7 @@
             console.log("response:"+JSON.stringify(response));
               if(response.data.status === "succ") {
                 that.user_name = response.data.data.name;
+                that.participant_field.name = that.user_name;
                 console.log("user info user name:" + that.user_name);
               }
               else {
@@ -324,7 +325,7 @@
           error => {
             M.toast({
               html: error,
-              classes: "rounded red darken-2"
+              classes: "rounded red"
             });
           }
         );
