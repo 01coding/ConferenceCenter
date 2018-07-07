@@ -113,7 +113,7 @@
                       <i class="material-icons circle deep-orange lighten-1">picture_as_pdf</i>
                       <p class="coference-title">
                         <strong>论文模板</strong>:&nbsp &nbsp &nbsp &nbsp
-                        <a class="btn blue-grey" v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a>
+                        <a class="btn blue-grey" v-bind:href="$image(resp.data.paper_template)">点我获取</a>
                       </p>
                     </li>
                   </ul>
@@ -269,7 +269,7 @@
                       <i class="material-icons circle my-trans hoverable">picture_as_pdf</i>
                       <p class="coference-title">
                         <strong>论文模板</strong>:&nbsp &nbsp &nbsp &nbsp
-                        <a class="btn blue-grey" v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a>
+                        <a class="btn blue-grey" v-bind:href="$image(resp.data.paper_template)">点我获取</a>
                       </p>
                     </li>
                   </ul>
@@ -417,7 +417,7 @@
                     <li class="collection-item">
                       <p class="coference-title">
                         <strong>论文模板</strong>:&nbsp &nbsp &nbsp &nbsp
-                        <a v-bind:href="'http://140.143.19.133:8001' + resp.data.paper_template">点我获取</a>
+                        <a v-bind:href="$image(resp.data.paper_template)">点我获取</a>
                       </p>
                     </li>
                   </ul>
