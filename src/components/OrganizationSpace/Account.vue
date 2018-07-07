@@ -78,7 +78,7 @@
             else{
               M.toast({
                 html: "<span style='font-weight: bold'>" + response.data.info + "</span>",
-                classes: "rounded yellow"
+                classes: "rounded yellow darken-2"
               });
             }
           }).catch(error => {
@@ -110,13 +110,13 @@
         else {
           M.toast({
             html: "<span style='font-weight: bold;'>信息获取失败</span>",
-            classes: 'red darken-2 rounded'
+            classes: 'red darken-2'
           });
         }
       }).catch(error => {
         M.toast({
           html: "<span style='font-weight: bold;'>error occurred</span>",
-          classes: 'red darken-2 rounded'
+          classes: 'red darken-2'
         });
       });
     },

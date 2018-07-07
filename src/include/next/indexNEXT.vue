@@ -40,7 +40,7 @@
         </li>
         <li>
           <span class="mobile-fab-tip">搜索</span>
-          <a class="btn-floating red darken-2"  data-position="left" @click="nextSearch()">
+          <a class="btn-floating blue"  data-position="left" @click="nextSearch()">
             <i class="material-icons">search</i>
           </a>
         </li>
