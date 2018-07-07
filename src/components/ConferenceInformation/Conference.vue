@@ -528,7 +528,7 @@
             this.isCollect();
             let that = this;
             axios.all([ this.isAbleRegister(), this.isAbleContribute(), this.isCollect() ]).then(
-              axios.spread(function (ut, ui) {
+              axios.spread(function (ut, ui, uc) {
                 that.$axios.post('/api/user/token').then(res => {
                   /*console.log("user type:" + res.data.data.type);*/
                   // console.log(res);
@@ -559,7 +559,7 @@
               html: "<span style='font-weight: bold'>获取会议失败</span>",
               classes: "rounded red darken-2"
             });
-            this.$router.push('/404');
+            this.$router.replace('/404');
           }
         }
         else {
@@ -611,7 +611,7 @@
           conference_id: this.conference_id
         }).then(response => {
           let resp = response.data;
-          if (resp.status == 'succ') {
+          if (resp.status === 'succ') {
             this.hasCollect = 1;
             M.toast({
               html: "<span style='font-weight: bold;'>已收藏</span>",

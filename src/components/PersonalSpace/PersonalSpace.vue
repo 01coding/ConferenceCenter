@@ -119,9 +119,9 @@
       );
     },
     mounted: function () {
-      this.$bus.emit("toPS")
+      this.$bus.emit("toPS");
       if (!sessionStorage.getItem('session')) {
-        this.$router.push('/login');
+        this.$router.replace('/login');
       }
       let module_path = Object.keys(this.routes).find(
         key => {
