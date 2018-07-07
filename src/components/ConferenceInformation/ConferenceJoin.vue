@@ -271,10 +271,10 @@
           html: "<span style='font-weight: bold;'>需要路由参数</span>",
           classes: 'red rounded'
         });
-        this.$router.push("/404");
+        this.$router.go(-1);
       }
       if (!sessionStorage.getItem("session"))  {
-        this.$router.push("/login");
+        this.$router.replace("/login");
       }
       //
       this.participant_field = {
@@ -284,7 +284,7 @@
           is_book: false,
           job: "",
           note: ""
-      }
+      };
 
       this.load_user_info();
       this.load_conference();
@@ -380,8 +380,11 @@
 
       isAbleRegister: function () {
         if (!(this.resp.data.state & 0b0011)) {
-          this.$router.push("/404");
-          return;
+          M.toast({
+            html: "<span style='font-weight: bold'>注册截止</span>",
+            classes: "rounded red"
+          });
+          this.$router.go(-1);
         }
       },
       getConferenceImg: function () {

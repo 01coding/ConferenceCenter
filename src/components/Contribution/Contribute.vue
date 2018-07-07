@@ -253,7 +253,11 @@ export default {
     },
     isAbleContribute: function () {
       if (this.conferenceState !== "征稿中") {
-        this.$router.replace("/404");
+        M.toast({
+          html: "<span style='font-weight: bold'>征稿截止</span>",
+          classes: "rounded red"
+        });
+        this.$router.go(-1);
       }
     },
     getConferenceImg: function () {
