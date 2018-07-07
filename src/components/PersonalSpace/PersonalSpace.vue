@@ -54,6 +54,9 @@
         </li>
         <div class="divider"></div>
         <li class="bold">
+          <a class="waves-effect" @click="logout()" style="cursor: pointer">注销</a>
+        </li>
+        <li class="bold">
           <router-link to="/" class="waves-effect">回到主页</router-link>
         </li>
       </ul>
@@ -92,6 +95,11 @@
     methods:{
       goPersonalInfo:function () {
         this.$router.push({path:'/personalspace/personalinformation'})
+      },
+      logout: function () {
+        sessionStorage.removeItem('session');
+        this.$bus.emit("toIndex");
+        this.$router.push('/');
       }
     },
     created: function () {

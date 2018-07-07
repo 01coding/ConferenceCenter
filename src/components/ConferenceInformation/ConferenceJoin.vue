@@ -29,12 +29,12 @@
       <div class="row container">
         <div class="col s1"></div>
         <div class="col s10">
-          <div class="row">
+          <div class="row" style="margin-bottom: 0;">
             <h5>以{{identify}}身份注册会议</h5>
           </div>
           <div class="center row">
             <div class="container" style="width:100%;">
-              <h5 style="font-size: 1.5rem; margin: 0; padding-top: 1rem; padding-bottom: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;" v-if="papers.length===0">
+              <h5 style="font-size: 1.5rem; margin: 0; padding-top: 1rem; padding-bottom: 1rem; margin-left: 1rem; margin-right: 1rem; background: #eeeeee; color: #757575; border-radius: 0.5rem;" v-if="papers.length===0">
                 您没有参会论文
               </h5>
               <div class="card" v-for="item in papers">
@@ -93,7 +93,7 @@
                 <!--</div>-->
               </div>
             </div>
-              <div class="row valign-wrapper">
+              <div class="row valign-wrapper" style="margin-bottom: 0;">
                 <div class="input-field col s6">
                   <i class="material-icons prefix">account_circle</i>
                   <input id="first_name" type="text" disabled v-model="participant_field.name" v-if="identify==='聆听者'">
@@ -106,7 +106,7 @@
                   <label for="phone">联系方式</label>
                 </div>
               </div>
-              <div class="row valign-wrapper">
+              <div class="row valign-wrapper" style="margin-bottom: 0;padding-top: 3px;padding-bottom: 3px;">
                   <div class="col s2 valign-wrapper">
                     <i class="material-icons prefix">person</i>
                     <span style="margin-left: 1rem;">性别</span>
@@ -141,14 +141,13 @@
             </div>
             <div class="row valign-wrapper" style="margin-bottom: 0;">
               <div class="input-field col s12">
-                <i class="material-icons prefix">subject</i>
+                <i class="material-icons prefix">note</i>
                 <input id="note" type="text" v-model="participant_field.note">
                 <label for="note">备注</label>
               </div>
             </div>
-            <div class="row center-align" style="margin-bottom: 0;">
-              <div class="waves-effect waves-light btn green" @click="add_participant">
-                添加
+            <div class="row valign-wrapper" style="margin-bottom: 0;">
+              <div class="waves-effect waves-light btn green col s1" @click="add_participant">添加
                 <i class="material-icons right">add</i>
               </div>
             </div>
@@ -331,18 +330,6 @@
             });
           }
         );
-        /*this.$axios.post("/api/user/info", {
-          token: sessionStorage.getItem("session")
-        }).then(response => {
-          let resp = response.data;
-          console.log("response:" + response);
-          if (resp.status === "succ") {
-            that.user_info = resp.data;
-          } else {
-            that.$router.push("/login");
-          }
-          console.log("user info:" +that.user_info);
-        });*/
       },
       load_conference() {
         this.$axios.post('api/conference/' + this.conference_id).then(response => {
@@ -367,7 +354,7 @@
             console.log("go to type === 0");
           }
           else {
-            originThis.identify = "旁听";
+            originThis.identify = "聆听者";
           }
           console.log("response.data.data");
           console.log(response.data.data);
@@ -504,11 +491,7 @@
 
         //remove shadow
         $('#'+index).removeClass("z-depth-5");
-        /*console.log("temp participant:");
-        console.log(tempParticipant);
-        console.log("participants:");
-        console.log(this.participants);
-        *///clear
+        //clear
         this.participant_field.name = "";
         this.participant_field.contract = "";
         this.participant_field.job = "";
@@ -545,7 +528,8 @@
           });
           return;
         }
-        if(type === 1) {
+        //identify == author
+        if(type === 0) {
           for(let i = 0; i < this.papers.length; i++) {
             this.papers[i].hasParticipants = 0;
             for(let j = 0; j< this.papers[i].authors.length; j++) {
@@ -559,6 +543,15 @@
                 break;
               }
             }
+          }
+          //no participants
+          if(this.participants.length === 0) {
+            console.log("this participants length = 0");
+            M.toast({
+              html: "<span style='font-weight: bold;'>请输入参会者</span>",
+              classes: 'yellow darken-2 rounded'
+            });
+            return;
           }
           for(let i = 0; i < this.papers.length; i++) {
             if(this.papers[i].hasParticipants !== 1) {
@@ -591,7 +584,7 @@
         console.log("submit participants");
         console.log(this.participants);
         let upload_resp = JSON.parse(files[0].response);
-        let file_url = upload_resp.link;
+        let file_url = "/" + upload_resp.link;
         console.log("file url:");
         console.log(file_url);
         let params = {

@@ -37,6 +37,7 @@
         <li class="bold" v-bind:class="{ active: menu_active === 1 }">
           <router-link to="/orgspace/new/conference" class="waves-effect">发布新会议</router-link>
         </li>
+        <div class="divider"></div>
         <li class="bold" v-if="is_superuser" v-bind:class="{ active: menu_active === 2 }">
           <router-link to="/orgspace/principals" class="waves-effect">工作人员管理</router-link>
         </li>
@@ -46,6 +47,7 @@
         <li class="bold" v-bind:class="{ active: menu_active === 4 }">
           <router-link to="/orgspace/account" class="waves-effect">账户设置</router-link>
         </li>
+        <div class="divider"></div>
         <li class="bold">
           <!--<router-link to="/" class="waves-effect" @click="sessionStorage.removeItem('session')">退出管理中心并注销</router-link>-->
           <a class="waves-effect" @click="logout()" style="cursor: pointer">注销</a>
