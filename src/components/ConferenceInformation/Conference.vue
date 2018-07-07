@@ -353,7 +353,7 @@
                     <i class="material-icons">send</i>
                     投稿
                   </a>
-                  <div class="grey-text" v-else>
+                  <div class="grey-text"v-else>
                     <i class="material-icons">send</i>
                     投稿
                   </div>

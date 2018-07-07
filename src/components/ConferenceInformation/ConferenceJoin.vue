@@ -236,7 +236,7 @@
         resp: {
           data: {}
         },
-        user_info: {},
+        user_name: "",
         participants: [],
         papers: [],
         upload: {
@@ -309,16 +309,37 @@
       },
       load_user_info() {
         let that = this;
-        this.$axios.post("/api/user/token", {
+        this.$axios.post('api/user/info', {})
+          .then(response => {
+            console.log("response:"+JSON.stringify(response));
+              if(response.data.status === "succ") {
+                that.user_name = response.data.data.name;
+                console.log("user info user name:" + that.user_name);
+              }
+              else {
+                that.$router.push("/login");
+              }
+            }
+          ).catch(
+          error => {
+            M.toast({
+              html: error,
+              classes: "rounded red darken-2"
+            });
+          }
+        );
+        /*this.$axios.post("/api/user/info", {
           token: sessionStorage.getItem("session")
         }).then(response => {
           let resp = response.data;
+          console.log("response:" + response);
           if (resp.status === "succ") {
             that.user_info = resp.data;
           } else {
             that.$router.push("/login");
           }
-        });
+          console.log("user info:" +that.user_info);
+        });*/
       },
       load_conference() {
         this.$axios.post('api/conference/' + this.conference_id).then(response => {
@@ -431,7 +452,7 @@
 
         //participant is a person in papers.authors
         if(this.identify === "聆听者") {
-          if(name !== this.user_info.name) {
+          if(name !== this.user_name) {
             M.toast({
               html: "<span style='font-weight: bold;'>您只能本人参会</span>",
               classes: 'yellow darken-2 rounded'
@@ -508,7 +529,7 @@
         //check participants including the user himself
         let ok = false;
         for(let i = 0; i < this.participants.length; i++) {
-          if(this.participants[i].name == this.user_info.name) {
+          if(this.participants[i].name == this.user_name) {
             ok = true;
             break;
           }
