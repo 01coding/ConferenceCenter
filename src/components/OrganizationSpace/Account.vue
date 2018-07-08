@@ -75,6 +75,7 @@
                 html: "<span style='font-weight: bold'>修改成功</span>",
                 classes: "rounded green"
               });
+              this.$router.push('/orgspace');
             }
             else{
               M.toast({

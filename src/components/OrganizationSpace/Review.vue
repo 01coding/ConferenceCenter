@@ -45,7 +45,7 @@
             <div class="collapsible-body white">
               <h5>提交描述</h5>
               <span class="grey-text">提交于 {{ readable_time(review.submit_time) }}</span>
-              <a v-bind:href="review.attachment" target="_blank">下载</a>
+              <a v-bind:href="$image(review.attachment)" target="_blank">下载</a>
               <br/>
               <span>{{ review.description }}</span>
               <h5>评审意见</h5>

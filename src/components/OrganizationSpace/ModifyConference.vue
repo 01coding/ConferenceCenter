@@ -365,6 +365,7 @@
           this.conf_location = data.convening_place;
           this.conf_essay_info = data.essay_information;
           this.conf_essay_inst = data.essay_instructions;
+          this.conf_conference_template = data.conference_template;
 
           let paper_ddl = new Date(data.paper_ddl);
           essay_ddl_instance.setDate(paper_ddl);
@@ -379,8 +380,8 @@
           let register_ddl = new Date(data.register_ddl);
           register_ddl_instance.setDate(register_ddl);
           time = '';
-          time += (register_ddl.getHours() < 10 ? '0' : '') + paper_ddl.getHours() + ':';
-          time += (register_ddl.getMinutes() < 10 ? '0' : '') + paper_ddl.getMinutes();
+          time += (register_ddl.getHours() < 10 ? '0' : '') + register_ddl.getHours() + ':';
+          time += (register_ddl.getMinutes() < 10 ? '0' : '') + register_ddl.getMinutes();
           register_ddl.defaultTime = time;
           this.conf_register_time = time;
 
