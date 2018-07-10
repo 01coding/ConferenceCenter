@@ -1,7 +1,7 @@
 # Conference Center Website
-
-##  北航 小学期 9人 7天 敏捷开发
 > Frontend project for Conference Center.
+##  北航 小学期 9人 7天 敏捷开发
+
 
 ## Build Setup
 
