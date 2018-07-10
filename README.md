@@ -1,8 +1,8 @@
 # Conference Center Website
 > Frontend project for Conference Center.
 ##  北航 小学期 9人 7天 敏捷开发
-![image](https://github.com/WikiXiao/ConferenceCenter/tree/master/static/QQ截图20180710231714.jpg)
-![image](https://github.com/WikiXiao/ConferenceCenter/tree/master/static/QQ截图20180710231740.jpg)
+![image](https://github.com/WikiXiao/ConferenceCenter/blob/master/static/QQ%E6%88%AA%E5%9B%BE20180710231714.jpg)
+![image](https://github.com/WikiXiao/ConferenceCenter/blob/master/static/QQ%E6%88%AA%E5%9B%BE20180710231740.jpg)
 
 ## Build Setup
 
