@@ -1,5 +1,6 @@
-# ccfront
+# Conference Center Website
 
+##  北航 小学期 9人 7天 敏捷开发
 > Frontend project for Conference Center.
 
 ## Build Setup
@@ -7,7 +8,7 @@
 ``` bash
 # install dependencies
 # npm install
-# 除非要新增包，否则加--no-save啦啦啦
+# 除非要新增包，否则加--no-sav=
 npm install --no-save
 
 # serve with hot reload at localhost:8080
